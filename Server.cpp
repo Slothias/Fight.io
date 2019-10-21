@@ -98,7 +98,6 @@ void Server::runServer()
             if (c != INVALID_SOCKET && getSize()<MAX_PLAYERS)
             {
                 ServerAssistant* player=new ServerAssistant(c,this,"CLIENT "+std::to_string(getSize()));
-                //std::async(std::launch::deferred, &ServerAssistant::run, &(*player));
                 std::thread t(&ServerAssistant::run,&(*player));
                 t.detach();
                 my_mutex.lock();
@@ -120,10 +119,8 @@ void Server::sendData(std::string data, std::string except)
 
     my_mutex.lock();
     for(ServerAssistant* s:players)
-        if(s->getName()!=except)
             s->sendData(except+": "+data);
     my_mutex.unlock();
-    std::cout<<"en meg futok"<<std::endl;
 
 }
 int Server::getSize()
@@ -175,7 +172,6 @@ void Server::ServerAssistant::sendData(std::string data)
                 buffer[i] = data[i];
             send(client, buffer, sizeof(buffer), 0);
             my_mutex.unlock();
-            std::cout<<"message sent: "<<data<<std::endl;
         }
     }
 }
@@ -212,20 +208,19 @@ void Server::ServerAssistant::run()
     std::cout<<name<<" connected"<<std::endl;
     while(getcon())
     {
-        std::cout<<"im going to sleep"<<std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(640));
-        std::cout<<"im done with sleep"<<std::endl;
         std::string msg=getData();
         if(msg.length()>0)
         {
             if(msg.find("EXIT")!=std::string::npos)
                 closeConnection();
             else
+            {
                 me->pushData(msg,name);
+            }
 
         }
     }
-    std::cout<<"veeg"<<std::endl;
     delete this;
 
 }
