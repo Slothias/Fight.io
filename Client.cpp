@@ -1,8 +1,9 @@
 #include "Client.hpp"
 
-Client::Client(const char* host,u_short port)
+Client::Client(const char* host,u_short port, player* _thisPlayer)
 {
     is_running=startup(host,port);
+    thisPlayer = _thisPlayer;
 }
 bool Client::startup(const char* host, u_short port)
 {
@@ -55,26 +56,37 @@ void Client::sendData(std::string data) {
 if(getconnected())
 {
     if (data.length() <= BUFFER_SIZE) {
+        my_mutex.lock();
         char buffer[BUFFER_SIZE];
         ZeroMemory(&buffer,sizeof(buffer));
         for (int i = 0; i < data.length(); i++)
             buffer[i] = data[i];
         send(server, buffer, sizeof(buffer), 0);
         std::cout<<"Message sent: "<<data<<std::endl;
+        my_mutex.unlock();
     }
     }
 }
 
 std::string Client::getData() {
-    if(getconnected())
-    {
+if(getconnected())
+{
+    //my_mutex.lock();
     char buffer[BUFFER_SIZE];
     ZeroMemory(&buffer,sizeof(buffer));
     recv(server,buffer, sizeof(buffer),0);
+    //my_mutex.unlock();
     return std::string(buffer);
-    }
+}
     else
         return "closed connection";
+}
+
+void Client::closeConnection()
+{
+    Client::sendData("EXIT");
+    shutdown(server,2);
+    setconnected(false);
 }
 
 void Client::runclient()
@@ -86,22 +98,15 @@ void Client::runclient()
                         {
                             while(getconnected())
                             {
-                            std::cout<<getData()<<std::endl;
                             std::this_thread::sleep_for(std::chrono::microseconds(640));
+                            getData();
                             }
                         });
         while(getconnected())
         {
-                         std::string msg;
-                         std::cout<<"MESSAGE:"<<std::endl;
-                         std::getline(std::cin,msg);
+                         //std::cout<<"MESSAGE:"<<std::endl;
                          std::this_thread::sleep_for(std::chrono::milliseconds(640));
-                         sendData(msg);
-                         if(msg.find("EXIT")!=std::string::npos)
-                          {
-                            shutdown(server,2);
-                            setconnected(false);
-                          }
+                         sendData(thisPlayer->getMSG());
         }
         get.join();
     }
@@ -112,4 +117,5 @@ Client::~Client()
     closesocket(server);
     WSACleanup();
     std::cout<<"Socket closed"<<std::endl;
+    delete thisPlayer;
 }

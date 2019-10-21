@@ -4,13 +4,15 @@
 #include<iostream>
 #include <winsock2.h>
 #include<mutex>
+#include "player.hpp"
 
 class Client
 {
 public:
-    Client(const char* host,u_short port);
+    Client(const char* host,u_short port, player* _thisPlayer);
     void runclient();
     ~Client();
+    void closeConnection();
 private:
     bool is_running;
     std::mutex my_mutex;
@@ -22,6 +24,7 @@ private:
     void sendData(std::string msg);
     std::string getData();
     static const int BUFFER_SIZE=1024;
+    player* thisPlayer;
 };
 
 #endif // CLIENT_H
