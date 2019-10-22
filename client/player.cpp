@@ -35,6 +35,11 @@ player::player(std::string _pName, float _playerX, float _playerY, float _player
     myPlayer.setPosition(_playerX,_playerY); // todo
     myPlayer.setTexture(playerTexture);
 }
+player::player(float _playerX, float _playerY, float _playerRotation,
+                std::string _pName, int _maxHp, int _currentHp, int _score, bool _weapon)
+                : playerX(_playerX), playerY(_playerY), playerRotation(_playerRotation),
+                pName(_pName), maxHp(_maxHp), currentHp(_currentHp), score(_score), weapon(_weapon) {}
+
 //setters************************************************
 
 void player::setPosition(float _playerX, float _playerY)
@@ -115,5 +120,13 @@ std::string player::getMSG()
     //std::cout << myPlayer.getPosition().x << " " << myPlayer.getPosition().y << std::endl;
     std::stringstream s;
     s << "X: " << myPlayer.getPosition().x << " Y: " << myPlayer.getPosition().y << " R: " << myPlayer.getRotation();
+    return s.str();
+}
+
+std::string player::toString() {
+    std::stringstream s;
+    s << "X: " << getX() << " Y: " << getY() << " R: " << getRot()
+        << " PName: " << getName() << " maxHP: " << getMaxHp() << " currentHP: " << getCurrentHp()
+        << " Score: " << getScore() << " Weapon: " << getWeapon();
     return s.str();
 }

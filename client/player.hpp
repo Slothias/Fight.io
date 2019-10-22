@@ -20,6 +20,7 @@ public:
     player();
     player(std::string _pName);
     player(std::string _pName, float _playerX, float _playerY, float _playerRotation, sf::Texture& playerTexture);
+    player(float _playerX, float _playerY, float _playerRotation, std::string _pName, int _maxHp, int _currentHp, int _score, bool _weapon);
 
     //setters
     void setPosition(float _playerX, float _playerY);
@@ -41,6 +42,7 @@ public:
     bool getWeapon();
     sf::Sprite& getSprite();
     std::string getMSG();
+    std::string toString();
 };
 
 #endif // PLAYER_H
