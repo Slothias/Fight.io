@@ -21,11 +21,9 @@ int main()
     const float playerMoveSpeed = 1500;
 
 
-    // Create the window of the application
-    sf::RenderWindow window(sf::VideoMode(gameWidth, gameHeight, 32), "Character Testing",
-                            sf::Style::Titlebar | sf::Style::Close);
-    window.setVerticalSyncEnabled(true);
-    sf::View View(window.getDefaultView());
+
+
+
 
     //Creating player
     sf::Texture playerTexture;
@@ -36,7 +34,7 @@ int main()
     player* playerTester = new player("tester", 0, 0, 0, playerTexture);
 
     //setting up the connection
-    Client c("192.168.43.171",10043,playerTester);
+    Client c("127.0.0.1",10043,playerTester);
     std::thread t(&Client::runclient,&c);
 
     //Creating spear
@@ -75,6 +73,12 @@ int main()
     circle.setRadius(50);
     circle.setPosition(circlex,circley);
 
+      // Create the window of the application
+
+      sf::RenderWindow window(sf::VideoMode(gameWidth, gameHeight, 32), "Character Testing",
+                            sf::Style::Titlebar | sf::Style::Close);
+    window.setVerticalSyncEnabled(true);
+     sf::View View(window.getDefaultView());
     float mousePosX = sf::Mouse::getPosition(window).x;
     float mousePosY = sf::Mouse::getPosition(window).y;
     float prevMousePosX = mousePosX;
@@ -85,7 +89,8 @@ int main()
     bool pup(false), pdown(false), pleft(false), pright(false);
     //std::thread t(&EventHandler::runEventHandler, new EventHandler(sleepVal,framerate,&player,&playerX,&playerY,&pup,&pdown,&pleft,&pright,&playerRotation, &mousePosX, &mousePosY));
     float playerX, playerY;
-    while (window.isOpen())
+
+    while (window.isOpen() /*&& c.getconnected()*/)
     {
         sf::Event event;
         while (window.pollEvent(event))
@@ -96,7 +101,7 @@ int main()
             {
                 c.closeConnection();
                 window.close();
-                playerTester = nullptr;
+                //playerTester = nullptr;
                 break;
             }
             prevMousePosX = mousePosX;
@@ -174,4 +179,7 @@ int main()
 
         std::this_thread::sleep_for(std::chrono::milliseconds(sleepVal));
     }
+    t.join();
+    return 0;
+
 }
