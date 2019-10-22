@@ -11,6 +11,7 @@ class Client
 public:
     Client(const char* host,u_short port, player* _thisPlayer);
     void runclient();
+    bool getconnected();
     ~Client();
     void closeConnection();
 private:
@@ -19,7 +20,6 @@ private:
     SOCKET server;
     SOCKADDR_IN addr;
     bool startup(const char* host, u_short port);
-    bool getconnected();
     void setconnected(bool c);
     void sendData(std::string msg);
     std::string getData();
