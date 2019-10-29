@@ -233,7 +233,7 @@ void Server::ServerAssistant::run()
     sendData("Your Name:"+ name);
     while(getcon())
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(640));
+        std::this_thread::sleep_for(std::chrono::milliseconds(64));
         std::string msg=getData();
         if(msg.length()>0)
         {
