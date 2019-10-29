@@ -8,6 +8,7 @@
 #include<mutex>
 #include<queue>
 #include<utility>
+#include<fstream>
 class Server
 {
 private:
@@ -38,6 +39,9 @@ private:
     std::queue<std::pair<std::string,std::string>> current_msg;
     SOCKADDR_IN clientAddr;
     SOCKET server;
+    std::string myIP;
+    void getIP();
+    void showStatus();
     bool is_running;
     std::mutex my_mutex;
     bool startup();

@@ -5,6 +5,7 @@
 Server::Server()
 {
     is_running=startup();
+    getIP();
 }
 
 bool Server::startup()
@@ -53,7 +54,21 @@ bool Server::startup()
     }
     return true;
 }
-
+void Server::showStatus()
+{
+    std::cout<<myIP<<":"<<PORT<<std::endl;
+}
+void Server::getIP()
+{
+    system("ipconfig > ip.txt");
+    std::ifstream myfile("ip.txt");
+    std::string line;
+    while(std::getline(myfile,line))
+        if(line.find("IPv4")!=std::string::npos)
+            myIP=line;
+    int index=myIP.find(":")+2;
+    myIP=myIP.substr(index, myIP.length()-index);
+}
 void Server::setconnected(bool c)
 {
     my_mutex.lock();
@@ -74,8 +89,9 @@ void Server::runServer()
     if(getconnected())
     {
         std::cout << "Listening for incoming connections..." << std::endl;
+        showStatus();
         int clientsize = sizeof(clientAddr);
-        std::thread tick([this]()
+     /*   std::thread tick([this]()
         {
             while(getconnected())
             {
@@ -87,11 +103,11 @@ void Server::runServer()
                     current_msg.pop();
                     my_mutex.unlock();
                     sendData(current.first, current.second);
-                    std::this_thread::sleep_for(std::chrono::milliseconds(640));
+                    std::cout<<current_msg.size()<<std::endl;
 
                 }
             }
-        });
+        });*/
         while (getconnected())
         {
             SOCKET c = accept(server, (SOCKADDR *) &clientAddr, &clientsize);
@@ -105,21 +121,29 @@ void Server::runServer()
                 my_mutex.unlock();
             }
         }
-        tick.join();
+       // tick.join();
     }
 }
 void Server::pushData(std::string data,std::string who)
 {
+    if(players.size()>1)
+    {
     my_mutex.lock();
     current_msg.push(std::pair<std::string, std::string>(data,who));
     my_mutex.unlock();
+    }
 }
 void Server::sendData(std::string data, std::string except)
 {
 
     my_mutex.lock();
     for(ServerAssistant* s:players)
-            s->sendData(except+": "+data);
+            if(s->getName()!=except)
+                {
+                    s->sendData(except+": "+data);
+                    std::cout<<"send: "<<s->getName()<<" except: "<<except<< "MSG: "<<data<<std::endl;
+                }
+
     my_mutex.unlock();
 
 }
@@ -206,6 +230,7 @@ void Server::ServerAssistant::closeConnection()
 void Server::ServerAssistant::run()
 {
     std::cout<<name<<" connected"<<std::endl;
+    sendData("Your Name:"+ name);
     while(getcon())
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(640));
@@ -216,7 +241,7 @@ void Server::ServerAssistant::run()
                 closeConnection();
             else
             {
-                me->pushData(msg,name);
+                me->sendData(msg,name);
             }
 
         }
