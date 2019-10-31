@@ -8,11 +8,17 @@ GameScreen::GameScreen(sf::RenderWindow *App)
     me=new player("En");
     music.openFromFile("retro_menu.wav");
     pup=pdown=pleft=pright=false;
+    forBackground.loadFromFile("hexagonal.png");
+    forBackground.setRepeated(true);
+    background.setTexture(forBackground);
+    background.setPosition(-2000,-2000);
+    background.setTextureRect(sf::IntRect(0,0,4000,4000));
 }
 
 void GameScreen::draw()
 {
     app->clear(sf::Color::White);
+    app->draw(background);
     v.setCenter(me->getX(),me->getY());
     app->setView(v);
     if(c && c->getconnected())
@@ -103,9 +109,7 @@ else
                 me->setRotation(((atan(((app->getSize().y/2)-mousePosY)/((app->getSize().x/2)-mousePosX)))/PI *180) +270);
 
 
-        me->w->setRotation(me->getRot());
         me->setPosition(me->getX()+playerX, me->getY()+playerY);
-        me->w->setPosition(me->getX(),me->getY());
 
 }
 }

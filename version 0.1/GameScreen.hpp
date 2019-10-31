@@ -27,6 +27,8 @@ class GameScreen:public Screen
         float ROOT2 = 1.41421356;
         float PLAYERMOVESPEED=10;
         sf::RenderWindow *app;
+        sf::Texture forBackground;
+        sf::Sprite background;
         sf::View v;
         sf::Font font;
 
