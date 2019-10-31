@@ -84,10 +84,16 @@ app->draw(cursor);
 
 
 }
-void Menu::handle(sf::Event events)
+void Menu::handle(sf::Event event)
 {
+    if(event.type == sf::Event::Closed || event.KeyPressed==sf::Keyboard::Escape)
+    {
+        app->close();
+    }
+    else{
     textSelect();
     cursor.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(*app)));
+    }
 }
 Menu::~Menu()
 {

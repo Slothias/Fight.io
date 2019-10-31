@@ -18,9 +18,9 @@ GameScreen::GameScreen(sf::RenderWindow *App)
 void GameScreen::draw()
 {
     app->clear(sf::Color::White);
-    app->draw(background);
     v.setCenter(me->getX(),me->getY());
     app->setView(v);
+    app->draw(background);
     if(c && c->getconnected())
     {
         std::map<std::string,player*> players = me->getPlayers();
@@ -54,8 +54,12 @@ if(!c)
         std::thread t(&Client::runclient,&(*c));
         t.detach();
     }
-if(event.type == sf::Event::Closed)
+else if(event.type == sf::Event::Closed || event.KeyPressed==sf::Keyboard::Escape)
+    {
+
     c->closeConnection();
+    app->close();
+    }
 else
 {
             float playerX, playerY;
@@ -116,5 +120,6 @@ else
 
 GameScreen::~GameScreen()
 {
-    //dtor
+    delete c;
+    delete me;
 }

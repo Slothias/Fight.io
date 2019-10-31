@@ -15,6 +15,7 @@ class GameScreen:public Screen
         void handle(sf::Event event);
          ~GameScreen();
     private:
+
         Client* c;
         bool pup;
         bool pdown;

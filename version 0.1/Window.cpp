@@ -21,20 +21,12 @@ void Window::loop()
             screens[state]->getMusic().play();
 
         }
-
-        sf::Event event;
-        pollEvent(event);
-
-        screens[state]->handle(event);
-        if(event.type == sf::Event::Closed || event.KeyPressed==sf::Keyboard::Escape)
-        {
-
-            close();
-            screens[0]->getMusic().stop();
-        }
-        clear(sf::Color::Black);
+         clear(sf::Color::Black);
         screens[state]->draw();
         display();
+        sf::Event event;
+        pollEvent(event);
+        screens[state]->handle(event);
         if(screens[state]->change_me())
         {
             state=State::play;
