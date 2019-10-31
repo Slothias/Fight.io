@@ -13,26 +13,24 @@ void Window::loop()
 {
 
     while(isOpen())
+    {
+        if(screens[state]->getMusic().getStatus()!=sf::SoundSource::Status::Playing)
         {
-            if(screens[state]->getMusic().getStatus()!=sf::SoundSource::Status::Playing)
-            {
-                if(state==State::play && screens[state-1]->getMusic().getStatus()==sf::SoundSource::Status::Playing)
-                    screens[state-1]->getMusic().stop();
-                screens[state]->getMusic().play();
+            if(state==State::play && screens[state-1]->getMusic().getStatus()==sf::SoundSource::Status::Playing)
+                screens[state-1]->getMusic().stop();
+            screens[state]->getMusic().play();
 
-            }
-            sf::Event event;
+        }
 
-            while(pollEvent(event))
-            {
-            screens[state]->handle(event);
-            if(event.type == sf::Event::Closed || event.KeyPressed==sf::Keyboard::Escape)
-            {
+        sf::Event event;
+        pollEvent(event);
 
-                close();
-                screens[0]->getMusic().stop();
-            }
+        screens[state]->handle(event);
+        if(event.type == sf::Event::Closed || event.KeyPressed==sf::Keyboard::Escape)
+        {
 
+            close();
+            screens[0]->getMusic().stop();
         }
         clear(sf::Color::Black);
         screens[state]->draw();
@@ -46,7 +44,7 @@ void Window::loop()
 
         std::this_thread::sleep_for(std::chrono::milliseconds(1000/120));
 
-        }
+    }
 }
 void Window::setState(State s)
 {
