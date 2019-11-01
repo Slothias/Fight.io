@@ -26,8 +26,7 @@ void GameScreen::draw()
         std::map<std::string,player*> players = me->getPlayers();
         for(std::pair<std::string, player*> entries: players)
         {
-            app->draw(entries.second->getSprite());
-            app->draw(*entries.second->getWeapon());
+            entries.second->myPlayer->draw(*app,sf::RenderStates::Default);
         }
     }
     else{

@@ -696,7 +696,7 @@
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 
-1572539279 source:d:\homeproject\c++\vmi\sfml\gamescreen.cpp
+1572542240 source:d:\homeproject\c++\vmi\sfml\gamescreen.cpp
 	"GameScreen.hpp"
 
 1572535686 d:\homeproject\c++\vmi\sfml\gamescreen.hpp
@@ -705,14 +705,14 @@
 	<iostream>
 	"Client.hpp"
 
-1572344160 d:\homeproject\c++\vmi\sfml\player.hpp
+1572609100 d:\homeproject\c++\vmi\sfml\player.hpp
 	<string>
 	<SFML/Graphics.hpp>
 	"Weapon.hpp"
 	<mutex>
 	<map>
 
-1572344556 source:d:\homeproject\c++\vmi\sfml\player.cpp
+1572610034 source:d:\homeproject\c++\vmi\sfml\player.cpp
 	"player.hpp"
 	<sstream>
 	<string>

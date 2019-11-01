@@ -14,20 +14,16 @@ player::player()
 }*/
 player::player(std::string _pName)
 {
-    playerX=0;
-    playerY=0;
+    playerX=100;
+    playerY=100;
     playerRotation=0;
     pName = _pName;
     maxHp =  100;
     currentHp = maxHp;
     score = 0;
-    //weapon = false;
-    w=new Weapon(30,30);
     myPlayer=new Drawable_Player(this);
-    myPlayer->get().setScale(0.5f,0.5f);
-    myPlayer->get().setOrigin(myPlayer->getSkin().getSize().x/2, myPlayer->getSkin().getSize().y/2);
-    w->setPosition(myPlayer->get().getPosition());
-    w->setOrigin(-((int)myPlayer->getSkin().getSize().x/2), (w->skin.getSize().y/2)+50);
+    myPlayer->setScale(0.5f,0.5f);
+    myPlayer->setOrigin(myPlayer->getSkin().getSize().x/2, myPlayer->getSkin().getSize().y/2);
 
 }
 /*
@@ -57,14 +53,12 @@ void player::setPosition(float _playerX, float _playerY)
 {
     playerX = _playerX;
     playerY = _playerY;
-    myPlayer->get().setPosition(playerX,playerY);
-    w->setPosition(myPlayer->get().getPosition());
+    myPlayer->setPosition();
 }
 void player::setRotation(float _playerRotation)
 {
     playerRotation = _playerRotation;
-    myPlayer->get().setRotation(_playerRotation);
-    w->setRotation(myPlayer->get().getRotation());
+    myPlayer->setRotation();
 }
 void player::setPName(std::string _pName)
 {
@@ -86,18 +80,18 @@ void player::setScore(int _score)
 //false is the default value (no weapon)
 void player::setWeapon(Weapon* _weapon)
 {
-    w = _weapon;
+    w= _weapon;
 }
 
 //getters************************************************
 
 float player::getX()
 {
-    return myPlayer->get().getPosition().x;
+    return playerX;
 }
 float player::getY()
 {
-    return myPlayer->get().getPosition().y;
+    return playerY;
 }
 float player::getRot()
 {
@@ -119,21 +113,13 @@ int player::getScore()
 {
     return score;
 }
-Weapon* player::getWeapon()
-{
-    return w;
-}
-sf::Sprite& player::getSprite()
-{
-    return myPlayer->get();
-}
 
 std::string player::getMSG()
 {
     //std::cout << myPlayer.getPosition().x << " " << myPlayer.getPosition().y << std::endl;
     std::stringstream s;
     my_mutex.lock();
-    s << myPlayer->get().getPosition().x << "|" << myPlayer->get().getPosition().y << "|" << myPlayer->get().getRotation();
+    s << getX() << "|" << getY() << "|" << getRot();
 my_mutex.unlock();
     return s.str();
 }
@@ -142,7 +128,7 @@ std::string player::toString() {
     std::stringstream s;
     s << "X: " << getX() << " Y: " << getY() << " R: " << getRot()
         << " PName: " << getName() << " maxHP: " << getMaxHp() << " currentHP: " << getCurrentHp()
-        << " Score: " << getScore() << " Weapon: " << getWeapon();
+        << " Score: " << getScore();
     return s.str();
 }
 void player::update(std::string data)
@@ -153,6 +139,15 @@ void player::update(std::string data)
             pName = data.substr(10, data.length()-1);
             players.insert(std::pair<std::string, player*>(pName,this));
         }
+    else if( data. find("EXIT")!=std::string::npos)
+    {
+        std::stringstream ss(data);
+        std::string currentName;
+        std::getline(ss,currentName,':');
+        player* p = players[currentName];
+        players.erase(currentName);
+        delete p;
+    }
     else if(data.find("|")!=std::string::npos)
     {
         std::cout<<" NEW DATA "<<std::endl;
@@ -189,7 +184,4 @@ player::Drawable_Player::~Drawable_Player()
 {
     delete player;
 }
-sf::Sprite& player::Drawable_Player::get()
-{
-    return player::Drawable_Player::me;
-}
+
