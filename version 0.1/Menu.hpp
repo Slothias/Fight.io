@@ -8,17 +8,15 @@ class Menu: public Screen
     public:
         Menu(sf::RenderWindow *App);
         void draw();
-        sf::Music& getMusic();
-        void handle(sf::Event event);
+        void handle(sf::Event& event);
         ~Menu();
     private:
-        sf::RenderWindow * app;
+        sf::RenderWindow *app;
         sf::Font font;
         std::vector<sf::Text*> texts;
         void loadTexts();
         void drawTexts();
         void textSelect();
-        sf::Music music;
         sf::Texture forCursor;
         sf::Texture forBackground;
         sf::Sprite background;

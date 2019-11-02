@@ -1,6 +1,6 @@
 #include "Client.hpp"
 
-Client::Client(const char* host,u_short port, player* _thisPlayer)
+Client::Client(const char* host,u_short port, Drawable_Player* _thisPlayer)
 {
     is_running=startup(host,port);
     thisPlayer = _thisPlayer;
@@ -46,11 +46,10 @@ void Client::setconnected(bool c)
 }
 bool Client::getconnected()
 {
-    bool result;
-    my_mutex.lock();
-    result=is_running;
-    my_mutex.unlock();
-    return result;
+   my_mutex.lock();
+   bool result = is_running;
+   my_mutex.unlock();
+   return result;
 }
 void Client::sendData(std::string data) {
 if(getconnected())
@@ -61,7 +60,7 @@ if(getconnected())
         for (int i = 0; i < data.length(); i++)
             buffer[i] = data[i];
         send(server, buffer, sizeof(buffer), 0);
-        std::cout<<"Message sent: "<<data<<std::endl;
+      //  std::cout<<"Message sent: "<<data<<std::endl;
     }
     }
 }
@@ -95,8 +94,8 @@ void Client::runclient()
                             while(getconnected())
                             {
                             std::string g = getData();
-                            std::cout<<"NEW MESSAGE"<<std::endl;
-                            std::thread t (&player::update,&(*thisPlayer),g);
+                            //std::cout<<"NEW MESSAGE"<<std::endl;
+                            std::thread t (&Drawable_Player::update,&(*thisPlayer),g);
                             t.detach();
                             }
                         });
@@ -109,7 +108,7 @@ void Client::runclient()
                    sendData(this_status);
                    oldStatus=this_status;
                }
-               std::this_thread::sleep_for(std::chrono::milliseconds(64));
+               std::this_thread::sleep_for(std::chrono::milliseconds(12));
         }
         get.join();
     }

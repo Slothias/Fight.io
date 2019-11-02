@@ -21,9 +21,6 @@ player::player(std::string _pName)
     maxHp =  100;
     currentHp = maxHp;
     score = 0;
-    myPlayer=new Drawable_Player(this);
-    myPlayer->setScale(0.5f,0.5f);
-    myPlayer->setOrigin(myPlayer->getSkin().getSize().x/2, myPlayer->getSkin().getSize().y/2);
 
 }
 /*
@@ -53,12 +50,12 @@ void player::setPosition(float _playerX, float _playerY)
 {
     playerX = _playerX;
     playerY = _playerY;
-    myPlayer->setPosition();
+    myPlayer->setPosition(playerX,playerY);
 }
 void player::setRotation(float _playerRotation)
 {
     playerRotation = _playerRotation;
-    myPlayer->setRotation();
+    myPlayer->setRotation(playerRotation);
 }
 void player::setPName(std::string _pName)
 {
@@ -78,11 +75,12 @@ void player::setScore(int _score)
     score = _score;
 }
 //false is the default value (no weapon)
+/*
 void player::setWeapon(Weapon* _weapon)
 {
     w= _weapon;
 }
-
+*/
 //getters************************************************
 
 float player::getX()
@@ -137,14 +135,14 @@ void player::update(std::string data)
         {
             std::cout<<" NEW NAME!!! "<<std::endl;
             pName = data.substr(10, data.length()-1);
-            players.insert(std::pair<std::string, player*>(pName,this));
+            players.insert(std::pair<std::string, Drawable_Player*>(pName,myPlayer));
         }
     else if( data. find("EXIT")!=std::string::npos)
     {
         std::stringstream ss(data);
         std::string currentName;
         std::getline(ss,currentName,':');
-        player* p = players[currentName];
+        Drawable_Player* p = players[currentName];
         players.erase(currentName);
         delete p;
     }
@@ -167,21 +165,19 @@ void player::update(std::string data)
         {
             players[currentName] = new player(currentName);
         }
+        else
+        {
         players[currentName]->setPosition(curx,cury);
         players[currentName]->setRotation(getrot);
+        }
 
     }
     my_mutex.unlock();
 }
-std::map<std::string,player*> player::getPlayers()
+std::map<std::string,Drawable_Player*> player::getPlayers()
 {
     my_mutex.lock();
-    std::map<std::string,player*> result(players);
+    std::map<std::string,Drawable_Player*> result(players);
     my_mutex.unlock();
     return result;
 }
-player::Drawable_Player::~Drawable_Player()
-{
-    delete player;
-}
-

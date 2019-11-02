@@ -14,13 +14,13 @@ void Window::loop()
 
     while(isOpen())
     {
-        if(screens[state]->getMusic().getStatus()!=sf::SoundSource::Status::Playing)
+      /*  if(screens[state]->getMusic().getStatus()!=sf::SoundSource::Status::Playing)
         {
             if(state==State::play && screens[state-1]->getMusic().getStatus()==sf::SoundSource::Status::Playing)
                 screens[state-1]->getMusic().stop();
             screens[state]->getMusic().play();
 
-        }
+        }*/
          clear(sf::Color::Black);
         screens[state]->draw();
         display();

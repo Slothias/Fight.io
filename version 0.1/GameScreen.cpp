@@ -1,20 +1,18 @@
 #include "GameScreen.hpp"
-
 GameScreen::GameScreen(sf::RenderWindow *App)
 {
     app=App;
     font.loadFromFile("ARCADECLASSIC.TTF");
     app->setFramerateLimit(FRAMERATE);
-    me=new player("En");
-    music.openFromFile("retro_menu.wav");
+    me=new Drawable_Player("Peti",100,100,0);
     pup=pdown=pleft=pright=false;
     forBackground.loadFromFile("hexagonal.png");
     forBackground.setRepeated(true);
     background.setTexture(forBackground);
     background.setPosition(-2000,-2000);
     background.setTextureRect(sf::IntRect(0,0,4000,4000));
+    c=nullptr;
 }
-
 void GameScreen::draw()
 {
     app->clear(sf::Color::White);
@@ -23,37 +21,34 @@ void GameScreen::draw()
     app->draw(background);
     if(c && c->getconnected())
     {
-        std::map<std::string,player*> players = me->getPlayers();
-        for(std::pair<std::string, player*> entries: players)
-        {
-            entries.second->myPlayer->draw(*app,sf::RenderStates::Default);
-        }
+    std::map<std::string,Drawable_Player*> players = me->getPlayers();
+    for(std::pair<std::string, Drawable_Player*> entries: players)
+    {
+        entries.second->draw(*app,sf::RenderStates::Default);
+    }
     }
     else{
         sf::Text text;
         text.setString("Unable  to  connect");
         text.setCharacterSize(30);
-        text.setColor(sf::Color::Red);
         text.setFont(font);
         text.setPosition(v.getCenter().x-text.getGlobalBounds().width/2,v.getCenter().y-text.getGlobalBounds().height/2);
         app->draw(text);
     }
 }
-sf::Music& GameScreen::getMusic()
-{
-    return music;
-}
 
-void GameScreen::handle(sf::Event event)
+
+void GameScreen::handle(sf::Event& event)
 {
 
 if(!c)
     {
+
         c=new Client("127.0.0.1",10043,me);
         std::thread t(&Client::runclient,&(*c));
         t.detach();
     }
-else if(event.type == sf::Event::Closed || event.KeyPressed==sf::Keyboard::Escape)
+else if(event.type == sf::Event::Closed)
     {
 
     c->closeConnection();

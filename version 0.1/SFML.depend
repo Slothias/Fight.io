@@ -458,7 +458,7 @@
 
 1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\glsl.inl
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\sprite.hpp
+1572699449 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\sprite.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Graphics/Transformable.hpp>
@@ -666,11 +666,11 @@
 	<iostream>
 	"Menu.hpp"
 
-1572198816 d:\homeproject\c++\vmi\sfml\menu.hpp
+1572701707 d:\homeproject\c++\vmi\sfml\menu.hpp
 	<iostream>
 	"Screen.hpp"
 
-1572539038 source:d:\homeproject\c++\vmi\sfml\menu.cpp
+1572701676 source:d:\homeproject\c++\vmi\sfml\menu.cpp
 	"Menu.hpp"
 
 1571974517 /media/sloy/DATA/homeProject/C++/VMI/SFML/Menu.hpp
@@ -684,7 +684,7 @@
 1572043316 d:\homeproject\c++\vmi\sfml\textbox.hpp
 	<SFML/Graphics.hpp>
 
-1572539301 source:d:\homeproject\c++\vmi\sfml\window.cpp
+1572701818 source:d:\homeproject\c++\vmi\sfml\window.cpp
 	"Window.hpp"
 	<thread>
 
@@ -692,45 +692,55 @@
 	"Menu.hpp"
 	"GameScreen.hpp"
 
-1572198800 d:\homeproject\c++\vmi\sfml\screen.hpp
+1572701843 d:\homeproject\c++\vmi\sfml\screen.hpp
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 
-1572542240 source:d:\homeproject\c++\vmi\sfml\gamescreen.cpp
+1572711900 source:d:\homeproject\c++\vmi\sfml\gamescreen.cpp
 	"GameScreen.hpp"
 
-1572535686 d:\homeproject\c++\vmi\sfml\gamescreen.hpp
+1572704165 d:\homeproject\c++\vmi\sfml\gamescreen.hpp
 	"Screen.hpp"
-	"player.hpp"
+	"Drawable_Player.hpp"
 	<iostream>
 	"Client.hpp"
+	<fstream>
 
-1572609100 d:\homeproject\c++\vmi\sfml\player.hpp
+1572637631 d:\homeproject\c++\vmi\sfml\player.hpp
 	<string>
 	<SFML/Graphics.hpp>
-	"Weapon.hpp"
-	<mutex>
-	<map>
+	"Drawable_Player.hpp"
 
-1572610034 source:d:\homeproject\c++\vmi\sfml\player.cpp
+1572626842 source:d:\homeproject\c++\vmi\sfml\player.cpp
 	"player.hpp"
 	<sstream>
 	<string>
 	<iostream>
 
-1572196387 source:d:\homeproject\c++\vmi\sfml\weapon.cpp
+1572639759 source:d:\homeproject\c++\vmi\sfml\weapon.cpp
 	"Weapon.hpp"
 
-1572196914 d:\homeproject\c++\vmi\sfml\weapon.hpp
+1572639775 d:\homeproject\c++\vmi\sfml\weapon.hpp
 	<SFML/Graphics.hpp>
 
-1572351070 source:d:\homeproject\c++\vmi\sfml\client.cpp
+1572710618 source:d:\homeproject\c++\vmi\sfml\client.cpp
 	"Client.hpp"
 
-1571765656 d:\homeproject\c++\vmi\sfml\client.hpp
+1572703559 d:\homeproject\c++\vmi\sfml\client.hpp
 	<thread>
 	<iostream>
 	<winsock2.h>
 	<mutex>
-	"player.hpp"
+	"Drawable_Player.hpp"
+
+1572711829 source:d:\homeproject\c++\vmi\sfml\drawable_player.cpp
+	"Drawable_Player.hpp"
+
+1572639569 d:\homeproject\c++\vmi\sfml\drawable_player.hpp
+	<SFML/Graphics.hpp>
+	"Weapon.hpp"
+	<mutex>
+	<map>
+	<iostream>
+	<sstream>
 

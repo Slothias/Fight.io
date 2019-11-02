@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="i" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml-graphics-s-d" />
@@ -28,6 +29,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="i" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -53,6 +55,8 @@
 		</Linker>
 		<Unit filename="Client.cpp" />
 		<Unit filename="Client.hpp" />
+		<Unit filename="Drawable_Player.cpp" />
+		<Unit filename="Drawable_Player.hpp" />
 		<Unit filename="GameScreen.cpp" />
 		<Unit filename="GameScreen.hpp" />
 		<Unit filename="Menu.cpp" />
@@ -63,8 +67,6 @@
 		<Unit filename="Window.cpp" />
 		<Unit filename="Window.hpp" />
 		<Unit filename="main.cpp" />
-		<Unit filename="player.cpp" />
-		<Unit filename="player.hpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

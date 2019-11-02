@@ -11,10 +11,10 @@ Menu::Menu(sf::RenderWindow* a):Screen()
     forBackground.setRepeated(true);
     background.setTexture(forBackground);
     app->setMouseCursorVisible(false);
-    music.setLoop(true);
+ /*   music.setLoop(true);
     music.openFromFile("we_are_the_resistors.wav");
     music.setVolume(20);
-
+*/
 }
 
 void Menu::loadTexts()
@@ -36,10 +36,6 @@ void Menu::drawTexts()
 {
     for(sf::Text* t: texts)
         app->draw(*t);
-}
-sf::Music& Menu::getMusic()
-{
-    return music;
 }
 void Menu::textSelect()
 {
@@ -84,7 +80,7 @@ app->draw(cursor);
 
 
 }
-void Menu::handle(sf::Event event)
+void Menu::handle(sf::Event& event)
 {
     if(event.type == sf::Event::Closed || event.KeyPressed==sf::Keyboard::Escape)
     {
