@@ -141,7 +141,7 @@ void Server::sendData(std::string data, std::string except)
             if(s->getName()!=except)
                 {
                     s->sendData(except+": "+data);
-                    std::cout<<"send: "<<s->getName()<<" except: "<<except<< "MSG: "<<data<<std::endl;
+                   // std::cout<<"send: "<<s->getName()<<" except: "<<except<< "MSG: "<<data<<std::endl;
                 }
 
     my_mutex.unlock();
@@ -233,17 +233,14 @@ void Server::ServerAssistant::run()
     sendData("Your Name:"+ name);
     while(getcon())
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(64));
+      //  std::this_thread::sleep_for(std::chrono::milliseconds(64));
         std::string msg=getData();
         if(msg.length()>0)
         {
-            if(msg.find("EXIT")!=std::string::npos)
-                closeConnection();
-            else
-            {
-                me->sendData(msg,name);
-            }
 
+            me->sendData(msg,name);
+            if(msg.find("EXIT")!= std::string::npos)
+                closeConnection();
         }
     }
     delete this;

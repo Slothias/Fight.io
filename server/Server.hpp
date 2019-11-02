@@ -48,14 +48,14 @@ private:
     const u_short PORT=10043;
     static const int MAX_PLAYERS=10;
     int getSize();
-    void setconnected(bool c);
-    bool getconnected();
     std::vector<ServerAssistant*> players;
     void sendData(std::string data,std::string except); ///send to all
     void pushData(std::string data, std::string who);
 public:
     Server();
     void  runServer();
+    bool getconnected();
+    void setconnected(bool c);
     ~Server();
 
 };
