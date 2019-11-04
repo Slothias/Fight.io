@@ -27,18 +27,7 @@ void Window::loop()
         display();
         sf::Event event;
         pollEvent(event);
-        std::thread t([this,&event]()
-                      {
-                          if(state==State::play && !((GameScreen*)screens[state])->c)
-                          {
-                              ((GameScreen*)screens[state])->c=new Client("192.168.43.34",10043,((GameScreen*)screens[state])->me);
-                              std::thread k(&Client::runclient,&(*((GameScreen*)screens[state])->c));
-                              k.detach();
-                          }
-                          screens[state]->handle(event);
-                      });
-            t.detach();
-        //screens[state]->handle(event);
+        screens[state]->handle(event);
         if(screens[state]->change_me())
         {
             state=State::play;

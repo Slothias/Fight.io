@@ -13,10 +13,10 @@ class GameScreen:public Screen
         GameScreen(sf::RenderWindow *App);
         void draw();
         void handle(sf::Event& event);
-        Client* c;
-        Drawable_Player* me;
          ~GameScreen();
     private:
+        Client* c;
+        Drawable_Player* me;
         bool pup;
         bool pdown;
         bool pleft;
