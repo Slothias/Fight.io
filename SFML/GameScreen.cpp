@@ -40,15 +40,15 @@ void GameScreen::draw()
 
 void GameScreen::handle(sf::Event& event)
 {
-
+/*
 if(!c)
     {
 
-        c=new Client("127.0.0.1",10043,me);
+        c=new Client("192.168.43.34",10043,me);
         std::thread t(&Client::runclient,&(*c));
         t.detach();
-    }
-else if(event.type == sf::Event::Closed)
+    }*/
+ if(event.type == sf::Event::Closed)
     {
 
     c->closeConnection();

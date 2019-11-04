@@ -13,15 +13,15 @@ class GameScreen:public Screen
         GameScreen(sf::RenderWindow *App);
         void draw();
         void handle(sf::Event& event);
+        Client* c;
+        Drawable_Player* me;
          ~GameScreen();
     private:
-        Client* c;
         bool pup;
         bool pdown;
         bool pleft;
         bool pright;
         static const int FRAMERATE=120;
-        Drawable_Player* me;
         float PI=3.14159;
         float ROOT2 = 1.41421356;
         float PLAYERMOVESPEED=10;
