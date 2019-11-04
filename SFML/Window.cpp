@@ -8,7 +8,7 @@ Window::Window(sf::VideoMode vm, std::string title):RenderWindow(vm,title)
     screens.push_back(new GameScreen(this));
     icon.loadFromFile("Player.png");
     setIcon(150,100,icon.getPixelsPtr());
-  //  setVerticalSyncEnabled(true);
+    setVerticalSyncEnabled(true);
 }
 void Window::loop()
 {
@@ -35,7 +35,7 @@ void Window::loop()
         if(state==State::play)
             setMouseCursorVisible(true);
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000/120));
+       // std::this_thread::sleep_for(std::chrono::milliseconds(1000/120));
     }
 }
 void Window::setState(State s)

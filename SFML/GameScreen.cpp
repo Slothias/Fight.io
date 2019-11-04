@@ -12,9 +12,29 @@ GameScreen::GameScreen(sf::RenderWindow *App)
     background.setPosition(-2000,-2000);
     background.setTextureRect(sf::IntRect(0,0,4000,4000));
     c=nullptr;
+    GetDesktopResolution();
+}
+
+void GameScreen::GetDesktopResolution()
+{
+   RECT desktop;
+   const HWND hDesktop = GetDesktopWindow();
+   GetWindowRect(hDesktop, &desktop);
+   horizontal=desktop.right;
+   vertical = desktop.bottom;
+
 }
 void GameScreen::draw()
 {
+    if((app->getSize().x != horizontal || app->getSize().y!=vertical) && c)
+    {
+        if(c->getconnected())
+        {
+        app->setSize(sf::Vector2<unsigned int>(horizontal,vertical));
+        app->setPosition(sf::Vector2<int>(0,0));
+        app->create(sf::VideoMode(horizontal,vertical),"mari",sf::Style::Fullscreen);
+        }
+    }
     app->clear(sf::Color::White);
     v.setCenter(me->getX(),me->getY());
     app->setView(v);
@@ -44,11 +64,14 @@ void GameScreen::handle(sf::Event& event)
 if(!c)
     {
 
-        c=new Client("192.168.43.34",10043,me);
-        std::thread t(&Client::runclient,&(*c));
+        std::thread t([this]()
+                      {
+                          c=new Client("127.0.0.1",10043,me);
+                          c->runclient();
+                      });
         t.detach();
     }
-else if(event.type == sf::Event::Closed)
+else if(event.type == sf::Event::Closed || ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Escape)))
     {
 
     c->closeConnection();

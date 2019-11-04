@@ -24,7 +24,7 @@ class GameScreen:public Screen
         static const int FRAMERATE=120;
         float PI=3.14159;
         float ROOT2 = 1.41421356;
-        float PLAYERMOVESPEED=10;
+        float PLAYERMOVESPEED=2;
         sf::RenderWindow *app;
         sf::Texture forBackground;
         sf::Sprite background;
@@ -32,6 +32,9 @@ class GameScreen:public Screen
         sf::Font font;
         std::string host;
         u_short port;
+        unsigned int horizontal;
+        unsigned int vertical;
+        void GetDesktopResolution();
 
 };
 
