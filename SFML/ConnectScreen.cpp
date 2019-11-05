@@ -17,8 +17,21 @@ ConnectScreen::ConnectScreen(sf::RenderWindow *a):Screen()
     button->setLabel(U"Clear text");
     button->onClicked.bind([&](simplgui::Button::Ptr button)
     {
-        textbox->setText(U"");
+        getIP();
+        change=true;
     });
+}
+
+const char* ConnectScreen::getIP()
+{
+    std::u32string ip = textbox->getText();
+    char* chr = new char[ip.length()];
+    for(int i=0; i<ip.length(); i++)
+    {
+        chr[i] = ip[i];
+    }
+    const char* result = chr;
+    return result;
 }
 
 void ConnectScreen::draw()
@@ -40,7 +53,7 @@ void ConnectScreen::handle(sf::Event& event)
         if(event.type==sf::Event::TextEntered || event.type == sf::Event::MouseButtonPressed)
         {
         textbox->processEvent(simplgui::Event(event, *app));
-        std::this_thread::sleep_for(std::chrono::milliseconds(80));
+        //std::this_thread::sleep_for(std::chrono::milliseconds(80));
         }
         button->processEvent(simplgui::Event(event, *app));
     }

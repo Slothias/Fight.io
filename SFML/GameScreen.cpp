@@ -1,5 +1,5 @@
 #include "GameScreen.hpp"
-GameScreen::GameScreen(sf::RenderWindow *App)
+GameScreen::GameScreen(sf::RenderWindow *App, const char* host)
 {
     app=App;
     font.loadFromFile("ARCADECLASSIC.TTF");
@@ -11,7 +11,9 @@ GameScreen::GameScreen(sf::RenderWindow *App)
     background.setTexture(forBackground);
     background.setPosition(-2000,-2000);
     background.setTextureRect(sf::IntRect(0,0,4000,4000));
-    c=nullptr;
+    c=new Client(host,10043,me);
+    std::thread t(&Client::runclient,&(*c));
+    t.detach();
     GetDesktopResolution();
 }
 
@@ -60,18 +62,7 @@ void GameScreen::draw()
 
 void GameScreen::handle(sf::Event& event)
 {
-
-if(!c)
-    {
-
-        std::thread t([this]()
-                      {
-                          c=new Client("127.0.0.1",10043,me);
-                          c->runclient();
-                      });
-        t.detach();
-    }
-else if(event.type == sf::Event::Closed || ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Escape)))
+if(event.type == sf::Event::Closed || ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Escape)))
     {
 
     c->closeConnection();

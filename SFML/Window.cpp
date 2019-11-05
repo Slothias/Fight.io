@@ -3,17 +3,51 @@
 Window::Window(sf::VideoMode vm, std::string title):RenderWindow(vm,title)
 {
     state=State::main_menu;
-    screens.push_back(new Menu(this));
-    screens.push_back(new ConnectScreen(this));
-    screens.push_back(new GameScreen(this));
+    menu = new Menu(this);
+    connectScreen = nullptr;
+    gameScreen = nullptr;
+    //screens.push_back(new GameScreen(this));
     icon.loadFromFile("Player.png");
     setIcon(150,100,icon.getPixelsPtr());
-    setVerticalSyncEnabled(true);
+    setVerticalSyncEnabled(false);
 }
 void Window::loop()
 {
+    setMouseCursorVisible(false);
+    while(state==State::main_menu)//connect screen
+    {
+        menu->draw();
+        display();
+        sf::Event event;
+        if(pollEvent(event)){
+            menu->handle(event);
+        }
+        if(menu->change_me())
+        {
+            state=State::connecting;
+            connectScreen = new ConnectScreen(this);
+        }
+    }
 
-    while(isOpen())
+    setMouseCursorVisible(true);
+    while(state==State::connecting)//connect screen
+    {
+        clear(sf::Color::Black);
+        connectScreen->draw();
+        display();
+        sf::Event event;
+        if(pollEvent(event)){
+            connectScreen->handle(event);
+        }
+        if(connectScreen->change_me())
+        {
+            state=State::play;
+            gameScreen = new GameScreen(this, connectScreen->getIP());
+        }
+    }
+
+    setMouseCursorVisible(true);
+    while(isOpen())//game screen
     {
       /*  if(screens[state]->getMusic().getStatus()!=sf::SoundSource::Status::Playing)
         {
@@ -23,17 +57,11 @@ void Window::loop()
 
         }*/
          clear(sf::Color::Black);
-        screens[state]->draw();
+        gameScreen->draw();
         display();
         sf::Event event;
         pollEvent(event);
-        screens[state]->handle(event);
-        if(screens[state]->change_me())
-        {
-            state=State::play;
-        }
-        if(state==State::play)
-            setMouseCursorVisible(true);
+        gameScreen->handle(event);
 
        // std::this_thread::sleep_for(std::chrono::milliseconds(1000/120));
     }
@@ -48,7 +76,4 @@ State Window::getState()
 }
 Window::~Window()
 {
-    for(Screen* s:screens)
-        delete s;
-    screens.clear();
 }

@@ -16,6 +16,7 @@ class ConnectScreen:public Screen
         void draw();
         void handle(sf::Event& event);
         virtual ~ConnectScreen();
+        const char* getIP();
     private:
         sf::Clock clock;
         sf::RenderWindow* app;

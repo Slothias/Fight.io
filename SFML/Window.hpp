@@ -14,7 +14,9 @@ private:
         State getState();
         void setState(State state);
         ~Window();
-        std::vector<Screen*> screens;
+        Menu* menu;
+        GameScreen* gameScreen;
+        ConnectScreen* connectScreen;
         State state;
         sf::Image icon;
 

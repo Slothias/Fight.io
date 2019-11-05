@@ -10,7 +10,7 @@ class GameScreen:public Screen
 {
     public:
 
-        GameScreen(sf::RenderWindow *App);
+        GameScreen(sf::RenderWindow *App, const char* host);
         void draw();
         void handle(sf::Event& event);
          ~GameScreen();
@@ -24,7 +24,7 @@ class GameScreen:public Screen
         static const int FRAMERATE=120;
         float PI=3.14159;
         float ROOT2 = 1.41421356;
-        float PLAYERMOVESPEED=2;
+        float PLAYERMOVESPEED=10;
         sf::RenderWindow *app;
         sf::Texture forBackground;
         sf::Sprite background;
