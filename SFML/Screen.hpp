@@ -15,6 +15,7 @@ protected:
      virtual void draw () =0;
      virtual void handle(sf::Event& event)=0;
      bool change_me() { return change;};
+     static const int FRAMERATE=120;
 };
 
 #endif // SCREEN_H

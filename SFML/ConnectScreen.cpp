@@ -1,25 +1,42 @@
 #include "ConnectScreen.hpp"
 #include<thread>
+#include<iostream>
 ConnectScreen::ConnectScreen(sf::RenderWindow *a):Screen()
 {
     app=a;
+
+    const int centerX = (app->getSize().x)/2;
+    const int centerY = (app->getSize().y)/2;
+    const int textboxX = 300;
+    const int textboxY = 48;
+
+
     myTheme=simplgui::Theme::defaultTheme();
     auto resGetter = simplgui::FileResourcesGetter::create();
-    textbox=simplgui::TextBox::create(resGetter);
-    textbox->setPosition(sf::Vector2f(100, 100));
-    textbox->setText(U"Some text");
-    textbox->setSize(sf::Vector2f(300, simplgui::AUTO_SIZE));
-    textbox->setTheme(myTheme);
+
     button = simplgui::Button::create(resGetter);
-    button->setPosition(sf::Vector2f(408, 100));
-    button->setMinSize(sf::Vector2f(48, simplgui::NO_MIN_SIZE));
+    button->setLabel(U"Connect");
+
+    const int buttonX = (button->getLabel()).size()*18;
+    const int buttonY = textboxY;
+
+    button->setPosition(sf::Vector2f(centerX-((textboxX+buttonX)/2)+textboxX, centerY-(buttonY/2)));
+    button->setSize(sf::Vector2f(buttonX,buttonY));
     button->setTheme(myTheme);
-    button->setLabel(U"Clear text");
     button->onClicked.bind([&](simplgui::Button::Ptr button)
     {
         getIP();
         change=true;
     });
+
+    textbox=simplgui::TextBox::create(resGetter);
+    textbox->setPosition(sf::Vector2f(centerX-((textboxX+buttonX)/2),centerY-(textboxY/2)));
+    textbox->setText(U"127.0.0.1");
+    textbox->setSize(sf::Vector2f(textboxX, textboxY));
+    textbox->setTheme(myTheme);
+
+    forBackground.loadFromFile("Menu.png");
+    background.setTexture(forBackground);
 }
 
 const char* ConnectScreen::getIP()
@@ -36,6 +53,7 @@ const char* ConnectScreen::getIP()
 
 void ConnectScreen::draw()
 {
+    app->draw(background);
     auto dt = clock.restart();
     textbox->update(dt);
     button->update(dt);

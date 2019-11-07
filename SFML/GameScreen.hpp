@@ -21,7 +21,6 @@ class GameScreen:public Screen
         bool pdown;
         bool pleft;
         bool pright;
-        static const int FRAMERATE=120;
         float PI=3.14159;
         float ROOT2 = 1.41421356;
         float PLAYERMOVESPEED=10;

@@ -23,6 +23,8 @@ class ConnectScreen:public Screen
         simplgui::Button::Ptr button;
         simplgui::TextBox::Ptr textbox;
         simplgui::Theme myTheme;
+        sf::Texture forBackground;
+        sf::Sprite background;
 };
 
 #endif // CONNECTSCREEN_H

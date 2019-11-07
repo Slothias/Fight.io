@@ -56,14 +56,17 @@ void Window::loop()
             screens[state]->getMusic().play();
 
         }*/
-         clear(sf::Color::Black);
-        gameScreen->draw();
-        display();
         sf::Event event;
         pollEvent(event);
-        gameScreen->handle(event);
 
-       // std::this_thread::sleep_for(std::chrono::milliseconds(1000/120));
+        /*std::thread t(&GameScreen::handle, &(*gameScreen),event) ;         /////////////////////////////////// valami nem jó vele
+        t.detach();*/                                                        /////////////////////////////////// ha mûködne külön szálon, és aludni is tudna a 69. sorban, akkor szerintem nem függne a proci sebességétõl a mozgás
+
+        gameScreen->handle(event);
+        gameScreen->draw();
+        display();
+
+        //std::this_thread::sleep_for(std::chrono::milliseconds(120));/////////////////////////////////////////// baj van vele
     }
 }
 void Window::setState(State s)
