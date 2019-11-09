@@ -1,10 +1,10 @@
 #include "Server.hpp"
 #include <algorithm>
 #include <string>
+#include<sstream>
 #include<future>
 Server::Server()
 {
-    is_running=startup();
     getIP();
 }
 
@@ -19,13 +19,13 @@ bool Server::startup()
     iResult=WSAStartup(MAKEWORD(2, 2), &WSAData);
     if(iResult!=0)
     {
-        std::cout<<"WSAStartup failed with error!"<<std::endl;
+        throw WSAStartupException();
         return false;
     }
     iResult=server = socket(AF_INET, SOCK_STREAM,IPPROTO_TCP);///The AF_INET address family is the address family for IPv4. socket(address_family,type(in_this_case full duplex),protocol(TCP))
     if(iResult==INVALID_SOCKET)
     {
-        std::cout<<"Socket failed with error"<<std::endl;
+        throw SocketException();
         WSACleanup();
         return false;
     }
@@ -35,17 +35,17 @@ bool Server::startup()
     iResult=bind(server, (SOCKADDR *) &saddr, sizeof(saddr));
     if(iResult==SOCKET_ERROR)
     {
-        std::cout<<"bind failed with error"<<std::endl;
 
         shutdown(server,2);
         closesocket(server);
         WSACleanup();
+        throw BindException();
         return false;
     }
     iResult=listen(server, 0);
     if(iResult==SOCKET_ERROR)
     {
-        std::cout << "listen failed with error" << std::endl;
+        throw ListenException();
 
         shutdown(server,2);
         closesocket(server);
@@ -54,9 +54,15 @@ bool Server::startup()
     }
     return true;
 }
-void Server::showStatus()
+void Server::tryToConnect()
 {
-    std::cout<<myIP<<":"<<PORT<<std::endl;
+    is_running = startup();
+}
+std::string Server::showStatus()
+{
+   std::stringstream ss;
+   ss<<myIP<<":"<<PORT<<std::endl;
+   return ss.str();
 }
 void Server::getIP()
 {
@@ -89,7 +95,6 @@ void Server::runServer()
     if(getconnected())
     {
         std::cout << "Listening for incoming connections..." << std::endl;
-        showStatus();
         int clientsize = sizeof(clientAddr);
      /*   std::thread tick([this]()
         {
@@ -155,7 +160,25 @@ int Server::getSize()
     my_mutex.unlock();
     return result;
 }
+void Server::closeServer()
+{
+    is_running = false;
+    sendData("EXIT", "Server");
+    for(ServerAssistant* s : players)
+        s->setcon(false);
+    while(getSize()>0)
+        players.pop_back();
+    shutdown(server,2);
+    closesocket(server);
+    WSACleanup();
+    std::cout<<"Server closed"<<std::endl;
+}
+Server::~Server()
+{
 
+    std::cout<<"Server cleared"<<std::endl;
+
+}
 Server::ServerAssistant::ServerAssistant(SOCKET c,Server* m,std::string n)
 {
     client = c;

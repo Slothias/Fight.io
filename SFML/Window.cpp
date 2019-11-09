@@ -1,5 +1,8 @@
 #include "Window.hpp"
 #include <thread>
+#include<chrono>
+#include<unistd.h>
+#include<fstream>
 Window::Window(sf::VideoMode vm, std::string title):RenderWindow(vm,title)
 {
     state=State::main_menu;
@@ -32,6 +35,7 @@ void Window::loop()
     setMouseCursorVisible(true);
     while(state==State::connecting)//connect screen
     {
+
         clear(sf::Color::Black);
         connectScreen->draw();
         display();
@@ -44,11 +48,13 @@ void Window::loop()
             state=State::play;
             gameScreen = new GameScreen(this, connectScreen->getIP());
         }
+
     }
 
     setMouseCursorVisible(true);
     while(isOpen())//game screen
     {
+
       /*  if(screens[state]->getMusic().getStatus()!=sf::SoundSource::Status::Playing)
         {
             if(state==State::play && screens[state-1]->getMusic().getStatus()==sf::SoundSource::Status::Playing)
@@ -56,17 +62,20 @@ void Window::loop()
             screens[state]->getMusic().play();
 
         }*/
+        /////////////////////////////////// valami nem jó vele
+        gameScreen->draw();
+
+
         sf::Event event;
         pollEvent(event);
-
-        /*std::thread t(&GameScreen::handle, &(*gameScreen),event) ;         /////////////////////////////////// valami nem jó vele
-        t.detach();*/                                                        /////////////////////////////////// ha mûködne külön szálon, és aludni is tudna a 69. sorban, akkor szerintem nem függne a proci sebességétõl a mozgás
-
         gameScreen->handle(event);
-        gameScreen->draw();
+      /* std::thread t([&]()
+        {
+            gameScreen->handle(event);
+        });
+        t.detach();*/
         display();
-
-        //std::this_thread::sleep_for(std::chrono::milliseconds(120));/////////////////////////////////////////// baj van vele
+      //std::this_thread::sleep_for(std::chrono::nanoseconds(120));/////////////////////////////////////////// baj van vele
     }
 }
 void Window::setState(State s)

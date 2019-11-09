@@ -94,7 +94,8 @@ void Client::runclient()
                             while(getconnected())
                             {
                             std::string g = getData();
-                            //std::cout<<"NEW MESSAGE"<<std::endl;
+                            if(g.find("Server")!=std::string::npos && g.find("EXIT")!=std::string::npos)
+                                setconnected(false);
                             std::thread t (&Drawable_Player::update,&(*thisPlayer),g);
                             t.detach();
                             }

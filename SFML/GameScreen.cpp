@@ -102,18 +102,17 @@ else
                 }
             }
 
-
         playerX = 0;
         playerY = 0;
-        if(pup && !pleft && !pright){playerY -= PLAYERMOVESPEED;}
-        if(pdown && !pleft && !pright){playerY += PLAYERMOVESPEED;}
-        if(pleft && !pup && !pdown){playerX -= PLAYERMOVESPEED;}
-        if(pright && !pup && !pdown){playerX += PLAYERMOVESPEED;}
+        if(pup && !pleft && !pright){playerY -= PLAYERMOVESPEED/SLEEPVAL;}
+        if(pdown && !pleft && !pright){playerY += PLAYERMOVESPEED/SLEEPVAL;}
+        if(pleft && !pup && !pdown){playerX -= PLAYERMOVESPEED/SLEEPVAL;}
+        if(pright && !pup && !pdown){playerX += PLAYERMOVESPEED/SLEEPVAL;}
 
-        if(pup && (pleft || pright)){playerY -= PLAYERMOVESPEED/ROOT2;}
-        if(pdown && (pleft || pright)){playerY += PLAYERMOVESPEED/ROOT2;}
-        if(pleft && (pup || pdown)){playerX -= PLAYERMOVESPEED/ROOT2;}
-        if(pright && (pup || pdown)){playerX += PLAYERMOVESPEED/ROOT2;}
+        if(pup && (pleft || pright)){playerY -= PLAYERMOVESPEED/(ROOT2*SLEEPVAL);}
+        if(pdown && (pleft || pright)){playerY += PLAYERMOVESPEED/(ROOT2*SLEEPVAL);}
+        if(pleft && (pup || pdown)){playerX -= PLAYERMOVESPEED/(ROOT2*SLEEPVAL);}
+        if(pright && (pup || pdown)){playerX += PLAYERMOVESPEED/(ROOT2*SLEEPVAL);}
 
          float mousePosX = sf::Mouse::getPosition(*app).x;
         float mousePosY = sf::Mouse::getPosition(*app).y;

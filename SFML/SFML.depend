@@ -789,10 +789,10 @@
 1455882554 source:d:\homeproject\c++\vmi\sfml\src\simplgui\widget.cpp
 	"simplgui/Widget.h"
 
-1572710618 source:d:\homeproject\c++\repo\fight.io\sfml\client.cpp
+1573265570 source:d:\homeproject\c++\repo\fight.io\sfml\client.cpp
 	"Client.hpp"
 
-1572703559 d:\homeproject\c++\repo\fight.io\sfml\client.hpp
+1572965757 d:\homeproject\c++\repo\fight.io\sfml\client.hpp
 	<thread>
 	<iostream>
 	<winsock2.h>
@@ -810,11 +810,12 @@
 1572639775 d:\homeproject\c++\repo\fight.io\sfml\weapon.hpp
 	<SFML/Graphics.hpp>
 
-1572865539 source:d:\homeproject\c++\repo\fight.io\sfml\connectscreen.cpp
+1573158056 source:d:\homeproject\c++\repo\fight.io\sfml\connectscreen.cpp
 	"ConnectScreen.hpp"
 	<thread>
+	<iostream>
 
-1572864620 d:\homeproject\c++\repo\fight.io\sfml\connectscreen.hpp
+1573158056 d:\homeproject\c++\repo\fight.io\sfml\connectscreen.hpp
 	"Screen.hpp"
 	"simplgui/Button.h"
 	"simplgui/Event.h"
@@ -822,27 +823,27 @@
 	"simplgui/TextBox.h"
 	"simplgui/Tools.h"
 
-1572864323 d:\homeproject\c++\repo\fight.io\sfml\screen.hpp
+1573158056 d:\homeproject\c++\repo\fight.io\sfml\screen.hpp
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 
-1572711829 source:d:\homeproject\c++\repo\fight.io\sfml\drawable_player.cpp
+1573261689 source:d:\homeproject\c++\repo\fight.io\sfml\drawable_player.cpp
 	"Drawable_Player.hpp"
 
-1572909506 source:d:\homeproject\c++\repo\fight.io\sfml\gamescreen.cpp
+1573299768 source:d:\homeproject\c++\repo\fight.io\sfml\gamescreen.cpp
 	"GameScreen.hpp"
 
-1572909315 d:\homeproject\c++\repo\fight.io\sfml\gamescreen.hpp
+1573299719 d:\homeproject\c++\repo\fight.io\sfml\gamescreen.hpp
 	"Screen.hpp"
 	"Drawable_Player.hpp"
 	<iostream>
 	"Client.hpp"
 	<fstream>
 
-1572721621 source:d:\homeproject\c++\repo\fight.io\sfml\main.cpp
+1573264903 source:d:\homeproject\c++\repo\fight.io\sfml\main.cpp
 	"Window.hpp"
 
-1572722524 d:\homeproject\c++\repo\fight.io\sfml\window.hpp
+1573160191 d:\homeproject\c++\repo\fight.io\sfml\window.hpp
 	"Menu.hpp"
 	"GameScreen.hpp"
 	"ConnectScreen.hpp"
@@ -889,9 +890,12 @@
 1572639759 source:d:\homeproject\c++\repo\fight.io\sfml\weapon.cpp
 	"Weapon.hpp"
 
-1572909347 source:d:\homeproject\c++\repo\fight.io\sfml\window.cpp
+1573298616 source:d:\homeproject\c++\repo\fight.io\sfml\window.cpp
 	"Window.hpp"
 	<thread>
+	<chrono>
+	<unistd.h>
+	<fstream>
 
 1572967756 source:c:\users\e550\desktop\fight.io\sfml\client.cpp
 	"Client.hpp"

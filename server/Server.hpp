@@ -9,6 +9,7 @@
 #include<queue>
 #include<utility>
 #include<fstream>
+#include "ServerException.h"
 class Server
 {
 private:
@@ -41,7 +42,6 @@ private:
     SOCKET server;
     std::string myIP;
     void getIP();
-    void showStatus();
     bool is_running;
     std::mutex my_mutex;
     bool startup();
@@ -53,9 +53,12 @@ private:
     void pushData(std::string data, std::string who);
 public:
     Server();
+    void tryToConnect();
     void  runServer();
     bool getconnected();
     void setconnected(bool c);
+    std::string showStatus();
+    void closeServer();
     ~Server();
 
 };

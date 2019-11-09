@@ -15,6 +15,7 @@ class GameScreen:public Screen
         void handle(sf::Event& event);
          ~GameScreen();
     private:
+        static const int SLEEPVAL=1000/FRAMERATE;
         Client* c;
         Drawable_Player* me;
         bool pup;
@@ -23,7 +24,7 @@ class GameScreen:public Screen
         bool pright;
         float PI=3.14159;
         float ROOT2 = 1.41421356;
-        float PLAYERMOVESPEED=10;
+        float PLAYERMOVESPEED = 20;
         sf::RenderWindow *app;
         sf::Texture forBackground;
         sf::Sprite background;

@@ -121,9 +121,20 @@ void Drawable_Player::update(std::string data)
         std::stringstream ss(data);
         std::string currentName;
         std::getline(ss,currentName,':');
+        if(currentName == "Server")
+        {
+            std::cout<<"Server exit"<<std::endl;
+            std::map<std::string, Drawable_Player*> myMap =players;
+            players.clear();
+
+
+        }
+        else
+        {
         Drawable_Player* p = players[currentName];
         players.erase(currentName);
         delete p;
+        }
     }
     else if(data.find("|")!=std::string::npos)
     {
