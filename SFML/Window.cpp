@@ -75,10 +75,11 @@ void Window::loop()
         });
         t.detach();*/
         display();
-        //auto t2 = std::chrono::high_resolution_clock::now();
-      //std::this_thread::sleep_for(std::chrono::nanoseconds(12));/////////////////////////////////////////// baj van vele
-        //auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
-        //std::cout << duration << std::endl;
+        /*auto t2 = std::chrono::high_resolution_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
+        if(duration < 500)
+            std::this_thread::sleep_for(std::chrono::microseconds(500-duration));/////////////////////////////////////////// baj van vele
+        //std::cout << duration << std::endl;*/
     }
 }
 void Window::setState(State s)

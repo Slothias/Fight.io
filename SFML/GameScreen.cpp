@@ -124,11 +124,12 @@ else
 
          float mousePosX = sf::Mouse::getPosition(*app).x;
         float mousePosY = sf::Mouse::getPosition(*app).y;
-            if((app->getSize().x/2)-mousePosX < 0)
+        if(!(app->getSize().x/2-mousePosX ==0)){
+            if((app->getSize().x/2)-mousePosX <= 0)
                 me->setRotation((atan(((app->getSize().y/2)-mousePosY)/((app->getSize().x/2)-mousePosX)))/PI *180 +90);
             else
                 me->setRotation(((atan(((app->getSize().y/2)-mousePosY)/((app->getSize().x/2)-mousePosX)))/PI *180) +270);
-
+        }
 
         me->setPosition(me->getX()+playerX, me->getY()+playerY);
 
