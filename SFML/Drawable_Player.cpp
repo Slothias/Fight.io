@@ -12,6 +12,7 @@ Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf:
     setOrigin(skin.getSize().x/2, skin.getSize().y/2);
     setPosition(x,y);
     setRotation(a);
+    players[pName]=this;
 }
 
 void Drawable_Player::draw(sf::RenderTarget& target, sf::RenderStates states)
@@ -58,9 +59,12 @@ void Drawable_Player::setScore(int _score)
 void Drawable_Player::setWeapon(Weapon* _weapon)
 {
     myWeapon=_weapon;
-    myWeapon->setScale(1.0f,1.0f);
     myWeapon->setPosition(getPosition());
-    myWeapon->setOrigin(-(((int)skin.getSize().x/2)-((int)myWeapon->getTexture()->getSize().x)), ((int)myWeapon->getTexture()->getSize().y));
+    if(!myWeapon->type || myWeapon->type==1 || myWeapon->type==4)
+        myWeapon->setOrigin(-(((int)skin.getSize().x/2)-(int)(myWeapon->getTexture()->getSize().x)), ((int)myWeapon->getTexture()->getSize().y+myWeapon->getTexture()->getSize().y/8));
+    else
+        myWeapon->setOrigin(-(((int)skin.getSize().x/2)-(int)(3*myWeapon->getTexture()->getSize().x/4)), ((int)myWeapon->getTexture()->getSize().y+myWeapon->getTexture()->getSize().y/15));
+    myWeapon->setRotation(getRot());
 
 }
 //---------GETTERS---------------
@@ -116,13 +120,7 @@ std::string Drawable_Player::toString()
 }
 void Drawable_Player::update(std::string data)
 {
-     if(data.find("Your Name:")!=std::string::npos)
-        {
-            //std::cout<<" NEW NAME!!! "<<std::endl;
-            pName = data.substr(10, data.length()-1);
-            players.insert(std::pair<std::string, Drawable_Player*>(pName,this));
-        }
-    else if( data. find("EXIT")!=std::string::npos)
+    if( data. find("EXIT")!=std::string::npos)
     {
         std::stringstream ss(data);
         std::string currentName;

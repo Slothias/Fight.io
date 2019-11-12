@@ -4,6 +4,7 @@
 class Weapon: public sf::Sprite
 {
     public:
+        int type;
         Weapon();
         Weapon(int type);
         virtual ~Weapon();

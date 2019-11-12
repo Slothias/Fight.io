@@ -6,11 +6,14 @@ Weapon::Weapon():sf::Sprite()
 
 Weapon::Weapon(int type):sf::Sprite()
 {
+    this->type=type;
     switch(type)
     {
-        case 0: skin.loadFromFile("w0.png");
+        case 0:
+            skin.loadFromFile("w0.png");
             break;
-        case 1: skin.loadFromFile("w1.png");
+        case 1:
+            skin.loadFromFile("w1.png");
             break;
         case 2: skin.loadFromFile("w2.png");
             break;
@@ -23,7 +26,6 @@ Weapon::Weapon(int type):sf::Sprite()
     }
     skin.setSmooth(true);
     setTexture(skin);
-    setScale(200.0f,200.0f);
 }
 
 void Weapon::setPower(float p)
