@@ -5,7 +5,6 @@
 #include<future>
 Server::Server()
 {
-    getIP();
 }
 
 bool Server::startup()
@@ -56,6 +55,7 @@ bool Server::startup()
 }
 void Server::tryToConnect()
 {
+    getIP();
     is_running = startup();
 }
 std::string Server::showStatus()
@@ -66,14 +66,18 @@ std::string Server::showStatus()
 }
 void Server::getIP()
 {
+    myIP="127.0.0.1";
     system("ipconfig > ip.txt");
     std::ifstream myfile("ip.txt");
     std::string line;
     while(std::getline(myfile,line))
         if(line.find("IPv4")!=std::string::npos)
             myIP=line;
+    if(myIP!="127.0.0.1")
+    {
     int index=myIP.find(":")+2;
     myIP=myIP.substr(index, myIP.length()-index);
+    }
 }
 void Server::setconnected(bool c)
 {
@@ -252,8 +256,8 @@ void Server::ServerAssistant::closeConnection()
 }
 void Server::ServerAssistant::run()
 {
+    name = getData();
     std::cout<<name<<" connected"<<std::endl;
-    sendData("Your Name:"+ name);
     while(getcon())
     {
       //  std::this_thread::sleep_for(std::chrono::milliseconds(64));
