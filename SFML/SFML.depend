@@ -897,7 +897,7 @@
 	<unistd.h>
 	<fstream>
 
-1573468465 source:c:\users\e550\desktop\fight.io\sfml\client.cpp
+1573481548 source:c:\users\e550\desktop\fight.io\sfml\client.cpp
 	"Client.hpp"
 
 1572873356 c:\users\e550\desktop\fight.io\sfml\client.hpp
@@ -915,7 +915,7 @@
 	<iostream>
 	<sstream>
 
-1573476302 c:\users\e550\desktop\fight.io\sfml\weapon.hpp
+1573572058 c:\users\e550\desktop\fight.io\sfml\weapon.hpp
 	<SFML/Graphics.hpp>
 
 1573142210 source:c:\users\e550\desktop\fight.io\sfml\connectscreen.cpp
@@ -935,7 +935,7 @@
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 
-1573481046 source:c:\users\e550\desktop\fight.io\sfml\drawable_player.cpp
+1573572057 source:c:\users\e550\desktop\fight.io\sfml\drawable_player.cpp
 	"Drawable_Player.hpp"
 
 1573479308 source:c:\users\e550\desktop\fight.io\sfml\gamescreen.cpp
@@ -995,10 +995,10 @@
 1572873358 source:c:\users\e550\desktop\fight.io\sfml\src\simplgui\widget.cpp
 	"simplgui/Widget.h"
 
-1573477657 source:c:\users\e550\desktop\fight.io\sfml\weapon.cpp
+1573572058 source:c:\users\e550\desktop\fight.io\sfml\weapon.cpp
 	"Weapon.hpp"
 
-1573474564 source:c:\users\e550\desktop\fight.io\sfml\window.cpp
+1573575465 source:c:\users\e550\desktop\fight.io\sfml\window.cpp
 	"Window.hpp"
 	<thread>
 	<chrono>
