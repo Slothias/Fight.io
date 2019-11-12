@@ -807,7 +807,7 @@
 	<iostream>
 	<sstream>
 
-1573565290 d:\homeproject\c++\repo\fight.io\sfml\weapon.hpp
+1573576943 d:\homeproject\c++\repo\fight.io\sfml\weapon.hpp
 	<SFML/Graphics.hpp>
 
 1573158056 source:d:\homeproject\c++\repo\fight.io\sfml\connectscreen.cpp
@@ -827,7 +827,7 @@
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 
-1573565783 source:d:\homeproject\c++\repo\fight.io\sfml\drawable_player.cpp
+1573576897 source:d:\homeproject\c++\repo\fight.io\sfml\drawable_player.cpp
 	"Drawable_Player.hpp"
 
 1573564820 source:d:\homeproject\c++\repo\fight.io\sfml\gamescreen.cpp

@@ -6,7 +6,7 @@ class Weapon: public sf::Sprite
     public:
         int type;
         Weapon();
-        Weapon(int type);
+        Weapon(int tpe);
         virtual ~Weapon();
         sf::Texture skin;
         void setPower(float p);
