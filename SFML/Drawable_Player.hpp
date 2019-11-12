@@ -24,7 +24,7 @@ public:
     void setMaxHp(int _maxHp);
     void setCurrentHp(int _currentHp);
     void setScore(int _score);
-    void setWeapon(Weapon _weapon);
+    void setWeapon(Weapon* _weapon);
 
     //getters
     float getX() ;
@@ -34,7 +34,7 @@ public:
     int getMaxHp();
     int getCurrentHp() ;
     int getScore() ;
-    Weapon getWeapon() ;
+    Weapon* getWeapon() ;
     std::string getMSG();
     std::string toString() ;
     void update(std::string data);
@@ -42,7 +42,7 @@ public:
 private:
     sf::Texture skin;
     sf::Sprite me;
-    Weapon myWeapon;
+    Weapon* myWeapon;
     float playerX;
     float playerY;
     float playerRotation;

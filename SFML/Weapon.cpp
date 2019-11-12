@@ -2,9 +2,28 @@
 
 Weapon::Weapon():sf::Sprite()
 {
-    skin.loadFromFile("Spearr.png");
+}
+
+Weapon::Weapon(int type):sf::Sprite()
+{
+    switch(type)
+    {
+        case 0: skin.loadFromFile("w0.png");
+            break;
+        case 1: skin.loadFromFile("w1.png");
+            break;
+        case 2: skin.loadFromFile("w2.png");
+            break;
+        case 3: skin.loadFromFile("w3.png");
+            break;
+        case 4: skin.loadFromFile("w4.png");
+            break;
+        case 5: skin.loadFromFile("w5.png");
+            break;
+    }
+    skin.setSmooth(true);
     setTexture(skin);
-    setScale(0.5f,0.5f);
+    setScale(200.0f,200.0f);
 }
 
 void Weapon::setPower(float p)

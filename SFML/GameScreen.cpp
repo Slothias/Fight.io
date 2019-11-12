@@ -15,6 +15,7 @@ GameScreen::GameScreen(sf::RenderWindow *App, const char* host)
     std::thread t(&Client::runclient,&(*c));
     t.detach();
     GetDesktopResolution();
+    tempWeaponCounter =0;
 }
 
 void GameScreen::GetDesktopResolution()
@@ -35,6 +36,7 @@ void GameScreen::draw()
         app->setSize(sf::Vector2<unsigned int>(horizontal,vertical));
         app->setPosition(sf::Vector2<int>(0,0));
         app->create(sf::VideoMode(horizontal,vertical),"mari",sf::Style::Fullscreen);
+        v.setSize(horizontal,vertical);
         }
     }
     app->clear(sf::Color::White);
@@ -85,6 +87,12 @@ else
                 }
                 if((event.key.code == sf::Keyboard::D)){
                     pright = true;
+                }
+                if(event.key.code == sf::Keyboard::Q){
+                    tempWeaponCounter ++;
+                    if(tempWeaponCounter > 5)
+                        tempWeaponCounter = 0;
+                    me->setWeapon(new Weapon(tempWeaponCounter));
                 }
 }
             if((event.type == sf::Event::KeyReleased)){

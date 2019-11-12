@@ -53,7 +53,7 @@ void Window::loop()
 
     setMouseCursorVisible(true);
     while(isOpen())//game screen
-    {
+    {   //auto t1 = std::chrono::high_resolution_clock::now();
 
       /*  if(screens[state]->getMusic().getStatus()!=sf::SoundSource::Status::Playing)
         {
@@ -75,7 +75,10 @@ void Window::loop()
         });
         t.detach();*/
         display();
-      //std::this_thread::sleep_for(std::chrono::nanoseconds(120));/////////////////////////////////////////// baj van vele
+        //auto t2 = std::chrono::high_resolution_clock::now();
+      //std::this_thread::sleep_for(std::chrono::nanoseconds(12));/////////////////////////////////////////// baj van vele
+        //auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
+        //std::cout << duration << std::endl;
     }
 }
 void Window::setState(State s)

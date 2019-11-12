@@ -4,9 +4,11 @@ Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf:
 {
     pName=name;
     skin.loadFromFile("Player.png");
+    skin.setSmooth(true);
     me.setTexture(skin);
-    myWeapon.setOrigin(-((int)skin.getSize().x/2), (myWeapon.skin.getSize().y/2)+50);
-    setScale(0.5f,0.5f);
+    setWeapon(new Weapon(0));
+
+    //setScale(0.5f,0.5f);
     setOrigin(skin.getSize().x/2, skin.getSize().y/2);
     setPosition(x,y);
     setRotation(a);
@@ -14,27 +16,27 @@ Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf:
 
 void Drawable_Player::draw(sf::RenderTarget& target, sf::RenderStates states)
 {
+    target.draw(*myWeapon);
     target.draw(me);
-    target.draw(myWeapon);
 
 }
 void Drawable_Player::setPosition(float x, float y)
 {
     playerX=x;
     playerY=y;
-    myWeapon.setPosition(x,y);
+    myWeapon->setPosition(x,y);
     me.setPosition(x,y);
 }
 void Drawable_Player::setRotation(float x)
 {
     playerRotation=x;
     me.setRotation(x);
-    myWeapon.setRotation(x);
+    myWeapon->setRotation(x);
 }
 void Drawable_Player::setScale(float x, float y)
 {
     me.setScale(x,y);
-    myWeapon.setScale(x,y);
+    myWeapon->setScale(x,y);
 }
 void Drawable_Player::setOrigin(float x, float y)
 {
@@ -53,9 +55,13 @@ void Drawable_Player::setScore(int _score)
 {
     score=_score;
 }
-void Drawable_Player::setWeapon(Weapon _weapon)
+void Drawable_Player::setWeapon(Weapon* _weapon)
 {
     myWeapon=_weapon;
+    myWeapon->setScale(1.0f,1.0f);
+    myWeapon->setPosition(getPosition());
+    myWeapon->setOrigin(-(((int)skin.getSize().x/2)-((int)myWeapon->getTexture()->getSize().x)), ((int)myWeapon->getTexture()->getSize().y));
+
 }
 //---------GETTERS---------------
 
@@ -88,7 +94,7 @@ int Drawable_Player::getScore()
 {
     return score;
 }
-Weapon Drawable_Player::getWeapon()
+Weapon* Drawable_Player::getWeapon()
 {
     return myWeapon;
 }

@@ -89,6 +89,7 @@ void Client::runclient()
     if(getconnected())
     {
         std::cout<<"CONNECTED"<<std::endl;
+        sendData(thisPlayer->getName());
         std::thread get([this]()
                         {
                             while(getconnected())
