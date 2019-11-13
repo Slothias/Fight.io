@@ -3,11 +3,12 @@
 Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf::Sprite()
 {
     pName=name;
+    maxHp=currentHp=100;
     skin.loadFromFile("Player.png");
     skin.setSmooth(true);
     me.setTexture(skin);
     setWeapon(new Weapon(0));
-    myHpBar = new HpBar(100,x,y);
+    myHpBar = new HpBar(maxHp,x,y);
 
     //setScale(0.5f,0.5f);
     setOrigin(skin.getSize().x/2, skin.getSize().y/2);
@@ -54,6 +55,7 @@ void Drawable_Player::setMaxHp(int _maxHp)
 void Drawable_Player::setCurrentHp(int _currentHp)
 {
     currentHp=_currentHp;
+    myHpBar->setCurrentHp(currentHp);
 }
 void Drawable_Player::setScore(int _score)
 {

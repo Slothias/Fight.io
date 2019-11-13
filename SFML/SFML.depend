@@ -828,10 +828,10 @@
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 
-1573660240 source:d:\homeproject\c++\repo\fight.io\sfml\drawable_player.cpp
+1573674475 source:d:\homeproject\c++\repo\fight.io\sfml\drawable_player.cpp
 	"Drawable_Player.hpp"
 
-1573653838 source:d:\homeproject\c++\repo\fight.io\sfml\gamescreen.cpp
+1573674392 source:d:\homeproject\c++\repo\fight.io\sfml\gamescreen.cpp
 	"GameScreen.hpp"
 
 1573557427 d:\homeproject\c++\repo\fight.io\sfml\gamescreen.hpp
@@ -841,7 +841,7 @@
 	"Client.hpp"
 	<fstream>
 
-1573264903 source:d:\homeproject\c++\repo\fight.io\sfml\main.cpp
+1573674272 source:d:\homeproject\c++\repo\fight.io\sfml\main.cpp
 	"Window.hpp"
 
 1573160191 d:\homeproject\c++\repo\fight.io\sfml\window.hpp
@@ -891,7 +891,7 @@
 1573653839 source:d:\homeproject\c++\repo\fight.io\sfml\weapon.cpp
 	"Weapon.hpp"
 
-1573655086 source:d:\homeproject\c++\repo\fight.io\sfml\window.cpp
+1573674586 source:d:\homeproject\c++\repo\fight.io\sfml\window.cpp
 	"Window.hpp"
 	<thread>
 	<chrono>
@@ -1016,7 +1016,7 @@
 1573660240 d:\homeproject\c++\repo\fight.io\sfml\hpbar.hpp
 	<SFML/Graphics.hpp>
 
-1573660240 source:d:\homeproject\c++\repo\fight.io\sfml\hpbar.cpp
+1573674820 source:d:\homeproject\c++\repo\fight.io\sfml\hpbar.cpp
 	"HpBar.hpp"
 	<sstream>
 

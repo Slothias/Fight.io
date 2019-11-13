@@ -94,6 +94,10 @@ else
                         tempWeaponCounter = 0;
                     me->setWeapon(new Weapon(tempWeaponCounter));
                 }
+                if(event.key.code==sf::Keyboard::E)
+                {
+                    me->setCurrentHp(me->getCurrentHp()-1);
+                }
 }
             if((event.type == sf::Event::KeyReleased)){
                 if((event.key.code == sf::Keyboard::W)){
@@ -130,6 +134,7 @@ else
             else
                 me->setRotation(((atan(((app->getSize().y/2)-mousePosY)/((app->getSize().x/2)-mousePosX)))/PI *180) +270);
         }
+
 
         me->setPosition(me->getX()+playerX, me->getY()+playerY);
 

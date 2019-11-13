@@ -17,7 +17,7 @@ Window::Window(sf::VideoMode vm, std::string title):RenderWindow(vm,title)
 void Window::loop()
 {
     setMouseCursorVisible(false);
-    while(state==State::main_menu)//connect screen
+    while(state==State::main_menu && isOpen())//connect screen
     {
         menu->draw();
         display();
@@ -33,7 +33,7 @@ void Window::loop()
     }
 
     setMouseCursorVisible(true);
-    while(state==State::connecting)//connect screen
+    while(state==State::connecting && isOpen())//connect screen
     {
 
         clear(sf::Color::Black);
@@ -52,7 +52,7 @@ void Window::loop()
     }
 
     setMouseCursorVisible(true);
-    while(isOpen())//game screen
+    while(state==State::play && isOpen())//game screen
     {   //auto t1 = std::chrono::high_resolution_clock::now();
 
       /*  if(screens[state]->getMusic().getStatus()!=sf::SoundSource::Status::Playing)
