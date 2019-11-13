@@ -907,15 +907,16 @@
 	<mutex>
 	"Drawable_Player.hpp"
 
-1573477228 c:\users\e550\desktop\fight.io\sfml\drawable_player.hpp
+1573656433 c:\users\e550\desktop\fight.io\sfml\drawable_player.hpp
 	<SFML/Graphics.hpp>
 	"Weapon.hpp"
+	"HpBar.hpp"
 	<mutex>
 	<map>
 	<iostream>
 	<sstream>
 
-1573572058 c:\users\e550\desktop\fight.io\sfml\weapon.hpp
+1573655770 c:\users\e550\desktop\fight.io\sfml\weapon.hpp
 	<SFML/Graphics.hpp>
 
 1573142210 source:c:\users\e550\desktop\fight.io\sfml\connectscreen.cpp
@@ -935,10 +936,10 @@
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 
-1573572057 source:c:\users\e550\desktop\fight.io\sfml\drawable_player.cpp
+1573657545 source:c:\users\e550\desktop\fight.io\sfml\drawable_player.cpp
 	"Drawable_Player.hpp"
 
-1573479308 source:c:\users\e550\desktop\fight.io\sfml\gamescreen.cpp
+1573575957 source:c:\users\e550\desktop\fight.io\sfml\gamescreen.cpp
 	"GameScreen.hpp"
 
 1573479308 c:\users\e550\desktop\fight.io\sfml\gamescreen.hpp
@@ -956,7 +957,7 @@
 	"GameScreen.hpp"
 	"ConnectScreen.hpp"
 
-1572873356 c:\users\e550\desktop\fight.io\sfml\menu.hpp
+1573658724 c:\users\e550\desktop\fight.io\sfml\menu.hpp
 	<iostream>
 	"Screen.hpp"
 
@@ -1004,4 +1005,10 @@
 	<chrono>
 	<unistd.h>
 	<fstream>
+
+1573658789 c:\users\e550\desktop\fight.io\sfml\hpbar.hpp
+	<SFML/Graphics.hpp>
+
+1573657369 source:c:\users\e550\desktop\fight.io\sfml\hpbar.cpp
+	"HpBar.hpp"
 

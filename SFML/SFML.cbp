@@ -61,6 +61,8 @@
 		<Unit filename="Drawable_Player.hpp" />
 		<Unit filename="GameScreen.cpp" />
 		<Unit filename="GameScreen.hpp" />
+		<Unit filename="HpBar.cpp" />
+		<Unit filename="HpBar.hpp" />
 		<Unit filename="Menu.cpp" />
 		<Unit filename="Menu.hpp" />
 		<Unit filename="Screen.hpp" />

@@ -9,11 +9,16 @@ class HpBar:public sf::Sprite
         void setMaxHp(int m);
         void setCurrentHp(int c);
         void draw(sf::RenderTarget& target, sf::RenderStates rs);
+        void setPosition(float x, float y);
+        void setColor(sf::Color color);
+        void setMyLevel(int l);
         virtual ~HpBar();
     private:
         sf::Texture skin;
         sf::Sprite border;
-        sf::RectangleShape hp;
+        sf::RectangleShape hpBar;
+        sf::Text* level;
+        sf::Font font;
         int maxHp;
         int currentHp;
 };

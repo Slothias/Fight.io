@@ -2,6 +2,7 @@
 #define DRAWABLE_PLAYER_H
 #include<SFML/Graphics.hpp>
 #include "Weapon.hpp"
+#include "HpBar.hpp"
 #include <mutex>
 #include <map>
 #include<iostream>
@@ -43,6 +44,7 @@ private:
     sf::Texture skin;
     sf::Sprite me;
     Weapon* myWeapon;
+    HpBar* myHpBar;
     float playerX;
     float playerY;
     float playerRotation;

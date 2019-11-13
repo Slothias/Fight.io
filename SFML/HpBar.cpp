@@ -1,26 +1,32 @@
 #include "HpBar.hpp"
+#include <sstream>
 
 HpBar::HpBar(int m,float sx, float sy):sf::Sprite()
 {
     currentHp=maxHp=m;
-    skin.loadFromFile("hpBarBackground.png")
+    skin.loadFromFile("hpBarBackground.png");
     border.setTexture(skin);
-    hp.setSize(sf::Vector2f(sx,sy));
-    hp.setFillColor(sf::Color::Green);
+    hpBar.setSize(sf::Vector2f(100,23));
+    hpBar.setFillColor(sf::Color::Green);
+    font.loadFromFile("ARCADECLASSIC.ttf");
+    level = new sf::Text("1",font,50);
+    level->setFillColor(sf::Color::Black);
 }
 void HpBar::setPosition(float x, float y)
 {
-    hp.setPosition(x,y);
+    border.setPosition(x,y);
+    hpBar.setPosition(x+3,y+14);
+    level->setPosition(x+skin.getSize().x-38,y-10);
 }
-void HpBar::setRotation(float angle)
+/*void HpBar::setRotation(float angle)
 {
     border.setRotation(angle);
     hp.setRotation(angle);
-}
+}*/
 
 void HpBar::setColor(sf::Color color)
 {
-    hp.setFillColor(color);
+    hpBar.setFillColor(color);
 }
 void HpBar::setMaxHp(int m)
 {
@@ -29,8 +35,20 @@ void HpBar::setMaxHp(int m)
 void HpBar::draw(sf::RenderTarget& target, sf::RenderStates rs)
 {
     target.draw(border);
-    target.draw(hp);
+    target.draw(hpBar);
+    target.draw(*level);
 }
+
+void HpBar::setMyLevel(int l)
+{
+    std::stringstream ss;
+    ss<<l;
+    std::string s;
+    ss>>s;
+    const std::string lev(s);
+    level->setString(lev);
+}
+
 void HpBar::setCurrentHp(int c)
 {
     currentHp =c;
