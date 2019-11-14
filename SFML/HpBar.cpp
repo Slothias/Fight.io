@@ -5,8 +5,9 @@ HpBar::HpBar(int m,float sx, float sy):sf::Sprite()
 {
     currentHp=maxHp=m;
     skin.loadFromFile("hpBarBackground.png");
+    skin.setSmooth(true);
     border.setTexture(skin);
-    hpBar.setSize(sf::Vector2f(101,23));
+    hpBar.setSize(sf::Vector2f(101,24));
     hpBar.setFillColor(sf::Color(0,0,255,125));
     font.loadFromFile("ARCADECLASSIC.ttf");
     level = new sf::Text("1",font,50);
@@ -15,7 +16,7 @@ HpBar::HpBar(int m,float sx, float sy):sf::Sprite()
 void HpBar::setPosition(float x, float y)
 {
     border.setPosition(x,y);
-    hpBar.setPosition(x+3,y+14);
+    hpBar.setPosition(x+3,y+13);
     level->setPosition(x+skin.getSize().x-38,y-10);
 }
 /*void HpBar::setRotation(float angle)

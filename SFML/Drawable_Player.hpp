@@ -14,9 +14,9 @@ public:
     Drawable_Player(std::string name,float x, float y, float a);
     virtual void setPosition(float x, float y);
     virtual void setRotation(float x);
-    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) ;
-    sf::Texture getSkin() ;
-    sf::Vector2<float> getPosition() ;
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states);
+    sf::Texture getSkin();
+    sf::Vector2<float> getPosition();
     virtual void setScale(float x, float y);
     virtual void setOrigin(float x, float y);
 
@@ -26,6 +26,7 @@ public:
     void setCurrentHp(int _currentHp);
     void setScore(int _score);
     void setWeapon(Weapon* _weapon);
+    void testPoke();
 
     //getters
     float getX() ;

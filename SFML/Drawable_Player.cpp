@@ -38,6 +38,20 @@ void Drawable_Player::setRotation(float x)
     me.setRotation(x);
     myWeapon->setRotation(x);
 }
+void Drawable_Player::testPoke()  //próba a szurkálásra
+{
+    /*
+    for(int i=0; i<=10; i++)
+    {
+        myWeapon->setRotation(me.getRotation+((myWeapon->useRotation/10)*i));
+        //draw()
+    }
+    for(int i=10; i>=0; i++)
+    {
+        myWeapon->setRotation(me.getRotation+((myWeapon->useRotation/10)*i));
+        //draw()
+    }*/
+}
 void Drawable_Player::setScale(float x, float y)
 {
     me.setScale(x,y);
