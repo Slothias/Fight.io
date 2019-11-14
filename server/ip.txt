@@ -2,25 +2,33 @@
 Windows IP Configuration
 
 
-Wireless LAN adapter Local Area Connection* 1:
+Ethernet adapter Ethernet:
 
    Media State . . . . . . . . . . . : Media disconnected
    Connection-specific DNS Suffix  . : 
 
-Wireless LAN adapter Local Area Connection* 10:
+Wireless LAN adapter Helyi kapcsolat* 1:
+
+   Media State . . . . . . . . . . . : Media disconnected
+   Connection-specific DNS Suffix  . : 
+
+Wireless LAN adapter Helyi kapcsolat* 2:
 
    Media State . . . . . . . . . . . : Media disconnected
    Connection-specific DNS Suffix  . : 
 
 Wireless LAN adapter Wi-Fi:
 
-   Connection-specific DNS Suffix  . : 
-   Link-local IPv6 Address . . . . . : fe80::4c36:77f3:dfac:9b37%14
-   IPv4 Address. . . . . . . . . . . : 192.168.1.66
-   Subnet Mask . . . . . . . . . . . : 255.255.255.0
-   Default Gateway . . . . . . . . . : 192.168.1.1
+   Connection-specific DNS Suffix  . : itk.ppke.hu
+   IPv6 Address. . . . . . . . . . . : 2001:738:5404:192:1964:b2f0:4c5d:3fb1
+   Temporary IPv6 Address. . . . . . : 2001:738:5404:192:fd0b:e003:8396:e29b
+   Link-local IPv6 Address . . . . . : fe80::1964:b2f0:4c5d:3fb1%15
+   IPv4 Address. . . . . . . . . . . : 192.168.249.189
+   Subnet Mask . . . . . . . . . . . : 255.255.240.0
+   Default Gateway . . . . . . . . . : fe80::da9d:67ff:fe2c:78c0%15
+                                       192.168.254.254
 
-Ethernet adapter Bluetooth Network Connection:
+Ethernet adapter Bluetooth h l¢zati kapcsolat:
 
    Media State . . . . . . . . . . . : Media disconnected
    Connection-specific DNS Suffix  . : 

@@ -6,11 +6,11 @@ HpBar::HpBar(int m,float sx, float sy):sf::Sprite()
     currentHp=maxHp=m;
     skin.loadFromFile("hpBarBackground.png");
     border.setTexture(skin);
-    hpBar.setSize(sf::Vector2f(100,23));
-    hpBar.setFillColor(sf::Color::Green);
+    hpBar.setSize(sf::Vector2f(101,23));
+    hpBar.setFillColor(sf::Color(0,0,255,125));
     font.loadFromFile("ARCADECLASSIC.ttf");
     level = new sf::Text("1",font,50);
-    level->setFillColor(sf::Color::Black);
+    level->setFillColor(sf::Color(0,0,0,150));
 }
 void HpBar::setPosition(float x, float y)
 {
