@@ -3,8 +3,8 @@
 int main(void)
 {
     {
-    ServerGui s;
-    s.loop();
+    ServerGui* s = new ServerGui();
+    s->loop();
     }
     return 0;
 }

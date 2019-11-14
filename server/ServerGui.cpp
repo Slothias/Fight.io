@@ -10,7 +10,7 @@ ServerGui::ServerGui():sf::RenderWindow(sf::VideoMode(800,600),"Server")
     resultText.setPosition(getSize().x/2-resultText.getGlobalBounds().width/2,getSize().y/2-50);
     resultText.setColor(sf::Color::Red);
     errorText.setFont(font);
-
+    setFramerateLimit(30);
     ipText.setFont(font);
     ipText.setColor(sf::Color::Blue);
 
@@ -39,7 +39,7 @@ ServerGui::ServerGui():sf::RenderWindow(sf::VideoMode(800,600),"Server")
             is_running=true;
             std::thread t([&](){
                           server->runServer();
-                            std::cout<<"futok"<<std::endl;
+                           // std::cout<<"futok"<<std::endl;
                           });
             t.detach();
         }
@@ -99,13 +99,17 @@ void ServerGui::loop()
         clear(sf::Color::White);
         sf::Event event;
         auto dt = clock.restart();
-        pollEvent(event);
-       if(event.type == sf::Event::Closed)
-            close();
-        if(!is_running)
+        while(pollEvent(event))
+        {
+            button->update(dt);
+            if(event.type == sf::Event::Closed)
+                close();
+            button->processEvent(simplgui::Event(event, *this));
+        }
+
+
+          if(!is_running)
             draw(errorText);
-        button->update(dt);
-        button->processEvent(simplgui::Event(event, *this));
         draw(resultText);
         draw(*button);
         draw(ipText);
@@ -116,5 +120,5 @@ void ServerGui::loop()
 ServerGui::~ServerGui()
 {
 delete server;
-std::cout<<"GUI SHUTDOWN"<<std::endl;
+//std::cout<<"GUI SHUTDOWN"<<std::endl;
 }
