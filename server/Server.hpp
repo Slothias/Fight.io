@@ -10,6 +10,7 @@
 #include<utility>
 #include<fstream>
 #include "ServerException.h"
+#include "GameEngine.hpp"
 class Server
 {
 private:
@@ -37,6 +38,7 @@ private:
         void pushData();
         ~ServerAssistant();
     };
+    GameEngine* myEngine;
     std::queue<std::pair<std::string,std::string>> current_msg;
     SOCKADDR_IN clientAddr;
     SOCKET server;

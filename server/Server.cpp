@@ -57,6 +57,7 @@ void Server::tryToConnect()
 {
     getIP();
     is_running = startup();
+    myEngine = GameEngine::GetInstance();
 }
 std::string Server::showStatus()
 {
@@ -147,12 +148,8 @@ void Server::sendData(std::string data, std::string except)
 
     my_mutex.lock();
     for(ServerAssistant* s:players)
-            if(s->getName()!=except)
-                {
-                    s->sendData(except+": "+data);
-                   // std::cout<<"send: "<<s->getName()<<" except: "<<except<< "MSG: "<<data<<std::endl;
-                }
-
+        s->sendData(except+": "+data);
+        // std::cout<<"send: "<<s->getName()<<" except: "<<except<< "MSG: "<<data<<std::endl;
     my_mutex.unlock();
 
 }
@@ -179,7 +176,7 @@ void Server::closeServer()
 }
 Server::~Server()
 {
-
+    delete myEngine;
    //std::cout<<"Server cleared"<<std::endl;
 
 }
@@ -256,7 +253,12 @@ void Server::ServerAssistant::closeConnection()
 }
 void Server::ServerAssistant::run()
 {
+    double ms = me->myEngine->GetMapSize();
+    std::stringstream ss;
+    ss << ms;
+    sendData(ss.str());
     name = getData();
+    me->sendData(me->myEngine->CreatePlayer(name),name);
    // std::cout<<name<<" connected"<<std::endl;
     while(getcon())
     {
@@ -265,9 +267,11 @@ void Server::ServerAssistant::run()
         if(msg.length()>0)
         {
 
-            me->sendData(msg,name);
-            if(msg.find("EXIT")!= std::string::npos)
+            if(msg.find("EXIT")!= std::string::npos) {
                 closeConnection();
+                continue;
+            }
+            me->sendData(me->myEngine->CheckRequest(name, msg),name);
         }
     }
     delete this;

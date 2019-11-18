@@ -132,9 +132,9 @@ my_mutex.unlock();
 std::string Drawable_Player::toString()
 {
      std::stringstream s;
-    s << "X: " << getX() << " Y: " << getY() << " R: " << getRot()
-        << " PName: " << getName() << " maxHP: " << getMaxHp() << " currentHP: " << getCurrentHp()
-        << " Score: " << getScore();
+    s << getX() << "|" << getY() << "|" << getRot()
+        << "|" << getMaxHp() << "|" << getCurrentHp()
+        << "|" << getScore();
     return s.str();
 }
 void Drawable_Player::update(std::string data)
@@ -173,6 +173,12 @@ void Drawable_Player::update(std::string data)
         float cury = std::stof(line);
         std::getline(ss,line,'|');
         float getrot = std::stof(line);
+        std::getline(ss,line,'|');
+        int maxhp = std::stoi(line);
+        std::getline(ss,line,'|');
+        int curhp = std::stoi(line);
+        std::getline(ss,line,'|');
+        int getscore = std::stoi(line);
         my_mutex.lock();
         if(players.find(currentName)== players.end())
         {
@@ -182,6 +188,9 @@ void Drawable_Player::update(std::string data)
         {
         players[currentName]->setPosition(curx,cury);
         players[currentName]->setRotation(getrot);
+        players[currentName]->setMaxHp(maxhp);
+        players[currentName]->setCurrentHp(curhp);
+        players[currentName]->setScore(getscore);
         }
 
     }
@@ -205,5 +214,7 @@ sf::Texture Drawable_Player::getSkin()
 }
 Drawable_Player::~Drawable_Player()
 {
+    delete myWeapon;
+    delete myHpBar;
     //dtor
 }

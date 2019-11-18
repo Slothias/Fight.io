@@ -40,7 +40,7 @@ public:
     std::string getMSG();
     std::string toString() ;
     void update(std::string data);
-    virtual ~Drawable_Player();
+    ~Drawable_Player();
 private:
     sf::Texture skin;
     sf::Sprite me;
