@@ -3,12 +3,12 @@
 #include<SFML/Graphics.hpp>
 #include "Weapon.hpp"
 #include "HpBar.hpp"
-#include <mutex>
 #include <map>
 #include<iostream>
 #include<sstream>
+#include "player.hpp"
 
-class Drawable_Player: public sf::Sprite
+class Drawable_Player: public sf::Sprite, public player
 {
 public:
     Drawable_Player(std::string name,float x, float y, float a);
@@ -22,39 +22,20 @@ public:
 
     //TODO
     std::map<std::string,Drawable_Player*> getPlayers();
-    void setMaxHp(int _maxHp);
+    void setWeapon(int _weapon);
     void setCurrentHp(int _currentHp);
-    void setScore(int _score);
-    void setWeapon(Weapon* _weapon);
     void testPoke();
 
     //getters
-    float getX() ;
-    float getY() ;
-    float getRot() ;
-    std::string getName() ;
-    int getMaxHp();
-    int getCurrentHp() ;
-    int getScore() ;
-    Weapon* getWeapon() ;
-    std::string getMSG();
-    std::string toString() ;
     void update(std::string data);
+    Weapon* getWeapon();
     ~Drawable_Player();
 private:
     sf::Texture skin;
     sf::Sprite me;
     Weapon* myWeapon;
     HpBar* myHpBar;
-    float playerX;
-    float playerY;
-    float playerRotation;
-    std::string pName;
-    int maxHp;
-    int currentHp;
-    int score;
     std::map<std::string,Drawable_Player*> players;
-    std::mutex my_mutex;
 };
 
 #endif // DRAWABLE_PLAYER_H

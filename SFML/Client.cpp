@@ -1,6 +1,6 @@
 #include "Client.hpp"
 
-Client::Client(const char* host,u_short port, Drawable_Player* _thisPlayer)
+Client::Client(const char* host,u_short port, player* _thisPlayer)
 {
     is_running=startup(host,port);
     thisPlayer = _thisPlayer;
@@ -97,7 +97,7 @@ void Client::runclient()
                             std::string g = getData();
                             if(g.find("Server")!=std::string::npos && g.find("EXIT")!=std::string::npos)
                                 setconnected(false);
-                            std::thread t (&Drawable_Player::update,&(*thisPlayer),g);
+                            std::thread t (&player::update,&(*thisPlayer),g);
                             t.detach();
                             }
                         });
@@ -110,7 +110,6 @@ void Client::runclient()
                    sendData(this_status);
                    oldStatus=this_status;
                }
-               std::this_thread::sleep_for(std::chrono::milliseconds(12));
         }
         get.join();
     }

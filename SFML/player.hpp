@@ -1,28 +1,24 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-
 #include <string>
-#include<SFML/Graphics.hpp>
-#include "Drawable_Player.hpp"
-
+#include<mutex>
 class player
 {
-private:
-    float playerX;
+protected:
+     float playerX;
     float playerY;
     float playerRotation;
     std::string pName;
     int maxHp;
     int currentHp;
     int score;
-    std::map<std::string,Drawable_Player*> players;
+    int weapon;
 public:
     std::mutex my_mutex;
-    std::map<std::string,Drawable_Player*> getPlayers();
-    Drawable_Player* myPlayer;
     player();
+    ~player();
     player(std::string _pName);
-    player(std::string _pName, float _playerX, float _playerY, float _playerRotation, sf::Texture& playerTexture);
+    player(std::string _pName, float _playerX, float _playerY, float _playerRotation);
     player(float _playerX, float _playerY, float _playerRotation, std::string _pName, int _maxHp, int _currentHp, int _score, bool _weapon);
 
     //setters
@@ -32,7 +28,8 @@ public:
     void setMaxHp(int _maxHp);
     void setCurrentHp(int _currentHp);
     void setScore(int _score);
-    void setWeapon(Weapon* _weapon);
+    void setWeapon(int _weapon);
+    virtual void update(std::string data) = 0;
 
     //getters
     float getX();
@@ -42,11 +39,9 @@ public:
     int getMaxHp();
     int getCurrentHp();
     int getScore();
-    Weapon* getWeapon();
+    int getWeapon();
     std::string getMSG();
     std::string toString();
-    sf::Sprite& getSprite();
-    void update(std::string data);
 };
 
 #endif // PLAYER_H

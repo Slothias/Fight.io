@@ -1,20 +1,18 @@
 #include "Drawable_Player.hpp"
 
-Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf::Sprite()
+Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf::Sprite(),player(name,x,y,a)
 {
-    pName=name;
-    maxHp=currentHp=100;
     skin.loadFromFile("Player.png");
+    myWeapon = nullptr;
     skin.setSmooth(true);
     me.setTexture(skin);
-    setWeapon(new Weapon(0));
+    setWeapon(weapon);
     myHpBar = new HpBar(maxHp,x,y);
 
     //setScale(0.5f,0.5f);
     setOrigin(skin.getSize().x/2, skin.getSize().y/2);
     setPosition(x,y);
     setRotation(a);
-    players[pName]=this;
 }
 
 void Drawable_Player::draw(sf::RenderTarget& target, sf::RenderStates states)
@@ -26,17 +24,21 @@ void Drawable_Player::draw(sf::RenderTarget& target, sf::RenderStates states)
 }
 void Drawable_Player::setPosition(float x, float y)
 {
+    my_mutex.lock();
     playerX=x;
     playerY=y;
     myWeapon->setPosition(x,y);
     myHpBar->setPosition(x-(skin.getSize().x/2), y-(1.5*skin.getSize().y));
     me.setPosition(x,y);
+    my_mutex.unlock();
 }
 void Drawable_Player::setRotation(float x)
 {
+    my_mutex.lock();
     playerRotation=x;
     me.setRotation(x);
     myWeapon->setRotation(x);
+    my_mutex.unlock();
 }
 void Drawable_Player::testPoke()  //próba a szurkálásra
 {
@@ -54,32 +56,35 @@ void Drawable_Player::testPoke()  //próba a szurkálásra
 }
 void Drawable_Player::setScale(float x, float y)
 {
+    my_mutex.lock();
     me.setScale(x,y);
     myWeapon->setScale(x,y);
+    my_mutex.unlock();
 }
 void Drawable_Player::setOrigin(float x, float y)
 {
+    my_mutex.lock();
     me.setOrigin(x,y);
-}
-
-void Drawable_Player::setMaxHp(int _maxHp)
-{
-    maxHp=_maxHp;
+    my_mutex.unlock();
 }
 void Drawable_Player::setCurrentHp(int _currentHp)
 {
-    currentHp=_currentHp;
-    myHpBar->setCurrentHp(currentHp);
+    my_mutex.lock();
+    if(_currentHp <= maxHp)
+        {
+        currentHp = _currentHp;
+        myHpBar->setCurrentHp(currentHp);
+        }
+    my_mutex.unlock();
 }
-void Drawable_Player::setScore(int _score)
+void Drawable_Player::setWeapon(int _weapon)
 {
-    score=_score;
-}
-void Drawable_Player::setWeapon(Weapon* _weapon)
-{
-    myWeapon=_weapon;
+    weapon = _weapon;
+    if(myWeapon)
+        delete myWeapon;
+    myWeapon = new Weapon(weapon);
     myWeapon->setPosition(getPosition());
-    if(!myWeapon->type || myWeapon->type==1 || myWeapon->type==4)
+    if(weapon==0 || weapon==1 ||weapon==4)
         myWeapon->setOrigin(-(((int)skin.getSize().x/2)-(int)(myWeapon->getTexture()->getSize().x)), ((int)myWeapon->getTexture()->getSize().y+myWeapon->getTexture()->getSize().y/8));
     else
         myWeapon->setOrigin(-(((int)skin.getSize().x/2)-(int)(3*myWeapon->getTexture()->getSize().x/4)), ((int)myWeapon->getTexture()->getSize().y+myWeapon->getTexture()->getSize().y/15));
@@ -87,55 +92,9 @@ void Drawable_Player::setWeapon(Weapon* _weapon)
 
 }
 //---------GETTERS---------------
-
-float Drawable_Player::getX()
-{
-    return playerX;
-}
-float Drawable_Player::getY()
-{
-    return playerY;
-}
-float Drawable_Player::getRot()
-{
-    return playerRotation;
-}
-std::string Drawable_Player::getName()
-{
-    return pName;
-}
-int Drawable_Player::getMaxHp()
-{
-    return maxHp;
-}
-int Drawable_Player::getCurrentHp()
-{
-    return currentHp;
-}
-
-int Drawable_Player::getScore()
-{
-    return score;
-}
 Weapon* Drawable_Player::getWeapon()
 {
     return myWeapon;
-}
-std::string Drawable_Player::getMSG()
-{
- std::stringstream s;
-    my_mutex.lock();
-    s << getX() << "|" << getY() << "|" << getRot();
-my_mutex.unlock();
-    return s.str();
-}
-std::string Drawable_Player::toString()
-{
-     std::stringstream s;
-    s << getX() << "|" << getY() << "|" << getRot()
-        << "|" << getMaxHp() << "|" << getCurrentHp()
-        << "|" << getScore();
-    return s.str();
 }
 void Drawable_Player::update(std::string data)
 {
@@ -162,7 +121,7 @@ void Drawable_Player::update(std::string data)
     else if(data.find("|")!=std::string::npos)
     {
       //  std::cout<<" NEW DATA "<<std::endl;
-      //  std:: <<data<<std::endl;
+        //std::cout <<data<<std::endl;
         std::stringstream ss(data);
         std::string currentName;
         std::getline(ss,currentName,':');
@@ -179,6 +138,9 @@ void Drawable_Player::update(std::string data)
         int curhp = std::stoi(line);
         std::getline(ss,line,'|');
         int getscore = std::stoi(line);
+        std::getline(ss,line,'|');
+        int wp = 1;
+
         my_mutex.lock();
         if(players.find(currentName)== players.end())
         {
@@ -186,11 +148,18 @@ void Drawable_Player::update(std::string data)
         }
         else
         {
-        players[currentName]->setPosition(curx,cury);
-        players[currentName]->setRotation(getrot);
-        players[currentName]->setMaxHp(maxhp);
-        players[currentName]->setCurrentHp(curhp);
-        players[currentName]->setScore(getscore);
+        Drawable_Player* act = players[currentName];
+        if(act->getX()!=curx || act->getY()!=cury)
+            act->setPosition(curx,cury);
+        if(act->getRot()!=getrot)
+            players[currentName]->setRotation(getrot);
+        if(act->getMaxHp()!=maxhp)
+            players[currentName]->setMaxHp(maxhp);
+        if(act->getCurrentHp()!=curhp)
+            players[currentName]->setCurrentHp(curhp);
+        if(act->getScore()!=getscore)
+            players[currentName]->setScore(getscore);
+        players[currentName]->setWeapon(wp);
         }
 
     }

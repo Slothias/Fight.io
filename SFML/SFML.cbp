@@ -71,6 +71,8 @@
 		<Unit filename="Window.cpp" />
 		<Unit filename="Window.hpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="player.cpp" />
+		<Unit filename="player.hpp" />
 		<Unit filename="src/simplgui/Button.cpp" />
 		<Unit filename="src/simplgui/Connector.cpp" />
 		<Unit filename="src/simplgui/Event.cpp" />

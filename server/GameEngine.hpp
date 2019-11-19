@@ -1,14 +1,15 @@
 #ifndef GAMEENGINE_HPP_INCLUDED
 #define GAMEENGINE_HPP_INCLUDED
 
-#include "Drawable_Player.hpp"
+#include "player.hpp"
 #include <map>
 #include <mutex>
-
+#include<iostream>
+#include<sstream>
 
 class GameEngine {
 private:
-    std::map<std::string,Drawable_Player*> players;
+    std::map<std::string,player*> players;
     double mapSize;
 protected:
     GameEngine();

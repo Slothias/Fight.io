@@ -11,7 +11,7 @@ player::player()
     currentHp = maxHp;
     score = 0;
     weapon = false;
-}*/
+}
 player::player(std::string _pName)
 {
     playerX=100;
@@ -21,10 +21,11 @@ player::player(std::string _pName)
     maxHp =  100;
     currentHp = maxHp;
     score = 0;
+    weapon = 0;
 
 }
-/*
-player::player(std::string _pName, float _playerX, float _playerY, float _playerRotation, sf::Texture& playerTexture)
+*/
+player::player(std::string _pName, float _playerX, float _playerY, float _playerRotation)
 {
     playerX = _playerX;
     playerY = _playerY;
@@ -33,11 +34,7 @@ player::player(std::string _pName, float _playerX, float _playerY, float _player
     maxHp =  100;
     currentHp = maxHp;
     score = 0;
-    weapon = false;
-    myPlayer->get().setScale(sf::Vector2f(0.5f, 0.5f));
-    myPlayer->get().setOrigin(playerTexture.getSize().x/2, playerTexture.getSize().y/2);
-    myPlayer->get().setPosition(_playerX,_playerY); // todo
-    myPlayer->get().setTexture(playerTexture);
+    weapon = 0;
 }
 /*player::player(float _playerX, float _playerY, float _playerRotation,
                 std::string _pName, int _maxHp, int _currentHp, int _score, bool _weapon)
@@ -48,136 +45,134 @@ player::player(std::string _pName, float _playerX, float _playerY, float _player
 
 void player::setPosition(float _playerX, float _playerY)
 {
+    my_mutex.lock();
     playerX = _playerX;
     playerY = _playerY;
-    myPlayer->setPosition(playerX,playerY);
+    my_mutex.unlock();
 }
 void player::setRotation(float _playerRotation)
 {
+    my_mutex.lock();
     playerRotation = _playerRotation;
-    myPlayer->setRotation(playerRotation);
+    my_mutex.unlock();
 }
 void player::setPName(std::string _pName)
 {
+    my_mutex.lock();
     pName = _pName;
+    my_mutex.unlock();
 }
 void player::setMaxHp(int _maxHp)
 {
-    maxHp = _maxHp;
+my_mutex.lock();
+ maxHp = _maxHp;
+ my_mutex.unlock();
 }
 void player::setCurrentHp(int _currentHp)
 {
+    my_mutex.lock();
     if(_currentHp <= maxHp)
         currentHp = _currentHp;
+    my_mutex.unlock();
 }
 void player::setScore(int _score)
 {
+    my_mutex.lock();
     score = _score;
+    my_mutex.unlock();
 }
 //false is the default value (no weapon)
-/*
-void player::setWeapon(Weapon* _weapon)
+
+void player::setWeapon(int _weapon)
 {
-    w= _weapon;
+    my_mutex.lock();
+    weapon= _weapon;
+    my_mutex.unlock();
 }
-*/
+
 //getters************************************************
 
 float player::getX()
 {
-    return playerX;
+    float result = -1;
+    my_mutex.lock();
+    result = playerX;
+    my_mutex.unlock();
+    return result;
 }
 float player::getY()
 {
-    return playerY;
+    float result = -1;
+    my_mutex.lock();
+    result = playerY;
+    my_mutex.unlock();
+    return result;
 }
 float player::getRot()
 {
-    return playerRotation;
+    float result = -1;
+    my_mutex.lock();
+    result = playerRotation;
+    my_mutex.unlock();
+    return result;
 }
 std::string player::getName()
 {
-    return pName;
+    std::string result = "unknown";
+    my_mutex.lock();
+    result = pName;
+    my_mutex.unlock();
+    return result;
 }
 int player::getMaxHp()
 {
-    return maxHp;
+    int result = -1;
+    my_mutex.lock();
+    result = maxHp;
+    my_mutex.unlock();
+    return result;
 }
 int player::getCurrentHp()
 {
-    return currentHp;
+    int result = -1;
+    my_mutex.lock();
+    result = currentHp;
+    my_mutex.unlock();
+    return result;
 }
 int player::getScore()
 {
-    return score;
+    int result = -1;
+    my_mutex.lock();
+    result = score;
+    my_mutex.unlock();
+    return result;
+}
+int player::getWeapon()
+{
+    float result = -1;
+    my_mutex.lock();
+    result = weapon;
+    my_mutex.unlock();
+    return result;
 }
 
 std::string player::getMSG()
 {
     //std::cout << myPlayer.getPosition().x << " " << myPlayer.getPosition().y << std::endl;
-    std::stringstream s;
-    my_mutex.lock();
+   std::stringstream s;
     s << getX() << "|" << getY() << "|" << getRot();
-my_mutex.unlock();
     return s.str();
 }
 
 std::string player::toString() {
-    std::stringstream s;
-    s << "X: " << getX() << " Y: " << getY() << " R: " << getRot()
-        << " PName: " << getName() << " maxHP: " << getMaxHp() << " currentHP: " << getCurrentHp()
-        << " Score: " << getScore();
+      std::stringstream s;
+      s << getX() << "|" << getY() << "|" << getRot()
+        << "|" << getMaxHp() << "|" << getCurrentHp()
+        << "|" << getScore() <<"|"<<getWeapon();
     return s.str();
 }
-void player::update(std::string data)
+player::~player()
 {
-    if(data.find("Your Name:")!=std::string::npos)
-        {
-            std::cout<<" NEW NAME!!! "<<std::endl;
-            pName = data.substr(10, data.length()-1);
-            players.insert(std::pair<std::string, Drawable_Player*>(pName,myPlayer));
-        }
-    else if( data. find("EXIT")!=std::string::npos)
-    {
-        std::stringstream ss(data);
-        std::string currentName;
-        std::getline(ss,currentName,':');
-        Drawable_Player* p = players[currentName];
-        players.erase(currentName);
-        delete p;
-    }
-    else if(data.find("|")!=std::string::npos)
-    {
-        std::cout<<" NEW DATA "<<std::endl;
-        std::cout<<data<<std::endl;
-        std::stringstream ss(data);
-        std::string currentName;
-        std::getline(ss,currentName,':');
-        std::string line;
-        std::getline(ss,line,'|');
-        float curx = std::stof(line);
-        std::getline(ss,line,'|');
-        float cury = std::stof(line);
-        std::getline(ss,line,'|');
-        float getrot = std::stof(line);
-        my_mutex.lock();
-        if(players.find(currentName)== players.end())
-        {
-            players[currentName] = new player(currentName);
-        }
-        else
-        {
-        players[currentName]->setPosition(curx,cury);
-        players[currentName]->setRotation(getrot);
-        }
 
-    }
-    my_mutex.unlock();
-}
-std::map<std::string,Drawable_Player*> player::getPlayers()
-{
-    my_mutex.lock();
-    std::map<std::string,Drawable_Player*> result(players);
-    my_mutex.unlock();
-    return result;
 }

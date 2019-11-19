@@ -40,7 +40,8 @@ void GameScreen::draw()
         }
     }
     app->clear(sf::Color::White);
-    v.setCenter(me->getX(),me->getY());
+    if((me->getX()-horizontal/2 > -2000 && me->getX()+horizontal/2 < background.getTextureRect().width-2000) || (me->getY()-vertical/2> -2000 && me->getY()+vertical/2<background.getTextureRect().height-2000))
+        v.setCenter(me->getX(),me->getY());
     app->setView(v);
     app->draw(background);
     if(c && c->getconnected())
@@ -92,7 +93,8 @@ else
                     tempWeaponCounter ++;
                     if(tempWeaponCounter > 5)
                         tempWeaponCounter = 0;
-                    me->setWeapon(new Weapon(tempWeaponCounter));
+                    std::cout<<tempWeaponCounter<<std::endl;
+                    me->setWeapon(tempWeaponCounter);
                 }
                 if(event.key.code==sf::Keyboard::E)
                 {
@@ -136,7 +138,10 @@ else
         }
 
 
-        me->setPosition(me->getX()+playerX, me->getY()+playerY);
+        float curx = me->getX();
+        float cury = me->getY();
+        if((curx+playerX> -2000 && curx+playerX<= background.getTextureRect().width-2000) || ( cury+playerY> -2000 && cury+playerY  <background.getTextureRect().height-2000))
+            me->setPosition(curx+playerX, cury+playerY);
 
 }
 }

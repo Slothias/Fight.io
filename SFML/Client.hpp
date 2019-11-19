@@ -4,12 +4,12 @@
 #include<iostream>
 #include <winsock2.h>
 #include<mutex>
-#include "Drawable_Player.hpp"
+#include "player.hpp"
 
 class Client
 {
 public:
-    Client(const char* host,u_short port, Drawable_Player* _thisPlayer);
+    Client(const char* host,u_short port, player* _thisPlayer);
     void runclient();
     bool getconnected();
     ~Client();
@@ -24,7 +24,7 @@ private:
     void sendData(std::string msg);
     std::string getData();
     static const int BUFFER_SIZE=1024;
-    Drawable_Player* thisPlayer;
+    player* thisPlayer;
 };
 
 #endif // CLIENT_H

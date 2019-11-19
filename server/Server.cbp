@@ -54,12 +54,8 @@
 			<Add library="dxguid" />
 			<Add directory="D:/homeProject/C++/Repo/Fight.io/SFML-2.5.1/lib" />
 		</Linker>
-		<Unit filename="Drawable_Player.cpp" />
-		<Unit filename="Drawable_Player.hpp" />
 		<Unit filename="GameEngine.cpp" />
 		<Unit filename="GameEngine.hpp" />
-		<Unit filename="HpBar.cpp" />
-		<Unit filename="HpBar.hpp" />
 		<Unit filename="Server.cpp" />
 		<Unit filename="Server.hpp" />
 		<Unit filename="ServerException.h" />
@@ -68,6 +64,8 @@
 		<Unit filename="Weapon.cpp" />
 		<Unit filename="Weapon.hpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="player.cpp" />
+		<Unit filename="player.hpp" />
 		<Unit filename="src/simplgui/Button.cpp" />
 		<Unit filename="src/simplgui/Connector.cpp" />
 		<Unit filename="src/simplgui/Event.cpp" />
