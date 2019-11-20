@@ -13,6 +13,7 @@ protected:
     int currentHp;
     int score;
     int weapon;
+    int hitboxRadius;
 public:
     std::mutex my_mutex;
     player();

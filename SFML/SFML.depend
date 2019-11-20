@@ -898,24 +898,24 @@
 	<unistd.h>
 	<fstream>
 
-1573481548 source:c:\users\e550\desktop\fight.io\sfml\client.cpp
+1574181352 source:c:\users\e550\desktop\fight.io\sfml\client.cpp
 	"Client.hpp"
 
-1572873356 c:\users\e550\desktop\fight.io\sfml\client.hpp
+1574181352 c:\users\e550\desktop\fight.io\sfml\client.hpp
 	<thread>
 	<iostream>
 	<winsock2.h>
 	<mutex>
-	"Drawable_Player.hpp"
+	"player.hpp"
 
-1573748543 c:\users\e550\desktop\fight.io\sfml\drawable_player.hpp
+1574240320 c:\users\e550\desktop\fight.io\sfml\drawable_player.hpp
 	<SFML/Graphics.hpp>
 	"Weapon.hpp"
 	"HpBar.hpp"
-	<mutex>
 	<map>
 	<iostream>
 	<sstream>
+	"player.hpp"
 
 1573748543 c:\users\e550\desktop\fight.io\sfml\weapon.hpp
 	<SFML/Graphics.hpp>
@@ -937,10 +937,10 @@
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 
-1573678067 source:c:\users\e550\desktop\fight.io\sfml\drawable_player.cpp
+1574181352 source:c:\users\e550\desktop\fight.io\sfml\drawable_player.cpp
 	"Drawable_Player.hpp"
 
-1573678067 source:c:\users\e550\desktop\fight.io\sfml\gamescreen.cpp
+1574240110 source:c:\users\e550\desktop\fight.io\sfml\gamescreen.cpp
 	"GameScreen.hpp"
 
 1573479308 c:\users\e550\desktop\fight.io\sfml\gamescreen.hpp
@@ -1142,6 +1142,16 @@
 	<mutex>
 
 1574180486 source:d:\homeproject\c++\repo\fight.io\sfml\player.cpp
+	"player.hpp"
+	<sstream>
+	<string>
+	<iostream>
+
+1574242367 c:\users\e550\desktop\fight.io\sfml\player.hpp
+	<string>
+	<mutex>
+
+1574181352 source:c:\users\e550\desktop\fight.io\sfml\player.cpp
 	"player.hpp"
 	<sstream>
 	<string>

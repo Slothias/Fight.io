@@ -8,6 +8,9 @@ Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf:
     me.setTexture(skin);
     setWeapon(weapon);
     myHpBar = new HpBar(maxHp,x,y);
+    testHitbox.setFillColor(sf::Color(0,255,255,100));
+    testHitbox.setRadius(hitboxRadius);
+    testHitbox.setPosition(-hitboxRadius,-hitboxRadius);
 
     //setScale(0.5f,0.5f);
     setOrigin(skin.getSize().x/2, skin.getSize().y/2);
@@ -18,6 +21,7 @@ Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf:
 void Drawable_Player::draw(sf::RenderTarget& target, sf::RenderStates states)
 {
     target.draw(*myWeapon);
+    target.draw(testHitbox);
     target.draw(me);
     myHpBar->draw(target,states);
 
@@ -28,6 +32,7 @@ void Drawable_Player::setPosition(float x, float y)
     playerX=x;
     playerY=y;
     myWeapon->setPosition(x,y);
+    hitbox.setOrigin(-x,-y);
     myHpBar->setPosition(x-(skin.getSize().x/2), y-(1.5*skin.getSize().y));
     me.setPosition(x,y);
     my_mutex.unlock();

@@ -670,3 +670,61 @@
 1574107605 source:d:\homeproject\c++\repo\fight.io\server\gameengine.cpp
 	"GameEngine.hpp"
 
+1574181352 source:c:\users\e550\desktop\fight.io\server\gameengine.cpp
+	"GameEngine.hpp"
+
+1574181352 c:\users\e550\desktop\fight.io\server\gameengine.hpp
+	"player.hpp"
+	<map>
+	<mutex>
+	<iostream>
+	<sstream>
+
+1574181353 c:\users\e550\desktop\fight.io\server\player.hpp
+	<string>
+	<mutex>
+
+1574179873 source:c:\users\e550\desktop\fight.io\server\main.cpp
+	"ServerGui.hpp"
+
+1573468465 c:\users\e550\desktop\fight.io\server\servergui.hpp
+	"Server.hpp"
+	<SFML/Graphics.hpp>
+	"simplgui/Button.h"
+	"simplgui/Event.h"
+	"simplgui/FileResourcesGetter.h"
+	"simplgui/TextBox.h"
+	"simplgui/Tools.h"
+
+1574179873 c:\users\e550\desktop\fight.io\server\server.hpp
+	<thread>
+	<winsock2.h>
+	<iostream>
+	<atomic>
+	<vector>
+	<mutex>
+	<queue>
+	<utility>
+	<fstream>
+	"ServerException.h"
+	"GameEngine.hpp"
+
+1573468465 c:\users\e550\desktop\fight.io\server\serverexception.h
+	<exception>
+
+1574181353 source:c:\users\e550\desktop\fight.io\server\player.cpp
+	"player.hpp"
+	<sstream>
+	<string>
+	<iostream>
+
+1574179873 source:c:\users\e550\desktop\fight.io\server\server.cpp
+	"Server.hpp"
+	<algorithm>
+	<string>
+	<sstream>
+	<future>
+
+1574179873 source:c:\users\e550\desktop\fight.io\server\servergui.cpp
+	"ServerGui.hpp"
+

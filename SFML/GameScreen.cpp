@@ -40,8 +40,30 @@ void GameScreen::draw()
         }
     }
     app->clear(sf::Color::White);
-    if((me->getX()-horizontal/2 > -2000 && me->getX()+horizontal/2 < background.getTextureRect().width-2000) || (me->getY()-vertical/2> -2000 && me->getY()+vertical/2<background.getTextureRect().height-2000))
-        v.setCenter(me->getX(),me->getY());
+
+    float viewOffsetX=0, viewOffsetY=0;
+    //horizontális offset vizsgálat
+    if(me->getX()-(horizontal/2) < -(background.getTextureRect().width/2))
+    {
+        viewOffsetX = (horizontal/2)-(me->getX()+(background.getTextureRect().width/2));
+    }
+    if(me->getX()+(horizontal/2) > background.getTextureRect().width/2)
+    {
+        viewOffsetX = (background.getTextureRect().width/2)-me->getX()-(horizontal/2);
+    }
+    // vertikális offset vizsgálat
+    if(me->getY()-(vertical/2) < -(background.getTextureRect().height/2))
+    {
+        viewOffsetY = (vertical/2)-(me->getY()+(background.getTextureRect().height/2));
+    }
+    if(me->getY()+(vertical/2) > background.getTextureRect().height/2)
+    {
+        viewOffsetY = (background.getTextureRect().height/2)-me->getY()-(vertical/2);
+    }
+
+    /*if((me->getX()-horizontal/2 > -2000 && me->getX()+horizontal/2 < background.getTextureRect().width-2000) ||
+        (me->getY()-vertical/2> -2000 && me->getY()+vertical/2<background.getTextureRect().height-2000))*/
+    v.setCenter(me->getX()+viewOffsetX,me->getY()+viewOffsetY);
     app->setView(v);
     app->draw(background);
     if(c && c->getconnected())

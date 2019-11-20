@@ -35,6 +35,7 @@ private:
     sf::Sprite me;
     Weapon* myWeapon;
     HpBar* myHpBar;
+    sf::CircleShape testHitbox;
     std::map<std::string,Drawable_Player*> players;
 };
 
