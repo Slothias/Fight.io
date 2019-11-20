@@ -31,6 +31,7 @@ class GameScreen:public Screen
         sf::Sprite background;
         sf::View v;
         sf::Font font;
+        sf::Vector2<float> getViewOffSet();
         std::string host;
         u_short port;
         unsigned int horizontal;

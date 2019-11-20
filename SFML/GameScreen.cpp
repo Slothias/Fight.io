@@ -41,29 +41,9 @@ void GameScreen::draw()
     }
     app->clear(sf::Color::White);
 
-    float viewOffsetX=0, viewOffsetY=0;
-    //horizontális offset vizsgálat
-    if(me->getX()-(horizontal/2) < -(background.getTextureRect().width/2))
-    {
-        viewOffsetX = (horizontal/2)-(me->getX()+(background.getTextureRect().width/2));
-    }
-    if(me->getX()+(horizontal/2) > background.getTextureRect().width/2)
-    {
-        viewOffsetX = (background.getTextureRect().width/2)-me->getX()-(horizontal/2);
-    }
-    // vertikális offset vizsgálat
-    if(me->getY()-(vertical/2) < -(background.getTextureRect().height/2))
-    {
-        viewOffsetY = (vertical/2)-(me->getY()+(background.getTextureRect().height/2));
-    }
-    if(me->getY()+(vertical/2) > background.getTextureRect().height/2)
-    {
-        viewOffsetY = (background.getTextureRect().height/2)-me->getY()-(vertical/2);
-    }
+    sf::Vector2<float> viewOffSet = getViewOffSet();
 
-    /*if((me->getX()-horizontal/2 > -2000 && me->getX()+horizontal/2 < background.getTextureRect().width-2000) ||
-        (me->getY()-vertical/2> -2000 && me->getY()+vertical/2<background.getTextureRect().height-2000))*/
-    v.setCenter(me->getX()+viewOffsetX,me->getY()+viewOffsetY);
+    v.setCenter(me->getX()+viewOffSet.x,me->getY()+viewOffSet.y);
     app->setView(v);
     app->draw(background);
     if(c && c->getconnected())
@@ -197,19 +177,45 @@ else
 
          float mousePosX = sf::Mouse::getPosition(*app).x;
         float mousePosY = sf::Mouse::getPosition(*app).y;
-        if(!(app->getSize().x/2-mousePosX ==0)){
-            if((app->getSize().x/2)-mousePosX <= 0)
-                me->setRotation((atan(((app->getSize().y/2)-mousePosY)/((app->getSize().x/2)-mousePosX)))/PI *180 +90);
+
+        sf::Vector2<float> viewOffSet = getViewOffSet();
+
+        if(!((horizontal/2 - viewOffSet.x)-mousePosX ==0)){
+            if((horizontal/2 - viewOffSet.x)-mousePosX <= 0)
+                me->setRotation((atan(((vertical/2 - viewOffSet.y)-mousePosY)/((horizontal/2 - viewOffSet.x)-mousePosX)))/PI *180 +90);
             else
-                me->setRotation(((atan(((app->getSize().y/2)-mousePosY)/((app->getSize().x/2)-mousePosX)))/PI *180) +270);
+                me->setRotation(((atan(((vertical/2 - viewOffSet.y)-mousePosY)/((horizontal/2 - viewOffSet.x)-mousePosX)))/PI *180) +270);
         }
 
 
         float curx = me->getX();
         float cury = me->getY();
         me->setPosition(curx+playerX, cury+playerY);
-
+    }
 }
+
+sf::Vector2<float> GameScreen::getViewOffSet()
+{
+    float viewOffsetX=0, viewOffsetY=0;
+    //horizontális offset vizsgálat
+    if(me->getX()-(horizontal/2) < -(background.getTextureRect().width/2))
+    {
+        viewOffsetX = (horizontal/2)-(me->getX()+(background.getTextureRect().width/2));
+    }
+    if(me->getX()+(horizontal/2) > background.getTextureRect().width/2)
+    {
+        viewOffsetX = (background.getTextureRect().width/2)-me->getX()-(horizontal/2);
+    }
+    // vertikális offset vizsgálat
+    if(me->getY()-(vertical/2) < -(background.getTextureRect().height/2))
+    {
+        viewOffsetY = (vertical/2)-(me->getY()+(background.getTextureRect().height/2));
+    }
+    if(me->getY()+(vertical/2) > background.getTextureRect().height/2)
+    {
+        viewOffsetY = (background.getTextureRect().height/2)-me->getY()-(vertical/2);
+    }
+    return(sf::Vector2<float>(viewOffsetX,viewOffsetY));
 }
 
 GameScreen::~GameScreen()
