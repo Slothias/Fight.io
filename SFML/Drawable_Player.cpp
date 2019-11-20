@@ -32,7 +32,7 @@ void Drawable_Player::setPosition(float x, float y)
     playerX=x;
     playerY=y;
     myWeapon->setPosition(x,y);
-    hitbox.setOrigin(-x,-y);
+    testHitbox.setOrigin(-x,-y);
     myHpBar->setPosition(x-(skin.getSize().x/2), y-(1.5*skin.getSize().y));
     me.setPosition(x,y);
     my_mutex.unlock();

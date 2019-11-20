@@ -9,8 +9,8 @@ GameScreen::GameScreen(sf::RenderWindow *App, const char* host)
     forBackground.loadFromFile("hexagonal.png");
     forBackground.setRepeated(true);
     background.setTexture(forBackground);
-    background.setPosition(-2000,-2000);
-    background.setTextureRect(sf::IntRect(0,0,4000,4000));
+    background.setPosition(-1000,-1000);
+    background.setTextureRect(sf::IntRect(0,0,2000,2000));
     c=new Client(host,10043,me);
     std::thread t(&Client::runclient,&(*c));
     t.detach();
@@ -95,56 +95,101 @@ if(event.type == sf::Event::Closed || ((event.type == sf::Event::KeyPressed) && 
     }
 else
 {
-            float playerX, playerY;
-            if(event.type == sf::Event::KeyPressed){
-                if((event.key.code == sf::Keyboard::W)){
-
-
-                    pup = true;
-                }
-                if((event.key.code == sf::Keyboard::S)){
-                    pdown = true;
-                }
-                if((event.key.code == sf::Keyboard::A)){
-                    pleft = true;
-                }
-                if((event.key.code == sf::Keyboard::D)){
-                    pright = true;
-                }
-                if(event.key.code == sf::Keyboard::Q){
-                    tempWeaponCounter ++;
-                    if(tempWeaponCounter > 5)
-                        tempWeaponCounter = 0;
-                    std::cout<<tempWeaponCounter<<std::endl;
-                    me->setWeapon(tempWeaponCounter);
-                }
-                if(event.key.code==sf::Keyboard::E)
-                {
-                    me->setCurrentHp(me->getCurrentHp()-1);
-                }
+    float playerX, playerY;
+    if(event.type == sf::Event::KeyPressed){
+        if((event.key.code == sf::Keyboard::W)){
+            pup = true;
+        }
+        if((event.key.code == sf::Keyboard::S)){
+            pdown = true;
+        }
+        if((event.key.code == sf::Keyboard::A)){
+            pleft = true;
+        }
+        if((event.key.code == sf::Keyboard::D)){
+            pright = true;
+        }
+        if(event.key.code == sf::Keyboard::Q){
+            tempWeaponCounter ++;
+            if(tempWeaponCounter > 5)
+                tempWeaponCounter = 0;
+            std::cout<<tempWeaponCounter<<std::endl;
+            me->setWeapon(tempWeaponCounter);
+        }
+        if(event.key.code==sf::Keyboard::E)
+        {
+            me->setCurrentHp(me->getCurrentHp()-1);
+        }
 }
-            if((event.type == sf::Event::KeyReleased)){
-                if((event.key.code == sf::Keyboard::W)){
-                    pup = false;
-                }
-                if((event.key.code == sf::Keyboard::S)){
-                    pdown = false;
-                }
-                if((event.key.code == sf::Keyboard::A)){
-                    pleft = false;
-                }
-                if((event.key.code == sf::Keyboard::D)){
-                    pright = false;
-                }
+    //Azért kell, hogy ne mehessen ki. A keypress eventnél nem vizsgálhatjuk, mert nincs mindig key press event.
+        if((me->getY() < -background.getTextureRect().height/2) && pup)
+        {
+            pup = false;
+        }
+        if((me->getY() > background.getTextureRect().height/2) && pdown)
+        {
+            pdown = false;
+        }
+        if((me->getX() < -background.getTextureRect().width/2) && pleft)
+        {
+            pleft = false;
+        }
+        if((me->getX() > background.getTextureRect().width/2) && pright)
+        {
+            pright = false;
+        }
+
+        if((event.type == sf::Event::KeyReleased)){
+            if((event.key.code == sf::Keyboard::W)){
+                pup = false;
             }
+            if((event.key.code == sf::Keyboard::S)){
+                pdown = false;
+            }
+            if((event.key.code == sf::Keyboard::A)){
+                pleft = false;
+            }
+            if((event.key.code == sf::Keyboard::D)){
+                pright = false;
+            }
+        }
 
         playerX = 0;
         playerY = 0;
-        if(pup && !pleft && !pright){playerY -= PLAYERMOVESPEED/SLEEPVAL;}
-        if(pdown && !pleft && !pright){playerY += PLAYERMOVESPEED/SLEEPVAL;}
-        if(pleft && !pup && !pdown){playerX -= PLAYERMOVESPEED/SLEEPVAL;}
-        if(pright && !pup && !pdown){playerX += PLAYERMOVESPEED/SLEEPVAL;}
+        if(pup && !pleft && !pright)
+            {
+                //if(pályán belülre)
+                if(playerY - PLAYERMOVESPEED/SLEEPVAL > -background.getTextureRect().height/2)
+                    playerY -= PLAYERMOVESPEED/SLEEPVAL;
+                else
+                    playerY = -background.getTextureRect().height/2;
+            }
+        if(pdown && !pleft && !pright)
+            {
+                //if(pályán belülre)
+                if(playerY + PLAYERMOVESPEED/SLEEPVAL < background.getTextureRect().height/2)
+                    playerY += PLAYERMOVESPEED/SLEEPVAL;
+                else
+                    playerY = background.getTextureRect().height/2;
+            }
+        if(pleft && !pup && !pdown)
+            {
+                //if(pályán belülre)
+                if(playerX - PLAYERMOVESPEED/SLEEPVAL > -background.getTextureRect().width/2)
+                    playerX -= PLAYERMOVESPEED/SLEEPVAL;
+                else
+                    playerX = -background.getTextureRect().width/2;
+            }
+        if(pright && !pup && !pdown)
+            {
+                //if(pályán belülre)
+                if(playerX + PLAYERMOVESPEED/SLEEPVAL < background.getTextureRect().width/2)
+                    playerX += PLAYERMOVESPEED/SLEEPVAL;
+                else
+                    playerX = background.getTextureRect().width/2;
+            }
 
+        //ezekbe már nem lép be, ha a pályának valamelyik szélén van
         if(pup && (pleft || pright)){playerY -= PLAYERMOVESPEED/(ROOT2*SLEEPVAL);}
         if(pdown && (pleft || pright)){playerY += PLAYERMOVESPEED/(ROOT2*SLEEPVAL);}
         if(pleft && (pup || pdown)){playerX -= PLAYERMOVESPEED/(ROOT2*SLEEPVAL);}
@@ -162,8 +207,7 @@ else
 
         float curx = me->getX();
         float cury = me->getY();
-        if((curx+playerX> -2000 && curx+playerX<= background.getTextureRect().width-2000) || ( cury+playerY> -2000 && cury+playerY  <background.getTextureRect().height-2000))
-            me->setPosition(curx+playerX, cury+playerY);
+        me->setPosition(curx+playerX, cury+playerY);
 
 }
 }
