@@ -1,7 +1,6 @@
 #include "GameEngine.hpp"
 
  GameEngine::GameEngine() {
-    std::cout << "faaaaaaasz" << std::endl;
     mapSize = 2000;
     players.clear();
 }
@@ -13,8 +12,6 @@ GameEngine::~GameEngine() {
 
 GameEngine* GameEngine::GetInstance() {
     static GameEngine instance;
-    static int i = 0;
-    std::cout << i++ << std::endl;
     return &instance;
 }
 

@@ -35,6 +35,7 @@ player::player(std::string _pName, float _playerX, float _playerY, float _player
     currentHp = maxHp;
     score = 0;
     weapon = 0;
+    hitboxRadius = 75;
 }
 /*player::player(float _playerX, float _playerY, float _playerRotation,
                 std::string _pName, int _maxHp, int _currentHp, int _score, bool _weapon)
@@ -88,6 +89,10 @@ void player::setWeapon(int _weapon)
     my_mutex.lock();
     weapon= _weapon;
     my_mutex.unlock();
+}
+
+void player::update(std::string data) {
+
 }
 
 //getters************************************************
@@ -171,4 +176,8 @@ std::string player::toString() {
         << "|" << getMaxHp() << "|" << getCurrentHp()
         << "|" << getScore() <<"|"<<getWeapon();
     return s.str();
+}
+player::~player()
+{
+
 }
