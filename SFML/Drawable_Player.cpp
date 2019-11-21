@@ -45,7 +45,7 @@ void Drawable_Player::setRotation(float x)
     myWeapon->setRotation(x);
     my_mutex.unlock();
 }
-void Drawable_Player::testPoke()  //pr�ba a szurk�l�sra
+void Drawable_Player::testPoke()  //próba a szurkálásra
 {
     /*
     for(int i=0; i<=10; i++)
@@ -76,10 +76,10 @@ void Drawable_Player::setCurrentHp(int _currentHp)
 {
     my_mutex.lock();
     if(_currentHp <= maxHp)
-        {
+    {
         currentHp = _currentHp;
         myHpBar->setCurrentHp(currentHp);
-        }
+    }
     my_mutex.unlock();
 }
 void Drawable_Player::setWeapon(int _weapon)
@@ -103,11 +103,15 @@ Weapon* Drawable_Player::getWeapon()
 }
 void Drawable_Player::update(std::string data)
 {
+    ///stringstream egyszer lesz létrehozva
+    std::stringstream ss(data);
+    ///megkeressük ki az üzenet feladója
+    std::string currentName;
+    std::getline(ss,currentName,':');
+    ///ha exitet kaptunk
     if( data. find("EXIT")!=std::string::npos)
     {
-        std::stringstream ss(data);
-        std::string currentName;
-        std::getline(ss,currentName,':');
+        ///ha a szerver küldte az exitet, mindenki mehet a picsába
         if(currentName == "Server")
         {
             std::cout<<"Server exit"<<std::endl;
@@ -116,20 +120,19 @@ void Drawable_Player::update(std::string data)
 
 
         }
+        ///ha egy játékos küldött exitet, akkor csak ő mehet a picsába
         else
         {
-        Drawable_Player* p = players[currentName];
-        players.erase(currentName);
-        delete p;
+            Drawable_Player* p = players[currentName];
+            players.erase(currentName);
+            delete p;
         }
     }
+    ///egyébként frissítünk
     else if(data.find("|")!=std::string::npos)
     {
-      //  std::cout<<" NEW DATA "<<std::endl;
+        //  std::cout<<" NEW DATA "<<std::endl;
         //std::cout <<data<<std::endl;
-        std::stringstream ss(data);
-        std::string currentName;
-        std::getline(ss,currentName,':');
         std::string line;
         std::getline(ss,line,'|');
         float curx = std::stof(line);
@@ -147,24 +150,31 @@ void Drawable_Player::update(std::string data)
         int wp = 1;
 
         my_mutex.lock();
+        ///ha nincs meg ez a játékos, akkor hozzáadjuk
         if(players.find(currentName)== players.end())
         {
             players[currentName] = new Drawable_Player(currentName,curx,cury,getrot);
         }
         else
         {
-        Drawable_Player* act = players[currentName];
-        if(act->getX()!=curx || act->getY()!=cury)
-            act->setPosition(curx,cury);
-        if(act->getRot()!=getrot)
-            players[currentName]->setRotation(getrot);
-        if(act->getMaxHp()!=maxhp)
-            players[currentName]->setMaxHp(maxhp);
-        if(act->getCurrentHp()!=curhp)
-            players[currentName]->setCurrentHp(curhp);
-        if(act->getScore()!=getscore)
-            players[currentName]->setScore(getscore);
-        players[currentName]->setWeapon(wp);
+            ///egyébként frissítjük
+            Drawable_Player* act = players[currentName];
+            ///ha eltér a pozíció,akkor frissít
+            if(act->getX()!=curx || act->getY()!=cury)
+                act->setPosition(curx,cury);
+            ///ha eltér a szög,akkor frissít
+            if(act->getRot()!=getrot)
+                players[currentName]->setRotation(getrot);
+            ///ha eltér a maxhp,akkor frissít
+            if(act->getMaxHp()!=maxhp)
+                players[currentName]->setMaxHp(maxhp);
+            ///ha eltér a currentHP,akkor frissit
+            if(act->getCurrentHp()!=curhp)
+                players[currentName]->setCurrentHp(curhp);
+            ///ha eltér a score,akkor frissít
+            if(act->getScore()!=getscore)
+                players[currentName]->setScore(getscore);
+            //players[currentName]->setWeapon(wp);
         }
 
     }

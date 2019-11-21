@@ -15,6 +15,7 @@ class GameScreen:public Screen
         void handle(sf::Event& event);
          ~GameScreen();
     private:
+        sf::Vector2<float> viewOffSet;
         static const int SLEEPVAL=1000/FRAMERATE;
         Client* c;
         Drawable_Player* me;
