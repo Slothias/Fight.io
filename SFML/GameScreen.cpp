@@ -4,18 +4,19 @@ GameScreen::GameScreen(sf::RenderWindow *App, const char* host)
     app=App;
     font.loadFromFile("ARCADECLASSIC.TTF");
     app->setFramerateLimit(FRAMERATE);
-    me=new Drawable_Player("Peti",100,100,0);
+    me=new Drawable_Player("Peti",0,0,0);
     pup=pdown=pleft=pright=false;
     forBackground.loadFromFile("hexagonal.png");
     forBackground.setRepeated(true);
     background.setTexture(forBackground);
-    background.setPosition(-1000,-1000);
-    background.setTextureRect(sf::IntRect(0,0,2000,2000));
+    background.setPosition(-1500,-1000);
+    background.setTextureRect(sf::IntRect(0,0,3000,2000));
     c=new Client(host,10043,me);
     std::thread t(&Client::runclient,&(*c));
     t.detach();
     GetDesktopResolution();
     tempWeaponCounter =0;
+    GameScreen::draw();
 }
 
 void GameScreen::GetDesktopResolution()
@@ -89,11 +90,13 @@ else
         if((event.key.code == sf::Keyboard::D)){
             pright = true;
         }
-        if(event.key.code == sf::Keyboard::Q){
+        if(event.key.code == sf::Keyboard::Q)
+        {
             tempWeaponCounter ++;
             if(tempWeaponCounter > 5)
+            {
                 tempWeaponCounter = 0;
-            std::cout<<tempWeaponCounter<<std::endl;
+            }
             me->setWeapon(tempWeaponCounter);
         }
         if(event.key.code==sf::Keyboard::E)

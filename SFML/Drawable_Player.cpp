@@ -1,4 +1,5 @@
 #include "Drawable_Player.hpp"
+#include <iostream>
 
 Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf::Sprite(),player(name,x,y,a)
 {
