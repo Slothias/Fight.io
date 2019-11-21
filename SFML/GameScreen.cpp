@@ -29,7 +29,7 @@ void GameScreen::GetDesktopResolution()
 
 }
 void GameScreen::draw()
-{
+{/*
     if((app->getSize().x != horizontal || app->getSize().y!=vertical) && c)
     {
         if(c->getconnected())
@@ -39,16 +39,15 @@ void GameScreen::draw()
         app->create(sf::VideoMode(horizontal,vertical),"mari",sf::Style::Fullscreen);
         v.setSize(horizontal,vertical);
         }
-    }
+    }*/
     app->clear(sf::Color::White);
 
-    sf::Vector2<float> viewOffSet = getViewOffSet();
-
-    v.setCenter(me->getX()+viewOffSet.x,me->getY()+viewOffSet.y);
-    app->setView(v);
     app->draw(background);
     if(c && c->getconnected())
     {
+        viewOffSet = getViewOffSet();
+    v.setCenter(me->getX()+viewOffSet.x,me->getY()+viewOffSet.y);
+    app->setView(v);
     std::map<std::string,Drawable_Player*> players = me->getPlayers();
     for(std::pair<std::string, Drawable_Player*> entries: players)
     {
@@ -181,7 +180,7 @@ else
          float mousePosX = sf::Mouse::getPosition(*app).x;
         float mousePosY = sf::Mouse::getPosition(*app).y;
 
-        sf::Vector2<float> viewOffSet = getViewOffSet();
+        viewOffSet = getViewOffSet();
 
         if(!((horizontal/2 - viewOffSet.x)-mousePosX ==0)){
             if((horizontal/2 - viewOffSet.x)-mousePosX <= 0)
@@ -193,7 +192,8 @@ else
 
         float curx = me->getX();
         float cury = me->getY();
-        me->setPosition(curx+playerX, cury+playerY);
+        //me->setPosition(curx+playerX, cury+playerY);
+        std::this_thread::sleep_for(std::chrono::nanoseconds(12));
     }
 }
 

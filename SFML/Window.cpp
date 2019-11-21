@@ -13,6 +13,7 @@ Window::Window(sf::VideoMode vm, std::string title):RenderWindow(vm,title)
     icon.loadFromFile("Player.png");
     setIcon(150,100,icon.getPixelsPtr());
     setVerticalSyncEnabled(false);
+    setFramerateLimit(120);
 }
 void Window::loop()
 {

@@ -110,6 +110,7 @@ void Client::runclient()
                    sendData(this_status);
                    oldStatus=this_status;
                }
+            std::this_thread::sleep_for(std::chrono::milliseconds(12));
         }
         get.join();
     }
