@@ -30,7 +30,7 @@ public:
     void setCurrentHp(int _currentHp);
     void setScore(int _score);
     void setWeapon(int _weapon);
-    virtual void update(std::string data) = 0;
+    virtual void update(std::string data);
 
     //getters
     float getX();

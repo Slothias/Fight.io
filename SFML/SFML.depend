@@ -1158,3 +1158,124 @@
 	<string>
 	<iostream>
 
+1574353825 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\client.cpp
+	"Client.hpp"
+
+1574353825 c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\client.hpp
+	<thread>
+	<iostream>
+	<winsock2.h>
+	<mutex>
+	"player.hpp"
+
+1574356534 c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\player.hpp
+	<string>
+	<mutex>
+
+1573768589 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\connectscreen.cpp
+	"ConnectScreen.hpp"
+	<thread>
+	<iostream>
+
+1573768589 c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\connectscreen.hpp
+	"Screen.hpp"
+	"simplgui/Button.h"
+	"simplgui/Event.h"
+	"simplgui/FileResourcesGetter.h"
+	"simplgui/TextBox.h"
+	"simplgui/Tools.h"
+
+1573768589 c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\screen.hpp
+	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
+
+1574353825 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\drawable_player.cpp
+	"Drawable_Player.hpp"
+	<iostream>
+
+1574353825 c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\drawable_player.hpp
+	<SFML/Graphics.hpp>
+	"Weapon.hpp"
+	"HpBar.hpp"
+	<map>
+	<iostream>
+	<sstream>
+	"player.hpp"
+
+1573768589 c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\weapon.hpp
+	<SFML/Graphics.hpp>
+
+1573768589 c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\hpbar.hpp
+	<SFML/Graphics.hpp>
+
+1574353825 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\gamescreen.cpp
+	"GameScreen.hpp"
+
+1574353825 c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\gamescreen.hpp
+	"Screen.hpp"
+	"Drawable_Player.hpp"
+	<iostream>
+	"Client.hpp"
+	<fstream>
+
+1573768589 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\hpbar.cpp
+	"HpBar.hpp"
+	<sstream>
+
+1573768589 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\main.cpp
+	"Window.hpp"
+
+1573768589 c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\window.hpp
+	"Menu.hpp"
+	"GameScreen.hpp"
+	"ConnectScreen.hpp"
+
+1573768589 c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\menu.hpp
+	<iostream>
+	"Screen.hpp"
+
+1573768589 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\menu.cpp
+	"Menu.hpp"
+
+1573768589 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\src\simplgui\button.cpp
+	"simplgui/Button.h"
+	<iostream>
+	"simplgui/Renderer.h"
+
+1573768589 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\src\simplgui\connector.cpp
+	"simplgui/Connector.h"
+
+1573768589 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\src\simplgui\event.cpp
+	"simplgui/Event.h"
+	<iostream>
+
+1573768589 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\src\simplgui\fileresourcesgetter.cpp
+	"simplgui/FileResourcesGetter.h"
+	<iostream>
+
+1573768589 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\src\simplgui\renderer.cpp
+	"simplgui/Renderer.h"
+	<SFML/Graphics/Font.hpp>
+	<SFML/Graphics/RectangleShape.hpp>
+	<SFML/Graphics/Text.hpp>
+	"simplgui/Widget.h"
+	"simplgui/Tools.h"
+
+1573768589 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\src\simplgui\textbox.cpp
+	"simplgui/TextBox.h"
+	<iostream>
+	"simplgui/Renderer.h"
+
+1573768589 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\src\simplgui\widget.cpp
+	"simplgui/Widget.h"
+
+1573768589 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\weapon.cpp
+	"Weapon.hpp"
+
+1574353825 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\window.cpp
+	"Window.hpp"
+	<thread>
+	<chrono>
+	<unistd.h>
+	<fstream>
+

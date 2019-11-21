@@ -91,6 +91,10 @@ void player::setWeapon(int _weapon)
     my_mutex.unlock();
 }
 
+void player::update(std::string data) {
+
+}
+
 //getters************************************************
 
 float player::getX()
