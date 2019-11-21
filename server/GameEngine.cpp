@@ -28,12 +28,44 @@ std::string GameEngine::CheckRequest(std::string name, std::string msg) {
     player* actplayer = (*(players.find(name))).second;
     std::stringstream ss(msg);
     std::string line;
+    /**
+    std::getline(ss,line,'|');
+    int event_type = std::stoi(line);
+    **/
     std::getline(ss,line,'|');
     float curx = std::stof(line);
     std::getline(ss,line,'|');
     float cury = std::stof(line);
     std::getline(ss,line,'|');
     float getrot = std::stof(line);
+    /**
+    switch (event_type) {
+        case 0: {
+            ///rotation
+            actplayer->setRotation(getrot);
+            return actplayer->toString();
+        }
+        case 1: {
+            ///move
+            if (curx <= -mapSize || curx >= mapSize ||
+                cury <= -mapSize || cury >= mapSize)
+            {
+                return actplayer->toString();
+            }
+            actplayer->setPosition(curx,cury);
+            return actplayer->toString();
+        }
+        case 2: {
+            ///hitbox
+            return actplayer->toString();
+            break;
+        }
+        case 3: {
+            ///pickup
+            break;
+        }
+    }
+    **/
     if (actplayer->getRot() != getrot) {
         actplayer->setRotation(getrot);
         return actplayer->toString();

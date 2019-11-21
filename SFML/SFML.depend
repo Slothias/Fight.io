@@ -1279,3 +1279,9 @@
 	<unistd.h>
 	<fstream>
 
+1574356576 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\player.cpp
+	"player.hpp"
+	<sstream>
+	<string>
+	<iostream>
+
