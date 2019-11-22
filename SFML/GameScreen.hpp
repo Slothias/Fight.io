@@ -26,7 +26,7 @@ class GameScreen:public Screen
         int tempWeaponCounter;
         float PI=3.14159;
         float ROOT2 = 1.41421356;
-        float PLAYERMOVESPEED = 20;
+        float PLAYERMOVESPEED = 50;
         sf::RenderWindow *app;
         sf::Texture forBackground;
         sf::Sprite background;

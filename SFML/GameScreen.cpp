@@ -3,7 +3,6 @@ GameScreen::GameScreen(sf::RenderWindow *App, const char* host)
 {
     app=App;
     font.loadFromFile("ARCADECLASSIC.TTF");
-    app->setFramerateLimit(FRAMERATE);
     me=new Drawable_Player("Peti",0,0,0);
     pup=pdown=pleft=pright=false;
     forBackground.loadFromFile("hexagonal.png");
@@ -16,7 +15,8 @@ GameScreen::GameScreen(sf::RenderWindow *App, const char* host)
     t.detach();
     GetDesktopResolution();
     tempWeaponCounter =0;
-    GameScreen::draw();
+    viewOffSet = getViewOffSet();
+
 }
 
 void GameScreen::GetDesktopResolution()
@@ -29,7 +29,7 @@ void GameScreen::GetDesktopResolution()
 
 }
 void GameScreen::draw()
-{/*
+{
     if((app->getSize().x != horizontal || app->getSize().y!=vertical) && c)
     {
         if(c->getconnected())
@@ -37,18 +37,20 @@ void GameScreen::draw()
         app->setSize(sf::Vector2<unsigned int>(horizontal,vertical));
         app->setPosition(sf::Vector2<int>(0,0));
         app->create(sf::VideoMode(horizontal,vertical),"mari",sf::Style::Fullscreen);
+        app->setFramerateLimit(120);
         v.setSize(horizontal,vertical);
         }
-    }*/
+    }
     app->clear(sf::Color::White);
 
     app->draw(background);
     if(c && c->getconnected())
     {
-        viewOffSet = getViewOffSet();
+    viewOffSet = getViewOffSet();
     v.setCenter(me->getX()+viewOffSet.x,me->getY()+viewOffSet.y);
     app->setView(v);
     std::map<std::string,Drawable_Player*> players = me->getPlayers();
+    me->draw(*app,sf::RenderStates::Default);
     for(std::pair<std::string, Drawable_Player*> entries: players)
     {
         entries.second->draw(*app,sf::RenderStates::Default);
@@ -97,12 +99,14 @@ else
                 tempWeaponCounter = 0;
             }
             me->setWeapon(tempWeaponCounter);
+            c->notify();
         }
         if(event.key.code==sf::Keyboard::E)
         {
             me->setCurrentHp(me->getCurrentHp()-1);
         }
 }
+
     //Azért kell, hogy ne mehessen ki. A keypress eventnél nem vizsgálhatjuk, mert nincs mindig key press event.
         if((me->getY() < -background.getTextureRect().height/2) && pup)
         {
@@ -187,13 +191,14 @@ else
                 me->setRotation((atan(((vertical/2 - viewOffSet.y)-mousePosY)/((horizontal/2 - viewOffSet.x)-mousePosX)))/PI *180 +90);
             else
                 me->setRotation(((atan(((vertical/2 - viewOffSet.y)-mousePosY)/((horizontal/2 - viewOffSet.x)-mousePosX)))/PI *180) +270);
+            c->notify();
         }
 
 
         float curx = me->getX();
         float cury = me->getY();
-        //me->setPosition(curx+playerX, cury+playerY);
-        std::this_thread::sleep_for(std::chrono::nanoseconds(12));
+        me->setPosition(curx+playerX, cury+playerY);
+        c->notify();
     }
 }
 

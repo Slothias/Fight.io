@@ -5,6 +5,7 @@
 #include <winsock2.h>
 #include<mutex>
 #include "player.hpp"
+#include<condition_variable>
 
 class Client
 {
@@ -12,9 +13,12 @@ public:
     Client(const char* host,u_short port, player* _thisPlayer);
     void runclient();
     bool getconnected();
+    void notify();
     ~Client();
     void closeConnection();
 private:
+    std::condition_variable cv;
+    std::mutex thisMutex;
     bool is_running;
     std::mutex my_mutex;
     SOCKET server;

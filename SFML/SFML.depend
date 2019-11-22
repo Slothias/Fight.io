@@ -789,17 +789,18 @@
 1455882554 source:d:\homeproject\c++\vmi\sfml\src\simplgui\widget.cpp
 	"simplgui/Widget.h"
 
-1574336230 source:d:\homeproject\c++\repo\fight.io\sfml\client.cpp
+1574450573 source:d:\homeproject\c++\repo\fight.io\sfml\client.cpp
 	"Client.hpp"
 
-1574180770 d:\homeproject\c++\repo\fight.io\sfml\client.hpp
+1574381594 d:\homeproject\c++\repo\fight.io\sfml\client.hpp
 	<thread>
 	<iostream>
 	<winsock2.h>
 	<mutex>
 	"player.hpp"
+	<condition_variable>
 
-1574243828 d:\homeproject\c++\repo\fight.io\sfml\drawable_player.hpp
+1574380656 d:\homeproject\c++\repo\fight.io\sfml\drawable_player.hpp
 	<SFML/Graphics.hpp>
 	"Weapon.hpp"
 	"HpBar.hpp"
@@ -824,17 +825,18 @@
 	"simplgui/TextBox.h"
 	"simplgui/Tools.h"
 
-1573158056 d:\homeproject\c++\repo\fight.io\sfml\screen.hpp
+1574378617 d:\homeproject\c++\repo\fight.io\sfml\screen.hpp
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 
-1574289835 source:d:\homeproject\c++\repo\fight.io\sfml\drawable_player.cpp
+1574450978 source:d:\homeproject\c++\repo\fight.io\sfml\drawable_player.cpp
 	"Drawable_Player.hpp"
+	<iostream>
 
-1574336109 source:d:\homeproject\c++\repo\fight.io\sfml\gamescreen.cpp
+1574450712 source:d:\homeproject\c++\repo\fight.io\sfml\gamescreen.cpp
 	"GameScreen.hpp"
 
-1574290162 d:\homeproject\c++\repo\fight.io\sfml\gamescreen.hpp
+1574451122 d:\homeproject\c++\repo\fight.io\sfml\gamescreen.hpp
 	"Screen.hpp"
 	"Drawable_Player.hpp"
 	<iostream>
@@ -891,7 +893,7 @@
 1573762701 source:d:\homeproject\c++\repo\fight.io\sfml\weapon.cpp
 	"Weapon.hpp"
 
-1574290307 source:d:\homeproject\c++\repo\fight.io\sfml\window.cpp
+1574378327 source:d:\homeproject\c++\repo\fight.io\sfml\window.cpp
 	"Window.hpp"
 	<thread>
 	<chrono>
@@ -1138,11 +1140,11 @@
 1574085594 source:c:\users\sziln\desktop\suli\adv. c++\fight.io-master\sfml\drawable_player.cpp
 	"Drawable_Player.hpp"
 
-1574243828 d:\homeproject\c++\repo\fight.io\sfml\player.hpp
+1574380663 d:\homeproject\c++\repo\fight.io\sfml\player.hpp
 	<string>
 	<mutex>
 
-1574243828 source:d:\homeproject\c++\repo\fight.io\sfml\player.cpp
+1574383437 source:d:\homeproject\c++\repo\fight.io\sfml\player.cpp
 	"player.hpp"
 	<sstream>
 	<string>

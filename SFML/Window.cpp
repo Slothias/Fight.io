@@ -81,6 +81,7 @@ void Window::loop()
         if(duration < 500)
             std::this_thread::sleep_for(std::chrono::microseconds(500-duration));/////////////////////////////////////////// baj van vele
         //std::cout << duration << std::endl;*/
+       // std::this_thread::sleep_for(std::chrono::nanoseconds(12));
     }
 }
 void Window::setState(State s)

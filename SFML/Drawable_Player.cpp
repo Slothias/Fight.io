@@ -154,10 +154,13 @@ void Drawable_Player::update(std::string data)
         ///ha nincs meg ez a játékos, akkor hozzáadjuk
         if(players.find(currentName)== players.end())
         {
-            players[currentName] = new Drawable_Player(currentName,curx,cury,getrot);
+            if(currentName!=pName)
+                players[currentName] = new Drawable_Player(currentName,curx,cury,getrot);
         }
         else
         {
+            if(pName!=currentName)
+            {
             ///egyébként frissítjük
             Drawable_Player* act = players[currentName];
             ///ha eltér a pozíció,akkor frissít
@@ -176,6 +179,14 @@ void Drawable_Player::update(std::string data)
             if(act->getScore()!=getscore)
                 players[currentName]->setScore(getscore);
             //players[currentName]->setWeapon(wp);
+            }
+            else
+            {
+                if(getX()!=curx || getY()!=cury)
+                    setPosition(curx,cury);
+                if(getRot()!= getrot)
+                    setRotation(getrot);
+            }
         }
 
     }
@@ -203,3 +214,4 @@ Drawable_Player::~Drawable_Player()
     delete myHpBar;
     //dtor
 }
+

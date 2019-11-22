@@ -14,6 +14,7 @@ protected:
     int score;
     int weapon;
     int hitboxRadius;
+    bool changed;
 public:
     std::mutex my_mutex;
     player();
@@ -23,6 +24,7 @@ public:
     player(float _playerX, float _playerY, float _playerRotation, std::string _pName, int _maxHp, int _currentHp, int _score, bool _weapon);
 
     //setters
+    void setChange(bool c);
     void setPosition(float _playerX, float _playerY);
     void setRotation(float _playerRotation);
     void setPName(std::string _pName);
@@ -30,9 +32,11 @@ public:
     void setCurrentHp(int _currentHp);
     void setScore(int _score);
     void setWeapon(int _weapon);
-    void update(std::string data);
+    virtual void update(std::string data);
+
 
     //getters
+    bool getChange();
     float getX();
     float getY();
     float getRot();

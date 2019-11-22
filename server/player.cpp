@@ -49,37 +49,45 @@ void player::setPosition(float _playerX, float _playerY)
     my_mutex.lock();
     playerX = _playerX;
     playerY = _playerY;
+    changed=true;
     my_mutex.unlock();
 }
 void player::setRotation(float _playerRotation)
 {
     my_mutex.lock();
     playerRotation = _playerRotation;
+    changed=true;
     my_mutex.unlock();
 }
 void player::setPName(std::string _pName)
 {
     my_mutex.lock();
     pName = _pName;
+    changed=true;
     my_mutex.unlock();
 }
 void player::setMaxHp(int _maxHp)
 {
 my_mutex.lock();
  maxHp = _maxHp;
+ changed=true;
  my_mutex.unlock();
 }
 void player::setCurrentHp(int _currentHp)
 {
     my_mutex.lock();
     if(_currentHp <= maxHp)
-        currentHp = _currentHp;
+        {
+            currentHp = _currentHp;
+            changed = true;
+        }
     my_mutex.unlock();
 }
 void player::setScore(int _score)
 {
     my_mutex.lock();
     score = _score;
+    changed=true;
     my_mutex.unlock();
 }
 //false is the default value (no weapon)
@@ -88,6 +96,7 @@ void player::setWeapon(int _weapon)
 {
     my_mutex.lock();
     weapon= _weapon;
+    changed=true;
     my_mutex.unlock();
 }
 
@@ -176,6 +185,19 @@ std::string player::toString() {
         << "|" << getMaxHp() << "|" << getCurrentHp()
         << "|" << getScore() <<"|"<<getWeapon();
     return s.str();
+}
+void player::setChange(bool c)
+{
+
+    changed=c;
+}
+bool player::getChange()
+{
+    bool result = true;
+    my_mutex.lock();
+    result=changed;
+    my_mutex.unlock();
+    return result;
 }
 player::~player()
 {

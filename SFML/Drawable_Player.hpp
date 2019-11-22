@@ -25,7 +25,6 @@ public:
     void setWeapon(int _weapon);
     void setCurrentHp(int _currentHp);
     void testPoke();
-
     //getters
     void update(std::string data);
     Weapon* getWeapon();

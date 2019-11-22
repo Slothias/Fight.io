@@ -83,7 +83,10 @@ void Client::closeConnection()
     shutdown(server,2);
     setconnected(false);
 }
-
+void Client::notify()
+{
+    cv.notify_all();
+}
 void Client::runclient()
 {
     if(getconnected())
@@ -101,17 +104,23 @@ void Client::runclient()
                             t.detach();
                             }
                         });
-        std::string oldStatus;
+        std::string oldstatus;
+        std::unique_lock<std::mutex>  lck(thisMutex);
         while(getconnected())
         {
-               std::string this_status =thisPlayer->getMSG();
-               if(oldStatus!=this_status)
-               {
-                   sendData(this_status);
-                   oldStatus=this_status;
-               }
-            std::this_thread::sleep_for(std::chrono::milliseconds(12));
+            if(!thisPlayer->getChange())
+                cv.wait(lck);
+            std::string this_status =thisPlayer->getMSG();
+            sendData(this_status);
+            thisPlayer->setChange(false);
+           /* std::string thisstatus =thisPlayer->getMSG();
+            if(thisstatus!=oldstatus)
+            {
+                sendData(thisstatus);
+                oldstatus=thisstatus;
+            }*/
         }
+
         get.join();
     }
 }
