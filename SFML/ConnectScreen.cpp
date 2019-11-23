@@ -62,8 +62,13 @@ std::string ConnectScreen::getName()
 {
     std::string result;
     std::u32string n = name->getText();
-    for(char c : n)
-        result.push_back(c);
+    int maxLength = 10;
+    for(char c : n){
+        if(maxLength>0)
+            result.push_back(c);
+        maxLength--;
+    }
+
     return result;
 
 }

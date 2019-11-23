@@ -670,7 +670,7 @@
 1574377955 source:d:\homeproject\c++\repo\fight.io\server\gameengine.cpp
 	"GameEngine.hpp"
 
-1574181352 source:c:\users\e550\desktop\fight.io\server\gameengine.cpp
+1574451300 source:c:\users\e550\desktop\fight.io\server\gameengine.cpp
 	"GameEngine.hpp"
 
 1574181352 c:\users\e550\desktop\fight.io\server\gameengine.hpp
@@ -680,7 +680,7 @@
 	<iostream>
 	<sstream>
 
-1574181353 c:\users\e550\desktop\fight.io\server\player.hpp
+1574451300 c:\users\e550\desktop\fight.io\server\player.hpp
 	<string>
 	<mutex>
 
@@ -696,7 +696,7 @@
 	"simplgui/TextBox.h"
 	"simplgui/Tools.h"
 
-1574179873 c:\users\e550\desktop\fight.io\server\server.hpp
+1574507162 c:\users\e550\desktop\fight.io\server\server.hpp
 	<thread>
 	<winsock2.h>
 	<iostream>
@@ -712,20 +712,20 @@
 1573468465 c:\users\e550\desktop\fight.io\server\serverexception.h
 	<exception>
 
-1574181353 source:c:\users\e550\desktop\fight.io\server\player.cpp
+1574451300 source:c:\users\e550\desktop\fight.io\server\player.cpp
 	"player.hpp"
 	<sstream>
 	<string>
 	<iostream>
 
-1574179873 source:c:\users\e550\desktop\fight.io\server\server.cpp
+1574507162 source:c:\users\e550\desktop\fight.io\server\server.cpp
 	"Server.hpp"
 	<algorithm>
 	<string>
 	<sstream>
 	<future>
 
-1574179873 source:c:\users\e550\desktop\fight.io\server\servergui.cpp
+1574507162 source:c:\users\e550\desktop\fight.io\server\servergui.cpp
 	"ServerGui.hpp"
 
 1574357415 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\server\gameengine.cpp
@@ -828,5 +828,43 @@
 	"Weapon.hpp"
 
 1574377955 d:\homeproject\c++\repo\fight.io\server\weapon.hpp
+	<SFML/Graphics.hpp>
+
+1574179874 source:c:\users\e550\desktop\fight.io\server\src\simplgui\button.cpp
+	"simplgui/Button.h"
+	<iostream>
+	"simplgui/Renderer.h"
+
+1574179874 source:c:\users\e550\desktop\fight.io\server\src\simplgui\connector.cpp
+	"simplgui/Connector.h"
+
+1574179874 source:c:\users\e550\desktop\fight.io\server\src\simplgui\event.cpp
+	"simplgui/Event.h"
+	<iostream>
+
+1574179874 source:c:\users\e550\desktop\fight.io\server\src\simplgui\fileresourcesgetter.cpp
+	"simplgui/FileResourcesGetter.h"
+	<iostream>
+
+1574179874 source:c:\users\e550\desktop\fight.io\server\src\simplgui\renderer.cpp
+	"simplgui/Renderer.h"
+	<SFML/Graphics/Font.hpp>
+	<SFML/Graphics/RectangleShape.hpp>
+	<SFML/Graphics/Text.hpp>
+	"simplgui/Widget.h"
+	"simplgui/Tools.h"
+
+1574179874 source:c:\users\e550\desktop\fight.io\server\src\simplgui\textbox.cpp
+	"simplgui/TextBox.h"
+	<iostream>
+	"simplgui/Renderer.h"
+
+1574179874 source:c:\users\e550\desktop\fight.io\server\src\simplgui\widget.cpp
+	"simplgui/Widget.h"
+
+1574451300 source:c:\users\e550\desktop\fight.io\server\weapon.cpp
+	"Weapon.hpp"
+
+1574451300 c:\users\e550\desktop\fight.io\server\weapon.hpp
 	<SFML/Graphics.hpp>
 

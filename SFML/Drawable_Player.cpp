@@ -7,7 +7,7 @@ Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf:
 {
     skin.loadFromFile("Player.png");
     font.loadFromFile("LiberationSans.ttf");
-    myName = new sf::Text('<'+name+'>',font,16);
+    myName = new sf::Text('<'+name+'>',font,12);
     myName->setColor(sf::Color::Black);
     myName->setStyle(sf::Text::Style::Bold);
     myWeapon = nullptr;
@@ -54,7 +54,7 @@ void Drawable_Player::setPosition(float x, float y,bool c)
     testHitbox.setOrigin(-x,-y);
     myHpBar->setPosition(x-(skin.getSize().x/2), y-(1.5*skin.getSize().y));
     me.setPosition(x,y);
-    myName->setPosition(x-skin.getSize().x/4,y-(1.5*skin.getSize().y+myName->getGlobalBounds().height));
+    myName->setPosition(x-skin.getSize().x/2 + 5 , y - 126/*(1.5*skin.getSize().y + myName->getGlobalBounds().height)*/); ///nem szép, de nem hiszem hogy tovább kéne csavarni rajta
     my_mutex.unlock();
     }
 }
@@ -163,6 +163,7 @@ void Drawable_Player::update(std::string data)
         std::string flags;
         std::string line;
         float curx,cury,getrot;
+        bool curPoking=false;
         std::getline(ss,flags,'|');
         if(flags.at(0) == '1')
         {
@@ -172,18 +173,19 @@ void Drawable_Player::update(std::string data)
         if(flags.at(1) == '1')
         {
             std::getline(ss,line,'|');
-            float cury = std::stof(line);
+            cury = std::stof(line);
         }
         if(flags.at(2) == '1')
         {
             std::getline(ss,line,'|');
-            float getrot = std::stof(line);
+            getrot = std::stof(line);
         }
         if(flags.at(3) == '1')
         {
-            poking = true;
-        }else
-            poking = false;
+            curPoking = true;
+        }else{
+            curPoking = false;
+        }
         std::getline(ss,line,'|');
         int maxhp = std::stoi(line);
         std::getline(ss,line,'|');
@@ -207,11 +209,14 @@ void Drawable_Player::update(std::string data)
             ///egyébként frissítjük
             Drawable_Player* act = players[currentName];
             ///ha eltér a pozíció,akkor frissít
-            if(act->getX()!=curx || act->getY()!=cury) ///flageket ezekhez is
+            if(/*(act->getX()!=curx || act->getY()!=cury) && */(flags.at(0) == '1' || flags.at(1) == '1'))
                 act->setPosition(curx,cury,false);
             ///ha eltér a szög,akkor frissít
-            if(act->getRot()!=getrot)
+            if(/*act->getRot()!=getrot && */flags.at(2) == '1')
                 players[currentName]->setRotation(getrot,false);
+            ///ha eltér a bökés, akkor frissít
+            if(/*act->poking != curPoking && */flags.at(3) == '1')
+                players[currentName]->poking = curPoking;
             ///ha eltér a maxhp,akkor frissít
             if(act->getMaxHp()!=maxhp)
                 players[currentName]->setMaxHp(maxhp);
@@ -229,6 +234,7 @@ void Drawable_Player::update(std::string data)
                 setPosition(curx,cury,false);
                 setRotation(getrot,false);
                 setRotation(getrot,false);
+                poking = curPoking;
                 setMaxHp(maxhp);
                 setCurrentHp(curhp);
                 setScore(getscore);

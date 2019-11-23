@@ -55,16 +55,16 @@ void GameScreen::draw()
         app->setView(v);
         std::map<std::string,Drawable_Player*> players = me->getPlayers();
         me->draw(*app,sf::RenderStates::Default);
-        std::vector<sf::Vector2 <float> > playerPositions;
+        //std::vector<sf::Vector2 <float> > playerPositions;
         for(std::pair<std::string, Drawable_Player*> entries: players)
         {
-            playerPositions.push_back(entries.second->getPosition());
+            //playerPositions.push_back(entries.second->getPosition());
             entries.second->draw(*app,sf::RenderStates::Default);
         }
-        for(int i=0; i<playerPositions.size(); i++)
+        /*for(int i=0; i<playerPositions.size(); i++)
         {
 
-        }
+        }*/
     }
     else{
         sf::Text text;
@@ -205,19 +205,13 @@ else
                 me->setRotation(((atan(((vertical/2 - viewOffSet.y)-mousePosY)/((horizontal/2 - viewOffSet.x)-mousePosX)))/PI *180) +270,true);
             c->notify();
         }
-        if (event.type == sf::Event::MouseButtonPressed)
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
-            if(event.mouseButton.button == sf::Mouse::Left)
-            {
-                me->testPoke(true);
-            }
+            me->testPoke(true);
         }
-        if (event.type == sf::Event::MouseButtonReleased)
+        if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
         {
-            if(event.mouseButton.button == sf::Mouse::Left)
-            {
-                me->testPoke(false);
-            }
+            me->testPoke(false);
         }
 
 
