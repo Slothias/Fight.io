@@ -181,50 +181,50 @@ std::string player::getMSG()
 }
 
 std::string player::toString() {
-    std::stringstream flags;
-    std::stringstream msg;
-
+    std::string flags;
+    std::string msg;
+    flags.resize(4);
     if(getX() != prevX){
-        flags << 1;
-        msg << getX() << "|";
+        flags[0]='1';
+        msg += std::to_string(getX()) + "|";
         prevX = getX();
     }
     else{
-        flags << 0;
+        flags[0]='0';
     }
 
     if(getY() != prevY){
-        flags << 1;
-        msg << getY() << "|";
+        flags[1]= '1';
+        msg += std::to_string(getY()) + "|";
         prevY = getY();
     }
     else{
-        flags << 0;
+        flags[1]= '0';
     }
 
     if(getRot() != prevRot){
-        flags << 1;
-        msg << getRot() << "|";
+        flags [2]= '1';
+        msg += std::to_string(getRot()) + "|";
         prevRot = getRot();
     }
     else{
-        flags << 0;
+        flags [2]= '0';
     }
 
     if(poking != prevPoking){
-        flags << 1;
+        flags [3]= '1';
         prevPoking = poking;
     }
     else{
-        flags << 0;
+        flags[3]= '0';
     }
-    flags << "|" << msg.str() << getMaxHp() << "|" << getCurrentHp() << "|" << getScore() << "|" << getWeapon();
+    flags += "|" + msg + std::to_string(getMaxHp()) + "|" + std::to_string(getCurrentHp()) + "|" + std::to_string(getScore()) + "|" + std::to_string(getWeapon());
 
     /*s << getX() << "|" << getY() << "|" << getRot()
     << "|" << getMaxHp() << "|" << getCurrentHp()
     << "|" << getScore() <<"|"<<getWeapon();*/
     //std::cout << flags.str() << std::endl << std::endl;
-    return flags.str();
+    return flags;
 }
 void player::setChange(bool c)
 {

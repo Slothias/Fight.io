@@ -165,17 +165,17 @@ void Drawable_Player::update(std::string data)
         float curx,cury,getrot;
         bool curPoking=false;
         std::getline(ss,flags,'|');
-        if(flags.at(0) == '1')
+        if(flags.at(1) == '1')
         {
             std::getline(ss,line,'|');
             curx = std::stof(line);
         }
-        if(flags.at(1) == '1')
+        if(flags.at(2) == '1')
         {
             std::getline(ss,line,'|');
             cury = std::stof(line);
         }
-        if(flags.at(2) == '1')
+        if(flags.at(3) == '1')
         {
             std::getline(ss,line,'|');
             getrot = std::stof(line);
@@ -186,6 +186,7 @@ void Drawable_Player::update(std::string data)
         }else{
             curPoking = false;
         }
+        curPoking=flags.at(4)=='1';
         std::getline(ss,line,'|');
         int maxhp = std::stoi(line);
         std::getline(ss,line,'|');
@@ -194,7 +195,6 @@ void Drawable_Player::update(std::string data)
         int getscore = std::stoi(line);
         std::getline(ss,line,'|');
         int wp =std::stoi(line);
-
         my_mutex.lock();
         ///ha nincs meg ez a játékos, akkor hozzáadjuk
         if(players.find(currentName)== players.end())

@@ -2,33 +2,17 @@
 Windows IP Configuration
 
 
-Ethernet adapter Ethernet:
-
-   Media State . . . . . . . . . . . : Media disconnected
-   Connection-specific DNS Suffix  . : home
-
-Wireless LAN adapter Helyi kapcsolat* 1:
-
-   Media State . . . . . . . . . . . : Media disconnected
-   Connection-specific DNS Suffix  . : 
-
-Wireless LAN adapter Helyi kapcsolat* 2:
-
-   Media State . . . . . . . . . . . : Media disconnected
-   Connection-specific DNS Suffix  . : 
-
 Wireless LAN adapter Wi-Fi:
 
-   Connection-specific DNS Suffix  . : Speedport_W_724V_09021602_00_053
-   IPv6 Address. . . . . . . . . . . : 2001:4c4e:1e08:dfba:1964:b2f0:4c5d:3fb1
-   Temporary IPv6 Address. . . . . . : 2001:4c4e:1e08:dfba:d0d1:b84a:cb39:6e2b
-   Link-local IPv6 Address . . . . . : fe80::1964:b2f0:4c5d:3fb1%15
-   IPv4 Address. . . . . . . . . . . : 192.168.12.226
-   Subnet Mask . . . . . . . . . . . : 255.255.255.0
-   Default Gateway . . . . . . . . . : fe80::1%15
-                                       192.168.12.254
+   Media State . . . . . . . . . . . : Media disconnected
+   Connection-specific DNS Suffix  . : t.hu
 
-Ethernet adapter Bluetooth h l¢zati kapcsolat:
+Wireless LAN adapter Local Area Connection* 1:
+
+   Media State . . . . . . . . . . . : Media disconnected
+   Connection-specific DNS Suffix  . : 
+
+Wireless LAN adapter Local Area Connection* 10:
 
    Media State . . . . . . . . . . . : Media disconnected
    Connection-specific DNS Suffix  . : 
