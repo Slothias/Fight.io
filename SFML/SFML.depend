@@ -900,17 +900,18 @@
 	<unistd.h>
 	<fstream>
 
-1574181352 source:c:\users\e550\desktop\fight.io\sfml\client.cpp
+1574451778 source:c:\users\e550\desktop\fight.io\sfml\client.cpp
 	"Client.hpp"
 
-1574181352 c:\users\e550\desktop\fight.io\sfml\client.hpp
+1574451300 c:\users\e550\desktop\fight.io\sfml\client.hpp
 	<thread>
 	<iostream>
 	<winsock2.h>
 	<mutex>
 	"player.hpp"
+	<condition_variable>
 
-1574242439 c:\users\e550\desktop\fight.io\sfml\drawable_player.hpp
+1574463115 c:\users\e550\desktop\fight.io\sfml\drawable_player.hpp
 	<SFML/Graphics.hpp>
 	"Weapon.hpp"
 	"HpBar.hpp"
@@ -918,11 +919,12 @@
 	<iostream>
 	<sstream>
 	"player.hpp"
+	"Screen.hpp"
 
-1573748543 c:\users\e550\desktop\fight.io\sfml\weapon.hpp
+1574462050 c:\users\e550\desktop\fight.io\sfml\weapon.hpp
 	<SFML/Graphics.hpp>
 
-1573142210 source:c:\users\e550\desktop\fight.io\sfml\connectscreen.cpp
+1574454298 source:c:\users\e550\desktop\fight.io\sfml\connectscreen.cpp
 	"ConnectScreen.hpp"
 	<thread>
 	<iostream>
@@ -939,14 +941,17 @@
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 
-1574256691 source:c:\users\e550\desktop\fight.io\sfml\drawable_player.cpp
+1574462733 source:c:\users\e550\desktop\fight.io\sfml\drawable_player.cpp
 	"Drawable_Player.hpp"
 	<iostream>
+	<chrono>
+	<thread>
 
-1574250789 source:c:\users\e550\desktop\fight.io\sfml\gamescreen.cpp
+1574465178 source:c:\users\e550\desktop\fight.io\sfml\gamescreen.cpp
 	"GameScreen.hpp"
+	<vector>
 
-1574249512 c:\users\e550\desktop\fight.io\sfml\gamescreen.hpp
+1574451300 c:\users\e550\desktop\fight.io\sfml\gamescreen.hpp
 	"Screen.hpp"
 	"Drawable_Player.hpp"
 	<iostream>
@@ -1000,10 +1005,10 @@
 1572873358 source:c:\users\e550\desktop\fight.io\sfml\src\simplgui\widget.cpp
 	"simplgui/Widget.h"
 
-1573748543 source:c:\users\e550\desktop\fight.io\sfml\weapon.cpp
+1574463591 source:c:\users\e550\desktop\fight.io\sfml\weapon.cpp
 	"Weapon.hpp"
 
-1573678067 source:c:\users\e550\desktop\fight.io\sfml\window.cpp
+1574451300 source:c:\users\e550\desktop\fight.io\sfml\window.cpp
 	"Window.hpp"
 	<thread>
 	<chrono>
@@ -1150,11 +1155,11 @@
 	<string>
 	<iostream>
 
-1574242367 c:\users\e550\desktop\fight.io\sfml\player.hpp
+1574460573 c:\users\e550\desktop\fight.io\sfml\player.hpp
 	<string>
 	<mutex>
 
-1574242367 source:c:\users\e550\desktop\fight.io\sfml\player.cpp
+1574460573 source:c:\users\e550\desktop\fight.io\sfml\player.cpp
 	"player.hpp"
 	<sstream>
 	<string>

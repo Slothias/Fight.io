@@ -36,6 +36,7 @@ player::player(std::string _pName, float _playerX, float _playerY, float _player
     score = 0;
     weapon = 0;
     hitboxRadius = 75;
+    isPoking = false;
 }
 /*player::player(float _playerX, float _playerY, float _playerRotation,
                 std::string _pName, int _maxHp, int _currentHp, int _score, bool _weapon)

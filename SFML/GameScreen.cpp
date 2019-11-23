@@ -1,9 +1,10 @@
 #include "GameScreen.hpp"
+#include <vector>
 GameScreen::GameScreen(sf::RenderWindow *App, const char* host)
 {
     app=App;
     font.loadFromFile("ARCADECLASSIC.TTF");
-    me=new Drawable_Player("Peti",0,0,0);
+    me=new Drawable_Player("Matyi",0,0,0);
     pup=pdown=pleft=pright=false;
     forBackground.loadFromFile("hexagonal.png");
     forBackground.setRepeated(true);
@@ -46,15 +47,21 @@ void GameScreen::draw()
     app->draw(background);
     if(c && c->getconnected())
     {
-    viewOffSet = getViewOffSet();
-    v.setCenter(me->getX()+viewOffSet.x,me->getY()+viewOffSet.y);
-    app->setView(v);
-    std::map<std::string,Drawable_Player*> players = me->getPlayers();
-    me->draw(*app,sf::RenderStates::Default);
-    for(std::pair<std::string, Drawable_Player*> entries: players)
-    {
-        entries.second->draw(*app,sf::RenderStates::Default);
-    }
+        viewOffSet = getViewOffSet();
+        v.setCenter(me->getX()+viewOffSet.x,me->getY()+viewOffSet.y);
+        app->setView(v);
+        std::map<std::string,Drawable_Player*> players = me->getPlayers();
+        me->draw(*app,sf::RenderStates::Default);
+        std::vector<sf::Vector2 <float> > playerPositions;
+        for(std::pair<std::string, Drawable_Player*> entries: players)
+        {
+            playerPositions.push_back(entries.second->getPosition());
+            entries.second->draw(*app,sf::RenderStates::Default);
+        }
+        for(int i=0; i<playerPositions.size(); i++)
+        {
+
+        }
     }
     else{
         sf::Text text;
@@ -99,6 +106,7 @@ else
                 tempWeaponCounter = 0;
             }
             me->setWeapon(tempWeaponCounter);
+            me->weaponHitbox.setOrigin(5,me->getWeapon()->range+5);
             c->notify();
         }
         if(event.key.code==sf::Keyboard::E)
@@ -192,6 +200,20 @@ else
             else
                 me->setRotation(((atan(((vertical/2 - viewOffSet.y)-mousePosY)/((horizontal/2 - viewOffSet.x)-mousePosX)))/PI *180) +270);
             c->notify();
+        }
+        if (event.type == sf::Event::MouseButtonPressed)
+        {
+            if(event.mouseButton.button == sf::Mouse::Left)
+            {
+                me->testPoke(true);
+            }
+        }
+        if (event.type == sf::Event::MouseButtonReleased)
+        {
+            if(event.mouseButton.button == sf::Mouse::Left)
+            {
+                me->testPoke(false);
+            }
         }
 
 

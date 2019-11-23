@@ -5,7 +5,7 @@
 class player
 {
 protected:
-     float playerX;
+    float playerX;
     float playerY;
     float playerRotation;
     std::string pName;
@@ -15,6 +15,7 @@ protected:
     int weapon;
     int hitboxRadius;
     bool changed;
+    bool isPoking;
 public:
     std::mutex my_mutex;
     player();

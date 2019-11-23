@@ -12,6 +12,7 @@ class Weapon: public sf::Sprite
         sf::Texture skin;
         void setPower(float p);
         void setRange(float r);
+        int getUseRotation();
         float getPower() const;
         float getRange() const;
         float range;

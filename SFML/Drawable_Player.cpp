@@ -1,5 +1,7 @@
 #include "Drawable_Player.hpp"
 #include <iostream>
+#include <chrono>
+#include <thread>
 
 Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf::Sprite(),player(name,x,y,a)
 {
@@ -12,6 +14,9 @@ Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf:
     testHitbox.setFillColor(sf::Color(0,255,255,100));
     testHitbox.setRadius(hitboxRadius);
     testHitbox.setPosition(-hitboxRadius,-hitboxRadius);
+    weaponHitbox.setFillColor(sf::Color::Red);
+    weaponHitbox.setRadius(5);
+    weaponHitbox.setOrigin(5,myWeapon->range+5);
 
     //setScale(0.5f,0.5f);
     setOrigin(skin.getSize().x/2, skin.getSize().y/2);
@@ -25,40 +30,54 @@ void Drawable_Player::draw(sf::RenderTarget& target, sf::RenderStates states)
     target.draw(testHitbox);
     target.draw(me);
     myHpBar->draw(target,states);
+    if(isPoking)
+    target.draw(weaponHitbox);
 
 }
 void Drawable_Player::setPosition(float x, float y)
 {
-    my_mutex.lock();
-    playerX=x;
-    playerY=y;
-    myWeapon->setPosition(x,y);
-    testHitbox.setOrigin(-x,-y);
-    myHpBar->setPosition(x-(skin.getSize().x/2), y-(1.5*skin.getSize().y));
-    me.setPosition(x,y);
-    my_mutex.unlock();
+    if(x!=playerX || y!=playerY)
+    {
+        my_mutex.lock();
+        playerX=x;
+        playerY=y;
+        myWeapon->setPosition(x,y);
+        weaponHitbox.setPosition(x,y);
+        testHitbox.setOrigin(-x,-y);
+        myHpBar->setPosition(x-(skin.getSize().x/2), y-(1.5*skin.getSize().y));
+        me.setPosition(x,y);
+        my_mutex.unlock();
+    }
+
 }
 void Drawable_Player::setRotation(float x)
 {
-    my_mutex.lock();
-    playerRotation=x;
-    me.setRotation(x);
-    myWeapon->setRotation(x);
-    my_mutex.unlock();
-}
-void Drawable_Player::testPoke()  //próba a szurkálásra
-{
-    /*
-    for(int i=0; i<=10; i++)
-    {
-        myWeapon->setRotation(me.getRotation+((myWeapon->useRotation/10)*i));
-        //draw()
+    if(x != playerRotation){
+        my_mutex.lock();
+        playerRotation=x;
+        weaponHitbox.setRotation(x);
+        me.setRotation(x);
+        my_mutex.unlock();
     }
-    for(int i=10; i>=0; i++)
+    if(!isPoking)
+        myWeapon->setRotation(x);
+    else
+        myWeapon->setRotation(x-myWeapon->useRotation);
+}
+void Drawable_Player::testPoke(bool setToIt)  //próba a szurkálásra
+{
+
+    /*for(int i=0; i<=10; i++)
     {
-        myWeapon->setRotation(me.getRotation+((myWeapon->useRotation/10)*i));
-        //draw()
+        myWeapon->setRotation(me.getRotation()+((myWeapon->useRotation/10)*i));
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    }
+    for(int i=10; i>=0; i--)
+    {
+        myWeapon->setRotation(me.getRotation()+(((myWeapon->useRotation)/10)*i));
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }*/
+    isPoking = setToIt;
 }
 void Drawable_Player::setScale(float x, float y)
 {

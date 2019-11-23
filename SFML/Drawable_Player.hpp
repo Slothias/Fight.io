@@ -7,6 +7,7 @@
 #include<iostream>
 #include<sstream>
 #include "player.hpp"
+#include "Screen.hpp"
 
 class Drawable_Player: public sf::Sprite, public player
 {
@@ -24,11 +25,12 @@ public:
     std::map<std::string,Drawable_Player*> getPlayers();
     void setWeapon(int _weapon);
     void setCurrentHp(int _currentHp);
-    void testPoke();
+    void testPoke(bool setToIt);
     //getters
     void update(std::string data);
     Weapon* getWeapon();
     ~Drawable_Player();
+    sf::CircleShape weaponHitbox;
 private:
     sf::Texture skin;
     sf::Sprite me;

@@ -108,7 +108,7 @@ void Client::runclient()
         std::unique_lock<std::mutex>  lck(thisMutex);
         while(getconnected())
         {
-            if(!thisPlayer->getChange())
+            while(!thisPlayer->getChange())
                 cv.wait(lck);
             std::string this_status =thisPlayer->getMSG();
             sendData(this_status);
