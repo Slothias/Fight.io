@@ -1,6 +1,9 @@
 #include "ConnectScreen.hpp"
 #include<thread>
 #include<iostream>
+#include <ctype.h>
+#include<sstream>
+
 ConnectScreen::ConnectScreen(sf::RenderWindow *a):Screen()
 {
     app=a;
@@ -32,8 +35,9 @@ ConnectScreen::ConnectScreen(sf::RenderWindow *a):Screen()
     button->setTheme(myTheme);
     button->onClicked.bind([&](simplgui::Button::Ptr button)
     {
-        std::cout<<getIP()<< " "<<getName()<<std::endl;
-        const std::string result =  testClient->tryToConnect(getIP(),10043,getName());
+        std::string res = getIP();
+        std::cout<<res.c_str()<<" : "<<getName()<<std::endl;
+        const std::string result =  testClient->tryToConnect(res.c_str(),10043,getName());
         resultText->setString(result);
         resultText->setPosition(app->getView().getCenter().x/2 - resultText->getLocalBounds().width/2, app->getSize().y-4*resultText->getLocalBounds().height);
         change = result == "OK";
@@ -59,7 +63,7 @@ std::string ConnectScreen::getName()
     std::string result;
     std::u32string n = name->getText();
     for(char c : n)
-        result+=c;
+        result.push_back(c);
     return result;
 
 }
@@ -67,16 +71,22 @@ Client* ConnectScreen::getClient()
 {
     return testClient;
 }
-const char* ConnectScreen::getIP()
+bool isDigit(char c)
+{
+    return c>=48 && c<=57;
+}
+std::string ConnectScreen::getIP()
 {
     std::u32string ip = textbox->getText();
-    char* chr = new char[ip.length()];
+    std::string str="";;
     for(int i=0; i<ip.length(); i++)
     {
-        chr[i] = ip[i];
+        if(isDigit(ip[i])|| ip[i]=='.')
+            {
+                str.push_back((char)ip[i]);
+            }
     }
-    const char* result = chr;
-    return result;
+    return str;
 }
 
 void ConnectScreen::draw()
