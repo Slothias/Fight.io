@@ -8,6 +8,10 @@ protected:
     float playerX;
     float playerY;
     float playerRotation;
+    bool poking;
+    float prevX,prevY,prevRot;
+    bool prevPoking;
+    //sf::Vector2 hitPosition;
     std::string pName;
     int maxHp;
     int currentHp;
@@ -15,7 +19,6 @@ protected:
     int weapon;
     int hitboxRadius;
     bool changed;
-    bool isPoking;
 public:
     std::mutex my_mutex;
     player();
@@ -41,6 +44,7 @@ public:
     float getX();
     float getY();
     float getRot();
+
     std::string getName();
     int getMaxHp();
     int getCurrentHp();

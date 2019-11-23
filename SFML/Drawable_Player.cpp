@@ -34,8 +34,8 @@ void Drawable_Player::draw(sf::RenderTarget& target, sf::RenderStates states)
     target.draw(testHitbox);
     target.draw(me);
     myHpBar->draw(target,states);
-    if(isPoking)
-    target.draw(weaponHitbox);
+    if(poking)
+        target.draw(weaponHitbox);
     target.draw(*myName);
 
 }
@@ -50,6 +50,7 @@ void Drawable_Player::setPosition(float x, float y,bool c)
     changed = c;
     myWeapon->setPosition(x,y);
     weaponHitbox.setPosition(x,y);
+    //absolutePositionTester.setPosition(x+(cos((playerRotation-90)* 3.1415 / 180.0)*myWeapon->range),y+(sin((playerRotation-90)* 3.1415 / 180.0)*myWeapon->range));
     testHitbox.setOrigin(-x,-y);
     myHpBar->setPosition(x-(skin.getSize().x/2), y-(1.5*skin.getSize().y));
     me.setPosition(x,y);
@@ -64,11 +65,12 @@ void Drawable_Player::setRotation(float x, bool c)
     my_mutex.lock();
     playerRotation=x;
     weaponHitbox.setRotation(x);
+
     changed=c;
     me.setRotation(x);
     my_mutex.unlock();
     }
-    if(!isPoking)
+    if(!poking)
         myWeapon->setRotation(x);
     else
         myWeapon->setRotation(x-myWeapon->useRotation);
@@ -86,7 +88,7 @@ void Drawable_Player::testPoke(bool setToIt)  //próba a szurkálásra
         myWeapon->setRotation(me.getRotation()+(((myWeapon->useRotation)/10)*i));
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }*/
-    isPoking = setToIt;
+    poking = setToIt;
 }
 void Drawable_Player::setScale(float x, float y)
 {
@@ -146,8 +148,6 @@ void Drawable_Player::update(std::string data)
             std::cout<<"Server exit"<<std::endl;
             std::map<std::string, Drawable_Player*> myMap =players;
             players.clear();
-
-
         }
         ///ha egy játékos küldött exitet, akkor csak ő mehet a picsába
         else
@@ -160,15 +160,30 @@ void Drawable_Player::update(std::string data)
     ///egyébként frissítünk
     else if(data.find("|")!=std::string::npos)
     {
-        //  std::cout<<" NEW DATA "<<std::endl;
-        //std::cout <<data<<std::endl;
+        std::string flags;
         std::string line;
-        std::getline(ss,line,'|');
-        float curx = std::stof(line);
-        std::getline(ss,line,'|');
-        float cury = std::stof(line);
-        std::getline(ss,line,'|');
-        float getrot = std::stof(line);
+        float curx,cury,getrot;
+        std::getline(ss,flags,'|');
+        if(flags.at(0) == '1')
+        {
+            std::getline(ss,line,'|');
+            curx = std::stof(line);
+        }
+        if(flags.at(1) == '1')
+        {
+            std::getline(ss,line,'|');
+            float cury = std::stof(line);
+        }
+        if(flags.at(2) == '1')
+        {
+            std::getline(ss,line,'|');
+            float getrot = std::stof(line);
+        }
+        if(flags.at(3) == '1')
+        {
+            poking = true;
+        }else
+            poking = false;
         std::getline(ss,line,'|');
         int maxhp = std::stoi(line);
         std::getline(ss,line,'|');
@@ -192,7 +207,7 @@ void Drawable_Player::update(std::string data)
             ///egyébként frissítjük
             Drawable_Player* act = players[currentName];
             ///ha eltér a pozíció,akkor frissít
-            if(act->getX()!=curx || act->getY()!=cury)
+            if(act->getX()!=curx || act->getY()!=cury) ///flageket ezekhez is
                 act->setPosition(curx,cury,false);
             ///ha eltér a szög,akkor frissít
             if(act->getRot()!=getrot)

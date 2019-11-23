@@ -27,16 +27,17 @@ player::player(std::string _pName)
 */
 player::player(std::string _pName, float _playerX, float _playerY, float _playerRotation)
 {
-    playerX = _playerX;
-    playerY = _playerY;
-    playerRotation = _playerRotation;
+    playerX = prevX = _playerX;
+    playerY = prevY = _playerY;
+    playerRotation = prevRot = _playerRotation;
+    prevPoking=false;
     pName = _pName;
     maxHp =  100;
     currentHp = maxHp;
     score = 0;
     weapon = 0;
     hitboxRadius = 75;
-    isPoking = false;
+    poking = false;
 }
 /*player::player(float _playerX, float _playerY, float _playerRotation,
                 std::string _pName, int _maxHp, int _currentHp, int _score, bool _weapon)
@@ -174,18 +175,56 @@ int player::getWeapon()
 
 std::string player::getMSG()
 {
-    //std::cout << myPlayer.getPosition().x << " " << myPlayer.getPosition().y << std::endl;
    std::stringstream s;
     s << getX() << "|" << getY() << "|" << getRot();
     return s.str();
 }
 
 std::string player::toString() {
-      std::stringstream s;
-      s << getX() << "|" << getY() << "|" << getRot()
-        << "|" << getMaxHp() << "|" << getCurrentHp()
-        << "|" << getScore() <<"|"<<getWeapon();
-    return s.str();
+    std::stringstream flags;
+    std::stringstream msg;
+
+    if(getX() != prevX){
+        flags << 1;
+        msg << getX() << "|";
+        prevX = getX();
+    }
+    else{
+        flags << 0;
+    }
+
+    if(getY() != prevY){
+        flags << 1;
+        msg << getY() << "|";
+        prevY = getY();
+    }
+    else{
+        flags << 0;
+    }
+
+    if(getRot() != prevRot){
+        flags << 1;
+        msg << getRot() << "|";
+        prevRot = getRot();
+    }
+    else{
+        flags << 0;
+    }
+
+    if(poking != prevPoking){
+        flags << 1;
+        prevPoking = poking;
+    }
+    else{
+        flags << 0;
+    }
+    flags << "|" << msg.str() << getMaxHp() << "|" << getCurrentHp() << "|" << getScore() << "|" << getWeapon();
+
+    /*s << getX() << "|" << getY() << "|" << getRot()
+    << "|" << getMaxHp() << "|" << getCurrentHp()
+    << "|" << getScore() <<"|"<<getWeapon();*/
+    //std::cout << flags.str() << std::endl << std::endl;
+    return flags.str();
 }
 void player::setChange(bool c)
 {
