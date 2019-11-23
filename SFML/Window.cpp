@@ -47,7 +47,7 @@ void Window::loop()
         if(connectScreen->change_me())
         {
             state=State::play;
-            gameScreen = new GameScreen(this, connectScreen->getIP());
+            gameScreen = new GameScreen(this,connectScreen->getClient());
         }
 
     }

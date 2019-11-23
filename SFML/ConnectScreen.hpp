@@ -8,6 +8,7 @@
 #include "simplgui/FileResourcesGetter.h"
 #include "simplgui/TextBox.h"
 #include "simplgui/Tools.h"
+#include "Client.hpp"
 
 class ConnectScreen:public Screen
     {
@@ -15,13 +16,19 @@ class ConnectScreen:public Screen
         ConnectScreen(sf::RenderWindow *a);
         void draw();
         void handle(sf::Event& event);
+        Client* getClient();
         virtual ~ConnectScreen();
-        const char* getIP();
     private:
+        std::string getName();
+        const char* getIP();
+        Client* testClient;
+        sf::Text* resultText;
+        sf::Font font;
         sf::Clock clock;
         sf::RenderWindow* app;
         simplgui::Button::Ptr button;
         simplgui::TextBox::Ptr textbox;
+        simplgui::TextBox::Ptr name;
         simplgui::Theme myTheme;
         sf::Texture forBackground;
         sf::Sprite background;

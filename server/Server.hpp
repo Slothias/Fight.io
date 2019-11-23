@@ -27,6 +27,7 @@ private:
 
     public:
         std::string getName();
+        void setName(std::string n);
         ServerAssistant(SOCKET c,Server* me, std::string name);
         void run();
         void deleteme();

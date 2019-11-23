@@ -10,13 +10,17 @@
 class Client
 {
 public:
-    Client(const char* host,u_short port, player* _thisPlayer);
+    Client();
     void runclient();
     bool getconnected();
     void notify();
+    std::string getName();
+    std::string tryToConnect(const char* host,u_short port,std::string name);
+    void addPlayer(player* p);
     ~Client();
     void closeConnection();
 private:
+    std::string n;
     std::condition_variable cv;
     std::mutex thisMutex;
     bool is_running;

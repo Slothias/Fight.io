@@ -123,12 +123,30 @@ void Server::runServer()
             SOCKET c = accept(server, (SOCKADDR *) &clientAddr, &clientsize);
             if (c != INVALID_SOCKET && getSize()<MAX_PLAYERS)
             {
-                ServerAssistant* player=new ServerAssistant(c,this,"CLIENT "+std::to_string(getSize()));
+                ServerAssistant* player=new ServerAssistant(c,this,"");
+                std::string g = player->getData();
+                my_mutex.lock();
+                bool ok = true;
+                for(ServerAssistant* s: players)
+                {
+                    if(s->getName()==g)
+                        ok = false;
+                }
+                if(ok)
+                {
+                player->sendData("OK");
+                player->setName(g);
                 std::thread t(&ServerAssistant::run,&(*player));
                 t.detach();
-                my_mutex.lock();
                 players.push_back(player);
+                }
+                else
+                {
+                    player->sendData("Name is already taken");
+                    delete player;
+                }
                 my_mutex.unlock();
+
             }
         }
        // tick.join();
@@ -177,6 +195,7 @@ void Server::closeServer()
 Server::~Server()
 {
     delete myEngine;
+
    //std::cout<<"Server cleared"<<std::endl;
 
 }
@@ -187,6 +206,13 @@ Server::ServerAssistant::ServerAssistant(SOCKET c,Server* m,std::string n)
     me=m;
     name=n;
 }
+void Server::ServerAssistant::setName(std::string n)
+{
+    my_mutex.lock();
+    name = n;
+    my_mutex.unlock();
+}
+
 std::string Server::ServerAssistant::getName()
 {
     return name;
@@ -253,12 +279,11 @@ void Server::ServerAssistant::closeConnection()
 }
 void Server::ServerAssistant::run()
 {
-    double ms = me->myEngine->GetMapSize();
+    /*double ms = me->myEngine->GetMapSize();
     std::stringstream ss;
     ss << ms;
-    sendData(ss.str());
-    name = getData();
-    me->sendData(me->myEngine->CreatePlayer(name),name);
+    sendData(ss.str());*/
+    //me->sendData(me->myEngine->CreatePlayer(name),name);
    // std::cout<<name<<" connected"<<std::endl;
     while(getcon())
     {
@@ -267,11 +292,11 @@ void Server::ServerAssistant::run()
         if(msg.length()>0)
         {
 
+            me->sendData(msg,name);
             if(msg.find("EXIT")!= std::string::npos) {
                 closeConnection();
                 continue;
             }
-            me->sendData(me->myEngine->CheckRequest(name, msg),name);
         }
     }
     delete this;

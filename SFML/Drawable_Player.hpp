@@ -13,8 +13,8 @@ class Drawable_Player: public sf::Sprite, public player
 {
 public:
     Drawable_Player(std::string name,float x, float y, float a);
-    virtual void setPosition(float x, float y);
-    virtual void setRotation(float x);
+    virtual void setPosition(float x, float y,bool c);
+    virtual void setRotation(float x, bool c);
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states);
     sf::Texture getSkin();
     sf::Vector2<float> getPosition();
@@ -29,6 +29,7 @@ public:
     //getters
     void update(std::string data);
     Weapon* getWeapon();
+    std::map<std::string,Drawable_Player*> players;
     ~Drawable_Player();
     sf::CircleShape weaponHitbox;
 private:
@@ -37,7 +38,8 @@ private:
     Weapon* myWeapon;
     HpBar* myHpBar;
     sf::CircleShape testHitbox;
-    std::map<std::string,Drawable_Player*> players;
+    sf::Font font;
+    sf::Text* myName;
 };
 
 #endif // DRAWABLE_PLAYER_H

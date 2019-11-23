@@ -6,6 +6,10 @@
 Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf::Sprite(),player(name,x,y,a)
 {
     skin.loadFromFile("Player.png");
+    font.loadFromFile("LiberationSans.ttf");
+    myName = new sf::Text('<'+name+'>',font,16);
+    myName->setColor(sf::Color::Black);
+    myName->setStyle(sf::Text::Style::Bold);
     myWeapon = nullptr;
     skin.setSmooth(true);
     me.setTexture(skin);
@@ -20,8 +24,8 @@ Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf:
 
     //setScale(0.5f,0.5f);
     setOrigin(skin.getSize().x/2, skin.getSize().y/2);
-    setPosition(x,y);
-    setRotation(a);
+    setPosition(x,y,false);
+    setRotation(a,false);
 }
 
 void Drawable_Player::draw(sf::RenderTarget& target, sf::RenderStates states)
@@ -32,32 +36,37 @@ void Drawable_Player::draw(sf::RenderTarget& target, sf::RenderStates states)
     myHpBar->draw(target,states);
     if(isPoking)
     target.draw(weaponHitbox);
+    target.draw(*myName);
 
 }
-void Drawable_Player::setPosition(float x, float y)
+void Drawable_Player::setPosition(float x, float y,bool c)
 {
-    if(x!=playerX || y!=playerY)
+
+    if(x!= playerX || y!=playerY)
     {
-        my_mutex.lock();
-        playerX=x;
-        playerY=y;
-        myWeapon->setPosition(x,y);
-        weaponHitbox.setPosition(x,y);
-        testHitbox.setOrigin(-x,-y);
-        myHpBar->setPosition(x-(skin.getSize().x/2), y-(1.5*skin.getSize().y));
-        me.setPosition(x,y);
-        my_mutex.unlock();
+    my_mutex.lock();
+    playerX=x;
+    playerY=y;
+    changed = c;
+    myWeapon->setPosition(x,y);
+    weaponHitbox.setPosition(x,y);
+    testHitbox.setOrigin(-x,-y);
+    myHpBar->setPosition(x-(skin.getSize().x/2), y-(1.5*skin.getSize().y));
+    me.setPosition(x,y);
+    myName->setPosition(x-skin.getSize().x/4,y-(1.5*skin.getSize().y+myName->getGlobalBounds().height));
+    my_mutex.unlock();
     }
-
 }
-void Drawable_Player::setRotation(float x)
+void Drawable_Player::setRotation(float x, bool c)
 {
-    if(x != playerRotation){
-        my_mutex.lock();
-        playerRotation=x;
-        weaponHitbox.setRotation(x);
-        me.setRotation(x);
-        my_mutex.unlock();
+    if(x!=playerRotation)
+    {
+    my_mutex.lock();
+    playerRotation=x;
+    weaponHitbox.setRotation(x);
+    changed=c;
+    me.setRotation(x);
+    my_mutex.unlock();
     }
     if(!isPoking)
         myWeapon->setRotation(x);
@@ -167,27 +176,27 @@ void Drawable_Player::update(std::string data)
         std::getline(ss,line,'|');
         int getscore = std::stoi(line);
         std::getline(ss,line,'|');
-        int wp = 1;
+        int wp =std::stoi(line);
 
         my_mutex.lock();
         ///ha nincs meg ez a játékos, akkor hozzáadjuk
         if(players.find(currentName)== players.end())
         {
-            if(currentName!=pName)
-                players[currentName] = new Drawable_Player(currentName,curx,cury,getrot);
+                if(pName!=currentName)
+                    players[currentName] = new Drawable_Player(currentName,curx,cury,getrot);
         }
         else
         {
-            if(pName!=currentName)
+            if(currentName!=pName)
             {
             ///egyébként frissítjük
             Drawable_Player* act = players[currentName];
             ///ha eltér a pozíció,akkor frissít
             if(act->getX()!=curx || act->getY()!=cury)
-                act->setPosition(curx,cury);
+                act->setPosition(curx,cury,false);
             ///ha eltér a szög,akkor frissít
             if(act->getRot()!=getrot)
-                players[currentName]->setRotation(getrot);
+                players[currentName]->setRotation(getrot,false);
             ///ha eltér a maxhp,akkor frissít
             if(act->getMaxHp()!=maxhp)
                 players[currentName]->setMaxHp(maxhp);
@@ -197,14 +206,18 @@ void Drawable_Player::update(std::string data)
             ///ha eltér a score,akkor frissít
             if(act->getScore()!=getscore)
                 players[currentName]->setScore(getscore);
-            //players[currentName]->setWeapon(wp);
+            if(weapon!=wp)
+                players[currentName]->setWeapon(wp);
             }
             else
             {
-                if(getX()!=curx || getY()!=cury)
-                    setPosition(curx,cury);
-                if(getRot()!= getrot)
-                    setRotation(getrot);
+                setPosition(curx,cury,false);
+                setRotation(getrot,false);
+                setRotation(getrot,false);
+                setMaxHp(maxhp);
+                setCurrentHp(curhp);
+                setScore(getscore);
+                setWeapon(wp);
             }
         }
 

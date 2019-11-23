@@ -10,7 +10,7 @@ class GameScreen:public Screen
 {
     public:
 
-        GameScreen(sf::RenderWindow *App, const char* host);
+        GameScreen(sf::RenderWindow *App,Client* c);
         void draw();
         void handle(sf::Event& event);
          ~GameScreen();

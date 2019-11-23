@@ -165,7 +165,7 @@ int player::getScore()
 }
 int player::getWeapon()
 {
-    float result = -1;
+    int result = -1;
     my_mutex.lock();
     result = weapon;
     my_mutex.unlock();

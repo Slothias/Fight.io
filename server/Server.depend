@@ -592,7 +592,7 @@
 	"simplgui/TextBox.h"
 	"simplgui/Tools.h"
 
-1574103581 d:\homeproject\c++\repo\fight.io\server\server.hpp
+1574468232 d:\homeproject\c++\repo\fight.io\server\server.hpp
 	<thread>
 	<winsock2.h>
 	<iostream>
@@ -615,18 +615,18 @@
 	<iostream>
 	<sstream>
 
-1574380663 d:\homeproject\c++\repo\fight.io\server\player.hpp
+1574454073 d:\homeproject\c++\repo\fight.io\server\player.hpp
 	<string>
 	<mutex>
 
-1574103581 source:d:\homeproject\c++\repo\fight.io\server\server.cpp
+1574468221 source:d:\homeproject\c++\repo\fight.io\server\server.cpp
 	"Server.hpp"
 	<algorithm>
 	<string>
 	<sstream>
 	<future>
 
-1574075742 source:d:\homeproject\c++\repo\fight.io\server\servergui.cpp
+1574462753 source:d:\homeproject\c++\repo\fight.io\server\servergui.cpp
 	"ServerGui.hpp"
 
 1455882554 source:d:\homeproject\c++\repo\fight.io\server\src\simplgui\button.cpp
@@ -661,7 +661,7 @@
 1455882554 source:d:\homeproject\c++\repo\fight.io\server\src\simplgui\widget.cpp
 	"simplgui/Widget.h"
 
-1574104809 source:d:\homeproject\c++\repo\fight.io\server\player.cpp
+1574383437 source:d:\homeproject\c++\repo\fight.io\server\player.cpp
 	"player.hpp"
 	<sstream>
 	<string>
