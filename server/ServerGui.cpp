@@ -103,7 +103,10 @@ void ServerGui::loop()
         {
             button->update(dt);
             if(event.type == sf::Event::Closed)
-                close();
+                {
+                    server->closeServer();
+                    close();
+                }
             button->processEvent(simplgui::Event(event, *this));
         }
 

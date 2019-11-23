@@ -10,6 +10,13 @@ ConnectScreen::ConnectScreen(sf::RenderWindow *a):Screen()
     const int textboxX = 300;
     const int textboxY = 48;
 
+    font.loadFromFile("ARCADECLASSIC.ttf");
+    resultText = new sf::Text("",font,30);
+
+    resultText->setPosition(app->getView().getCenter().x/2 - resultText->getLocalBounds().width/2, app->getSize().y-4*resultText->getLocalBounds().height);
+    resultText->setColor(sf::Color::Red);
+
+    testClient =new Client();
 
     myTheme=simplgui::Theme::defaultTheme();
     auto resGetter = simplgui::FileResourcesGetter::create();
@@ -25,8 +32,11 @@ ConnectScreen::ConnectScreen(sf::RenderWindow *a):Screen()
     button->setTheme(myTheme);
     button->onClicked.bind([&](simplgui::Button::Ptr button)
     {
-        getIP();
-        change=true;
+        std::cout<<getIP()<< " "<<getName()<<std::endl;
+        const std::string result =  testClient->tryToConnect(getIP(),10043,getName());
+        resultText->setString(result);
+        resultText->setPosition(app->getView().getCenter().x/2 - resultText->getLocalBounds().width/2, app->getSize().y-4*resultText->getLocalBounds().height);
+        change = result == "OK";
     });
 
     textbox=simplgui::TextBox::create(resGetter);
@@ -35,10 +45,28 @@ ConnectScreen::ConnectScreen(sf::RenderWindow *a):Screen()
     textbox->setSize(sf::Vector2f(textboxX, textboxY));
     textbox->setTheme(myTheme);
 
+    name = simplgui::TextBox::create(resGetter);
+    name->setPosition(sf::Vector2f(centerX-(textboxX+buttonX)/2,centerY-2*textboxY));
+    name->setText(U"Name");
+    name->setSize(sf::Vector2f(textboxX,textboxY));
+    name->setTheme(myTheme);
+
     forBackground.loadFromFile("Menu.png");
     background.setTexture(forBackground);
 }
+std::string ConnectScreen::getName()
+{
+    std::string result;
+    std::u32string n = name->getText();
+    for(char c : n)
+        result+=c;
+    return result;
 
+}
+Client* ConnectScreen::getClient()
+{
+    return testClient;
+}
 const char* ConnectScreen::getIP()
 {
     std::u32string ip = textbox->getText();
@@ -56,9 +84,13 @@ void ConnectScreen::draw()
     app->draw(background);
     auto dt = clock.restart();
     textbox->update(dt);
+    name->update(dt);
     button->update(dt);
     app->draw(*textbox);
     app->draw(*button);
+    app->draw(*name);
+    if(resultText->getString().toAnsiString()!="OK");
+        app->draw(*resultText);
 }
 void ConnectScreen::handle(sf::Event& event)
 {
@@ -71,6 +103,7 @@ void ConnectScreen::handle(sf::Event& event)
         if(event.type==sf::Event::TextEntered || event.type == sf::Event::MouseButtonPressed)
         {
         textbox->processEvent(simplgui::Event(event, *app));
+        name->processEvent(simplgui::Event(event,*app));
         //std::this_thread::sleep_for(std::chrono::milliseconds(80));
         }
         button->processEvent(simplgui::Event(event, *app));

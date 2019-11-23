@@ -1,18 +1,19 @@
 #include "GameScreen.hpp"
-GameScreen::GameScreen(sf::RenderWindow *App, const char* host)
+GameScreen::GameScreen(sf::RenderWindow *App, Client* my)
 {
     app=App;
     font.loadFromFile("ARCADECLASSIC.TTF");
-    me=new Drawable_Player("Peti",0,0,0);
+    c=my;
+    me=new Drawable_Player(my->getName(),0,0,0);
+    c->addPlayer(me);
+    std::thread t(&Client::runclient,&(*c));
+    t.detach();
     pup=pdown=pleft=pright=false;
     forBackground.loadFromFile("hexagonal.png");
     forBackground.setRepeated(true);
     background.setTexture(forBackground);
     background.setPosition(-1500,-1000);
     background.setTextureRect(sf::IntRect(0,0,3000,2000));
-    c=new Client(host,10043,me);
-    std::thread t(&Client::runclient,&(*c));
-    t.detach();
     GetDesktopResolution();
     tempWeaponCounter =0;
     viewOffSet = getViewOffSet();
@@ -32,7 +33,8 @@ void GameScreen::draw()
 {
     if((app->getSize().x != horizontal || app->getSize().y!=vertical) && c)
     {
-        if(c->getconnected())
+
+    if(c->getconnected())
         {
         app->setSize(sf::Vector2<unsigned int>(horizontal,vertical));
         app->setPosition(sf::Vector2<int>(0,0));
@@ -73,6 +75,7 @@ if(event.type == sf::Event::Closed || ((event.type == sf::Event::KeyPressed) && 
     {
 
     c->closeConnection();
+    c->notify();
     app->close();
     }
 else
@@ -99,7 +102,6 @@ else
                 tempWeaponCounter = 0;
             }
             me->setWeapon(tempWeaponCounter);
-            c->notify();
         }
         if(event.key.code==sf::Keyboard::E)
         {
@@ -188,16 +190,16 @@ else
 
         if(!((horizontal/2 - viewOffSet.x)-mousePosX ==0)){
             if((horizontal/2 - viewOffSet.x)-mousePosX <= 0)
-                me->setRotation((atan(((vertical/2 - viewOffSet.y)-mousePosY)/((horizontal/2 - viewOffSet.x)-mousePosX)))/PI *180 +90);
+                me->setRotation((atan(((vertical/2 - viewOffSet.y)-mousePosY)/((horizontal/2 - viewOffSet.x)-mousePosX)))/PI *180 +90,true);
             else
-                me->setRotation(((atan(((vertical/2 - viewOffSet.y)-mousePosY)/((horizontal/2 - viewOffSet.x)-mousePosX)))/PI *180) +270);
+                me->setRotation(((atan(((vertical/2 - viewOffSet.y)-mousePosY)/((horizontal/2 - viewOffSet.x)-mousePosX)))/PI *180) +270,true);
             c->notify();
         }
 
 
         float curx = me->getX();
         float cury = me->getY();
-        me->setPosition(curx+playerX, cury+playerY);
+        me->setPosition(curx+playerX, cury+playerY,true);
         c->notify();
     }
 }

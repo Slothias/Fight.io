@@ -1,9 +1,32 @@
 #include "Client.hpp"
 
-Client::Client(const char* host,u_short port, player* _thisPlayer)
+Client::Client()
+{
+    thisPlayer=nullptr;
+}
+std::string Client::tryToConnect(const char* host,u_short port,std::string name)
 {
     is_running=startup(host,port);
-    thisPlayer = _thisPlayer;
+    std::string g;
+    if(is_running)
+        {
+        sendData(name);
+        g= getData();
+        }
+    if(g=="OK")
+        n=name;
+    return g;
+
+}
+std::string Client::getName()
+{
+    return n;
+}
+void Client::addPlayer(player* p)
+{
+    my_mutex.lock();
+    thisPlayer=p;
+    my_mutex.unlock();
 }
 bool Client::startup(const char* host, u_short port)
 {
@@ -60,7 +83,6 @@ if(getconnected())
         for (int i = 0; i < data.length(); i++)
             buffer[i] = data[i];
         send(server, buffer, sizeof(buffer), 0);
-      //  std::cout<<"Message sent: "<<data<<std::endl;
     }
     }
 }
@@ -79,9 +101,9 @@ if(getconnected())
 
 void Client::closeConnection()
 {
-    Client::sendData("EXIT");
-    shutdown(server,2);
+    sendData("EXIT");
     setconnected(false);
+    shutdown(server,2);
 }
 void Client::notify()
 {
@@ -92,14 +114,16 @@ void Client::runclient()
     if(getconnected())
     {
         std::cout<<"CONNECTED"<<std::endl;
-        sendData(thisPlayer->getName());
         std::thread get([this]()
                         {
                             while(getconnected())
                             {
                             std::string g = getData();
                             if(g.find("Server")!=std::string::npos && g.find("EXIT")!=std::string::npos)
-                                setconnected(false);
+                                {
+                                    setconnected(false);
+                                    cv.notify_all();
+                                }
                             std::thread t (&player::update,&(*thisPlayer),g);
                             t.detach();
                             }
@@ -108,17 +132,18 @@ void Client::runclient()
         std::unique_lock<std::mutex>  lck(thisMutex);
         while(getconnected())
         {
-            if(!thisPlayer->getChange())
+
+            while(!thisPlayer->getChange() && getconnected())
                 cv.wait(lck);
-            std::string this_status =thisPlayer->getMSG();
+            std::string this_status =thisPlayer->toString();
             sendData(this_status);
             thisPlayer->setChange(false);
-           /* std::string thisstatus =thisPlayer->getMSG();
+            /*std::string thisstatus =thisPlayer->getMSG();
             if(thisstatus!=oldstatus)
             {
                 sendData(thisstatus);
                 oldstatus=thisstatus;
-            }*/
+           }*/
         }
 
         get.join();
