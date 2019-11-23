@@ -20,7 +20,7 @@ class ConnectScreen:public Screen
         virtual ~ConnectScreen();
     private:
         std::string getName();
-        const char* getIP();
+        std::string getIP();
         Client* testClient;
         sf::Text* resultText;
         sf::Font font;

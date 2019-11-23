@@ -2,17 +2,12 @@
 Windows IP Configuration
 
 
-Ethernet adapter Ethernet:
-
-   Media State . . . . . . . . . . . : Media disconnected
-   Connection-specific DNS Suffix  . : home
-
-Wireless LAN adapter Helyi kapcsolat* 1:
+Wireless LAN adapter Local Area Connection* 1:
 
    Media State . . . . . . . . . . . : Media disconnected
    Connection-specific DNS Suffix  . : 
 
-Wireless LAN adapter Helyi kapcsolat* 2:
+Wireless LAN adapter Local Area Connection* 10:
 
    Media State . . . . . . . . . . . : Media disconnected
    Connection-specific DNS Suffix  . : 
@@ -20,15 +15,11 @@ Wireless LAN adapter Helyi kapcsolat* 2:
 Wireless LAN adapter Wi-Fi:
 
    Connection-specific DNS Suffix  . : home
-   IPv6 Address. . . . . . . . . . . : 2a02:ab88:1343:f300:1964:b2f0:4c5d:3fb1
-   Temporary IPv6 Address. . . . . . : 2a02:ab88:1343:f300:4457:1d76:7e4f:6a86
-   Link-local IPv6 Address . . . . . : fe80::1964:b2f0:4c5d:3fb1%15
-   IPv4 Address. . . . . . . . . . . : 192.168.0.206
+
+   IPv6 Address. . . . . . . . . . . : 2a02:ab88:1343:f300:4c36:77f3:dfac:9b37
+   Temporary IPv6 Address. . . . . . : 2a02:ab88:1343:f300:f190:ba7b:b4b9:e381
+   Link-local IPv6 Address . . . . . : fe80::4c36:77f3:dfac:9b37%14
+   IPv4 Address. . . . . . . . . . . : 192.168.0.192
    Subnet Mask . . . . . . . . . . . : 255.255.255.0
-   Default Gateway . . . . . . . . . : fe80::ae22:5ff:fe1b:11a%15
+   Default Gateway . . . . . . . . . : fe80::ae22:5ff:fe1b:11a%14
                                        192.168.0.1
-
-Ethernet adapter Bluetooth h l¢zati kapcsolat:
-
-   Media State . . . . . . . . . . . : Media disconnected
-   Connection-specific DNS Suffix  . : 
