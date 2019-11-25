@@ -69,9 +69,9 @@ void Client::setconnected(bool c)
 }
 bool Client::getconnected()
 {
-   my_mutex.lock();
+   //my_mutex.lock();
    bool result = is_running;
-   my_mutex.unlock();
+   //my_mutex.unlock();
    return result;
 }
 void Client::sendData(std::string data) {
@@ -126,14 +126,15 @@ void Client::runclient()
                                 }
                             std::thread t (&player::update,&(*thisPlayer),g);
                             t.detach();
+                            cv.notify_all();
                             }
                         });
         std::string oldstatus;
-        std::unique_lock<std::mutex>  lck(thisMutex);
+        std::unique_lock<std::mutex>  lck(my_mutex);
         while(getconnected())
         {
 
-            while(!thisPlayer->getChange() && getconnected())
+            while(!thisPlayer->getChange() )
                 cv.wait(lck);
             std::string this_status =thisPlayer->toString();
             sendData(this_status);

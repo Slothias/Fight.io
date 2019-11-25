@@ -2,6 +2,7 @@
 #include <sstream>
 #include <string>
 #include <iostream>
+#include<fstream>
 
 //constructors************************************************
 /*
@@ -183,40 +184,36 @@ std::string player::getMSG()
 std::string player::toString() {
     std::string flags;
     std::string msg;
-    flags.resize(4);
-    if(getX() != prevX){
+    flags.resize(3);
+    if(getX() != prevX || getY()!=prevY){
         flags[0]='1';
-        msg += std::to_string(getX()) + "|";
+        msg += std::to_string(getX()) + "|"+std::to_string(getY());
         prevX = getX();
+        prevY = getY();
     }
     else{
         flags[0]='0';
     }
-
-    if(getY() != prevY){
-        flags[1]= '1';
-        msg += std::to_string(getY()) + "|";
-        prevY = getY();
-    }
-    else{
-        flags[1]= '0';
-    }
-
     if(getRot() != prevRot){
-        flags [2]= '1';
+        flags [1]= '1';
         msg += std::to_string(getRot()) + "|";
         prevRot = getRot();
     }
     else{
-        flags [2]= '0';
+        flags [1]= '0';
     }
-
-    if(poking != prevPoking){
-        flags [3]= '1';
-        prevPoking = poking;
+    my_mutex.lock();
+    bool poke = poking;
+    my_mutex.unlock();
+    if(poke != prevPoking){
+        std::ofstream myfile("poking.txt",std::ofstream::app);
+        flags [2]= '1';
+        prevPoking = poke;
+        myfile<<"POKE"<<std::endl;
+        myfile.close();
     }
     else{
-        flags[3]= '0';
+        flags[2]= '0';
     }
     flags += "|" + msg + std::to_string(getMaxHp()) + "|" + std::to_string(getCurrentHp()) + "|" + std::to_string(getScore()) + "|" + std::to_string(getWeapon());
 

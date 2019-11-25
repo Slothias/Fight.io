@@ -208,16 +208,19 @@ else
         if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
             me->testPoke(true);
+            c->notify();
         }
         if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
         {
             me->testPoke(false);
+            c->notify();
         }
 
 
         float curx = me->getX();
         float cury = me->getY();
         me->setPosition(curx+playerX, cury+playerY,true);
+        me->setChange(true);
         c->notify();
     }
 }

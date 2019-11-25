@@ -63,10 +63,10 @@ std::string GameEngine::CheckRequest(std::string name, std::string msg) {
             for(std::pair<std::string,player*> pr : players) {
                 player* p = pr.second;
                 float diraction = atan2( (p->getY() - actplayer->getY()) , (p->getX() - actplayer->getX()) ) * 180/PI;
-                if(///diraction...
-                   && sqrt(pow(actplayer->getX() - p->getX(), 2) + pow(actplayer->getY() - p->getY(), 2))/** < actplayer->getWeapon()->getRange() **/) {
+               /* if(///diraction...
+                   && sqrt(pow(actplayer->getX() - p->getX(), 2) + pow(actplayer->getY() - p->getY(), 2))/** < actplayer->getWeapon()->getRange() ) {
 
-                }
+                }*/
             }
             return actplayer->toString();
             break;

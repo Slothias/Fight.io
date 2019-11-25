@@ -88,7 +88,10 @@ void Drawable_Player::testPoke(bool setToIt)  //próba a szurkálásra
         myWeapon->setRotation(me.getRotation()+(((myWeapon->useRotation)/10)*i));
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }*/
+    my_mutex.lock();
     poking = setToIt;
+    changed=true;
+    my_mutex.unlock();
 }
 void Drawable_Player::setScale(float x, float y)
 {
@@ -169,13 +172,10 @@ void Drawable_Player::update(std::string data)
         {
             std::getline(ss,line,'|');
             curx = std::stof(line);
-        }
-        if(flags.at(2) == '1')
-        {
             std::getline(ss,line,'|');
             cury = std::stof(line);
         }
-        if(flags.at(3) == '1')
+        if(flags.at(2) == '1')
         {
             std::getline(ss,line,'|');
             getrot = std::stof(line);
@@ -186,7 +186,7 @@ void Drawable_Player::update(std::string data)
         }else{
             curPoking = false;
         }
-        curPoking=flags.at(4)=='1';
+        curPoking=flags.at(3)=='1';
         std::getline(ss,line,'|');
         int maxhp = std::stoi(line);
         std::getline(ss,line,'|');
@@ -209,7 +209,7 @@ void Drawable_Player::update(std::string data)
             ///egyébként frissítjük
             Drawable_Player* act = players[currentName];
             ///ha eltér a pozíció,akkor frissít
-            if(/*(act->getX()!=curx || act->getY()!=cury) && */(flags.at(0) == '1' || flags.at(1) == '1'))
+            if(/*(act->getX()!=curx || act->getY()!=cury) && */flags.at(1) == '1')
                 act->setPosition(curx,cury,false);
             ///ha eltér a szög,akkor frissít
             if(/*act->getRot()!=getrot && */flags.at(2) == '1')
@@ -226,19 +226,25 @@ void Drawable_Player::update(std::string data)
             ///ha eltér a score,akkor frissít
             if(act->getScore()!=getscore)
                 players[currentName]->setScore(getscore);
-            if(weapon!=wp)
+            if(act->getWeapon()->type!=wp)
                 players[currentName]->setWeapon(wp);
             }
             else
             {
-                setPosition(curx,cury,false);
-                setRotation(getrot,false);
-                setRotation(getrot,false);
-                poking = curPoking;
-                setMaxHp(maxhp);
-                setCurrentHp(curhp);
-                setScore(getscore);
-                setWeapon(wp);
+                if(flags.at(1)=='1')
+                    setPosition(curx,cury,false);
+                if(flags.at(2)=='1')
+                    setRotation(getrot,false);
+                if(flags.at(3)=='1')
+                    poking = curPoking;
+                if(getMaxHp()!=maxhp)
+                    setMaxHp(maxhp);
+                if(getCurrentHp()!=curhp)
+                    setCurrentHp(curhp);
+                if(getScore()!=getscore)
+                    setScore(getscore);
+                if(weapon!=wp)
+                    setWeapon(wp);
             }
         }
 

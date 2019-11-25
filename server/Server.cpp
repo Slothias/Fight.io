@@ -254,9 +254,11 @@ std::string Server::ServerAssistant::getData()
 {
     if(getcon())
     {
+        my_mutex.lock();
         char buffer[BUFFER_SIZE];
         ZeroMemory(&buffer,sizeof(buffer));
         recv(client,buffer, sizeof(buffer),0);
+        my_mutex.unlock();
         return std::string(buffer);
 
     }
