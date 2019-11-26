@@ -2,6 +2,7 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include<fstream>
 
 Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf::Sprite(),player(name,x,y,a)
 {
@@ -137,6 +138,10 @@ Weapon* Drawable_Player::getWeapon()
 }
 void Drawable_Player::update(std::string data)
 {
+    std::ofstream file("log.txt",std::fstream::app);
+    file<<data<<std::endl;
+    file.close();
+
     ///stringstream egyszer lesz létrehozva
     std::stringstream ss(data);
     ///megkeressük ki az üzenet feladója
@@ -180,12 +185,12 @@ void Drawable_Player::update(std::string data)
             std::getline(ss,line,'|');
             getrot = std::stof(line);
         }
-        if(flags.at(3) == '1')
+       /* if(flags.at(3) == '1')
         {
             curPoking = true;
         }else{
             curPoking = false;
-        }
+        }*/
         curPoking=flags.at(3)=='1';
         std::getline(ss,line,'|');
         int maxhp = std::stoi(line);

@@ -166,7 +166,8 @@ void Server::sendData(std::string data, std::string except)
 
     my_mutex.lock();
     for(ServerAssistant* s:players)
-        s->sendData(except+": "+data);
+       if(except!=s->getName())
+            s->sendData(except+": "+data);
         // std::cout<<"send: "<<s->getName()<<" except: "<<except<< "MSG: "<<data<<std::endl;
     my_mutex.unlock();
 
@@ -297,7 +298,6 @@ void Server::ServerAssistant::run()
             me->sendData(msg,name);
             if(msg.find("EXIT")!= std::string::npos) {
                 closeConnection();
-                continue;
             }
         }
     }

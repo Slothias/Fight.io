@@ -203,25 +203,22 @@ else
                 me->setRotation((atan(((vertical/2 - viewOffSet.y)-mousePosY)/((horizontal/2 - viewOffSet.x)-mousePosX)))/PI *180 +90,true);
             else
                 me->setRotation(((atan(((vertical/2 - viewOffSet.y)-mousePosY)/((horizontal/2 - viewOffSet.x)-mousePosX)))/PI *180) +270,true);
-            c->notify();
         }
         if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
             me->testPoke(true);
-            c->notify();
         }
         if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
         {
             me->testPoke(false);
-            c->notify();
         }
 
 
         float curx = me->getX();
         float cury = me->getY();
         me->setPosition(curx+playerX, cury+playerY,true);
-        me->setChange(true);
-        c->notify();
+        if(me->getChange())
+            c->notify();
     }
 }
 

@@ -187,7 +187,7 @@ std::string player::toString() {
     flags.resize(3);
     if(getX() != prevX || getY()!=prevY){
         flags[0]='1';
-        msg += std::to_string(getX()) + "|"+std::to_string(getY());
+        msg += std::to_string(getX()) + "|"+std::to_string(getY())+"|";
         prevX = getX();
         prevY = getY();
     }

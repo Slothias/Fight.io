@@ -93,7 +93,8 @@ if(getconnected())
     char buffer[BUFFER_SIZE];
     ZeroMemory(&buffer,sizeof(buffer));
     recv(server,buffer, sizeof(buffer),0);
-    return std::string(buffer);
+    std::string result(buffer);
+    return result;
 }
     else
         return "closed connection";
@@ -114,10 +115,14 @@ void Client::runclient()
     if(getconnected())
     {
         std::cout<<"CONNECTED"<<std::endl;
-        std::thread get([this]()
-                        {
-                            while(getconnected())
+        std::string oldstatus;
+        std::unique_lock<std::mutex>  lck(thisMutex);
+        long unsigned int run = 0;
+         std::thread get([this,&run]()
                             {
+                             while(getconnected())
+                             {
+                            std::cout<<"Futok: "<<run++<<std::endl;
                             std::string g = getData();
                             if(g.find("Server")!=std::string::npos && g.find("EXIT")!=std::string::npos)
                                 {
@@ -126,19 +131,18 @@ void Client::runclient()
                                 }
                             std::thread t (&player::update,&(*thisPlayer),g);
                             t.detach();
-                            cv.notify_all();
-                            }
-                        });
-        std::string oldstatus;
-        std::unique_lock<std::mutex>  lck(my_mutex);
+                             }
+                            });
         while(getconnected())
         {
-
             while(!thisPlayer->getChange() )
                 cv.wait(lck);
             std::string this_status =thisPlayer->toString();
             sendData(this_status);
             thisPlayer->setChange(false);
+          /*
+
+            get.join();*/
             /*std::string thisstatus =thisPlayer->getMSG();
             if(thisstatus!=oldstatus)
             {
@@ -146,8 +150,8 @@ void Client::runclient()
                 oldstatus=thisstatus;
            }*/
         }
-
         get.join();
+
     }
 }
 
