@@ -789,7 +789,7 @@
 1455882554 source:d:\homeproject\c++\vmi\sfml\src\simplgui\widget.cpp
 	"simplgui/Widget.h"
 
-1574777422 source:d:\homeproject\c++\repo\fight.io\sfml\client.cpp
+1574778809 source:d:\homeproject\c++\repo\fight.io\sfml\client.cpp
 	"Client.hpp"
 
 1574467937 d:\homeproject\c++\repo\fight.io\sfml\client.hpp
@@ -833,7 +833,7 @@
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 
-1574688826 source:d:\homeproject\c++\repo\fight.io\sfml\drawable_player.cpp
+1574780013 source:d:\homeproject\c++\repo\fight.io\sfml\drawable_player.cpp
 	"Drawable_Player.hpp"
 	<iostream>
 	<chrono>

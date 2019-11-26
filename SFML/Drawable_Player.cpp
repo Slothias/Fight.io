@@ -138,9 +138,6 @@ Weapon* Drawable_Player::getWeapon()
 }
 void Drawable_Player::update(std::string data)
 {
-    std::ofstream file("log.txt",std::fstream::app);
-    file<<data<<std::endl;
-    file.close();
 
     ///stringstream egyszer lesz létrehozva
     std::stringstream ss(data);
@@ -241,7 +238,11 @@ void Drawable_Player::update(std::string data)
                 if(flags.at(2)=='1')
                     setRotation(getrot,false);
                 if(flags.at(3)=='1')
+                {
+                    my_mutex.lock();
                     poking = curPoking;
+                    my_mutex.unlock();
+                }
                 if(getMaxHp()!=maxhp)
                     setMaxHp(maxhp);
                 if(getCurrentHp()!=curhp)

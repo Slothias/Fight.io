@@ -92,7 +92,9 @@ if(getconnected())
 {
     char buffer[BUFFER_SIZE];
     ZeroMemory(&buffer,sizeof(buffer));
+    std::cout<<"GETTING DATA...."<<std::endl;
     recv(server,buffer, sizeof(buffer),0);
+    std::cout<<"OK"<<std::endl;
     std::string result(buffer);
     return result;
 }
@@ -131,6 +133,7 @@ void Client::runclient()
                                 }
                             std::thread t (&player::update,&(*thisPlayer),g);
                             t.detach();
+
                              }
                             });
         while(getconnected())

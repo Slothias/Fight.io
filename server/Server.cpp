@@ -168,7 +168,8 @@ void Server::sendData(std::string data, std::string except)
     for(ServerAssistant* s:players)
        if(except!=s->getName())
             s->sendData(except+": "+data);
-        // std::cout<<"send: "<<s->getName()<<" except: "<<except<< "MSG: "<<data<<std::endl;
+
+    std::cout<<except<<":"<<data<<std::endl;
     my_mutex.unlock();
 
 }
@@ -240,13 +241,11 @@ void Server::ServerAssistant::sendData(std::string data)
     {
         if (data.length() <= BUFFER_SIZE)
         {
-            my_mutex.lock();
             char buffer[BUFFER_SIZE];
             ZeroMemory(&buffer,sizeof(buffer));
             for (int i = 0; i < data.length(); i++)
                 buffer[i] = data[i];
             send(client, buffer, sizeof(buffer), 0);
-            my_mutex.unlock();
         }
     }
 }
@@ -255,11 +254,9 @@ std::string Server::ServerAssistant::getData()
 {
     if(getcon())
     {
-        my_mutex.lock();
         char buffer[BUFFER_SIZE];
         ZeroMemory(&buffer,sizeof(buffer));
         recv(client,buffer, sizeof(buffer),0);
-        my_mutex.unlock();
         return std::string(buffer);
 
     }
