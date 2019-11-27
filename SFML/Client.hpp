@@ -27,7 +27,7 @@ private:
     std::mutex my_mutex;
     SOCKET server;
     SOCKADDR_IN addr;
-    bool startup(const char* host, u_short port);
+    std::string startup(const char* host, u_short port);
     void setconnected(bool c);
     void sendData(std::string msg);
     std::string getData();

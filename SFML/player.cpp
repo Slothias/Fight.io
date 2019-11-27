@@ -173,7 +173,13 @@ int player::getWeapon()
     my_mutex.unlock();
     return result;
 }
-
+bool player::getPoke()
+{
+   my_mutex.lock();
+    bool poke = poking;
+    my_mutex.unlock();
+    return poke;
+}
 std::string player::getMSG()
 {
    std::stringstream s;
@@ -202,13 +208,10 @@ std::string player::toString() {
     else{
         flags [1]= '0';
     }
-    my_mutex.lock();
-    bool poke = poking;
-    my_mutex.unlock();
-    if(poke != prevPoking){
+
+    if(getPoke()){
         std::ofstream myfile("poking.txt",std::ofstream::app);
         flags [2]= '1';
-        prevPoking = poke;
         myfile<<"POKE"<<std::endl;
         myfile.close();
     }

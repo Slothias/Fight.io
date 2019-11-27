@@ -19,6 +19,8 @@ class ConnectScreen:public Screen
         Client* getClient();
         virtual ~ConnectScreen();
     private:
+        std::mutex my_mutex;
+        bool isconnecting;
         std::string getName();
         std::string getIP();
         Client* testClient;

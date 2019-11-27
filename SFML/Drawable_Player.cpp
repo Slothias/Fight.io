@@ -129,6 +129,7 @@ void Drawable_Player::setWeapon(int _weapon)
     else
         myWeapon->setOrigin(-(((int)skin.getSize().x/2)-(int)(3*myWeapon->getTexture()->getSize().x/4)), ((int)myWeapon->getTexture()->getSize().y+myWeapon->getTexture()->getSize().y/15));
     myWeapon->setRotation(getRot());
+    weaponHitbox.setOrigin(5,myWeapon->range+5);
 
 }
 //---------GETTERS---------------
@@ -182,13 +183,14 @@ void Drawable_Player::update(std::string data)
             std::getline(ss,line,'|');
             getrot = std::stof(line);
         }
-       /* if(flags.at(3) == '1')
+        if(flags.at(3) == '1')
         {
+            std::cout<<flags.substr(0,4);
             curPoking = true;
         }else{
             curPoking = false;
-        }*/
-        curPoking=flags.at(3)=='1';
+        }
+        //curPoking=flags.at(3)=='1';
         std::getline(ss,line,'|');
         int maxhp = std::stoi(line);
         std::getline(ss,line,'|');
@@ -216,9 +218,6 @@ void Drawable_Player::update(std::string data)
             ///ha eltér a szög,akkor frissít
             if(/*act->getRot()!=getrot && */flags.at(2) == '1')
                 players[currentName]->setRotation(getrot,false);
-            ///ha eltér a bökés, akkor frissít
-            if(/*act->poking != curPoking && */flags.at(3) == '1')
-                players[currentName]->poking = curPoking;
             ///ha eltér a maxhp,akkor frissít
             if(act->getMaxHp()!=maxhp)
                 players[currentName]->setMaxHp(maxhp);
@@ -230,19 +229,16 @@ void Drawable_Player::update(std::string data)
                 players[currentName]->setScore(getscore);
             if(act->getWeapon()->type!=wp)
                 players[currentName]->setWeapon(wp);
-            }
+
+             ///ha eltér a bökés, akkor frissít
+            if(/*act->poking != curPoking && */flags.at(3) == '1')
+                players[currentName]->testPoke(curPoking);
             else
             {
                 if(flags.at(1)=='1')
                     setPosition(curx,cury,false);
                 if(flags.at(2)=='1')
                     setRotation(getrot,false);
-                if(flags.at(3)=='1')
-                {
-                    my_mutex.lock();
-                    poking = curPoking;
-                    my_mutex.unlock();
-                }
                 if(getMaxHp()!=maxhp)
                     setMaxHp(maxhp);
                 if(getCurrentHp()!=curhp)
@@ -251,11 +247,14 @@ void Drawable_Player::update(std::string data)
                     setScore(getscore);
                 if(weapon!=wp)
                     setWeapon(wp);
+                if(flags.at(3)=='1')
+                    testPoke(curPoking);
             }
         }
 
     }
     my_mutex.unlock();
+}
 }
 sf::Vector2<float> Drawable_Player::getPosition()
 {

@@ -789,10 +789,10 @@
 1455882554 source:d:\homeproject\c++\vmi\sfml\src\simplgui\widget.cpp
 	"simplgui/Widget.h"
 
-1574778809 source:d:\homeproject\c++\repo\fight.io\sfml\client.cpp
+1574797414 source:d:\homeproject\c++\repo\fight.io\sfml\client.cpp
 	"Client.hpp"
 
-1574467937 d:\homeproject\c++\repo\fight.io\sfml\client.hpp
+1574794420 d:\homeproject\c++\repo\fight.io\sfml\client.hpp
 	<thread>
 	<iostream>
 	<winsock2.h>
@@ -813,14 +813,14 @@
 1574507647 d:\homeproject\c++\repo\fight.io\sfml\weapon.hpp
 	<SFML/Graphics.hpp>
 
-1574531948 source:d:\homeproject\c++\repo\fight.io\sfml\connectscreen.cpp
+1574795200 source:d:\homeproject\c++\repo\fight.io\sfml\connectscreen.cpp
 	"ConnectScreen.hpp"
 	<thread>
 	<iostream>
 	<ctype.h>
 	<sstream>
 
-1574513996 d:\homeproject\c++\repo\fight.io\sfml\connectscreen.hpp
+1574793789 d:\homeproject\c++\repo\fight.io\sfml\connectscreen.hpp
 	"Screen.hpp"
 	"simplgui/Button.h"
 	"simplgui/Event.h"
@@ -833,14 +833,14 @@
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 
-1574780013 source:d:\homeproject\c++\repo\fight.io\sfml\drawable_player.cpp
+1574799049 source:d:\homeproject\c++\repo\fight.io\sfml\drawable_player.cpp
 	"Drawable_Player.hpp"
 	<iostream>
 	<chrono>
 	<thread>
 	<fstream>
 
-1574707286 source:d:\homeproject\c++\repo\fight.io\sfml\gamescreen.cpp
+1574796724 source:d:\homeproject\c++\repo\fight.io\sfml\gamescreen.cpp
 	"GameScreen.hpp"
 	<vector>
 
@@ -1156,11 +1156,11 @@
 1574085594 source:c:\users\sziln\desktop\suli\adv. c++\fight.io-master\sfml\drawable_player.cpp
 	"Drawable_Player.hpp"
 
-1574531949 d:\homeproject\c++\repo\fight.io\sfml\player.hpp
+1574798532 d:\homeproject\c++\repo\fight.io\sfml\player.hpp
 	<string>
 	<mutex>
 
-1574689266 source:d:\homeproject\c++\repo\fight.io\sfml\player.cpp
+1574798671 source:d:\homeproject\c++\repo\fight.io\sfml\player.cpp
 	"player.hpp"
 	<sstream>
 	<string>

@@ -29,18 +29,31 @@ ConnectScreen::ConnectScreen(sf::RenderWindow *a):Screen()
 
     const int buttonX = (button->getLabel()).size()*18;
     const int buttonY = textboxY;
+    isconnecting=false;
 
     button->setPosition(sf::Vector2f(centerX-((textboxX+buttonX)/2)+textboxX, centerY-(buttonY/2)));
     button->setSize(sf::Vector2f(buttonX,buttonY));
     button->setTheme(myTheme);
     button->onClicked.bind([&](simplgui::Button::Ptr button)
     {
+        std::thread t([this]()
+                      {
+        resultText->setString("");
         std::string res = getIP();
-        std::cout<<res.c_str()<<" : "<<getName()<<std::endl;
+        my_mutex.lock();
+        isconnecting=true;
+        my_mutex.unlock();
+        std::cout<<res.c_str()<<std::endl;
         const std::string result =  testClient->tryToConnect(res.c_str(),10043,getName());
         resultText->setString(result);
         resultText->setPosition(app->getView().getCenter().x/2 - resultText->getLocalBounds().width/2, app->getSize().y-4*resultText->getLocalBounds().height);
+        my_mutex.lock();
         change = result == "OK";
+        isconnecting=false;
+        my_mutex.unlock();
+                      });
+        t.detach();
+
     });
 
     textbox=simplgui::TextBox::create(resGetter);
@@ -118,7 +131,12 @@ void ConnectScreen::handle(sf::Event& event)
         if(event.type==sf::Event::TextEntered || event.type == sf::Event::MouseButtonPressed)
         {
         textbox->processEvent(simplgui::Event(event, *app));
-        name->processEvent(simplgui::Event(event,*app));
+        bool g =false;
+        my_mutex.lock();
+        g=isconnecting;
+        my_mutex.unlock();
+        if(!g)
+            name->processEvent(simplgui::Event(event,*app));
         //std::this_thread::sleep_for(std::chrono::milliseconds(80));
         }
         button->processEvent(simplgui::Event(event, *app));

@@ -3,10 +3,11 @@
 Client::Client()
 {
     thisPlayer=nullptr;
+    is_running=false;
 }
 std::string Client::tryToConnect(const char* host,u_short port,std::string name)
 {
-    is_running=startup(host,port);
+    std::string result =startup(host,port);
     std::string g;
     if(is_running)
         {
@@ -15,7 +16,12 @@ std::string Client::tryToConnect(const char* host,u_short port,std::string name)
         }
     if(g=="OK")
         n=name;
-    return g;
+    if(result==g)
+        return g;
+    else if(result=="OK")
+        return g;
+    else
+        return result;
 
 }
 std::string Client::getName()
@@ -28,23 +34,24 @@ void Client::addPlayer(player* p)
     thisPlayer=p;
     my_mutex.unlock();
 }
-bool Client::startup(const char* host, u_short port)
+std::string Client::startup(const char* host, u_short port)
 {
+    is_running = true;
       WSADATA WSAData; ///The WSADATA structure contains information about the Windows Sockets implementation.
     SOCKADDR_IN saddr; ///The sockaddr structure varies depending on the protocol selected. Except for the sin*_family parameter, sockaddr contents are expressed in network byte order.
 
 
-  int iResult;
+    int iResult;
     iResult=WSAStartup(MAKEWORD(2, 2), &WSAData);
     if(iResult!=0) {
-        std::cout<<"WSAStartup failed with error!"<<std::endl;
-        return false;
+        is_running=false;
+        return "WSAStartup failed with error!";
     }
     iResult=server = socket(AF_INET, SOCK_STREAM,IPPROTO_TCP);///The AF_INET address family is the address family for IPv4. socket(address_family,type(in_this_case full duplex),protocol(TCP))
     if(iResult==INVALID_SOCKET) {
-        std::cout<<"Socket failed with error"<<std::endl;
         WSACleanup();
-        return false;
+        is_running=false;
+        return "Socket failed with error";
     }
     addr.sin_addr.s_addr = inet_addr(host);
     addr.sin_family = AF_INET; ///IPv4 protocol
@@ -52,12 +59,12 @@ bool Client::startup(const char* host, u_short port)
     iResult=connect(server, (SOCKADDR*)&addr, sizeof(addr));
     if(iResult==SOCKET_ERROR)
     {
-        std::cout<<"Unable connect to server"<<std::endl;
         closesocket(server);
         WSACleanup();
-        return false;
+        is_running=false;
+        return "Unable connect to server";
     }
-    return true;
+    return "OK";
 
 }
 
@@ -92,9 +99,7 @@ if(getconnected())
 {
     char buffer[BUFFER_SIZE];
     ZeroMemory(&buffer,sizeof(buffer));
-    std::cout<<"GETTING DATA...."<<std::endl;
     recv(server,buffer, sizeof(buffer),0);
-    std::cout<<"OK"<<std::endl;
     std::string result(buffer);
     return result;
 }
@@ -124,7 +129,6 @@ void Client::runclient()
                             {
                              while(getconnected())
                              {
-                            std::cout<<"Futok: "<<run++<<std::endl;
                             std::string g = getData();
                             if(g.find("Server")!=std::string::npos && g.find("EXIT")!=std::string::npos)
                                 {

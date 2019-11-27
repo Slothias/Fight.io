@@ -20,6 +20,7 @@ protected:
     int hitboxRadius;
     bool changed;
 public:
+    bool getPoke();
     std::mutex my_mutex;
     player();
     ~player();
