@@ -10,22 +10,28 @@ Weapon::Weapon(int type):sf::Sprite()
     switch(type)
     {
         case 0: skin.loadFromFile("w0.png");
-                useRotation = 90;
+                useRotation = 55;
+                range = 87;
             break;
         case 1: skin.loadFromFile("w1.png");
-                useRotation = 80;
+                useRotation = 36;
+                range = 125;
             break;
         case 2: skin.loadFromFile("w2.png");
-                useRotation = 70;
+                useRotation = 17;
+                range = 220;
             break;
         case 3: skin.loadFromFile("w3.png");
-                useRotation = 50;
+                useRotation = 20;
+                range = 218;
             break;
         case 4: skin.loadFromFile("w4.png");
-                useRotation = 40;
+                useRotation = 17;
+                range = 230;
             break;
         case 5: skin.loadFromFile("w5.png");
-                useRotation = 30;
+                useRotation = 17;
+                range = 220;
             break;
     }
     skin.setSmooth(true);

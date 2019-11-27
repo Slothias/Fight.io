@@ -3,6 +3,7 @@
 #include<SFML/Graphics.hpp>
 class Weapon: public sf::Sprite
 {
+    //absolutePositionTester.setPosition(x+(cos((playerRotation-90)* 3.1415 / 180.0)*myWeapon->range),y+(sin((playerRotation-90)* 3.1415 / 180.0)*myWeapon->range));
     public:
         int type;
         int useRotation;

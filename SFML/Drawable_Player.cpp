@@ -260,8 +260,6 @@ void Drawable_Player::update(std::string data)
                     setScore(getscore);
                 if(weapon!=wp)
                     setWeapon(wp);
-                /*if(flags.at(3)=='1')
-                    testPoke(curPoking);*/
             }
         }
     my_mutex.unlock();
