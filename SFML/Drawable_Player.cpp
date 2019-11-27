@@ -11,11 +11,12 @@ Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf:
     myName = new sf::Text('<'+name+'>',font,12);
     myName->setColor(sf::Color::Black);
     myName->setStyle(sf::Text::Style::Bold);
+    myName->setPosition(x-skin.getSize().x/2 + 5 , y - 126);
     myWeapon = nullptr;
     skin.setSmooth(true);
     me.setTexture(skin);
     setWeapon(weapon);
-    myHpBar = new HpBar(maxHp,x,y);
+    myHpBar = new HpBar(maxHp,x-(skin.getSize().x/2), y-(1.5*skin.getSize().y));
     testHitbox.setFillColor(sf::Color(0,255,255,100));
     testHitbox.setRadius(hitboxRadius);
     testHitbox.setPosition(-hitboxRadius,-hitboxRadius);
@@ -218,6 +219,9 @@ void Drawable_Player::update(std::string data)
             ///ha eltér a szög,akkor frissít
             if(/*act->getRot()!=getrot && */flags.at(2) == '1')
                 players[currentName]->setRotation(getrot,false);
+            ///ha eltér a bökés, akkor frissít
+            if(act->poking != curPoking)
+                players[currentName]->poking = curPoking;
             ///ha eltér a maxhp,akkor frissít
             if(act->getMaxHp()!=maxhp)
                 players[currentName]->setMaxHp(maxhp);
@@ -239,6 +243,14 @@ void Drawable_Player::update(std::string data)
                     setPosition(curx,cury,false);
                 if(flags.at(2)=='1')
                     setRotation(getrot,false);
+                my_mutex.lock();
+                if(poking != curPoking)
+                {
+
+                    poking = curPoking;
+
+                }
+                my_mutex.unlock();
                 if(getMaxHp()!=maxhp)
                     setMaxHp(maxhp);
                 if(getCurrentHp()!=curhp)
