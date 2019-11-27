@@ -32,12 +32,17 @@ Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf:
 
 void Drawable_Player::draw(sf::RenderTarget& target, sf::RenderStates states)
 {
+    if(poking){
+        target.draw(weaponHitbox);
+        myWeapon->setRotation(playerRotation-myWeapon->useRotation);
+    }else{
+        myWeapon->setRotation(playerRotation);
+    }
     target.draw(*myWeapon);
     target.draw(testHitbox);
     target.draw(me);
     myHpBar->draw(target,states);
-    if(poking)
-        target.draw(weaponHitbox);
+
     target.draw(*myName);
 
 }
@@ -186,8 +191,9 @@ void Drawable_Player::update(std::string data)
         }
         if(flags.at(3) == '1')
         {
-            std::cout<<flags.substr(0,4);
+            //std::cout<<flags.substr(0,4);
             curPoking = true;
+
         }else{
             curPoking = false;
         }
@@ -214,10 +220,10 @@ void Drawable_Player::update(std::string data)
             ///egyébként frissítjük
             Drawable_Player* act = players[currentName];
             ///ha eltér a pozíció,akkor frissít
-            if(/*(act->getX()!=curx || act->getY()!=cury) && */flags.at(1) == '1')
+            if(flags.at(1) == '1')
                 act->setPosition(curx,cury,false);
             ///ha eltér a szög,akkor frissít
-            if(/*act->getRot()!=getrot && */flags.at(2) == '1')
+            if(flags.at(2) == '1')
                 players[currentName]->setRotation(getrot,false);
             ///ha eltér a bökés, akkor frissít
             if(act->poking != curPoking)
@@ -254,8 +260,8 @@ void Drawable_Player::update(std::string data)
                     setScore(getscore);
                 if(weapon!=wp)
                     setWeapon(wp);
-                if(flags.at(3)=='1')
-                    testPoke(curPoking);
+                /*if(flags.at(3)=='1')
+                    testPoke(curPoking);*/
             }
         }
     my_mutex.unlock();

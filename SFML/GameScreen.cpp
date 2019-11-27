@@ -193,7 +193,7 @@ else
         if(pleft && (pup || pdown)){playerX -= PLAYERMOVESPEED/(ROOT2*SLEEPVAL);}
         if(pright && (pup || pdown)){playerX += PLAYERMOVESPEED/(ROOT2*SLEEPVAL);}
 
-         float mousePosX = sf::Mouse::getPosition(*app).x;
+        float mousePosX = sf::Mouse::getPosition(*app).x;
         float mousePosY = sf::Mouse::getPosition(*app).y;
 
         viewOffSet = getViewOffSet();
