@@ -92,9 +92,9 @@ if(getconnected())
 {
     char buffer[BUFFER_SIZE];
     ZeroMemory(&buffer,sizeof(buffer));
-    std::cout<<"GETTING DATA...."<<std::endl;
+    //std::cout<<"GETTING DATA...."<<std::endl;
     recv(server,buffer, sizeof(buffer),0);
-    std::cout<<"OK"<<std::endl;
+    //std::cout<<"OK"<<std::endl;
     std::string result(buffer);
     return result;
 }
@@ -124,7 +124,7 @@ void Client::runclient()
                             {
                              while(getconnected())
                              {
-                            std::cout<<"Futok: "<<run++<<std::endl;
+                            //std::cout<<"Futok: "<<run++<<std::endl;
                             std::string g = getData();
                             if(g.find("Server")!=std::string::npos && g.find("EXIT")!=std::string::npos)
                                 {
