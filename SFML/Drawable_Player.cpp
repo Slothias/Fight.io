@@ -233,24 +233,19 @@ void Drawable_Player::update(std::string data)
                 players[currentName]->setScore(getscore);
             if(act->getWeapon()->type!=wp)
                 players[currentName]->setWeapon(wp);
-
-             ///ha eltér a bökés, akkor frissít
-            if(/*act->poking != curPoking && */flags.at(3) == '1')
-                players[currentName]->testPoke(curPoking);
+            }
             else
             {
                 if(flags.at(1)=='1')
                     setPosition(curx,cury,false);
                 if(flags.at(2)=='1')
                     setRotation(getrot,false);
-                my_mutex.lock();
                 if(poking != curPoking)
                 {
 
                     poking = curPoking;
 
                 }
-                my_mutex.unlock();
                 if(getMaxHp()!=maxhp)
                     setMaxHp(maxhp);
                 if(getCurrentHp()!=curhp)
@@ -263,10 +258,9 @@ void Drawable_Player::update(std::string data)
                     testPoke(curPoking);
             }
         }
+    my_mutex.unlock();
 
     }
-    my_mutex.unlock();
-}
 }
 sf::Vector2<float> Drawable_Player::getPosition()
 {
