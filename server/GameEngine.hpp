@@ -2,14 +2,17 @@
 #define GAMEENGINE_HPP_INCLUDED
 
 #include "../Includes/player.hpp"
+#include "../Includes/Weapon.hpp"
 #include <map>
 #include <mutex>
-#include<iostream>
-#include<sstream>
+#include <iostream>
+#include <sstream>
 
 class GameEngine {
 private:
+    static const int WP_SIZE = 6;
     std::map<std::string,player*> players;
+    Weapon* weapons[WP_SIZE];
     double mapSize;
 protected:
     GameEngine();
