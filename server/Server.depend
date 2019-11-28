@@ -869,3 +869,20 @@
 1574451300 c:\users\e550\desktop\fight.io\server\weapon.hpp
 	<SFML/Graphics.hpp>
 
+1574877052 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\player.cpp
+	"player.hpp"
+	<sstream>
+	<string>
+	<iostream>
+	<fstream>
+
+1574877052 c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\player.hpp
+	<string>
+	<mutex>
+
+1574582572 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\weapon.cpp
+	"Weapon.hpp"
+
+1574582572 c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\weapon.hpp
+	<SFML/Graphics.hpp>
+

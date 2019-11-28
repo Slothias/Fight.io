@@ -1179,42 +1179,49 @@
 	<iostream>
 	<fstream>
 
-1574353825 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\client.cpp
+1574877047 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\client.cpp
 	"Client.hpp"
 
-1574353825 c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\client.hpp
+1574933510 c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\client.hpp
 	<thread>
 	<iostream>
 	<winsock2.h>
 	<mutex>
-	"player.hpp"
+	"../Includes/player.hpp"
+	<condition_variable>
 
 1574356534 c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\player.hpp
 	<string>
 	<mutex>
 
-1573768589 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\connectscreen.cpp
+1574877047 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\connectscreen.cpp
 	"ConnectScreen.hpp"
 	<thread>
 	<iostream>
+	<ctype.h>
+	<sstream>
 
-1573768589 c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\connectscreen.hpp
+1574877047 c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\connectscreen.hpp
 	"Screen.hpp"
 	"simplgui/Button.h"
 	"simplgui/Event.h"
 	"simplgui/FileResourcesGetter.h"
 	"simplgui/TextBox.h"
 	"simplgui/Tools.h"
+	"Client.hpp"
 
 1573768589 c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\screen.hpp
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 
-1574353825 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\drawable_player.cpp
+1574877047 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\drawable_player.cpp
 	"Drawable_Player.hpp"
 	<iostream>
+	<chrono>
+	<thread>
+	<fstream>
 
-1574353825 c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\drawable_player.hpp
+1574582572 c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\drawable_player.hpp
 	<SFML/Graphics.hpp>
 	"Weapon.hpp"
 	"HpBar.hpp"
@@ -1222,6 +1229,7 @@
 	<iostream>
 	<sstream>
 	"player.hpp"
+	"Screen.hpp"
 
 1573768589 c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\weapon.hpp
 	<SFML/Graphics.hpp>
@@ -1229,17 +1237,18 @@
 1573768589 c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\hpbar.hpp
 	<SFML/Graphics.hpp>
 
-1574353825 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\gamescreen.cpp
+1574877047 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\gamescreen.cpp
 	"GameScreen.hpp"
+	<vector>
 
-1574353825 c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\gamescreen.hpp
+1574582572 c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\gamescreen.hpp
 	"Screen.hpp"
 	"Drawable_Player.hpp"
 	<iostream>
 	"Client.hpp"
 	<fstream>
 
-1573768589 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\hpbar.cpp
+1574877047 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\hpbar.cpp
 	"HpBar.hpp"
 	<sstream>
 
@@ -1293,7 +1302,7 @@
 1573768589 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\weapon.cpp
 	"Weapon.hpp"
 
-1574353825 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\window.cpp
+1574582572 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\window.cpp
 	"Window.hpp"
 	<thread>
 	<chrono>
@@ -1305,4 +1314,21 @@
 	<sstream>
 	<string>
 	<iostream>
+
+1574877052 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\player.cpp
+	"player.hpp"
+	<sstream>
+	<string>
+	<iostream>
+	<fstream>
+
+1574877052 c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\player.hpp
+	<string>
+	<mutex>
+
+1574582572 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\weapon.cpp
+	"Weapon.hpp"
+
+1574582572 c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\weapon.hpp
+	<SFML/Graphics.hpp>
 

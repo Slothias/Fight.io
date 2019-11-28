@@ -1,12 +1,12 @@
 #ifndef DRAWABLE_PLAYER_H
 #define DRAWABLE_PLAYER_H
 #include<SFML/Graphics.hpp>
-#include "Weapon.hpp"
+#include "../Includes/Weapon.hpp"
 #include "HpBar.hpp"
 #include <map>
 #include<iostream>
 #include<sstream>
-#include "player.hpp"
+#include "../Includes/player.hpp"
 #include "Screen.hpp"
 
 class Drawable_Player: public sf::Sprite, public player
