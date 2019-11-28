@@ -14,7 +14,7 @@ Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf:
     myName->setPosition(x-skin.getSize().x/2 + 5 , y - 126);
     skin.setSmooth(true);
     me.setTexture(skin);
-    setWeapon(weapon);
+    setWeapon(weapon,true);
     myHpBar = new HpBar(maxHp,x-(skin.getSize().x/2), y-(1.5*skin.getSize().y));
     testHitbox.setFillColor(sf::Color(0,255,255,100));
     testHitbox.setRadius(hitboxRadius);
@@ -25,8 +25,8 @@ Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf:
 
     //setScale(0.5f,0.5f);
     setOrigin(skin.getSize().x/2, skin.getSize().y/2);
-    setPosition(x,y,false);
-    setRotation(a,false);
+    setPosition(x,y,true);
+    setRotation(a,true);
 }
 
 void Drawable_Player::draw(sf::RenderTarget& target, sf::RenderStates states)
@@ -122,7 +122,7 @@ void Drawable_Player::setCurrentHp(int _currentHp)
     }
     my_mutex.unlock();
 }
-void Drawable_Player::setWeapon(int _weapon)
+void Drawable_Player::setWeapon(int _weapon,bool c)
 {
     weapon = _weapon;
     myWeapon.loadWeapon(weapon);
@@ -132,6 +132,7 @@ void Drawable_Player::setWeapon(int _weapon)
     else*/
     myWeapon.setOrigin(-(((int)skin.getSize().x/2)-(int)(3*myWeapon.getTexture()->getSize().x/4)), ((int)myWeapon.getTexture()->getSize().y+myWeapon.getTexture()->getSize().y/15));
     myWeapon.setRotation(getRot());
+    changed = c;
     weaponHitbox.setOrigin(5,myWeapon.range+5);
 
 }
@@ -235,7 +236,7 @@ void Drawable_Player::update(std::string data)
             if(act->getScore()!=getscore)
                 players[currentName]->setScore(getscore);
             if(act->getWeapon().type!=wp)
-                players[currentName]->setWeapon(wp);
+                players[currentName]->setWeapon(wp,false);
             }
             else
             {
@@ -256,7 +257,7 @@ void Drawable_Player::update(std::string data)
                 if(getScore()!=getscore)
                     setScore(getscore);
                 if(weapon!=wp)
-                    setWeapon(wp);
+                    setWeapon(wp,false);
             }
         }
     my_mutex.unlock();

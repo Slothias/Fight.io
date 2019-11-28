@@ -800,7 +800,7 @@
 	"../Includes/player.hpp"
 	<condition_variable>
 
-1574946378 d:\homeproject\c++\repo\fight.io\sfml\drawable_player.hpp
+1574959440 d:\homeproject\c++\repo\fight.io\sfml\drawable_player.hpp
 	<SFML/Graphics.hpp>
 	"../Includes/Weapon.hpp"
 	"HpBar.hpp"
@@ -833,14 +833,14 @@
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 
-1574956031 source:d:\homeproject\c++\repo\fight.io\sfml\drawable_player.cpp
+1574959595 source:d:\homeproject\c++\repo\fight.io\sfml\drawable_player.cpp
 	"Drawable_Player.hpp"
 	<iostream>
 	<chrono>
 	<thread>
 	<fstream>
 
-1574946539 source:d:\homeproject\c++\repo\fight.io\sfml\gamescreen.cpp
+1574959422 source:d:\homeproject\c++\repo\fight.io\sfml\gamescreen.cpp
 	"GameScreen.hpp"
 	<vector>
 

@@ -23,7 +23,7 @@ public:
 
     //TODO
     std::map<std::string,Drawable_Player*> getPlayers();
-    void setWeapon(int _weapon);
+    void setWeapon(int _weapon,bool c);
     void setCurrentHp(int _currentHp);
     void testPoke(bool setToIt);
     //getters
