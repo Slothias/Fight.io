@@ -17,6 +17,7 @@ class Weapon: public sf::Sprite
         float getRange() const;
         float range;
         float power;
+        void loadWeapon(int i);
 };
 
     #endif // WEAPON_H

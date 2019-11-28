@@ -4,9 +4,9 @@ Weapon::Weapon():sf::Sprite()
 {
 }
 
-Weapon::Weapon(int type):sf::Sprite()
+void Weapon::loadWeapon(int i)
 {
-    this->type=type;
+    type=i;
     switch(type)
     {
         case 0: skin.loadFromFile("w0.png");
@@ -36,6 +36,10 @@ Weapon::Weapon(int type):sf::Sprite()
     }
     skin.setSmooth(true);
     setTexture(skin);
+}
+Weapon::Weapon(int type):sf::Sprite()
+{
+    loadWeapon(type);
 }
 
 int Weapon::getUseRotation()

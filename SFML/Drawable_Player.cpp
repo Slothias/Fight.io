@@ -12,7 +12,6 @@ Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf:
     myName->setColor(sf::Color::Black);
     myName->setStyle(sf::Text::Style::Bold);
     myName->setPosition(x-skin.getSize().x/2 + 5 , y - 126);
-    myWeapon = nullptr;
     skin.setSmooth(true);
     me.setTexture(skin);
     setWeapon(weapon);
@@ -22,7 +21,7 @@ Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf:
     testHitbox.setPosition(-hitboxRadius,-hitboxRadius);
     weaponHitbox.setFillColor(sf::Color::Red);
     weaponHitbox.setRadius(5);
-    weaponHitbox.setOrigin(5,myWeapon->range+5);
+    weaponHitbox.setOrigin(5,myWeapon.range+5);
 
     //setScale(0.5f,0.5f);
     setOrigin(skin.getSize().x/2, skin.getSize().y/2);
@@ -34,11 +33,11 @@ void Drawable_Player::draw(sf::RenderTarget& target, sf::RenderStates states)
 {
     if(poking){
         target.draw(weaponHitbox);
-        myWeapon->setRotation(playerRotation-myWeapon->useRotation);
+        myWeapon.setRotation(playerRotation-myWeapon.useRotation);
     }else{
-        myWeapon->setRotation(playerRotation);
+        myWeapon.setRotation(playerRotation);
     }
-    target.draw(*myWeapon);
+    target.draw(myWeapon);
     target.draw(testHitbox);
     target.draw(me);
     myHpBar->draw(target,states);
@@ -55,7 +54,7 @@ void Drawable_Player::setPosition(float x, float y,bool c)
     playerX=x;
     playerY=y;
     changed = c;
-    myWeapon->setPosition(x,y);
+    myWeapon.setPosition(x,y);
     weaponHitbox.setPosition(x,y);
     //absolutePositionTester.setPosition(x+(cos((playerRotation-90)* 3.1415 / 180.0)*myWeapon->range),y+(sin((playerRotation-90)* 3.1415 / 180.0)*myWeapon->range));
     testHitbox.setOrigin(-x,-y);
@@ -78,9 +77,9 @@ void Drawable_Player::setRotation(float x, bool c)
     my_mutex.unlock();
     }
     if(!poking)
-        myWeapon->setRotation(x);
+        myWeapon.setRotation(x);
     else
-        myWeapon->setRotation(x-myWeapon->useRotation);
+        myWeapon.setRotation(x-myWeapon.useRotation);
 }
 void Drawable_Player::testPoke(bool setToIt)  //próba a szurkálásra
 {
@@ -104,7 +103,7 @@ void Drawable_Player::setScale(float x, float y)
 {
     my_mutex.lock();
     me.setScale(x,y);
-    myWeapon->setScale(x,y);
+    myWeapon.setScale(x,y);
     my_mutex.unlock();
 }
 void Drawable_Player::setOrigin(float x, float y)
@@ -126,20 +125,18 @@ void Drawable_Player::setCurrentHp(int _currentHp)
 void Drawable_Player::setWeapon(int _weapon)
 {
     weapon = _weapon;
-    if(myWeapon)
-        delete myWeapon;
-    myWeapon = new Weapon(weapon);
-    myWeapon->setPosition(getPosition());
-    if(weapon==0 || weapon==1 ||weapon==4)
-        myWeapon->setOrigin(-(((int)skin.getSize().x/2)-(int)(myWeapon->getTexture()->getSize().x)), ((int)myWeapon->getTexture()->getSize().y+myWeapon->getTexture()->getSize().y/8));
-    else
-        myWeapon->setOrigin(-(((int)skin.getSize().x/2)-(int)(3*myWeapon->getTexture()->getSize().x/4)), ((int)myWeapon->getTexture()->getSize().y+myWeapon->getTexture()->getSize().y/15));
-    myWeapon->setRotation(getRot());
-    weaponHitbox.setOrigin(5,myWeapon->range+5);
+    myWeapon.loadWeapon(weapon);
+    myWeapon.setPosition(getPosition());
+   /* if(weapon==0 || weapon==1 ||weapon==4)
+        myWeapon.setOrigin(-(((int)skin.getSize().x/2)-(int)(myWeapon.getTexture()->getSize().x)), ((int)myWeapon.getTexture()->getSize().y+myWeapon.getTexture()->getSize().y/8));
+    else*/
+    myWeapon.setOrigin(-(((int)skin.getSize().x/2)-(int)(3*myWeapon.getTexture()->getSize().x/4)), ((int)myWeapon.getTexture()->getSize().y+myWeapon.getTexture()->getSize().y/15));
+    myWeapon.setRotation(getRot());
+    weaponHitbox.setOrigin(5,myWeapon.range+5);
 
 }
 //---------GETTERS---------------
-Weapon* Drawable_Player::getWeapon()
+Weapon Drawable_Player::getWeapon()
 {
     return myWeapon;
 }
@@ -237,7 +234,7 @@ void Drawable_Player::update(std::string data)
             ///ha eltér a score,akkor frissít
             if(act->getScore()!=getscore)
                 players[currentName]->setScore(getscore);
-            if(act->getWeapon()->type!=wp)
+            if(act->getWeapon().type!=wp)
                 players[currentName]->setWeapon(wp);
             }
             else
@@ -284,7 +281,7 @@ sf::Texture Drawable_Player::getSkin()
 }
 Drawable_Player::~Drawable_Player()
 {
-    delete myWeapon;
+//    delete myWeapon;
     delete myHpBar;
     //dtor
 }

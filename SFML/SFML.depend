@@ -17,7 +17,7 @@
 
 1571766733 hics.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics.hpp
 	<SFML/Window.hpp>
 	<SFML/Graphics/BlendMode.hpp>
 	<SFML/Graphics/CircleShape.hpp>
@@ -48,7 +48,7 @@
 
 1571742819 hics/View.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window.hpp
 	<SFML/System.hpp>
 	<SFML/Window/Clipboard.hpp>
 	<SFML/Window/Context.hpp>
@@ -67,7 +67,7 @@
 
 1571742819 ow/WindowStyle.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system.hpp
 	<SFML/Config.hpp>
 	<SFML/System/Clock.hpp>
 	<SFML/System/Err.hpp>
@@ -89,34 +89,34 @@
 
 1571742819 em/Vector3.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\config.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\config.hpp
 	"TargetConditionals.h"
 
 1571742819 ditionals.h"
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\clock.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\clock.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/Time.hpp>
 
 1571742819 em/Time.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\export.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\export.hpp
 	<SFML/Config.hpp>
 
 1571742819 ig.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\time.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\time.hpp
 	<SFML/System/Export.hpp>
 
 1571742819 em/Export.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\err.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\err.hpp
 	<SFML/System/Export.hpp>
 	<ostream>
 
 1571978630 
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\fileinputstream.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\fileinputstream.hpp
 	<SFML/Config.hpp>
 	<SFML/System/Export.hpp>
 	<SFML/System/InputStream.hpp>
@@ -124,34 +124,34 @@
 	<cstdio>
 	<string>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\inputstream.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\inputstream.hpp
 	<SFML/Config.hpp>
 	<SFML/System/Export.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\noncopyable.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\noncopyable.hpp
 	<SFML/System/Export.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\lock.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\lock.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 
 1571742819 em/NonCopyable.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\memoryinputstream.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\memoryinputstream.hpp
 	<SFML/Config.hpp>
 	<SFML/System/InputStream.hpp>
 	<SFML/System/Export.hpp>
 	<cstdlib>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\mutex.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\mutex.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\sleep.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\sleep.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/Time.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\string.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\string.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/Utf.hpp>
 	<iterator>
@@ -161,7 +161,7 @@
 
 1571742819 em/String.inl>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\utf.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\utf.hpp
 	<SFML/Config.hpp>
 	<algorithm>
 	<locale>
@@ -171,11 +171,11 @@
 
 1571742819 em/Utf.inl>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\utf.inl
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\utf.inl
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\string.inl
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\string.inl
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\thread.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\thread.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 	<cstdlib>
@@ -183,65 +183,65 @@
 
 1571742819 em/Thread.inl>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\thread.inl
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\thread.inl
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\threadlocal.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\threadlocal.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 	<cstdlib>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\threadlocalptr.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\threadlocalptr.hpp
 	<SFML/System/ThreadLocal.hpp>
 	<SFML/System/ThreadLocalPtr.inl>
 
 1571742819 em/ThreadLocalPtr.inl>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\threadlocalptr.inl
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\threadlocalptr.inl
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\vector2.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\vector2.hpp
 	<SFML/System/Vector2.inl>
 
 1571742819 em/Vector2.inl>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\vector2.inl
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\vector2.inl
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\vector3.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\vector3.hpp
 	<SFML/System/Vector3.inl>
 
 1571742819 em/Vector3.inl>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\vector3.inl
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\system\vector3.inl
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\clipboard.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\clipboard.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/System/String.hpp>
 
 1571742819 em/String.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\export.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\export.hpp
 	<SFML/Config.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\context.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\context.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/Window/GlResource.hpp>
 	<SFML/Window/ContextSettings.hpp>
 	<SFML/System/NonCopyable.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\glresource.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\glresource.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\contextsettings.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\contextsettings.hpp
 	<SFML/Config.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\cursor.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\cursor.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 	<SFML/System/Vector2.hpp>
 
 1571742819 em/Vector2.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\event.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\event.hpp
 	<SFML/Config.hpp>
 	<SFML/Window/Joystick.hpp>
 	<SFML/Window/Keyboard.hpp>
@@ -250,33 +250,33 @@
 
 1571742819 ow/Sensor.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\joystick.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\joystick.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/System/String.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\keyboard.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\keyboard.hpp
 	<SFML/Window/Export.hpp>
 
 1571742819 ow/Export.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\mouse.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\mouse.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/System/Vector2.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\sensor.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\sensor.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/System/Vector3.hpp>
 	<SFML/System/Time.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\touch.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\touch.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/System/Vector2.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\videomode.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\videomode.hpp
 	<SFML/Window/Export.hpp>
 	<vector>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\window.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\window.hpp
 	<SFML/Window/ContextSettings.hpp>
 	<SFML/Window/Cursor.hpp>
 	<SFML/Window/Export.hpp>
@@ -289,64 +289,64 @@
 	<SFML/System/String.hpp>
 	<SFML/System/Vector2.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\windowhandle.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\windowhandle.hpp
 	<SFML/Config.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\windowstyle.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\window\windowstyle.hpp
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\blendmode.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\blendmode.hpp
 	<SFML/Graphics/Export.hpp>
 
 1571742819 hics/Export.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\export.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\export.hpp
 	<SFML/Config.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\circleshape.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\circleshape.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Shape.hpp>
 
 1571742819 hics/Shape.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\shape.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\shape.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Graphics/Transformable.hpp>
 	<SFML/Graphics/VertexArray.hpp>
 	<SFML/System/Vector2.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\drawable.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\drawable.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/RenderStates.hpp>
 
 1571742819 hics/RenderStates.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\renderstates.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\renderstates.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/BlendMode.hpp>
 	<SFML/Graphics/Transform.hpp>
 
 1571742819 hics/Transform.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\transform.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\transform.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Rect.hpp>
 	<SFML/System/Vector2.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\rect.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\rect.hpp
 	<SFML/System/Vector2.hpp>
 	<algorithm>
 	<SFML/Graphics/Rect.inl>
 
 1571742819 hics/Rect.inl>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\rect.inl
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\rect.inl
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\transformable.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\transformable.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Transform.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\vertexarray.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\vertexarray.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Vertex.hpp>
 	<SFML/Graphics/PrimitiveType.hpp>
@@ -354,22 +354,22 @@
 	<SFML/Graphics/Drawable.hpp>
 	<vector>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\vertex.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\vertex.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Color.hpp>
 	<SFML/System/Vector2.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\color.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\color.hpp
 	<SFML/Graphics/Export.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\primitivetype.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\primitivetype.hpp
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\convexshape.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\convexshape.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Shape.hpp>
 	<vector>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\font.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\font.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Glyph.hpp>
 	<SFML/Graphics/Texture.hpp>
@@ -380,31 +380,31 @@
 	<string>
 	<vector>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\glyph.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\glyph.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Rect.hpp>
 
 1571742819 hics/Rect.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\texture.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\texture.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Image.hpp>
 	<SFML/Window/GlResource.hpp>
 
 1571742819 ow/GlResource.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\image.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\image.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Color.hpp>
 	<SFML/Graphics/Rect.hpp>
 	<string>
 	<vector>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\rectangleshape.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\rectangleshape.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Shape.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\rendertarget.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\rendertarget.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Color.hpp>
 	<SFML/Graphics/Rect.hpp>
@@ -416,13 +416,13 @@
 	<SFML/Graphics/Vertex.hpp>
 	<SFML/System/NonCopyable.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\view.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\view.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Rect.hpp>
 	<SFML/Graphics/Transform.hpp>
 	<SFML/System/Vector2.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\rendertexture.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\rendertexture.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Texture.hpp>
 	<SFML/Graphics/RenderTarget.hpp>
@@ -430,14 +430,14 @@
 
 1571742819 ow/ContextSettings.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\renderwindow.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\renderwindow.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/RenderTarget.hpp>
 	<SFML/Graphics/Image.hpp>
 	<SFML/Window/Window.hpp>
 	<string>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\shader.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\shader.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Glsl.hpp>
 	<SFML/Window/GlResource.hpp>
@@ -447,7 +447,7 @@
 	<map>
 	<string>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\glsl.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\glsl.hpp
 	<SFML/Graphics/Transform.hpp>
 	<SFML/Graphics/Color.hpp>
 	<SFML/System/Vector2.hpp>
@@ -456,16 +456,16 @@
 
 1571742819 hics/Glsl.inl>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\glsl.inl
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\glsl.inl
 
-1572699449 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\sprite.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\sprite.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Graphics/Transformable.hpp>
 	<SFML/Graphics/Vertex.hpp>
 	<SFML/Graphics/Rect.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\text.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\text.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Graphics/Transformable.hpp>
@@ -476,7 +476,7 @@
 	<string>
 	<vector>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\vertexbuffer.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\graphics\vertexbuffer.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/PrimitiveType.hpp>
 	<SFML/Graphics/Drawable.hpp>
@@ -491,7 +491,7 @@
 1572721621 source:d:\homeproject\c++\vmi\sfml\main.cpp
 	"Window.hpp"
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio.hpp
 	<SFML/System.hpp>
 	<SFML/Audio/InputSoundFile.hpp>
 	<SFML/Audio/Listener.hpp>
@@ -509,7 +509,7 @@
 
 1571742819 o/SoundStream.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\inputsoundfile.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\inputsoundfile.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 	<SFML/System/Time.hpp>
@@ -518,14 +518,14 @@
 
 1571742819 >
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\export.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\export.hpp
 	<SFML/Config.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\listener.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\listener.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/System/Vector3.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\music.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\music.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/Audio/SoundStream.hpp>
 	<SFML/Audio/InputSoundFile.hpp>
@@ -534,7 +534,7 @@
 	<string>
 	<vector>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\soundstream.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\soundstream.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/Audio/SoundSource.hpp>
 	<SFML/System/Thread.hpp>
@@ -542,28 +542,28 @@
 	<SFML/System/Mutex.hpp>
 	<cstdlib>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\soundsource.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\soundsource.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/Audio/AlResource.hpp>
 	<SFML/System/Vector3.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\alresource.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\alresource.hpp
 	<SFML/Audio/Export.hpp>
 
 1571742819 o/Export.hpp>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\outputsoundfile.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\outputsoundfile.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 	<string>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\sound.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\sound.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/Audio/SoundSource.hpp>
 	<SFML/System/Time.hpp>
 	<cstdlib>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\soundbuffer.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\soundbuffer.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/Audio/AlResource.hpp>
 	<SFML/System/Time.hpp>
@@ -571,13 +571,13 @@
 	<vector>
 	<set>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\soundbufferrecorder.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\soundbufferrecorder.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/Audio/SoundBuffer.hpp>
 	<SFML/Audio/SoundRecorder.hpp>
 	<vector>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\soundrecorder.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\soundrecorder.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/Audio/AlResource.hpp>
 	<SFML/System/Thread.hpp>
@@ -585,7 +585,7 @@
 	<vector>
 	<string>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\soundfilefactory.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\soundfilefactory.hpp
 	<SFML/Audio/Export.hpp>
 	<string>
 	<vector>
@@ -593,13 +593,13 @@
 
 1571742819 o/SoundFileFactory.inl>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\soundfilefactory.inl
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\soundfilefactory.inl
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\soundfilereader.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\soundfilereader.hpp
 	<SFML/Audio/Export.hpp>
 	<string>
 
-1571739219 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\soundfilewriter.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml-2.5.1\include\sfml\audio\soundfilewriter.hpp
 	<SFML/Audio/Export.hpp>
 	<string>
 
@@ -789,38 +789,38 @@
 1455882554 source:d:\homeproject\c++\vmi\sfml\src\simplgui\widget.cpp
 	"simplgui/Widget.h"
 
-1574854936 source:d:\homeproject\c++\repo\fight.io\sfml\client.cpp
+1574932746 source:d:\homeproject\c++\repo\fight.io\sfml\client.cpp
 	"Client.hpp"
 
-1574794420 d:\homeproject\c++\repo\fight.io\sfml\client.hpp
+1574933814 d:\homeproject\c++\repo\fight.io\sfml\client.hpp
 	<thread>
 	<iostream>
 	<winsock2.h>
 	<mutex>
-	"player.hpp"
+	"../Includes/player.hpp"
 	<condition_variable>
 
-1574507647 d:\homeproject\c++\repo\fight.io\sfml\drawable_player.hpp
+1574946378 d:\homeproject\c++\repo\fight.io\sfml\drawable_player.hpp
 	<SFML/Graphics.hpp>
-	"Weapon.hpp"
+	"../Includes/Weapon.hpp"
 	"HpBar.hpp"
 	<map>
 	<iostream>
 	<sstream>
-	"player.hpp"
+	"../Includes/player.hpp"
 	"Screen.hpp"
 
 1574507647 d:\homeproject\c++\repo\fight.io\sfml\weapon.hpp
 	<SFML/Graphics.hpp>
 
-1574795200 source:d:\homeproject\c++\repo\fight.io\sfml\connectscreen.cpp
+1574932746 source:d:\homeproject\c++\repo\fight.io\sfml\connectscreen.cpp
 	"ConnectScreen.hpp"
 	<thread>
 	<iostream>
 	<ctype.h>
 	<sstream>
 
-1574793789 d:\homeproject\c++\repo\fight.io\sfml\connectscreen.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml\connectscreen.hpp
 	"Screen.hpp"
 	"simplgui/Button.h"
 	"simplgui/Event.h"
@@ -829,60 +829,60 @@
 	"simplgui/Tools.h"
 	"Client.hpp"
 
-1574378617 d:\homeproject\c++\repo\fight.io\sfml\screen.hpp
+1574932747 d:\homeproject\c++\repo\fight.io\sfml\screen.hpp
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 
-1574855490 source:d:\homeproject\c++\repo\fight.io\sfml\drawable_player.cpp
+1574956031 source:d:\homeproject\c++\repo\fight.io\sfml\drawable_player.cpp
 	"Drawable_Player.hpp"
 	<iostream>
 	<chrono>
 	<thread>
 	<fstream>
 
-1574796724 source:d:\homeproject\c++\repo\fight.io\sfml\gamescreen.cpp
+1574946539 source:d:\homeproject\c++\repo\fight.io\sfml\gamescreen.cpp
 	"GameScreen.hpp"
 	<vector>
 
-1574466861 d:\homeproject\c++\repo\fight.io\sfml\gamescreen.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml\gamescreen.hpp
 	"Screen.hpp"
 	"Drawable_Player.hpp"
 	<iostream>
 	"Client.hpp"
 	<fstream>
 
-1574693101 source:d:\homeproject\c++\repo\fight.io\sfml\main.cpp
+1574932748 source:d:\homeproject\c++\repo\fight.io\sfml\main.cpp
 	"Window.hpp"
 
-1573921557 d:\homeproject\c++\repo\fight.io\sfml\window.hpp
+1574932747 d:\homeproject\c++\repo\fight.io\sfml\window.hpp
 	"Menu.hpp"
 	"GameScreen.hpp"
 	"ConnectScreen.hpp"
 
-1572701707 d:\homeproject\c++\repo\fight.io\sfml\menu.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml\menu.hpp
 	<iostream>
 	"Screen.hpp"
 
-1572701676 source:d:\homeproject\c++\repo\fight.io\sfml\menu.cpp
+1574932746 source:d:\homeproject\c++\repo\fight.io\sfml\menu.cpp
 	"Menu.hpp"
 
-1455882554 source:d:\homeproject\c++\repo\fight.io\sfml\src\simplgui\button.cpp
+1574932748 source:d:\homeproject\c++\repo\fight.io\sfml\src\simplgui\button.cpp
 	"simplgui/Button.h"
 	<iostream>
 	"simplgui/Renderer.h"
 
-1455882554 source:d:\homeproject\c++\repo\fight.io\sfml\src\simplgui\connector.cpp
+1574932748 source:d:\homeproject\c++\repo\fight.io\sfml\src\simplgui\connector.cpp
 	"simplgui/Connector.h"
 
-1455882554 source:d:\homeproject\c++\repo\fight.io\sfml\src\simplgui\event.cpp
+1574932748 source:d:\homeproject\c++\repo\fight.io\sfml\src\simplgui\event.cpp
 	"simplgui/Event.h"
 	<iostream>
 
-1455882554 source:d:\homeproject\c++\repo\fight.io\sfml\src\simplgui\fileresourcesgetter.cpp
+1574932748 source:d:\homeproject\c++\repo\fight.io\sfml\src\simplgui\fileresourcesgetter.cpp
 	"simplgui/FileResourcesGetter.h"
 	<iostream>
 
-1455882554 source:d:\homeproject\c++\repo\fight.io\sfml\src\simplgui\renderer.cpp
+1574932748 source:d:\homeproject\c++\repo\fight.io\sfml\src\simplgui\renderer.cpp
 	"simplgui/Renderer.h"
 	<SFML/Graphics/Font.hpp>
 	<SFML/Graphics/RectangleShape.hpp>
@@ -890,18 +890,18 @@
 	"simplgui/Widget.h"
 	"simplgui/Tools.h"
 
-1455882554 source:d:\homeproject\c++\repo\fight.io\sfml\src\simplgui\textbox.cpp
+1574932748 source:d:\homeproject\c++\repo\fight.io\sfml\src\simplgui\textbox.cpp
 	"simplgui/TextBox.h"
 	<iostream>
 	"simplgui/Renderer.h"
 
-1455882554 source:d:\homeproject\c++\repo\fight.io\sfml\src\simplgui\widget.cpp
+1574932748 source:d:\homeproject\c++\repo\fight.io\sfml\src\simplgui\widget.cpp
 	"simplgui/Widget.h"
 
 1574507647 source:d:\homeproject\c++\repo\fight.io\sfml\weapon.cpp
 	"Weapon.hpp"
 
-1574467083 source:d:\homeproject\c++\repo\fight.io\sfml\window.cpp
+1574932747 source:d:\homeproject\c++\repo\fight.io\sfml\window.cpp
 	"Window.hpp"
 	<thread>
 	<chrono>
@@ -1034,10 +1034,10 @@
 	"HpBar.hpp"
 	<sstream>
 
-1573660240 d:\homeproject\c++\repo\fight.io\sfml\hpbar.hpp
+1574932746 d:\homeproject\c++\repo\fight.io\sfml\hpbar.hpp
 	<SFML/Graphics.hpp>
 
-1574854836 source:d:\homeproject\c++\repo\fight.io\sfml\hpbar.cpp
+1574932746 source:d:\homeproject\c++\repo\fight.io\sfml\hpbar.cpp
 	"HpBar.hpp"
 	<sstream>
 
@@ -1330,5 +1330,22 @@
 	"Weapon.hpp"
 
 1574582572 c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\weapon.hpp
+	<SFML/Graphics.hpp>
+
+1574933814 source:d:\homeproject\c++\repo\fight.io\includes\player.cpp
+	"player.hpp"
+	<sstream>
+	<string>
+	<iostream>
+	<fstream>
+
+1574933814 d:\homeproject\c++\repo\fight.io\includes\player.hpp
+	<string>
+	<mutex>
+
+1574954029 source:d:\homeproject\c++\repo\fight.io\includes\weapon.cpp
+	"Weapon.hpp"
+
+1574946031 d:\homeproject\c++\repo\fight.io\includes\weapon.hpp
 	<SFML/Graphics.hpp>
 
