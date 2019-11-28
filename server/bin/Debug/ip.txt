@@ -2,12 +2,12 @@
 Windows IP Configuration
 
 
-Ethernet adapter Ethernet:
+Ethernet adapter Tunngle:
 
    Media State . . . . . . . . . . . : Media disconnected
-   Connection-specific DNS Suffix  . : home
+   Connection-specific DNS Suffix  . : 
 
-Wireless LAN adapter Helyi kapcsolat* 1:
+Ethernet adapter Ethernet:
 
    Media State . . . . . . . . . . . : Media disconnected
    Connection-specific DNS Suffix  . : 
@@ -17,18 +17,21 @@ Wireless LAN adapter Helyi kapcsolat* 2:
    Media State . . . . . . . . . . . : Media disconnected
    Connection-specific DNS Suffix  . : 
 
+Wireless LAN adapter Helyi kapcsolat* 11:
+
+   Connection-specific DNS Suffix  . : 
+   Link-local IPv6 Address . . . . . : fe80::4d5:79bf:b19d:8e7%7
+   IPv4 Address. . . . . . . . . . . : 192.168.137.1
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 
+
 Wireless LAN adapter Wi-Fi:
 
    Connection-specific DNS Suffix  . : itk.ppke.hu
-   IPv6 Address. . . . . . . . . . . : 2001:738:5404:192:1964:b2f0:4c5d:3fb1
-   Temporary IPv6 Address. . . . . . : 2001:738:5404:192:3830:f158:8d21:6886
-   Link-local IPv6 Address . . . . . : fe80::1964:b2f0:4c5d:3fb1%15
-   IPv4 Address. . . . . . . . . . . : 192.168.253.211
+   IPv6 Address. . . . . . . . . . . : 2001:738:5404:192:cc79:95f:7aa6:a72c
+   Temporary IPv6 Address. . . . . . : 2001:738:5404:192:58c0:e822:f63:b358
+   Link-local IPv6 Address . . . . . : fe80::cc79:95f:7aa6:a72c%21
+   IPv4 Address. . . . . . . . . . . : 192.168.251.44
    Subnet Mask . . . . . . . . . . . : 255.255.240.0
-   Default Gateway . . . . . . . . . : fe80::da9d:67ff:fe2c:78c0%15
+   Default Gateway . . . . . . . . . : fe80::da9d:67ff:fe2c:78c0%21
                                        192.168.254.254
-
-Ethernet adapter Bluetooth h l¢zati kapcsolat:
-
-   Media State . . . . . . . . . . . : Media disconnected
-   Connection-specific DNS Suffix  . : 

@@ -5,6 +5,9 @@
  GameEngine::GameEngine() {
     mapSize = 2000;
     players.clear();
+    for(int i = 0; i < WP_SIZE; ++i) {
+        weapons[i] = new Weapon(i);
+    }
 }
 GameEngine::~GameEngine() {
     for (auto x : players) {
@@ -26,23 +29,59 @@ std::string GameEngine::CreatePlayer(std::string name) {
 	return p->toString();
 }
 
-std::string GameEngine::CheckRequest(std::string name, std::string msg) {
+std::string GameEngine::CheckRequest(std::string name, std::string data) {
     player* actplayer = (*(players.find(name))).second;
-    std::stringstream ss(msg);
+    int event_type;
+    std::stringstream ss(data);
+    std::string flags;
     std::string line;
+    float curx,cury,getrot;
+    bool curPoking=false;
+    std::getline(ss,flags,'|');
+    if(flags.at(1) == '1')
+    {
+        std::getline(ss,line,'|');
+        curx = std::stof(line);
+        std::getline(ss,line,'|');
+        cury = std::stof(line);
+    }
+    if(flags.at(2) == '1')
+    {
+        std::getline(ss,line,'|');
+        getrot = std::stof(line);
+    }
+    if(flags.at(3) == '1')
+    {
+        //std::cout<<flags.substr(0,4);
+        curPoking = true;
 
+    }else{
+        curPoking = false;
+    }
+    //curPoking=flags.at(3)=='1';
     std::getline(ss,line,'|');
-    int event_type = std::stoi(line);
-
+    int maxhp = std::stoi(line);
     std::getline(ss,line,'|');
-    float curx = std::stof(line);
+    int curhp = std::stoi(line);
     std::getline(ss,line,'|');
-    float cury = std::stof(line);
+    int getscore = std::stoi(line);
     std::getline(ss,line,'|');
-    float getrot = std::stof(line);
-
-    switch (event_type) {
-        case 0: {
+    int wp =std::stoi(line);
+/*    std::stringstream ss(msg);
+//    std::string line;
+//
+//    std::getline(ss,line,'|');
+//    int event_type = std::stoi(line);
+//
+//    std::getline(ss,line,'|');
+//    float curx = std::stof(line);
+//    std::getline(ss,line,'|');
+//    float cury = std::stof(line);
+//    std::getline(ss,line,'|');
+//    float getrot = std::stof(line);
+*/
+    /*switch (flags) {
+        case .at(2) = 1: {
             ///rotation
             actplayer->setRotation(getrot);
             return actplayer->toString();
@@ -67,7 +106,7 @@ std::string GameEngine::CheckRequest(std::string name, std::string msg) {
                    && sqrt(pow(actplayer->getX() - p->getX(), 2) + pow(actplayer->getY() - p->getY(), 2))/** < actplayer->getWeapon()->getRange() ) {
 
                 }*/
-            }
+            /*}
             return actplayer->toString();
             break;
         }
@@ -75,7 +114,7 @@ std::string GameEngine::CheckRequest(std::string name, std::string msg) {
             ///pickup
             break;
         }
-    }
+    }*/
 
 /**
     /// Rotation
