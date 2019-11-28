@@ -53,6 +53,10 @@
 			<Add library="dxguid" />
 			<Add directory="D:/homeProject/C++/Repo/Fight.io/SFML-2.5.1/lib" />
 		</Linker>
+		<Unit filename="../Includes/Weapon.cpp" />
+		<Unit filename="../Includes/Weapon.hpp" />
+		<Unit filename="../Includes/player.cpp" />
+		<Unit filename="../Includes/player.hpp" />
 		<Unit filename="Client.cpp" />
 		<Unit filename="Client.hpp" />
 		<Unit filename="ConnectScreen.cpp" />
@@ -66,13 +70,9 @@
 		<Unit filename="Menu.cpp" />
 		<Unit filename="Menu.hpp" />
 		<Unit filename="Screen.hpp" />
-		<Unit filename="Weapon.cpp" />
-		<Unit filename="Weapon.hpp" />
 		<Unit filename="Window.cpp" />
 		<Unit filename="Window.hpp" />
 		<Unit filename="main.cpp" />
-		<Unit filename="player.cpp" />
-		<Unit filename="player.hpp" />
 		<Unit filename="src/simplgui/Button.cpp" />
 		<Unit filename="src/simplgui/Connector.cpp" />
 		<Unit filename="src/simplgui/Event.cpp" />
