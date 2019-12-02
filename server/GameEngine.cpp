@@ -10,8 +10,14 @@
     }
 }
 GameEngine::~GameEngine() {
-    for (auto x : players) {
+    for(auto x : p_mutexes) {
         delete x.second;
+    }
+    for(auto x : players) {
+        delete x.second;
+    }
+    for(auto x : weapons) {
+        delete x;
     }
 }
 
@@ -26,39 +32,73 @@ std::string GameEngine::CreatePlayer(std::string name) {
     }
     player* p = new player(name, 0, 0, 0);
     players[name] = p;
+    p_mutexes[p] = new std::mutex();
 	return p->toString();
 }
 
 std::string GameEngine::CheckRequest(std::string name, std::string data) {
     player* actplayer = (*(players.find(name))).second;
-    int event_type;
+    ///int event_type;
     std::stringstream ss(data);
     std::string flags;
     std::string line;
     float curx,cury,getrot;
     bool curPoking=false;
     std::getline(ss,flags,'|');
-    if(flags.at(1) == '1')
+
+    p_mutexes[actplayer]->lock();
+    if(flags.at(1) == '1') ///MOVE
     {
         std::getline(ss,line,'|');
         curx = std::stof(line);
         std::getline(ss,line,'|');
         cury = std::stof(line);
+        if (curx <= -mapSize || curx >= mapSize ||
+            cury <= -mapSize || cury >= mapSize)
+        {
+            ///return actplayer->toString();
+        }
+        actplayer->setPosition(curx,cury);
     }
-    if(flags.at(2) == '1')
+    if(flags.at(2) == '1') ///ROTATION
     {
         std::getline(ss,line,'|');
         getrot = std::stof(line);
+        actplayer->setRotation(getrot);
+        ///return actplayer->toString();
     }
-    if(flags.at(3) == '1')
+    if(flags.at(3) == '1') ///POKE
     {
         //std::cout<<flags.substr(0,4);
         curPoking = true;
+        for(std::pair<std::string,player*> pr : players) {
+            player* p = pr.second;
+            if(p != actplayer) {
+                p_mutexes[p]->lock();
+                float range = sqrt(pow(actplayer->getX() - p->getX(), 2) + pow(actplayer->getY() - p->getY(), 2));
+                float diraction = atan2( (p->getY() - actplayer->getY()) , (p->getX() - actplayer->getX()) ) * 180/PI;
+                diraction += 360;
+                diraction = fmod(diraction, 360);
+                if(true ///diraction... actplayer->getWeapon()->getRange()
+                   && range <= weapons[actplayer->getWeapon()]->getRange()) {
+                    p->setCurrentHp(p->getCurrentHp() - weapons[actplayer->getWeapon()]->getPower());
+                    if(p->getCurrentHp() <= 0){
+                        ///Died!!
+                    }
+                }
+                p_mutexes[p]->unlock();
+            }
+        }
+        ///return actplayer->toString();
 
     }else{
         curPoking = false;
     }
-    //curPoking=flags.at(3)=='1';
+    p_mutexes[actplayer]->unlock();
+
+    return actplayer->toString(); ///nem jó még a return, mert a poke hibás...
+
+    /**curPoking=flags.at(3)=='1';
     std::getline(ss,line,'|');
     int maxhp = std::stoi(line);
     std::getline(ss,line,'|');
@@ -67,20 +107,20 @@ std::string GameEngine::CheckRequest(std::string name, std::string data) {
     int getscore = std::stoi(line);
     std::getline(ss,line,'|');
     int wp =std::stoi(line);
-/*    std::stringstream ss(msg);
-//    std::string line;
-//
-//    std::getline(ss,line,'|');
-//    int event_type = std::stoi(line);
-//
-//    std::getline(ss,line,'|');
-//    float curx = std::stof(line);
-//    std::getline(ss,line,'|');
-//    float cury = std::stof(line);
-//    std::getline(ss,line,'|');
-//    float getrot = std::stof(line);
+    std::stringstream ss(msg);
+    std::string line;
+
+    std::getline(ss,line,'|');
+    int event_type = std::stoi(line);
+
+    std::getline(ss,line,'|');
+    float curx = std::stof(line);
+    std::getline(ss,line,'|');
+    float cury = std::stof(line);
+    std::getline(ss,line,'|');
+    float getrot = std::stof(line);
 */
-    /*switch (flags) {
+/**    switch (flags) {
         case .at(2) = 1: {
             ///rotation
             actplayer->setRotation(getrot);
@@ -102,11 +142,11 @@ std::string GameEngine::CheckRequest(std::string name, std::string data) {
             for(std::pair<std::string,player*> pr : players) {
                 player* p = pr.second;
                 float diraction = atan2( (p->getY() - actplayer->getY()) , (p->getX() - actplayer->getX()) ) * 180/PI;
-               /* if(///diraction...
-                   && sqrt(pow(actplayer->getX() - p->getX(), 2) + pow(actplayer->getY() - p->getY(), 2))/** < actplayer->getWeapon()->getRange() ) {
+                if(diraction...
+                   && sqrt(pow(actplayer->getX() - p->getX(), 2) + pow(actplayer->getY() - p->getY(), 2))/ < actplayer->getWeapon()->getRange() ) {
 
-                }*/
-            /*}
+                }
+            }
             return actplayer->toString();
             break;
         }
@@ -114,9 +154,7 @@ std::string GameEngine::CheckRequest(std::string name, std::string data) {
             ///pickup
             break;
         }
-    }*/
-
-/**
+    }
     /// Rotation
     if (actplayer->getRot() != getrot) {
         actplayer->setRotation(getrot);
@@ -133,7 +171,7 @@ std::string GameEngine::CheckRequest(std::string name, std::string data) {
     }
         /// Hitbox
         return actplayer->toString();
-**/
+*/
 }
 
 double GameEngine::GetMapSize() {

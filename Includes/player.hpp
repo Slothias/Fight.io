@@ -23,7 +23,7 @@ public:
     bool getPoke();
     std::mutex my_mutex;
     player();
-    ~player();
+    virtual ~player();
     player(std::string _pName);
     player(std::string _pName, float _playerX, float _playerY, float _playerRotation);
     player(float _playerX, float _playerY, float _playerRotation, std::string _pName, int _maxHp, int _currentHp, int _score, bool _weapon);

@@ -7,11 +7,13 @@
 #include <mutex>
 #include <iostream>
 #include <sstream>
+#include <mutex>
 
 class GameEngine {
 private:
     static const int WP_SIZE = 6;
     std::map<std::string,player*> players;
+    std::map<player*,std::mutex*> p_mutexes;
     Weapon* weapons[WP_SIZE];
     double mapSize;
 protected:
