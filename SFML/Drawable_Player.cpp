@@ -235,8 +235,10 @@ void Drawable_Player::update(std::string data)
             if(flags.at(2) == '1')
                 players[currentName]->setRotation(getrot,false);
             ///ha eltér a bökés, akkor frissít
-            if(act->poking != curPoking)
+            if(act->poking != curPoking){
                 players[currentName]->poking = curPoking;
+                players[currentName]->lastPoke = std::chrono::high_resolution_clock::now();
+            }
             ///ha eltér a maxhp,akkor frissít
             if(act->getMaxHp()!=maxhp)
                 players[currentName]->setMaxHp(maxhp);
