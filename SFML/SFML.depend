@@ -1215,21 +1215,21 @@
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 
-1574877047 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\drawable_player.cpp
+1575284400 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\drawable_player.cpp
 	"Drawable_Player.hpp"
 	<iostream>
 	<chrono>
 	<thread>
 	<fstream>
 
-1574582572 c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\drawable_player.hpp
+1575284400 c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\drawable_player.hpp
 	<SFML/Graphics.hpp>
-	"Weapon.hpp"
+	"../Includes/Weapon.hpp"
 	"HpBar.hpp"
 	<map>
 	<iostream>
 	<sstream>
-	"player.hpp"
+	"../Includes/player.hpp"
 	"Screen.hpp"
 
 1573768589 c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\weapon.hpp
@@ -1238,7 +1238,7 @@
 1573768589 c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\hpbar.hpp
 	<SFML/Graphics.hpp>
 
-1574877047 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\gamescreen.cpp
+1575284400 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\sfml\gamescreen.cpp
 	"GameScreen.hpp"
 	<vector>
 
@@ -1323,14 +1323,14 @@
 	<iostream>
 	<fstream>
 
-1574877052 c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\player.hpp
+1575291533 c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\player.hpp
 	<string>
 	<mutex>
 
-1574582572 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\weapon.cpp
+1575284400 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\weapon.cpp
 	"Weapon.hpp"
 
-1574582572 c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\weapon.hpp
+1575284400 c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\weapon.hpp
 	<SFML/Graphics.hpp>
 
 1574933814 source:d:\homeproject\c++\repo\fight.io\includes\player.cpp
