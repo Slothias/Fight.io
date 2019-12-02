@@ -8,6 +8,7 @@
 #include<sstream>
 #include "../Includes/player.hpp"
 #include "Screen.hpp"
+#include <chrono>
 
 class Drawable_Player: public sf::Sprite, public player
 {
@@ -40,6 +41,7 @@ private:
     sf::CircleShape testHitbox;
     sf::Font font;
     sf::Text* myName;
+    std::chrono::high_resolution_clock::time_point lastPoke;
 };
 
 #endif // DRAWABLE_PLAYER_H

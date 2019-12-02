@@ -6,6 +6,7 @@
 
 Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf::Sprite(),player(name,x,y,a)
 {
+    lastPoke = std::chrono::high_resolution_clock::now();
     skin.loadFromFile("Player.png");
     font.loadFromFile("LiberationSans.ttf");
     myName = new sf::Text('<'+name+'>',font,12);
@@ -31,7 +32,9 @@ Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf:
 
 void Drawable_Player::draw(sf::RenderTarget& target, sf::RenderStates states)
 {
-    if(poking){
+    auto curTime = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>( curTime - lastPoke ).count();
+    if(poking || duration < 200){
         target.draw(weaponHitbox);
         myWeapon.setRotation(playerRotation-myWeapon.useRotation);
     }else{
@@ -83,21 +86,29 @@ void Drawable_Player::setRotation(float x, bool c)
 }
 void Drawable_Player::testPoke(bool setToIt)  //próba a szurkálásra
 {
+    if(setToIt){
+        auto curTime = std::chrono::high_resolution_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>( curTime - lastPoke ).count();
+        if(duration > myWeapon.cooldown){
+            my_mutex.lock();
+            poking = setToIt;
+            changed=true;
+            lastPoke = std::chrono::high_resolution_clock::now();
+            my_mutex.unlock();
+        }else{
+            my_mutex.lock();
+            poking = false;
+            changed=true;
+            my_mutex.unlock();
+        }
 
-    /*for(int i=0; i<=10; i++)
-    {
-        myWeapon->setRotation(me.getRotation()+((myWeapon->useRotation/10)*i));
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    }else{
+        my_mutex.lock();
+        poking = setToIt;
+        changed=true;
+        my_mutex.unlock();
     }
-    for(int i=10; i>=0; i--)
-    {
-        myWeapon->setRotation(me.getRotation()+(((myWeapon->useRotation)/10)*i));
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
-    }*/
-    my_mutex.lock();
-    poking = setToIt;
-    changed=true;
-    my_mutex.unlock();
+
 }
 void Drawable_Player::setScale(float x, float y)
 {
