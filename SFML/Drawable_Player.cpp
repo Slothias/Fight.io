@@ -186,19 +186,19 @@ void Drawable_Player::update(std::string data)
         float curx,cury,getrot;
         bool curPoking=false;
         std::getline(ss,flags,'|');
-        if(flags.at(1) == '1')
+        if(flags.at(0) == '1')
         {
             std::getline(ss,line,'|');
             curx = std::stof(line);
             std::getline(ss,line,'|');
             cury = std::stof(line);
         }
-        if(flags.at(2) == '1')
+        if(flags.at(1) == '1')
         {
             std::getline(ss,line,'|');
             getrot = std::stof(line);
         }
-        if(flags.at(3) == '1')
+        if(flags.at(2) == '1')
         {
             //std::cout<<flags.substr(0,4);
             curPoking = true;

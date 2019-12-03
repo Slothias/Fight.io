@@ -35,6 +35,7 @@ std::string GameEngine::CreatePlayer(std::string name) {
     player* p = new player(name, 0, 0, 0);
     players[name] = p;
     p_mutexes[p] = new std::mutex();
+    std::cout << "OKOK" << std::endl;
 	return "OK";
 }
 
@@ -47,6 +48,12 @@ std::string GameEngine::GetMe(std::string name) {
 std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string data) {
     player* actplayer = (*(players.find(name))).second;
     std::vector<std::string> ret;
+    if(data.find("EXIT") != std::string::npos) {
+        delete actplayer;
+        players.erase(name);
+        ret.push_back(name + ":" + data);
+        return ret;
+    }
     std::stringstream ss(data);
     std::string flags;
     std::string line;
@@ -54,7 +61,7 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
     std::getline(ss,flags,'|');
 
     p_mutexes[actplayer]->lock();
-    if(flags.at(1) == '1') ///MOVE
+    if(flags.at(0) == '1') ///MOVE
     {
         std::getline(ss,line,'|');
         curx = std::stof(line);
@@ -65,13 +72,13 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
             actplayer->setPosition(curx,cury);
         }
     }
-    if(flags.at(2) == '1') ///ROTATION
+    if(flags.at(1) == '1') ///ROTATION
     {
         std::getline(ss,line,'|');
         getrot = std::stof(line);
         actplayer->setRotation(getrot);
     }
-    if(flags.at(3) == '1') ///POKE
+    if(flags.at(2) == '1') ///POKE
     {
         //std::cout<<flags.substr(0,4);
         float w_x = actplayer->getX() + sin(actplayer->getRot()) * weapons[actplayer->getWeapon()]->getRange();
