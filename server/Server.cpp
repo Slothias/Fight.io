@@ -247,6 +247,7 @@ void Server::ServerAssistant::run() {
             for(std::string s : me->myEngine->CheckRequest(name, msg)) {
                 me->sendData(s);
             }
+            //me->sendData(name+":"+msg);
             if(msg.find("EXIT")!= std::string::npos) {
                 closeConnection();
             }

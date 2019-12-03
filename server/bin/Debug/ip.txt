@@ -2,17 +2,12 @@
 Windows IP Configuration
 
 
-Ethernet adapter Ethernet:
-
-   Media State . . . . . . . . . . . : Media disconnected
-   Connection-specific DNS Suffix  . : home
-
-Wireless LAN adapter Helyi kapcsolat* 1:
+Wireless LAN adapter Local Area Connection* 1:
 
    Media State . . . . . . . . . . . : Media disconnected
    Connection-specific DNS Suffix  . : 
 
-Wireless LAN adapter Helyi kapcsolat* 2:
+Wireless LAN adapter Local Area Connection* 10:
 
    Media State . . . . . . . . . . . : Media disconnected
    Connection-specific DNS Suffix  . : 
@@ -20,12 +15,12 @@ Wireless LAN adapter Helyi kapcsolat* 2:
 Wireless LAN adapter Wi-Fi:
 
    Connection-specific DNS Suffix  . : 
-   Link-local IPv6 Address . . . . . : fe80::1964:b2f0:4c5d:3fb1%15
-   IPv4 Address. . . . . . . . . . . : 192.168.43.34
+   Link-local IPv6 Address . . . . . : fe80::4c36:77f3:dfac:9b37%14
+   IPv4 Address. . . . . . . . . . . : 192.168.43.171
    Subnet Mask . . . . . . . . . . . : 255.255.255.0
    Default Gateway . . . . . . . . . : 192.168.43.151
 
-Ethernet adapter Bluetooth h l¢zati kapcsolat:
+Ethernet adapter Bluetooth Network Connection:
 
    Media State . . . . . . . . . . . : Media disconnected
    Connection-specific DNS Suffix  . : 

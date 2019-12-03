@@ -81,21 +81,22 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
     if(flags.at(2) == '1') ///POKE
     {
         //std::cout<<flags.substr(0,4);
-        float w_x = actplayer->getX() + sin(actplayer->getRot()) * weapons[actplayer->getWeapon()]->getRange();
-        float w_y = actplayer->getY() - cos(actplayer->getRot()) * weapons[actplayer->getWeapon()]->getRange();
+        float w_x = actplayer->getX() + cos((actplayer->getRot()-90)*3.1415/180) * weapons[actplayer->getWeapon()]->getRange();
+        float w_y = actplayer->getY() + sin((actplayer->getRot()-90)*3.1415/180)* weapons[actplayer->getWeapon()]->getRange();
         for(std::pair<std::string,player*> pr : players) {
             player* p = pr.second;
             if(p != actplayer) {
                 p_mutexes[p]->lock();
                 if(sqrt(pow(w_x - p->getX(),2) + pow(w_y - p->getY(),2)) <= p->getHitboxRadius()) {
                     p->setCurrentHp(p->getCurrentHp() - weapons[actplayer->getWeapon()]->getPower());
+                    std::cout<<"TALALAT, ALDOZAT:"<<p->getName()<<std::endl;
                     ret.push_back(p->getName() + ":" + p->toString());
                 }
                 p_mutexes[p]->unlock();
             }
         }
     }
-    ret.push_back(name + ":" + actplayer->toString());
+    ret.push_back(name + ":" +data);
     p_mutexes[actplayer]->unlock();
     return ret; ///nem jó még a return, mert a poke hibás...
 

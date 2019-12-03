@@ -229,10 +229,10 @@ void Drawable_Player::update(std::string data)
             ///egyébként frissítjük
             Drawable_Player* act = players[currentName];
             ///ha eltér a pozíció,akkor frissít
-            if(flags.at(1) == '1')
+            if(flags.at(0) == '1')
                 act->setPosition(curx,cury,false);
             ///ha eltér a szög,akkor frissít
-            if(flags.at(2) == '1')
+            if(flags.at(1) == '1')
                 players[currentName]->setRotation(getrot,false);
             ///ha eltér a bökés, akkor frissít
             if(act->poking != curPoking){
@@ -253,9 +253,9 @@ void Drawable_Player::update(std::string data)
             }
             else
             {
-                if(flags.at(1)=='1')
+                if(flags.at(0)=='1')
                     setPosition(curx,cury,false);
-                if(flags.at(2)=='1')
+                if(flags.at(1)=='1')
                     setRotation(getrot,false);
                 if(poking != curPoking)
                 {
