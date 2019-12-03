@@ -1,4 +1,6 @@
 #include "GameEngine.hpp"
+#include <vector>
+#include <string>
 #include <cmath>
 #define PI 3.14159265
 
@@ -28,22 +30,27 @@ GameEngine* GameEngine::GetInstance() {
 
 std::string GameEngine::CreatePlayer(std::string name) {
     if (players.find(name) != players.end()) {
-        return "Name is used!";
+        return "Name is already used!";
     }
     player* p = new player(name, 0, 0, 0);
     players[name] = p;
     p_mutexes[p] = new std::mutex();
-	return p->toString();
+	return "OK";
 }
 
-std::string GameEngine::CheckRequest(std::string name, std::string data) {
+std::string GameEngine::GetMe(std::string name) {
+    std::string me = players[name]->toString();
+    std::string ret = "1111" + me.substr(3);
+    return ret;
+}
+
+std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string data) {
     player* actplayer = (*(players.find(name))).second;
-    ///int event_type;
+    std::vector<std::string> ret;
     std::stringstream ss(data);
     std::string flags;
     std::string line;
     float curx,cury,getrot;
-    bool curPoking=false;
     std::getline(ss,flags,'|');
 
     p_mutexes[actplayer]->lock();
@@ -53,50 +60,37 @@ std::string GameEngine::CheckRequest(std::string name, std::string data) {
         curx = std::stof(line);
         std::getline(ss,line,'|');
         cury = std::stof(line);
-        if (curx <= -mapSize || curx >= mapSize ||
-            cury <= -mapSize || cury >= mapSize)
-        {
-            ///return actplayer->toString();
+        if (!(curx <= -mapSize || curx >= mapSize ||
+            cury <= -mapSize || cury >= mapSize)) {
+            actplayer->setPosition(curx,cury);
         }
-        actplayer->setPosition(curx,cury);
     }
     if(flags.at(2) == '1') ///ROTATION
     {
         std::getline(ss,line,'|');
         getrot = std::stof(line);
         actplayer->setRotation(getrot);
-        ///return actplayer->toString();
     }
     if(flags.at(3) == '1') ///POKE
     {
         //std::cout<<flags.substr(0,4);
-        curPoking = true;
+        float w_x = actplayer->getX() + sin(actplayer->getRot()) * weapons[actplayer->getWeapon()]->getRange();
+        float w_y = actplayer->getY() - cos(actplayer->getRot()) * weapons[actplayer->getWeapon()]->getRange();
         for(std::pair<std::string,player*> pr : players) {
             player* p = pr.second;
             if(p != actplayer) {
                 p_mutexes[p]->lock();
-                float range = sqrt(pow(actplayer->getX() - p->getX(), 2) + pow(actplayer->getY() - p->getY(), 2));
-                float diraction = atan2( (p->getY() - actplayer->getY()) , (p->getX() - actplayer->getX()) ) * 180/PI;
-                diraction += 360;
-                diraction = fmod(diraction, 360);
-                if(true ///diraction... actplayer->getWeapon()->getRange()
-                   && range <= weapons[actplayer->getWeapon()]->getRange()) {
+                if(sqrt(pow(w_x - p->getX(),2) + pow(w_y - p->getY(),2)) <= p->getHitboxRadius()) {
                     p->setCurrentHp(p->getCurrentHp() - weapons[actplayer->getWeapon()]->getPower());
-                    if(p->getCurrentHp() <= 0){
-                        ///Died!!
-                    }
+                    ret.push_back(p->getName() + ":" + p->toString());
                 }
                 p_mutexes[p]->unlock();
             }
         }
-        ///return actplayer->toString();
-
-    }else{
-        curPoking = false;
     }
+    ret.push_back(name + ":" + actplayer->toString());
     p_mutexes[actplayer]->unlock();
-
-    return actplayer->toString(); ///nem jó még a return, mert a poke hibás...
+    return ret; ///nem jó még a return, mert a poke hibás...
 
     /**curPoking=flags.at(3)=='1';
     std::getline(ss,line,'|');
@@ -119,8 +113,8 @@ std::string GameEngine::CheckRequest(std::string name, std::string data) {
     float cury = std::stof(line);
     std::getline(ss,line,'|');
     float getrot = std::stof(line);
-*/
-/**    switch (flags) {
+
+    switch (flags) {
         case .at(2) = 1: {
             ///rotation
             actplayer->setRotation(getrot);

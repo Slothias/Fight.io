@@ -51,6 +51,7 @@ public:
     int getCurrentHp();
     int getScore();
     int getWeapon();
+    int getHitboxRadius();
     std::string getMSG();
     std::string toString();
 };

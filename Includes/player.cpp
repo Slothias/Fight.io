@@ -173,6 +173,14 @@ int player::getWeapon()
     my_mutex.unlock();
     return result;
 }
+int player::getHitboxRadius()
+{
+    int result = -1;
+    my_mutex.lock();
+    result = hitboxRadius;
+    my_mutex.unlock();
+    return result;
+}
 bool player::getPoke()
 {
    my_mutex.lock();

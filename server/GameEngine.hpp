@@ -27,8 +27,11 @@ public:
     /// Create player with name
     std::string CreatePlayer(std::string);
 
+    /// Get starting data
+    std::string GetMe(std::string);
+
     /// Handle requests
-    std::string CheckRequest(std::string, std::string);
+    std::vector<std::string> CheckRequest(std::string, std::string);
 
     /// Getter mapSize
     double GetMapSize();
