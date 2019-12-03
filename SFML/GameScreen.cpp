@@ -110,7 +110,7 @@ else
                 tempWeaponCounter = 0;
             }
             me->setWeapon(tempWeaponCounter,true);
-            me->weaponHitbox.setOrigin(5,me->getWeapon().range+5);
+            me->weaponHitbox.setOrigin(5,me->getWeapon()->range+5);
             c->notify();
         }
         if(event.key.code==sf::Keyboard::E)

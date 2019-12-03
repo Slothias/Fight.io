@@ -148,9 +148,9 @@ void Drawable_Player::setWeapon(int _weapon,bool c)
 
 }
 //---------GETTERS---------------
-Weapon Drawable_Player::getWeapon()
+Weapon* Drawable_Player::getWeapon()
 {
-    return myWeapon;
+    return &myWeapon;
 }
 void Drawable_Player::update(std::string data)
 {
@@ -248,7 +248,7 @@ void Drawable_Player::update(std::string data)
             ///ha eltér a score,akkor frissít
             if(act->getScore()!=getscore)
                 players[currentName]->setScore(getscore);
-            if(act->getWeapon().type!=wp)
+            if(act->getWeapon()->type!=wp)
                 players[currentName]->setWeapon(wp,false);
             }
             else

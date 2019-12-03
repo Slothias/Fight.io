@@ -29,7 +29,7 @@ public:
     void testPoke(bool setToIt);
     //getters
     void update(std::string data);
-    Weapon getWeapon();
+    Weapon* getWeapon();
     std::map<std::string,Drawable_Player*> players;
     ~Drawable_Player();
     sf::CircleShape weaponHitbox;
