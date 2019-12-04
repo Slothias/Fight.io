@@ -41,7 +41,7 @@ void GameScreen::GetDesktopResolution()
 }
 void GameScreen::draw()
 {
-    if((app->getSize().x != horizontal || app->getSize().y!=vertical) && c)
+    /*if((app->getSize().x != horizontal || app->getSize().y!=vertical) && c)
     {
 
     if(c->getconnected())
@@ -52,7 +52,7 @@ void GameScreen::draw()
         app->setFramerateLimit(120);
         v.setSize(horizontal,vertical);
         }
-    }
+    }*/
     app->clear(sf::Color::White);
 
     app->draw(background);

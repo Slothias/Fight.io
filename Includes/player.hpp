@@ -37,6 +37,7 @@ public:
     void setCurrentHp(int _currentHp);
     void setScore(int _score);
     void setWeapon(int _weapon);
+    void setPoke(bool _poking);
     virtual void update(std::string data);
 
 

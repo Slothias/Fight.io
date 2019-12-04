@@ -103,6 +103,12 @@ void player::setWeapon(int _weapon)
     my_mutex.unlock();
 }
 
+void player::setPoke(bool _poking) {
+    my_mutex.lock();
+    poking = _poking;
+    my_mutex.unlock();
+}
+
 void player::update(std::string data) {
 
 }

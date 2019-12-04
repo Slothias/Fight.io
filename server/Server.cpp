@@ -113,7 +113,7 @@ void Server::runServer() {
                 player->sendData(result);
                 if(result == "OK")
                 {
-                    std::cout << "OOKK" << std::endl;
+                    //std::cout << "OOKK" << std::endl;
                     player->setName(g);
                     std::thread t(&ServerAssistant::run,&(*player));
                     t.detach();
@@ -123,7 +123,7 @@ void Server::runServer() {
                 } else {
                     delete player;
                 }
-                std::cout << "JÓ vagyok :DDDD" << std::endl;
+                //std::cout << "JÓ vagyok :DDDD" << std::endl;
             }
         }
         // tick.join();
