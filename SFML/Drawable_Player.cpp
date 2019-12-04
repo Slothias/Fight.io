@@ -228,6 +228,7 @@ void Drawable_Player::update(std::string data)
             {
             ///egyébként frissítjük
             Drawable_Player* act = players[currentName];
+            my_mutex.unlock();
             ///ha eltér a pozíció,akkor frissít
             if(flags.at(0) == '1')
                 act->setPosition(curx,cury,false);
@@ -250,27 +251,35 @@ void Drawable_Player::update(std::string data)
                 players[currentName]->setScore(getscore);
             if(act->getWeapon()->type!=wp)
                 players[currentName]->setWeapon(wp,false);
-            my_mutex.unlock();
             }
             else
             {
                 my_mutex.unlock();
-                if(flags.at(0)=='1')
-                    setPosition(curx,cury,false);
-                if(flags.at(1)=='1')
-                    setRotation(getrot,false);
-                if(getPoke() != curPoking)
-                {
-                    setPoke(curPoking);
-                }
                 if(getMaxHp()!=maxhp)
                     setMaxHp(maxhp);
                 if(getCurrentHp()!=curhp)
+                {
+                    if(getCurrentHp()==0)
+                    {
+                    if(flags.at(0)=='1')
+                        setPosition(curx,cury,false);
+                    if(flags.at(1)=='1')
+                        setRotation(getrot,false);
+                    if(getPoke() != curPoking)
+                    {
+                        setPoke(curPoking);
+                    }
+                    }
                     setCurrentHp(curhp);
+                }
                 if(getScore()!=getscore)
                     setScore(getscore);
                 if(weapon!=wp)
                     setWeapon(wp,false);
+                if(curhp==0)
+                {
+
+                }
             }
         }
 
