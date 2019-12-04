@@ -76,14 +76,20 @@ my_mutex.lock();
  changed=true;
  my_mutex.unlock();
 }
-void player::setCurrentHp(int _currentHp)
+void player::setCurrentHp(int _currentHp) ///15-25
 {
     my_mutex.lock();
-    if(_currentHp <= maxHp)
-        {
-            currentHp = _currentHp;
-            changed = true;
-        }
+    if(_currentHp <= maxHp && _currentHp > 0)
+    {
+        currentHp = _currentHp;
+    }
+    else if(_currentHp <= 0)
+    {
+        currentHp=0;
+    }else{
+        currentHp = maxHp;
+    }
+    changed = true;
     my_mutex.unlock();
 }
 void player::setScore(int _score)
@@ -109,7 +115,7 @@ void player::setPoke(bool _poking) {
     my_mutex.unlock();
 }
 
-void player::update(std::string data) {
+void player::update(std::string ) {
 
 }
 

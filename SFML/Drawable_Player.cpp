@@ -217,10 +217,10 @@ void Drawable_Player::update(std::string data)
         int wp =std::stoi(line);
         my_mutex.lock();
         ///ha nincs meg ez a játékos, akkor hozzáadjuk
-        if(players.find(currentName)== players.end())
+        if(players.find(currentName)== players.end() && pName!=currentName)
         {
-                if(pName!=currentName)
                     players[currentName] = new Drawable_Player(currentName,curx,cury,getrot);
+                my_mutex.unlock();
         }
         else
         {
@@ -250,18 +250,18 @@ void Drawable_Player::update(std::string data)
                 players[currentName]->setScore(getscore);
             if(act->getWeapon()->type!=wp)
                 players[currentName]->setWeapon(wp,false);
+            my_mutex.unlock();
             }
             else
             {
+                my_mutex.unlock();
                 if(flags.at(0)=='1')
                     setPosition(curx,cury,false);
                 if(flags.at(1)=='1')
                     setRotation(getrot,false);
-                if(poking != curPoking)
+                if(getPoke() != curPoking)
                 {
-
-                    poking = curPoking;
-
+                    setPoke(curPoking);
                 }
                 if(getMaxHp()!=maxhp)
                     setMaxHp(maxhp);
@@ -273,7 +273,6 @@ void Drawable_Player::update(std::string data)
                     setWeapon(wp,false);
             }
         }
-    my_mutex.unlock();
 
     }
 }
