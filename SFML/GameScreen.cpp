@@ -11,7 +11,7 @@ GameScreen::GameScreen(sf::RenderWindow *App, Client* my)
     c->addPlayer(me);
     std::thread t(&Client::runclient,&(*c));
     t.detach();
-    pup=pdown=pleft=pright=false;
+    pup=pdown=pleft=pright=pPoke=false;
     forBackground.loadFromFile("hexagonal.png");
     forBackground.setRepeated(true);
     background.setTexture(forBackground);
@@ -218,12 +218,13 @@ else
             }
             if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
             {
-                me->testPoke(true);
+                pPoke = true;
             }
             if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
             {
-                me->testPoke(false);
+                pPoke = false;
             }
+            me->testPoke(pPoke);
 
 
             float curx = me->getX();

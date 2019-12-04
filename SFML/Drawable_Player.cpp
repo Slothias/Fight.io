@@ -87,6 +87,7 @@ void Drawable_Player::setRotation(float x, bool c)
 void Drawable_Player::testPoke(bool setToIt)  //próba a szurkálásra
 {
     if(setToIt){
+
         auto curTime = std::chrono::high_resolution_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::milliseconds>( curTime - lastPoke ).count();
         if(duration > myWeapon.cooldown){
@@ -97,15 +98,21 @@ void Drawable_Player::testPoke(bool setToIt)  //próba a szurkálásra
             my_mutex.unlock();
         }else{
             my_mutex.lock();
+            if(poking == setToIt)
+                changed=true;
+            else
+                changed=false;
             poking = false;
-            changed=true;
             my_mutex.unlock();
         }
 
     }else{
         my_mutex.lock();
+        if(poking != setToIt)
+            changed=true;
+        else
+            changed=false;
         poking = setToIt;
-        changed=true;
         my_mutex.unlock();
     }
 

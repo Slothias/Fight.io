@@ -150,7 +150,7 @@ void Client::runclient()
             //auto duration = std::chrono::duration_cast<std::chrono::milliseconds>( curTime - lastPoke ).count();
             auto curTime = std::chrono::high_resolution_clock::now();
             auto duration = std::chrono::duration_cast<std::chrono::milliseconds>( curTime - myClock ).count();
-            if(duration>17 || thisPlayer->getPoke()){
+            if(duration>5 || thisPlayer->getPoke()){
                 std::string this_status =thisPlayer->toString();
                 sendData(this_status);
                 thisPlayer->setChange(false);

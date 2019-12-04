@@ -23,6 +23,7 @@ class GameScreen:public Screen
         bool pdown;
         bool pleft;
         bool pright;
+        bool pPoke;
         int tempWeaponCounter;
         float PI=3.14159;
         float ROOT2 = 1.41421356;
