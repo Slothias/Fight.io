@@ -57,6 +57,7 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
     std::stringstream ss(data);
     std::string flags;
     std::string line;
+    actplayer->setPoke(false);
     float curx,cury,getrot;
     std::getline(ss,flags,'|');
 
@@ -78,8 +79,16 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
         getrot = std::stof(line);
         actplayer->setRotation(getrot);
     }
+    std::getline(ss,line,'|');
+    std::getline(ss,line,'|');
+    std::getline(ss,line,'|');
+    std::getline(ss,line,'|');
+    int wp = std::stoi(line);
+    if(wp != actplayer->getWeapon())
+        actplayer->setWeapon(wp);
     if(flags.at(2) == '1') ///POKE
     {
+        actplayer->setPoke(true);
         //std::cout<<flags.substr(0,4);
         float w_x = actplayer->getX() + cos((actplayer->getRot()-90)*3.1415/180) * weapons[actplayer->getWeapon()]->getRange();
         float w_y = actplayer->getY() + sin((actplayer->getRot()-90)*3.1415/180)* weapons[actplayer->getWeapon()]->getRange();
@@ -96,9 +105,9 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
             }
         }
     }
-    ret.push_back(name + ":" +data);
+    ret.push_back(name + ":" + actplayer->toString());
     p_mutexes[actplayer]->unlock();
-    return ret; ///nem jó még a return, mert a poke hibás...
+    return ret;
 
     /**curPoking=flags.at(3)=='1';
     std::getline(ss,line,'|');
