@@ -30,8 +30,11 @@ class GameScreen:public Screen
         sf::RenderWindow *app;
         sf::Texture forBackground;
         sf::Sprite background;
+        sf::RectangleShape deathOverlay;
+        sf::Text youDied;
         sf::View v;
         sf::Font font;
+        sf::Font deathFont;
         sf::Vector2<float> getViewOffSet();
         std::string host;
         u_short port;

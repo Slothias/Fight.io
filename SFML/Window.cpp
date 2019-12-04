@@ -33,7 +33,7 @@ void Window::loop()
         }
     }
 
-    setMouseCursorVisible(true);
+    setMouseCursorVisible(false);
     while(state==State::connecting && isOpen())//connect screen
     {
 

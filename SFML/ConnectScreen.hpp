@@ -34,6 +34,8 @@ class ConnectScreen:public Screen
         simplgui::Theme myTheme;
         sf::Texture forBackground;
         sf::Sprite background;
+        sf::Texture forCursor;
+        sf::Sprite cursor;
 };
 
 #endif // CONNECTSCREEN_H

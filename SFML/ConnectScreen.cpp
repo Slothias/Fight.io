@@ -8,6 +8,9 @@ ConnectScreen::ConnectScreen(sf::RenderWindow *a):Screen()
 {
     app=a;
 
+    forCursor.loadFromFile("Kard.png");
+    cursor.setTexture(forCursor);
+
     const int centerX = (app->getSize().x)/2;
     const int centerY = (app->getSize().y)/2;
     const int textboxX = 300;
@@ -119,6 +122,7 @@ void ConnectScreen::draw()
     app->draw(*name);
     if(resultText->getString().toAnsiString()!="OK");
         app->draw(*resultText);
+    app->draw(cursor);
 }
 void ConnectScreen::handle(sf::Event& event)
 {
@@ -140,6 +144,7 @@ void ConnectScreen::handle(sf::Event& event)
         //std::this_thread::sleep_for(std::chrono::milliseconds(80));
         }
         button->processEvent(simplgui::Event(event, *app));
+        cursor.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(*app)));
     }
 }
 
