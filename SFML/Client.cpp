@@ -4,6 +4,7 @@ Client::Client()
 {
     thisPlayer=nullptr;
     is_running=false;
+    myClock = std::chrono::high_resolution_clock::now();
 }
 std::string Client::tryToConnect(const char* host,u_short port,std::string name)
 {
@@ -82,15 +83,15 @@ bool Client::getconnected()
    return result;
 }
 void Client::sendData(std::string data) {
-if(getconnected())
-{
-    if (data.length() <= BUFFER_SIZE) {
-        char buffer[BUFFER_SIZE];
-        ZeroMemory(&buffer,sizeof(buffer));
-        for (int i = 0; i < data.length(); i++)
-            buffer[i] = data[i];
-        send(server, buffer, sizeof(buffer), 0);
-    }
+    if(getconnected())
+    {
+        if (data.length() <= BUFFER_SIZE) {
+            char buffer[BUFFER_SIZE];
+            ZeroMemory(&buffer,sizeof(buffer));
+            for (int i = 0; i < data.length(); i++)
+                buffer[i] = data[i];
+            send(server, buffer, sizeof(buffer), 0);
+        }
     }
 }
 
@@ -146,9 +147,15 @@ void Client::runclient()
         {
             while(!thisPlayer->getChange() )
                 cv.wait(lck);
-            std::string this_status =thisPlayer->toString();
-            sendData(this_status);
-            thisPlayer->setChange(false);
+            //auto duration = std::chrono::duration_cast<std::chrono::milliseconds>( curTime - lastPoke ).count();
+            auto curTime = std::chrono::high_resolution_clock::now();
+            auto duration = std::chrono::duration_cast<std::chrono::milliseconds>( curTime - myClock ).count();
+            if(duration>17 || thisPlayer->getPoke()){
+                std::string this_status =thisPlayer->toString();
+                sendData(this_status);
+                thisPlayer->setChange(false);
+                myClock = std::chrono::high_resolution_clock::now();
+            }
           /*
 
             get.join();*/

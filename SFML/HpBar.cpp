@@ -53,7 +53,7 @@ void HpBar::setMyLevel(int l)
 
 void HpBar::setCurrentHp(int c)
 {
-    if(c>0)
+    if(c>=0)
     {
     currentHp =c;
     hpBar.setSize(sf::Vector2f((float)(100*currentHp/maxHp),hpBar.getSize().y));
