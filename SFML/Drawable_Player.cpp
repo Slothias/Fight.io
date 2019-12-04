@@ -20,6 +20,11 @@ Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf:
     testHitbox.setFillColor(sf::Color(0,255,255,100));
     testHitbox.setRadius(hitboxRadius);
     testHitbox.setPosition(-hitboxRadius,-hitboxRadius);
+    alternativeDraw.setFillColor(sf::Color(255,0,0,150));
+    alternativeDraw.setRadius(15);
+    alternativeDraw.setPosition(-15,-15);
+    alternativeDraw.setOutlineColor(sf::Color(0,0,0,150));
+    alternativeDraw.setOutlineThickness(3);
     weaponHitbox.setFillColor(sf::Color::Red);
     weaponHitbox.setRadius(5);
     weaponHitbox.setOrigin(5,myWeapon.range+5);
@@ -48,6 +53,26 @@ void Drawable_Player::draw(sf::RenderTarget& target, sf::RenderStates states)
     target.draw(*myName);
 
 }
+void Drawable_Player::outOfScreenDraw(sf::RenderTarget& target, sf::RenderStates states, double x, double y)
+{
+    double relativeRotation;
+    double absX;
+    double absY;
+    if(getX()-x < 0)
+    {
+        relativeRotation = atan((y-getY())/(getX()-x));
+        absX = -(x-cos(relativeRotation)*500);
+    }
+    else
+    {
+        relativeRotation = atan(-(y-getY())/(getX()-x));
+        absX = -(x+cos(relativeRotation)*500);
+    }
+        absY = -(y+sin(relativeRotation)*500);
+
+    alternativeDraw.setOrigin(absX,absY);
+    target.draw(alternativeDraw);
+}
 void Drawable_Player::setPosition(float x, float y,bool c)
 {
 
@@ -59,11 +84,10 @@ void Drawable_Player::setPosition(float x, float y,bool c)
     changed = c;
     myWeapon.setPosition(x,y);
     weaponHitbox.setPosition(x,y);
-    //absolutePositionTester.setPosition(x+(cos((playerRotation-90)* 3.1415 / 180.0)*myWeapon->range),y+(sin((playerRotation-90)* 3.1415 / 180.0)*myWeapon->range));
     testHitbox.setOrigin(-x,-y);
     myHpBar->setPosition(x-(skin.getSize().x/2), y-(1.5*skin.getSize().y));
     me.setPosition(x,y);
-    myName->setPosition(x-skin.getSize().x/2 + 5 , y - 126/*(1.5*skin.getSize().y + myName->getGlobalBounds().height)*/); ///nem szép, de nem hiszem hogy tovább kéne csavarni rajta
+    myName->setPosition(x-skin.getSize().x/2 + 5 , y - 126);
     my_mutex.unlock();
     }
 }
@@ -84,7 +108,7 @@ void Drawable_Player::setRotation(float x, bool c)
     else
         myWeapon.setRotation(x-myWeapon.useRotation);
 }
-void Drawable_Player::testPoke(bool setToIt)  //próba a szurkálásra
+void Drawable_Player::testPoke(bool setToIt)
 {
     if(setToIt){
 

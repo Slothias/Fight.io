@@ -15,11 +15,11 @@ GameScreen::GameScreen(sf::RenderWindow *App, Client* my)
     forBackground.loadFromFile("hexagonal.png");
     forBackground.setRepeated(true);
     background.setTexture(forBackground);
-    background.setPosition(-1500,-1000);
-    background.setTextureRect(sf::IntRect(0,0,3000,2000));
+    background.setPosition(-1000,-1000);
+    background.setTextureRect(sf::IntRect(0,0,2000,2000));
     GetDesktopResolution();
-    deathOverlay.setSize(sf::Vector2f(3000,2000));
-    deathOverlay.setPosition(-1500,-1000);
+    deathOverlay.setSize(sf::Vector2f(2000,2000));
+    deathOverlay.setPosition(-1000,-1000);
     deathOverlay.setFillColor(sf::Color(0,0,0,150));
     youDied.setString("YOU DIED");
     youDied.setCharacterSize(400);
@@ -66,8 +66,15 @@ void GameScreen::draw()
         //std::vector<sf::Vector2 <float> > playerPositions;
         for(std::pair<std::string, Drawable_Player*> entries: players)
         {
-            //playerPositions.push_back(entries.second->getPosition());
             entries.second->draw(*app,sf::RenderStates::Default);
+            if(entries.second->getX() < v.getCenter().x-(horizontal/2) ||
+               entries.second->getX() > v.getCenter().x+(horizontal/2) ||
+               entries.second->getY() < v.getCenter().y-(vertical/2) ||
+               entries.second->getY() > v.getCenter().y+(vertical/2))
+            {
+                entries.second->outOfScreenDraw(*app,sf::RenderStates::Default,me->getX(),me->getY());
+            }
+
         }
         if(me->getCurrentHp() == 0)
         {
@@ -210,12 +217,6 @@ else
 
             viewOffSet = getViewOffSet();
 
-            if(!((horizontal/2 - viewOffSet.x)-mousePosX ==0)){
-                if((horizontal/2 - viewOffSet.x)-mousePosX <= 0)
-                    me->setRotation((atan(((vertical/2 - viewOffSet.y)-mousePosY)/((horizontal/2 - viewOffSet.x)-mousePosX)))/PI *180 +90,true);
-                else
-                    me->setRotation(((atan(((vertical/2 - viewOffSet.y)-mousePosY)/((horizontal/2 - viewOffSet.x)-mousePosX)))/PI *180) +270,true);
-            }
             if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
             {
                 pPoke = true;
@@ -225,6 +226,13 @@ else
                 pPoke = false;
             }
             me->testPoke(pPoke);
+
+            if(!((horizontal/2 - viewOffSet.x)-mousePosX ==0)){
+                if((horizontal/2 - viewOffSet.x)-mousePosX <= 0)
+                    me->setRotation((atan(((vertical/2 - viewOffSet.y)-mousePosY)/((horizontal/2 - viewOffSet.x)-mousePosX)))/PI *180 +90,true);
+                else
+                    me->setRotation(((atan(((vertical/2 - viewOffSet.y)-mousePosY)/((horizontal/2 - viewOffSet.x)-mousePosX)))/PI *180) +270,true);
+            }
 
 
             float curx = me->getX();

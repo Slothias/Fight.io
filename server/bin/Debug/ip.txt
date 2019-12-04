@@ -19,8 +19,14 @@ Wireless LAN adapter Helyi kapcsolat* 2:
 
 Wireless LAN adapter Wi-Fi:
 
-   Media State . . . . . . . . . . . : Media disconnected
-   Connection-specific DNS Suffix  . : 
+   Connection-specific DNS Suffix  . : home
+   IPv6 Address. . . . . . . . . . . : 2a02:ab88:1d43:5a00:1964:b2f0:4c5d:3fb1
+   Temporary IPv6 Address. . . . . . : 2a02:ab88:1d43:5a00:9905:ddd8:dc87:6cf4
+   Link-local IPv6 Address . . . . . : fe80::1964:b2f0:4c5d:3fb1%15
+   IPv4 Address. . . . . . . . . . . : 192.168.0.206
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : fe80::362c:c4ff:fe72:9018%15
+                                       192.168.0.1
 
 Ethernet adapter Bluetooth h l¢zati kapcsolat:
 
