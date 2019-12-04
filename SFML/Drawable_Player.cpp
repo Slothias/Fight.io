@@ -255,18 +255,24 @@ void Drawable_Player::update(std::string data)
             else
             {
                 my_mutex.unlock();
-                if(flags.at(0)=='1')
-                    setPosition(curx,cury,false);
-                if(flags.at(1)=='1')
-                    setRotation(getrot,false);
-                if(getPoke() != curPoking)
-                {
-                    setPoke(curPoking);
-                }
                 if(getMaxHp()!=maxhp)
                     setMaxHp(maxhp);
                 if(getCurrentHp()!=curhp)
+                {
+                    if(getCurrentHp()==0)
+                    {
+                        if(flags.at(0)=='1')
+                            setPosition(curx,cury,false);
+                        if(flags.at(1)=='1')
+                            setRotation(getrot,false);
+                        if(getPoke() != curPoking)
+                        {
+                            setPoke(curPoking);
+                        }
+                    }
                     setCurrentHp(curhp);
+                }
+
                 if(getScore()!=getscore)
                     setScore(getscore);
                 if(weapon!=wp)

@@ -3,7 +3,8 @@
 #include<thread>
 #include<iostream>
 #include <winsock2.h>
-#include<mutex>
+#include <mutex>
+#include <chrono>
 #include "../Includes/player.hpp"
 #include<condition_variable>
 
@@ -33,6 +34,7 @@ private:
     std::string getData();
     static const int BUFFER_SIZE=1024;
     player* thisPlayer;
+    std::chrono::high_resolution_clock::time_point myClock;
 };
 
 #endif // CLIENT_H

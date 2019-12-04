@@ -230,10 +230,10 @@ std::string player::toString() {
     }
 
     if(getPoke()){
-        std::ofstream myfile("poking.txt",std::ofstream::app);
+        //std::ofstream myfile("poking.txt",std::ofstream::app);
         flags [2]= '1';
-        myfile<<"POKE"<<std::endl;
-        myfile.close();
+        //myfile<<"POKE"<<std::endl;
+        //myfile.close();
     }
     else{
         flags[2]= '0';
