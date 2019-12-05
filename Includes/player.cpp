@@ -3,7 +3,7 @@
 #include <string>
 #include <iostream>
 #include<fstream>
-
+#include<thread>
 //constructors************************************************
 /*
 player::player()
@@ -76,7 +76,21 @@ my_mutex.lock();
  changed=true;
  my_mutex.unlock();
 }
-void player::setCurrentHp(int _currentHp) ///15-25
+void player::setRespawn(bool c)
+{
+    my_mutex.lock();
+    respawn=c;
+    my_mutex.unlock();
+}
+bool player::getRespawn()
+{
+    bool result = false;
+    my_mutex.lock();
+    result=respawn;
+    my_mutex.unlock();
+    return result;
+}
+void player::setCurrentHp(int _currentHp)
 {
     my_mutex.lock();
     if(_currentHp <= maxHp && _currentHp > 0)

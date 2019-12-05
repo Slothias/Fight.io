@@ -148,6 +148,13 @@ void Client::runclient()
             while(!thisPlayer->getChange() )
                 cv.wait(lck);
             //auto duration = std::chrono::duration_cast<std::chrono::milliseconds>( curTime - lastPoke ).count();
+            if(thisPlayer->getRespawn())
+            {
+                sendData("RESPAWN");
+                thisPlayer->setChange(false);
+            }
+            else
+            {
             auto curTime = std::chrono::high_resolution_clock::now();
             auto duration = std::chrono::duration_cast<std::chrono::milliseconds>( curTime - myClock ).count();
             if(duration>5 || thisPlayer->getPoke()){
@@ -155,6 +162,7 @@ void Client::runclient()
                 sendData(this_status);
                 thisPlayer->setChange(false);
                 myClock = std::chrono::high_resolution_clock::now();
+            }
             }
           /*
 

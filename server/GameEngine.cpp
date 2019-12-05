@@ -2,6 +2,8 @@
 #include <vector>
 #include <string>
 #include <cmath>
+#include<cstdlib>
+#include<thread>
 #define PI 3.14159265
 
  GameEngine::GameEngine() {
@@ -44,9 +46,34 @@ std::string GameEngine::GetMe(std::string name) {
     std::string ret = "1111" + me.substr(3);
     return ret;
 }
-
+std::string GameEngine::ReSpawn(std::string name)
+{
+    player* p = players.at(name);
+    p_mutexes[p]->lock();
+    if(p->getCurrentHp()==0)
+    {
+    float x,y,rot = 0;
+    int curhp,maxhp,score,wp=0;
+    x = rand()%((int)GetMapSize()-100)+10;
+    y=rand()%((int)GetMapSize()-100)+10;
+    curhp=maxhp=100;
+    score = 0;
+    p->setPosition(x,y);
+    p->setRotation(rot);
+    p->setCurrentHp(curhp);
+    p->setMaxHp(maxhp);
+    p->setScore(score);
+    p->setWeapon(wp);
+    p_mutexes[p]->unlock();
+    return name+":"+p->toString();
+    }
+    else
+    {
+    return name+":"+p->toString();
+    }
+}
 std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string data) {
-    player* actplayer = (*(players.find(name))).second;
+    player* actplayer = players.at(name);
     std::vector<std::string> ret;
     if(data.find("EXIT") != std::string::npos) {
         delete actplayer;
@@ -98,7 +125,6 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
                 p_mutexes[p]->lock();
                 if(sqrt(pow(w_x - p->getX(),2) + pow(w_y - p->getY(),2)) <= p->getHitboxRadius()) {
                     p->setCurrentHp(p->getCurrentHp() - weapons[actplayer->getWeapon()]->getPower());
-                    std::cout<<"TALALAT, ALDOZAT:"<<p->getName()<<std::endl;
                     ret.push_back(p->getName() + ":" + p->toString());
                 }
                 p_mutexes[p]->unlock();

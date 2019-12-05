@@ -26,7 +26,7 @@ public:
 
     /// Create player with name
     std::string CreatePlayer(std::string);
-
+    std::string ReSpawn(std::string name);
     /// Get starting data
     std::string GetMe(std::string);
 
