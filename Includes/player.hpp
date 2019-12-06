@@ -20,9 +20,12 @@ protected:
     int weapon;
     int hitboxRadius;
     bool changed;
+    bool respawn;
 public:
     bool getPoke();
     bool getPickUp();
+    bool getRespawn();
+    void setRespawn(bool c);
     std::mutex my_mutex;
     player();
     virtual ~player();

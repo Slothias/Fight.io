@@ -28,6 +28,7 @@ GameScreen::GameScreen(sf::RenderWindow *App, Client* my)
     tempWeaponCounter =0;
     viewOffSet = getViewOffSet();
 
+
 }
 
 void GameScreen::GetDesktopResolution()
@@ -243,9 +244,9 @@ else
             float curx = me->getX();
             float cury = me->getY();
             me->setPosition(curx+playerX, cury+playerY,true);
-            if(me->getChange())
-                c->notify();
         }
+    if(me->getChange())
+        c->notify();
     }
 }
 

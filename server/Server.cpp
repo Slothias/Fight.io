@@ -285,10 +285,17 @@ void Server::ServerAssistant::run()
         std::string msg=getData();
         if(msg.length()>0)
         {
-            std::cout<<msg<<std::endl;
+            if(msg.find("RESPAWN")!=std::string::npos)
+            {
+                std::cout<<"Res: "<<name<<std::endl;
+                me->sendData(me->myEngine->ReSpawn(name));
+            }
+            else
+            {
             for(std::string s : me->myEngine->CheckRequest(name, msg))
             {
                     me->sendData(s);
+            }
             }
            // me->sendData(name+":"+msg);
             if(msg.find("EXIT")!= std::string::npos)
