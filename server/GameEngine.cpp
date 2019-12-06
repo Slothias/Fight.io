@@ -52,20 +52,20 @@ std::string GameEngine::ReSpawn(std::string name)
     p_mutexes[p]->lock();
     if(p->getCurrentHp()==0)
     {
-    float x,y,rot = 0;
-    int curhp,maxhp,score,wp=0;
-    x = rand()%((int)GetMapSize()-100)+10;
-    y=rand()%((int)GetMapSize()-100)+10;
-    curhp=maxhp=100;
-    score = 0;
-    p->setPosition(x,y);
-    p->setRotation(rot);
-    p->setCurrentHp(curhp);
-    p->setMaxHp(maxhp);
-    p->setScore(score);
-    p->setWeapon(wp);
-    p_mutexes[p]->unlock();
-    return name+":"+p->toString();
+        float x,y,rot = 0;
+        int curhp,maxhp,score,wp=0;
+        x = rand()%((int)GetMapSize())-(GetMapSize()/2);
+        y = rand()%((int)GetMapSize())-(GetMapSize()/2);
+        curhp=maxhp=100;
+        score = 0;
+        p->setPosition(x,y);
+        p->setRotation(rot);
+        p->setCurrentHp(curhp);
+        p->setMaxHp(maxhp);
+        p->setScore(score);
+        p->setWeapon(wp);
+        p_mutexes[p]->unlock();
+        return name+":"+p->toString();
     }
     else
     {
@@ -130,6 +130,10 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
                 p_mutexes[p]->unlock();
             }
         }
+    }
+    if(flags.at(3) == '1') ///PICK UP A WEAPON
+    {
+        ///TODO
     }
     ret.push_back(name + ":" + actplayer->toString());
     p_mutexes[actplayer]->unlock();

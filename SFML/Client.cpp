@@ -160,10 +160,6 @@ void Client::runclient()
             if(duration>5 || thisPlayer->getPoke()){
                 std::string this_status = thisPlayer->toString();
                 sendData(this_status);
-                if(thisPlayer->getPickUp()){
-                    thisPlayer->setPickUp(false);
-                    std::cout << "got 'em" << std::endl;
-                }
                 thisPlayer->setChange(false);
                 myClock = std::chrono::high_resolution_clock::now();
             }

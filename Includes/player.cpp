@@ -238,7 +238,7 @@ std::string player::getMSG()
 std::string player::toString() {
     std::string flags;
     std::string msg;
-    flags.resize(3);
+    flags.resize(4);
     if(getX() != prevX || getY()!=prevY){
         flags[0]='1';
         msg += std::to_string(getX()) + "|"+std::to_string(getY())+"|";
@@ -266,12 +266,18 @@ std::string player::toString() {
     else{
         flags[2]= '0';
     }
+    if(getPickUp()){
+        flags[3] = '1';
+    }else{
+        flags[3] = '0';
+    }
+
     flags += "|" + msg + std::to_string(getMaxHp()) + "|" + std::to_string(getCurrentHp()) + "|" + std::to_string(getScore()) + "|" + std::to_string(getWeapon());
 
     /*s << getX() << "|" << getY() << "|" << getRot()
     << "|" << getMaxHp() << "|" << getCurrentHp()
     << "|" << getScore() <<"|"<<getWeapon();*/
-    //std::cout << flags.str() << std::endl << std::endl;
+    std::cout << flags << std::endl;
     return flags;
 }
 void player::setChange(bool c)

@@ -42,7 +42,7 @@ void GameScreen::GetDesktopResolution()
 }
 void GameScreen::draw()
 {
-    /*if((app->getSize().x != horizontal || app->getSize().y!=vertical) && c)
+    if((app->getSize().x != horizontal || app->getSize().y!=vertical) && c)
     {
 
     if(c->getconnected())
@@ -53,7 +53,7 @@ void GameScreen::draw()
         app->setFramerateLimit(120);
         v.setSize(horizontal,vertical);
         }
-    }*/
+    }
     app->clear(sf::Color::White);
 
     app->draw(background);
@@ -63,20 +63,21 @@ void GameScreen::draw()
         v.setCenter(me->getX()+viewOffSet.x,me->getY()+viewOffSet.y);
         app->setView(v);
         std::map<std::string,Drawable_Player*> players = me->getPlayers();
-        me->draw(*app,sf::RenderStates::Default);
         //std::vector<sf::Vector2 <float> > playerPositions;
         for(std::pair<std::string, Drawable_Player*> entries: players)
         {
             entries.second->draw(*app,sf::RenderStates::Default);
-            if(entries.second->getX() < v.getCenter().x-(horizontal/2) ||
+            if((entries.second->getX() < v.getCenter().x-(horizontal/2) ||
                entries.second->getX() > v.getCenter().x+(horizontal/2) ||
                entries.second->getY() < v.getCenter().y-(vertical/2) ||
-               entries.second->getY() > v.getCenter().y+(vertical/2))
+               entries.second->getY() > v.getCenter().y+(vertical/2))&&
+               entries.second->getCurrentHp() > 0)
             {
-                entries.second->outOfScreenDraw(*app,sf::RenderStates::Default,me->getX(),me->getY());
+                entries.second->outOfScreenDraw(*app,sf::RenderStates::Default,me->getX(),me->getY(), background.getTextureRect().width, background.getTextureRect().height);
             }
 
         }
+        me->draw(*app,sf::RenderStates::Default);
         if(me->getCurrentHp() == 0)
         {
             app->draw(deathOverlay);
@@ -222,16 +223,17 @@ else
             {
                 if(event.mouseButton.button == sf::Mouse::Left)
                     pPoke = true;
+                if(event.mouseButton.button == sf::Mouse::Right)
+                    me->pickUpEvent(true);
             }
             if (event.type == sf::Event::MouseButtonReleased)
             {
                 if(event.mouseButton.button == sf::Mouse::Left)
                     pPoke = false;
+                if(event.mouseButton.button == sf::Mouse::Right)
+                    me->pickUpEvent(false);
             }
-            me->testPoke(pPoke); //elrontja a true changed-et
-
-            if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Right)
-                me->pickUpEvent();
+            me->testPoke(pPoke);
 
             if(!((horizontal/2 - viewOffSet.x)-mousePosX ==0)){
                 if((horizontal/2 - viewOffSet.x)-mousePosX <= 0)
