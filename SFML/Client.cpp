@@ -151,8 +151,12 @@ void Client::runclient()
             auto curTime = std::chrono::high_resolution_clock::now();
             auto duration = std::chrono::duration_cast<std::chrono::milliseconds>( curTime - myClock ).count();
             if(duration>5 || thisPlayer->getPoke()){
-                std::string this_status =thisPlayer->toString();
+                std::string this_status = thisPlayer->toString();
                 sendData(this_status);
+                if(thisPlayer->getPickUp()){
+                    thisPlayer->setPickUp(false);
+                    std::cout << "got 'em" << std::endl;
+                }
                 thisPlayer->setChange(false);
                 myClock = std::chrono::high_resolution_clock::now();
             }

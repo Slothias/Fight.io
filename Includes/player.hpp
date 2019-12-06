@@ -9,6 +9,7 @@ protected:
     float playerY;
     float playerRotation;
     bool poking;
+    bool pickUp;
     float prevX,prevY,prevRot;
     bool prevPoking;
     //sf::Vector2 hitPosition;
@@ -21,6 +22,7 @@ protected:
     bool changed;
 public:
     bool getPoke();
+    bool getPickUp();
     std::mutex my_mutex;
     player();
     virtual ~player();
@@ -38,6 +40,7 @@ public:
     void setScore(int _score);
     void setWeapon(int _weapon);
     void setPoke(bool _poking);
+    void setPickUp(bool _pickUp);
     virtual void update(std::string data);
 
 

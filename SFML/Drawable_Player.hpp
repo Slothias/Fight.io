@@ -28,6 +28,7 @@ public:
     void setWeapon(int _weapon,bool c);
     void setCurrentHp(int _currentHp);
     void testPoke(bool setToIt);
+    void pickUpEvent();
     //getters
     void update(std::string data);
     Weapon* getWeapon();

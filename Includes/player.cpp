@@ -38,7 +38,7 @@ player::player(std::string _pName, float _playerX, float _playerY, float _player
     score = 0;
     weapon = 0;
     hitboxRadius = 75;
-    poking = false;
+    poking = pickUp = false;
 }
 /*player::player(float _playerX, float _playerY, float _playerRotation,
                 std::string _pName, int _maxHp, int _currentHp, int _score, bool _weapon)
@@ -71,10 +71,10 @@ void player::setPName(std::string _pName)
 }
 void player::setMaxHp(int _maxHp)
 {
-my_mutex.lock();
- maxHp = _maxHp;
- changed=true;
- my_mutex.unlock();
+    my_mutex.lock();
+    maxHp = _maxHp;
+    changed=true;
+    my_mutex.unlock();
 }
 void player::setCurrentHp(int _currentHp) ///15-25
 {
@@ -112,6 +112,13 @@ void player::setWeapon(int _weapon)
 void player::setPoke(bool _poking) {
     my_mutex.lock();
     poking = _poking;
+    my_mutex.unlock();
+}
+
+void player::setPickUp(bool _pickUp)
+{
+    my_mutex.lock();
+    pickUp = _pickUp;
     my_mutex.unlock();
 }
 
@@ -199,6 +206,13 @@ bool player::getPoke()
     bool poke = poking;
     my_mutex.unlock();
     return poke;
+}
+bool player::getPickUp()
+{
+   my_mutex.lock();
+    bool pick = pickUp;
+    my_mutex.unlock();
+    return pick;
 }
 std::string player::getMSG()
 {

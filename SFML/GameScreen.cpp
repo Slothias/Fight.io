@@ -41,7 +41,7 @@ void GameScreen::GetDesktopResolution()
 }
 void GameScreen::draw()
 {
-    if((app->getSize().x != horizontal || app->getSize().y!=vertical) && c)
+    /*if((app->getSize().x != horizontal || app->getSize().y!=vertical) && c)
     {
 
     if(c->getconnected())
@@ -52,7 +52,7 @@ void GameScreen::draw()
         app->setFramerateLimit(120);
         v.setSize(horizontal,vertical);
         }
-    }
+    }*/
     app->clear(sf::Color::White);
 
     app->draw(background);
@@ -217,15 +217,20 @@ else
 
             viewOffSet = getViewOffSet();
 
-            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+            if (event.type == sf::Event::MouseButtonPressed)
             {
-                pPoke = true;
+                if(event.mouseButton.button == sf::Mouse::Left)
+                    pPoke = true;
             }
-            if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
+            if (event.type == sf::Event::MouseButtonReleased)
             {
-                pPoke = false;
+                if(event.mouseButton.button == sf::Mouse::Left)
+                    pPoke = false;
             }
-            me->testPoke(pPoke);
+            me->testPoke(pPoke); //elrontja a true changed-et
+
+            if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Right)
+                me->pickUpEvent();
 
             if(!((horizontal/2 - viewOffSet.x)-mousePosX ==0)){
                 if((horizontal/2 - viewOffSet.x)-mousePosX <= 0)
