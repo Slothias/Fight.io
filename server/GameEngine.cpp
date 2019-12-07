@@ -8,6 +8,7 @@
 
  GameEngine::GameEngine() {
     mapSize = 2000;
+    srand (time(NULL));
     players.clear();
     for(int i = 0; i < WP_SIZE; ++i) {
         weapons[i] = new Weapon(i);

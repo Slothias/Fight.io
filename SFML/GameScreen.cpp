@@ -246,6 +246,9 @@ else
             float curx = me->getX();
             float cury = me->getY();
             me->setPosition(curx+playerX, cury+playerY,true);
+        }else
+        {
+            pup = pdown = pleft = pright = pPoke = false;
         }
     if(me->getChange())
         c->notify();
