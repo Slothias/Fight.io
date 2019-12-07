@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 #include <cmath>
-#define PI 3.14159265
+#define PI = 3.1415
 
  GameEngine::GameEngine() {
     mapSize = 2000;
@@ -98,6 +98,9 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
                 p_mutexes[p]->lock();
                 if(sqrt(pow(w_x - p->getX(),2) + pow(w_y - p->getY(),2)) <= p->getHitboxRadius()) {
                     p->setCurrentHp(p->getCurrentHp() - weapons[actplayer->getWeapon()]->getPower());
+                    if(p->getCurrentHp() <= 0) {
+                        ///DIED!
+                    }
                     std::cout<<"TALALAT, ALDOZAT:"<<p->getName()<<std::endl;
                     ret.push_back(p->getName() + ":" + p->toString());
                 }
