@@ -133,7 +133,7 @@ void Client::runclient()
                              while(getconnected())
                              {
                             std::string g = getData();
-                            if(g.find("Server")!=std::string::npos && g.find("EXIT")!=std::string::npos)
+                            if((g.find("Server")!=std::string::npos && g.find("EXIT")!=std::string::npos)|| g.size()==0)
                                 {
                                     setconnected(false);
                                     cv.notify_all();

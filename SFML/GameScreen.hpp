@@ -13,6 +13,7 @@ class GameScreen:public Screen
         GameScreen(sf::RenderWindow *App,Client* c);
         void draw();
         void handle(sf::Event& event);
+        std::map<std::string,Weapon*> getWeapons();
          ~GameScreen();
     private:
         double mapSize;
@@ -38,6 +39,7 @@ class GameScreen:public Screen
         sf::Font font;
         sf::Font deathFont;
         sf::Vector2<float> getViewOffSet();
+        std::map<std::string,Weapon*> weapons;
         std::string host;
         u_short port;
         unsigned int horizontal;

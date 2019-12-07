@@ -305,6 +305,9 @@ void Server::ServerAssistant::run()
             {
                 closeConnection();
             }
+        }else{
+            closeConnection();
+            me->myEngine->CheckRequest(name,"EXIT");
         }
     }
     delete this;

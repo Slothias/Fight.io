@@ -64,6 +64,16 @@ void GameScreen::draw()
         viewOffSet = getViewOffSet();
         v.setCenter(me->getX()+viewOffSet.x,me->getY()+viewOffSet.y);
         app->setView(v);
+
+        std::vector<Weapon*> weapons = me->getWeapons();
+        for(int i=0; i<weapons.size(); i++)
+        {
+            if(weapons[i] != nullptr)
+            {
+                app->draw(*weapons[i]);
+            }
+        }
+
         std::map<std::string,Drawable_Player*> players = me->getPlayers();
         //std::vector<sf::Vector2 <float> > playerPositions;
         for(std::pair<std::string, Drawable_Player*> entries: players)
@@ -226,7 +236,12 @@ else
                 if(event.mouseButton.button == sf::Mouse::Left)
                     pPoke = true;
                 if(event.mouseButton.button == sf::Mouse::Right)
-                    me->pickUpEvent(true);
+                {
+                    if(me->iThinkICanPickUp())
+                        me->pickUpEvent(true);
+                    else
+                        me->pickUpEvent(false);
+                }
             }
             if (event.type == sf::Event::MouseButtonReleased)
             {

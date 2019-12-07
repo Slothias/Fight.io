@@ -57,8 +57,10 @@ std::string GameEngine::CreatePlayer(std::string name) {
 
 void GameEngine::GenerateXY(float &x, float &y) {
     srand(time(NULL));
-    x = (fmod(rand(),(GetMapSize()*2+1))-GetMapSize());
-    y = (fmod(rand(),(GetMapSize()*2+1))-GetMapSize());
+    x = rand()%((int)GetMapSize())-(GetMapSize()/2);
+    y = rand()%((int)GetMapSize())-(GetMapSize()/2);
+    //x = (fmod(rand(),(GetMapSize()*2+1))-GetMapSize());
+    //y = (fmod(rand(),(GetMapSize()*2+1))-GetMapSize());
 }
 
 std::string GameEngine::ReSpawn(std::string name) {

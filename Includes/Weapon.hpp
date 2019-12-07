@@ -8,7 +8,7 @@ class Weapon: public sf::Sprite
         int useRotation;
         int cooldown;
         Weapon();
-        Weapon(int tpe);
+        Weapon(int type);
         virtual ~Weapon();
         sf::Texture skin;
         void setPower(float p);
