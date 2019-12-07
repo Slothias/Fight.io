@@ -15,11 +15,11 @@ GameScreen::GameScreen(sf::RenderWindow *App, Client* my)
     forBackground.loadFromFile("hexagonal.png");
     forBackground.setRepeated(true);
     background.setTexture(forBackground);
-    background.setPosition(-1500,-1000);
-    background.setTextureRect(sf::IntRect(0,0,3000,2000));
+    background.setPosition(-1000,-1000);
+    background.setTextureRect(sf::IntRect(0,0,2000,2000));
     GetDesktopResolution();
-    deathOverlay.setSize(sf::Vector2f(3000,2000));
-    deathOverlay.setPosition(-1500,-1000);
+    deathOverlay.setSize(sf::Vector2f(2000,2000));
+    deathOverlay.setPosition(-1000,-1000);
     deathOverlay.setFillColor(sf::Color(0,0,0,150));
     youDied.setString("YOU DIED");
     youDied.setCharacterSize(400);
@@ -27,6 +27,7 @@ GameScreen::GameScreen(sf::RenderWindow *App, Client* my)
     youDied.setColor(sf::Color::Red);
     tempWeaponCounter =0;
     viewOffSet = getViewOffSet();
+
 
 }
 
@@ -62,13 +63,21 @@ void GameScreen::draw()
         v.setCenter(me->getX()+viewOffSet.x,me->getY()+viewOffSet.y);
         app->setView(v);
         std::map<std::string,Drawable_Player*> players = me->getPlayers();
-        me->draw(*app,sf::RenderStates::Default);
         //std::vector<sf::Vector2 <float> > playerPositions;
         for(std::pair<std::string, Drawable_Player*> entries: players)
         {
-            //playerPositions.push_back(entries.second->getPosition());
             entries.second->draw(*app,sf::RenderStates::Default);
+            if((entries.second->getX() < v.getCenter().x-(horizontal/2) ||
+               entries.second->getX() > v.getCenter().x+(horizontal/2) ||
+               entries.second->getY() < v.getCenter().y-(vertical/2) ||
+               entries.second->getY() > v.getCenter().y+(vertical/2))&&
+               entries.second->getCurrentHp() > 0)
+            {
+                entries.second->outOfScreenDraw(*app,sf::RenderStates::Default,me->getX(),me->getY(), background.getTextureRect().width, background.getTextureRect().height);
+            }
+
         }
+        me->draw(*app,sf::RenderStates::Default);
         if(me->getCurrentHp() == 0)
         {
             app->draw(deathOverlay);
@@ -210,29 +219,36 @@ else
 
             viewOffSet = getViewOffSet();
 
+            if (event.type == sf::Event::MouseButtonPressed)
+            {
+                if(event.mouseButton.button == sf::Mouse::Left)
+                    pPoke = true;
+                if(event.mouseButton.button == sf::Mouse::Right)
+                    me->pickUpEvent(true);
+            }
+            if (event.type == sf::Event::MouseButtonReleased)
+            {
+                if(event.mouseButton.button == sf::Mouse::Left)
+                    pPoke = false;
+                if(event.mouseButton.button == sf::Mouse::Right)
+                    me->pickUpEvent(false);
+            }
+            me->testPoke(pPoke);
+
             if(!((horizontal/2 - viewOffSet.x)-mousePosX ==0)){
                 if((horizontal/2 - viewOffSet.x)-mousePosX <= 0)
                     me->setRotation((atan(((vertical/2 - viewOffSet.y)-mousePosY)/((horizontal/2 - viewOffSet.x)-mousePosX)))/PI *180 +90,true);
                 else
                     me->setRotation(((atan(((vertical/2 - viewOffSet.y)-mousePosY)/((horizontal/2 - viewOffSet.x)-mousePosX)))/PI *180) +270,true);
             }
-            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
-            {
-                pPoke = true;
-            }
-            if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
-            {
-                pPoke = false;
-            }
-            me->testPoke(pPoke);
 
 
             float curx = me->getX();
             float cury = me->getY();
             me->setPosition(curx+playerX, cury+playerY,true);
-            if(me->getChange())
-                c->notify();
         }
+    if(me->getChange())
+        c->notify();
     }
 }
 

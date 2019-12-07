@@ -6,21 +6,30 @@
 
 Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf::Sprite(),player(name,x,y,a)
 {
+    respawn=false;
     lastPoke = std::chrono::high_resolution_clock::now();
     skin.loadFromFile("Player.png");
+    deadSkin.loadFromFile("DeadPlayer.png");
     font.loadFromFile("LiberationSans.ttf");
     myName = new sf::Text('<'+name+'>',font,12);
     myName->setColor(sf::Color::Black);
     myName->setStyle(sf::Text::Style::Bold);
-    myName->setPosition(x-skin.getSize().x/2 + 5 , y - 126);
+    myName->setPosition(x-skin.getSize().x/2 + 5, y - 126);
     skin.setSmooth(true);
+    deadSkin.setSmooth(true);
     me.setTexture(skin);
+    deadMe.setTexture(deadSkin);
     setWeapon(weapon,true);
     myHpBar = new HpBar(maxHp,x-(skin.getSize().x/2), y-(1.5*skin.getSize().y));
     testHitbox.setFillColor(sf::Color(0,255,255,100));
     testHitbox.setRadius(hitboxRadius);
     testHitbox.setPosition(-hitboxRadius,-hitboxRadius);
-    weaponHitbox.setFillColor(sf::Color::Red);
+    alternativeDraw.setFillColor(sf::Color(255,0,0,150));
+    alternativeDraw.setRadius(15);
+    alternativeDraw.setPosition(-15,-15);
+    alternativeDraw.setOutlineColor(sf::Color(0,0,0,150));
+    alternativeDraw.setOutlineThickness(3);
+    weaponHitbox.setFillColor(sf::Color(255,0,0,50));
     weaponHitbox.setRadius(5);
     weaponHitbox.setOrigin(5,myWeapon.range+5);
 
@@ -34,71 +43,108 @@ void Drawable_Player::draw(sf::RenderTarget& target, sf::RenderStates states)
 {
     auto curTime = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>( curTime - lastPoke ).count();
-    if(poking || duration < 200){
-        target.draw(weaponHitbox);
+    if(poking || duration < 100)
+    {
         myWeapon.setRotation(playerRotation-myWeapon.useRotation);
-    }else{
-        myWeapon.setRotation(playerRotation);
+        weaponHitbox.setFillColor(sf::Color(255,0,0,255));
     }
-    target.draw(myWeapon);
-    target.draw(testHitbox);
-    target.draw(me);
-    myHpBar->draw(target,states);
+    else
+    {
+        myWeapon.setRotation(playerRotation);
+        weaponHitbox.setFillColor(sf::Color(255,0,0,100));
+    }
+    if(currentHp > 0)
+    {
+        target.draw(weaponHitbox);
+        target.draw(myWeapon);
+        myHpBar->draw(target,states);
+        target.draw(*myName);
+        target.draw(testHitbox);
+        target.draw(me);
+    }else{
+        target.draw(deadMe);
+    }
 
-    target.draw(*myName);
 
+}
+void Drawable_Player::outOfScreenDraw(sf::RenderTarget& target, sf::RenderStates states, double x, double y, int mapX, int mapY)
+{
+    double relativeRotation;
+    double absX;
+    double absY;
+    double alpha = ((-sqrt((getX()-x)*(getX()-x) + (getY()-y)*(getY()-y))/sqrt(mapX*mapX + mapY*mapY))+1)*200 + 55;///(-distance/maxDistance + 1)*200 + 55      ====>      55 <= alpha <= 255
+    if(getX()-x < 0)
+    {
+        relativeRotation = atan((y-getY())/(getX()-x));
+        absX = -(x-cos(relativeRotation)*500);
+    }
+    else
+    {
+        relativeRotation = atan(-(y-getY())/(getX()-x));
+        absX = -(x+cos(relativeRotation)*500);
+    }
+    absY = -(y+sin(relativeRotation)*500);
+
+    alternativeDraw.setOrigin(absX,absY);
+    alternativeDraw.setFillColor(sf::Color(255,0,0,(int)alpha));
+    alternativeDraw.setOutlineColor(sf::Color(0,0,0,(int)alpha));
+    target.draw(alternativeDraw);
 }
 void Drawable_Player::setPosition(float x, float y,bool c)
 {
 
     if(x!= playerX || y!=playerY)
     {
-    my_mutex.lock();
-    playerX=x;
-    playerY=y;
-    changed = c;
-    myWeapon.setPosition(x,y);
-    weaponHitbox.setPosition(x,y);
-    //absolutePositionTester.setPosition(x+(cos((playerRotation-90)* 3.1415 / 180.0)*myWeapon->range),y+(sin((playerRotation-90)* 3.1415 / 180.0)*myWeapon->range));
-    testHitbox.setOrigin(-x,-y);
-    myHpBar->setPosition(x-(skin.getSize().x/2), y-(1.5*skin.getSize().y));
-    me.setPosition(x,y);
-    myName->setPosition(x-skin.getSize().x/2 + 5 , y - 126/*(1.5*skin.getSize().y + myName->getGlobalBounds().height)*/); ///nem szép, de nem hiszem hogy tovább kéne csavarni rajta
-    my_mutex.unlock();
+        my_mutex.lock();
+        playerX=x;
+        playerY=y;
+        changed = c;
+        myWeapon.setPosition(x,y);
+        weaponHitbox.setPosition(x,y);
+        testHitbox.setOrigin(-x,-y);
+        myHpBar->setPosition(x-(skin.getSize().x/2), y-(1.5*skin.getSize().y));
+        me.setPosition(x,y);
+        deadMe.setPosition(x,y);
+        myName->setPosition(x-skin.getSize().x/2 + 5, y - 126);
+        my_mutex.unlock();
     }
 }
 void Drawable_Player::setRotation(float x, bool c)
 {
     if(x!=playerRotation)
     {
-    my_mutex.lock();
-    playerRotation=x;
-    weaponHitbox.setRotation(x);
+        my_mutex.lock();
+        playerRotation=x;
+        weaponHitbox.setRotation(x);
 
-    changed=c;
-    me.setRotation(x);
-    my_mutex.unlock();
+        changed=c;
+        me.setRotation(x);
+        deadMe.setRotation(x);
+        my_mutex.unlock();
     }
     if(!poking)
         myWeapon.setRotation(x);
     else
         myWeapon.setRotation(x-myWeapon.useRotation);
 }
-void Drawable_Player::testPoke(bool setToIt)  //próba a szurkálásra
+void Drawable_Player::testPoke(bool setToIt)
 {
-    if(setToIt){
-
+    if(setToIt)
+    {
         auto curTime = std::chrono::high_resolution_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::milliseconds>( curTime - lastPoke ).count();
-        if(duration > myWeapon.cooldown){
+        if(duration > myWeapon.cooldown)
+        {
             my_mutex.lock();
             poking = setToIt;
             changed=true;
             lastPoke = std::chrono::high_resolution_clock::now();
             my_mutex.unlock();
-        }else{
+        }
+        else
+        {
             my_mutex.lock();
-            if(poking == setToIt)
+            if(poking == setToIt || changed)
                 changed=true;
             else
                 changed=false;
@@ -106,21 +152,34 @@ void Drawable_Player::testPoke(bool setToIt)  //próba a szurkálásra
             my_mutex.unlock();
         }
 
-    }else{
+    }
+    else
+    {
         my_mutex.lock();
-        if(poking != setToIt)
+        if(poking != setToIt || changed)
             changed=true;
         else
             changed=false;
         poking = setToIt;
         my_mutex.unlock();
     }
-
 }
+void Drawable_Player::pickUpEvent(bool setToIt)
+{
+    my_mutex.lock();
+    if(setToIt || (setToIt != pickUp))
+        changed = true;
+    else
+        changed = false;
+    pickUp = setToIt;
+    my_mutex.unlock();
+}
+
 void Drawable_Player::setScale(float x, float y)
 {
     my_mutex.lock();
     me.setScale(x,y);
+    deadMe.setScale(x,y);
     myWeapon.setScale(x,y);
     my_mutex.unlock();
 }
@@ -128,6 +187,7 @@ void Drawable_Player::setOrigin(float x, float y)
 {
     my_mutex.lock();
     me.setOrigin(x,y);
+    deadMe.setOrigin(x,y);
     my_mutex.unlock();
 }
 void Drawable_Player::setCurrentHp(int _currentHp)
@@ -135,8 +195,8 @@ void Drawable_Player::setCurrentHp(int _currentHp)
     my_mutex.lock();
     if(_currentHp <= maxHp)
     {
-        currentHp = _currentHp;
-        myHpBar->setCurrentHp(currentHp);
+        currentHp=_currentHp;
+        myHpBar->setCurrentHp(_currentHp);
     }
     my_mutex.unlock();
 }
@@ -145,9 +205,9 @@ void Drawable_Player::setWeapon(int _weapon,bool c)
     weapon = _weapon;
     myWeapon.loadWeapon(weapon);
     myWeapon.setPosition(getPosition());
-   /* if(weapon==0 || weapon==1 ||weapon==4)
-        myWeapon.setOrigin(-(((int)skin.getSize().x/2)-(int)(myWeapon.getTexture()->getSize().x)), ((int)myWeapon.getTexture()->getSize().y+myWeapon.getTexture()->getSize().y/8));
-    else*/
+    /* if(weapon==0 || weapon==1 ||weapon==4)
+         myWeapon.setOrigin(-(((int)skin.getSize().x/2)-(int)(myWeapon.getTexture()->getSize().x)), ((int)myWeapon.getTexture()->getSize().y+myWeapon.getTexture()->getSize().y/8));
+     else*/
     myWeapon.setOrigin(-(((int)skin.getSize().x/2)-(int)(3*myWeapon.getTexture()->getSize().x/4)), ((int)myWeapon.getTexture()->getSize().y+myWeapon.getTexture()->getSize().y/15));
     myWeapon.setRotation(getRot());
     changed = c;
@@ -210,7 +270,9 @@ void Drawable_Player::update(std::string data)
             //std::cout<<flags.substr(0,4);
             curPoking = true;
 
-        }else{
+        }
+        else
+        {
             curPoking = false;
         }
         //curPoking=flags.at(3)=='1';
@@ -226,38 +288,41 @@ void Drawable_Player::update(std::string data)
         ///ha nincs meg ez a játékos, akkor hozzáadjuk
         if(players.find(currentName)== players.end() && pName!=currentName)
         {
-                    players[currentName] = new Drawable_Player(currentName,curx,cury,getrot);
-                my_mutex.unlock();
+            players[currentName] = new Drawable_Player(currentName,curx,cury,getrot);
+            my_mutex.unlock();
         }
         else
         {
             if(currentName!=pName)
             {
-            ///egyébként frissítjük
-            Drawable_Player* act = players[currentName];
-            my_mutex.unlock();
-            ///ha eltér a pozíció,akkor frissít
-            if(flags.at(0) == '1')
-                act->setPosition(curx,cury,false);
-            ///ha eltér a szög,akkor frissít
-            if(flags.at(1) == '1')
-                players[currentName]->setRotation(getrot,false);
-            ///ha eltér a bökés, akkor frissít
-            if(act->poking != curPoking){
-                players[currentName]->poking = curPoking;
-                players[currentName]->lastPoke = std::chrono::high_resolution_clock::now();
-            }
-            ///ha eltér a maxhp,akkor frissít
-            if(act->getMaxHp()!=maxhp)
-                players[currentName]->setMaxHp(maxhp);
-            ///ha eltér a currentHP,akkor frissit
-            if(act->getCurrentHp()!=curhp)
-                players[currentName]->setCurrentHp(curhp);
-            ///ha eltér a score,akkor frissít
-            if(act->getScore()!=getscore)
-                players[currentName]->setScore(getscore);
-            if(act->getWeapon()->type!=wp)
-                players[currentName]->setWeapon(wp,false);
+                ///egyébként frissítjük
+                Drawable_Player* act = players[currentName];
+                my_mutex.unlock();
+                ///ha eltér a pozíció,akkor frissít
+                if(flags.at(0) == '1')
+                    act->setPosition(curx,cury,false);
+                ///ha eltér a szög,akkor frissít
+                if(flags.at(1) == '1')
+                    players[currentName]->setRotation(getrot,false);
+                ///ha eltér a bökés, akkor frissít
+                if(act->poking != curPoking)
+                {
+                    players[currentName]->poking = curPoking;
+                    players[currentName]->lastPoke = std::chrono::high_resolution_clock::now();
+                }
+                ///ha eltér a maxhp,akkor frissít
+                if(act->getMaxHp()!=maxhp)
+                    players[currentName]->setMaxHp(maxhp);
+                ///ha eltér a currentHP,akkor frissit
+                if(act->getCurrentHp()!=curhp)
+                {
+                    players[currentName]->setCurrentHp(curhp);
+                }
+                ///ha eltér a score,akkor frissít
+                if(act->getScore()!=getscore)
+                    players[currentName]->setScore(getscore);
+                if(act->getWeapon()->type!=wp)
+                    players[currentName]->setWeapon(wp,false);
             }
             else
             {
@@ -266,7 +331,7 @@ void Drawable_Player::update(std::string data)
                     setMaxHp(maxhp);
                 if(getCurrentHp()!=curhp)
                 {
-                    if(getCurrentHp()==0)
+                    if(getRespawn() )
                     {
                         if(flags.at(0)=='1')
                             setPosition(curx,cury,false);
@@ -276,6 +341,18 @@ void Drawable_Player::update(std::string data)
                         {
                             setPoke(curPoking);
                         }
+                        setRespawn(false);
+                    }
+                    else if(curhp <= 0)
+                    {
+                        std::thread t([&]()
+                        {
+                            std::this_thread::sleep_for(std::chrono::seconds(3));
+                            setRespawn(true);
+                            setChange(true);
+                            std::cout<<"respawn"<<std::endl;
+                        });
+                        t.detach();
                     }
                     setCurrentHp(curhp);
                 }
@@ -284,10 +361,6 @@ void Drawable_Player::update(std::string data)
                     setScore(getscore);
                 if(weapon!=wp)
                     setWeapon(wp,false);
-                if(curhp==0)
-                {
-
-                }
             }
         }
 

@@ -9,6 +9,7 @@ protected:
     float playerY;
     float playerRotation;
     bool poking;
+    bool pickUp;
     float prevX,prevY,prevRot;
     bool prevPoking;
     //sf::Vector2 hitPosition;
@@ -19,8 +20,12 @@ protected:
     int weapon;
     int hitboxRadius;
     bool changed;
+    bool respawn;
 public:
     bool getPoke();
+    bool getPickUp();
+    bool getRespawn();
+    void setRespawn(bool c);
     std::mutex my_mutex;
     player();
     virtual ~player();
@@ -38,6 +43,7 @@ public:
     void setScore(int _score);
     void setWeapon(int _weapon);
     void setPoke(bool _poking);
+    void setPickUp(bool _pickUp);
     virtual void update(std::string data);
 
 

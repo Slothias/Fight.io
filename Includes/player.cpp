@@ -3,7 +3,7 @@
 #include <string>
 #include <iostream>
 #include<fstream>
-
+#include<thread>
 //constructors************************************************
 /*
 player::player()
@@ -38,7 +38,7 @@ player::player(std::string _pName, float _playerX, float _playerY, float _player
     score = 0;
     weapon = 0;
     hitboxRadius = 75;
-    poking = false;
+    poking = pickUp = false;
 }
 /*player::player(float _playerX, float _playerY, float _playerRotation,
                 std::string _pName, int _maxHp, int _currentHp, int _score, bool _weapon)
@@ -71,12 +71,26 @@ void player::setPName(std::string _pName)
 }
 void player::setMaxHp(int _maxHp)
 {
-my_mutex.lock();
- maxHp = _maxHp;
- changed=true;
- my_mutex.unlock();
+    my_mutex.lock();
+    maxHp = _maxHp;
+    changed=true;
+    my_mutex.unlock();
 }
-void player::setCurrentHp(int _currentHp) ///15-25
+void player::setRespawn(bool c)
+{
+    my_mutex.lock();
+    respawn=c;
+    my_mutex.unlock();
+}
+bool player::getRespawn()
+{
+    bool result = false;
+    my_mutex.lock();
+    result=respawn;
+    my_mutex.unlock();
+    return result;
+}
+void player::setCurrentHp(int _currentHp)
 {
     my_mutex.lock();
     if(_currentHp <= maxHp && _currentHp > 0)
@@ -112,6 +126,13 @@ void player::setWeapon(int _weapon)
 void player::setPoke(bool _poking) {
     my_mutex.lock();
     poking = _poking;
+    my_mutex.unlock();
+}
+
+void player::setPickUp(bool _pickUp)
+{
+    my_mutex.lock();
+    pickUp = _pickUp;
     my_mutex.unlock();
 }
 
@@ -200,6 +221,13 @@ bool player::getPoke()
     my_mutex.unlock();
     return poke;
 }
+bool player::getPickUp()
+{
+   my_mutex.lock();
+    bool pick = pickUp;
+    my_mutex.unlock();
+    return pick;
+}
 std::string player::getMSG()
 {
    std::stringstream s;
@@ -210,7 +238,7 @@ std::string player::getMSG()
 std::string player::toString() {
     std::string flags;
     std::string msg;
-    flags.resize(3);
+    flags.resize(4);
     if(getX() != prevX || getY()!=prevY){
         flags[0]='1';
         msg += std::to_string(getX()) + "|"+std::to_string(getY())+"|";
@@ -238,12 +266,18 @@ std::string player::toString() {
     else{
         flags[2]= '0';
     }
+    if(getPickUp()){
+        flags[3] = '1';
+    }else{
+        flags[3] = '0';
+    }
+
     flags += "|" + msg + std::to_string(getMaxHp()) + "|" + std::to_string(getCurrentHp()) + "|" + std::to_string(getScore()) + "|" + std::to_string(getWeapon());
 
     /*s << getX() << "|" << getY() << "|" << getRot()
     << "|" << getMaxHp() << "|" << getCurrentHp()
     << "|" << getScore() <<"|"<<getWeapon();*/
-    //std::cout << flags.str() << std::endl << std::endl;
+    std::cout << flags << std::endl;
     return flags;
 }
 void player::setChange(bool c)

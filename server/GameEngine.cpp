@@ -2,7 +2,9 @@
 #include <vector>
 #include <string>
 #include <cmath>
-#define PI = 3.1415
+#include<cstdlib>
+#include<thread>
+#define PI 3.1415
 
  GameEngine::GameEngine() {
     mapSize = 2000;
@@ -44,9 +46,34 @@ std::string GameEngine::GetMe(std::string name) {
     std::string ret = "1111" + me.substr(3);
     return ret;
 }
-
+std::string GameEngine::ReSpawn(std::string name)
+{
+    player* p = players.at(name);
+    p_mutexes[p]->lock();
+    if(p->getCurrentHp()==0)
+    {
+        float x,y,rot = 0;
+        int curhp,maxhp,score,wp=0;
+        x = rand()%((int)GetMapSize())-(GetMapSize()/2);
+        y = rand()%((int)GetMapSize())-(GetMapSize()/2);
+        curhp=maxhp=100;
+        score = 0;
+        p->setPosition(x,y);
+        p->setRotation(rot);
+        p->setCurrentHp(curhp);
+        p->setMaxHp(maxhp);
+        p->setScore(score);
+        p->setWeapon(wp);
+        p_mutexes[p]->unlock();
+        return name+":"+p->toString();
+    }
+    else
+    {
+    return name+":"+p->toString();
+    }
+}
 std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string data) {
-    player* actplayer = (*(players.find(name))).second;
+    player* actplayer = players.at(name);
     std::vector<std::string> ret;
     if(data.find("EXIT") != std::string::npos) {
         delete actplayer;
@@ -107,6 +134,10 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
                 p_mutexes[p]->unlock();
             }
         }
+    }
+    if(flags.at(3) == '1') ///PICK UP A WEAPON
+    {
+        ///TODO
     }
     ret.push_back(name + ":" + actplayer->toString());
     p_mutexes[actplayer]->unlock();

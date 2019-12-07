@@ -10,20 +10,20 @@ void Weapon::loadWeapon(int i)
     switch(type)
     {
         case 0: skin.loadFromFile("w0.png");
-                useRotation = 55;
-                range = 87;
+                useRotation = 45;
+                range = 90;
                 cooldown = 500;
-                power = 5;
+                power = 15;
             break;
         case 1: skin.loadFromFile("w1.png");
-                useRotation = 36;
-                range = 125;
+                useRotation = 33;
+                range = 128;
                 cooldown = 750;
-                power = 10;
+                power = 20;
             break;
         case 2: skin.loadFromFile("w2.png");
                 useRotation = 17;
-                range = 220;
+                range = 223;
                 cooldown = 750;
                 power = 25;
             break;
@@ -35,14 +35,14 @@ void Weapon::loadWeapon(int i)
             break;
         case 4: skin.loadFromFile("w4.png");
                 useRotation = 17;
-                range = 230;
-                cooldown = 750;
+                range = 222;
+                cooldown = 1000;
                 power = 75;
             break;
         case 5: skin.loadFromFile("w5.png");
                 useRotation = 17;
-                range = 220;
-                cooldown = 750;
+                range = 223;
+                cooldown = 1250;
                 power = 100;
             break;
     }
