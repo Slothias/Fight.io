@@ -1,5 +1,6 @@
 #include "GameScreen.hpp"
 #include <vector>
+#include<string>
 
 GameScreen::GameScreen(sf::RenderWindow *App, Client* my)
 {
@@ -9,17 +10,18 @@ GameScreen::GameScreen(sf::RenderWindow *App, Client* my)
     c=my;
     me=new Drawable_Player(my->getName(),0,0,0);
     c->addPlayer(me);
+    mapSize = std::stod(c->getData());
     std::thread t(&Client::runclient,&(*c));
     t.detach();
     pup=pdown=pleft=pright=pPoke=false;
     forBackground.loadFromFile("hexagonal.png");
     forBackground.setRepeated(true);
     background.setTexture(forBackground);
-    background.setPosition(-1000,-1000);
-    background.setTextureRect(sf::IntRect(0,0,2000,2000));
+    background.setPosition(-mapSize/2,-mapSize/2);
+    background.setTextureRect(sf::IntRect(0,0,mapSize,mapSize));
     GetDesktopResolution();
-    deathOverlay.setSize(sf::Vector2f(2000,2000));
-    deathOverlay.setPosition(-1000,-1000);
+    deathOverlay.setSize(sf::Vector2f(mapSize,mapSize));
+    deathOverlay.setPosition(-mapSize/2,-mapSize/2);
     deathOverlay.setFillColor(sf::Color(0,0,0,150));
     youDied.setString("YOU DIED");
     youDied.setCharacterSize(400);

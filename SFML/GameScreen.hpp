@@ -15,6 +15,7 @@ class GameScreen:public Screen
         void handle(sf::Event& event);
          ~GameScreen();
     private:
+        double mapSize;
         sf::Vector2<float> viewOffSet;
         static const int SLEEPVAL=1000/FRAMERATE;
         Client* c;

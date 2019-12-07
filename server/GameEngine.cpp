@@ -8,6 +8,11 @@
 
 GameEngine::GameEngine(){
 
+mapSize = 2000;
+players.clear();
+    for(int i = 0; i < WP_SIZE; ++i) {
+        weapons[i] = new Weapon(i);
+}
 }
 GameEngine::GameEngine(Server* s) {
     mapSize = 2000;
