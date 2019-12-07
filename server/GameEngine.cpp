@@ -40,18 +40,21 @@ std::string GameEngine::CreatePlayer(std::string name) {
     if (players.find(name) != players.end()) {
         return "Name is already used!";
     }
-    player* p = new player(name, 0, 0, 0);
+    float x,y = 0;
+    GenerateXY(x,y);
+    player* p = new player(name, x, y, 0);
     players[name] = p;
     p_mutexes[p] = new std::mutex();
     std::cout << "OKOK" << std::endl;
 	return "OK";
 }
 
-std::string GameEngine::GetMe(std::string name) {
-    std::string me = players[name]->toString();
-    std::string ret = "1111" + me.substr(3);
-    return ret;
+void GameEngine::GenerateXY(float &x, float &y) {
+    srand(time(NULL));
+    x = (fmod(rand(),(GetMapSize()*2+1))-GetMapSize());
+    y = (fmod(rand(),(GetMapSize()*2+1))-GetMapSize());
 }
+
 std::string GameEngine::ReSpawn(std::string name) {
     player* p = players.at(name);
     p_mutexes[p]->lock();
@@ -62,8 +65,7 @@ std::string GameEngine::ReSpawn(std::string name) {
         int curhp=100;
         int maxhp=100;
         int score = 0;
-        x = rand()%((int)GetMapSize())-(GetMapSize()/2);
-        y = rand()%((int)GetMapSize())-(GetMapSize()/2);
+        GenerateXY(x,y);
         p->setPosition(x,y);
         p->setRotation(rot);
         p->setCurrentHp(curhp);
@@ -78,6 +80,13 @@ std::string GameEngine::ReSpawn(std::string name) {
     return name+":"+p->toString();
     }
 }
+
+std::string GameEngine::GetMe(std::string name) {
+    std::string me = players[name]->toString();
+    std::string ret = "1111" + me.substr(3);
+    return ret;
+}
+
 std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string data) {
     player* actplayer = players.at(name);
     std::vector<std::string> ret;
@@ -153,7 +162,9 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
 
         p_mutexes[actplayer]->unlock();
     }
+    p_mutexes[actplayer]->lock();
     ret.push_back(name + ":" + actplayer->toString());
+    p_mutexes[actplayer]->unlock();
     return ret;
 
     /**curPoking=flags.at(3)=='1';

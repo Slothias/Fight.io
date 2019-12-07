@@ -31,6 +31,9 @@ public:
 
     /// Create player with name
     std::string CreatePlayer(std::string);
+    /// Generate pos
+    void GenerateXY(float&,float&);
+    /// Respawn
     std::string ReSpawn(std::string name);
     /// Get starting data
     std::string GetMe(std::string);
