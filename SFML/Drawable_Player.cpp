@@ -228,7 +228,7 @@ void Drawable_Player::update(std::string data)
     std::string currentName;
     std::getline(ss,currentName,':');
     ///ha exitet kaptunk
-    if( data. find("EXIT")!=std::string::npos)
+    if( data.find("EXIT")!=std::string::npos)
     {
         ///ha a szerver küldte az exitet, mindenki mehet a picsába
         if(currentName == "Server")

@@ -8,6 +8,8 @@
 #include <iostream>
 #include <sstream>
 #include <mutex>
+#include<utility>
+#include<fstream>
 #include "Server.hpp"
 
 class Server;
@@ -19,8 +21,10 @@ private:
     std::mutex* players_map;
     Weapon* weapons[WP_SIZE];
     double mapSize;
+    int maxPlayers;
     Server* server;
 protected:
+    void readCfg();
     GameEngine();
     GameEngine(Server*);
 public:
@@ -40,9 +44,9 @@ public:
 
     /// Handle requests
     std::vector<std::string> CheckRequest(std::string, std::string);
-
     /// Getter mapSize
     double GetMapSize();
+    int GetMaxPlayers();
 };
 
 #endif // GAMEENGINE_HPP_INCLUDED

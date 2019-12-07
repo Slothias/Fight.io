@@ -58,6 +58,7 @@ void Server::tryToConnect()
     getIP();
     is_running = startup();
     myEngine = GameEngine::GetInstance(this);
+    maxplayers= myEngine->GetMaxPlayers();
 }
 std::string Server::showStatus()
 {
@@ -121,7 +122,7 @@ void Server::runServer()
         while (getconnected())
         {
             SOCKET c = accept(server, (SOCKADDR *) &clientAddr, &clientsize);
-            if (c != INVALID_SOCKET && getSize()<MAX_PLAYERS)
+            if (c != INVALID_SOCKET && getSize()<maxplayers)
             {
                 ServerAssistant* player=new ServerAssistant(c,this,"");
                 std::string g = player->getData();
@@ -131,9 +132,6 @@ void Server::runServer()
                 {
                     //std::cout << "OOKK" << std::endl;
                     player->setName(g);
-                    std::stringstream ss;
-                    ss<<myEngine->GetMapSize();
-                    player->sendData(ss.str());
                     std::thread t(&ServerAssistant::run,&(*player));
                     t.detach();
                     my_mutex.lock();
