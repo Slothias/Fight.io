@@ -6,8 +6,12 @@
 #include<thread>
 #define PI 3.1415
 
- GameEngine::GameEngine() {
+GameEngine::GameEngine(){
+
+}
+GameEngine::GameEngine(Server* s) {
     mapSize = 2000;
+    server = s;
     players.clear();
     for(int i = 0; i < WP_SIZE; ++i) {
         weapons[i] = new Weapon(i);
@@ -23,9 +27,11 @@ GameEngine::~GameEngine() {
     for(auto x : weapons) {
         delete x;
     }
+    delete players_map;
+    server = nullptr;
 }
 
-GameEngine* GameEngine::GetInstance() {
+GameEngine* GameEngine::GetInstance(Server* s) {
     static GameEngine instance;
     return &instance;
 }
@@ -46,8 +52,7 @@ std::string GameEngine::GetMe(std::string name) {
     std::string ret = "1111" + me.substr(3);
     return ret;
 }
-std::string GameEngine::ReSpawn(std::string name)
-{
+std::string GameEngine::ReSpawn(std::string name) {
     player* p = players.at(name);
     p_mutexes[p]->lock();
     if(p->getCurrentHp()==0)
@@ -76,7 +81,7 @@ std::string GameEngine::ReSpawn(std::string name)
 std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string data) {
     player* actplayer = players.at(name);
     std::vector<std::string> ret;
-    if(data.find("EXIT") != std::string::npos) {
+    if(data.find("EXIT") != std::string::npos) { ///EXIT
         delete actplayer;
         players.erase(name);
         ret.push_back(name + ":" + data);
@@ -89,9 +94,9 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
     float curx,cury,getrot;
     std::getline(ss,flags,'|');
 
-    p_mutexes[actplayer]->lock();
     if(flags.at(0) == '1') ///MOVE
     {
+        p_mutexes[actplayer]->lock();
         std::getline(ss,line,'|');
         curx = std::stof(line);
         std::getline(ss,line,'|');
@@ -100,12 +105,15 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
             cury <= -mapSize || cury >= mapSize)) {
             actplayer->setPosition(curx,cury);
         }
+        p_mutexes[actplayer]->unlock();
     }
     if(flags.at(1) == '1') ///ROTATION
     {
+        p_mutexes[actplayer]->lock();
         std::getline(ss,line,'|');
         getrot = std::stof(line);
         actplayer->setRotation(getrot);
+        p_mutexes[actplayer]->unlock();
     }
     std::getline(ss,line,'|');
     std::getline(ss,line,'|');
@@ -116,14 +124,15 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
         actplayer->setWeapon(wp);
     if(flags.at(2) == '1') ///POKE
     {
+        p_mutexes[actplayer]->lock();
         actplayer->setPoke(true);
         //std::cout<<flags.substr(0,4);
         float w_x = actplayer->getX() + cos((actplayer->getRot()-90)*3.1415/180) * weapons[actplayer->getWeapon()]->getRange();
         float w_y = actplayer->getY() + sin((actplayer->getRot()-90)*3.1415/180)* weapons[actplayer->getWeapon()]->getRange();
+        players_map->lock();
         for(std::pair<std::string,player*> pr : players) {
             player* p = pr.second;
             if(p != actplayer) {
-                p_mutexes[p]->lock();
                 if(sqrt(pow(w_x - p->getX(),2) + pow(w_y - p->getY(),2)) <= p->getHitboxRadius()) {
                     p->setCurrentHp(p->getCurrentHp() - weapons[actplayer->getWeapon()]->getPower());
                     if(p->getCurrentHp() <= 0) {
@@ -132,16 +141,19 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
                     std::cout<<"TALALAT, ALDOZAT:"<<p->getName()<<std::endl;
                     ret.push_back(p->getName() + ":" + p->toString());
                 }
-                p_mutexes[p]->unlock();
             }
         }
+        players_map->unlock();
+        p_mutexes[actplayer]->unlock();
     }
     if(flags.at(3) == '1') ///PICK UP A WEAPON
     {
+        p_mutexes[actplayer]->lock();
         ///TODO
+
+        p_mutexes[actplayer]->unlock();
     }
     ret.push_back(name + ":" + actplayer->toString());
-    p_mutexes[actplayer]->unlock();
     return ret;
 
     /**curPoking=flags.at(3)=='1';

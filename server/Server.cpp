@@ -57,7 +57,7 @@ void Server::tryToConnect()
 {
     getIP();
     is_running = startup();
-    myEngine = GameEngine::GetInstance();
+    myEngine = GameEngine::GetInstance(this);
 }
 std::string Server::showStatus()
 {
