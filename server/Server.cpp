@@ -57,7 +57,7 @@ void Server::tryToConnect()
 {
     getIP();
     is_running = startup();
-    myEngine = GameEngine::GetInstance();
+    myEngine = GameEngine::GetInstance(this);
 }
 std::string Server::showStatus()
 {
@@ -131,6 +131,9 @@ void Server::runServer()
                 {
                     //std::cout << "OOKK" << std::endl;
                     player->setName(g);
+                    std::stringstream ss;
+                    ss<<myEngine->GetMapSize();
+                    player->sendData(ss.str());
                     std::thread t(&ServerAssistant::run,&(*player));
                     t.detach();
                     my_mutex.lock();

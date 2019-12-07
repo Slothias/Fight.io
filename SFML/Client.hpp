@@ -18,6 +18,8 @@ public:
     std::string getName();
     std::string tryToConnect(const char* host,u_short port,std::string name);
     void addPlayer(player* p);
+    void sendData(std::string msg);
+    std::string getData();
     ~Client();
     void closeConnection();
 private:
@@ -30,8 +32,6 @@ private:
     SOCKADDR_IN addr;
     std::string startup(const char* host, u_short port);
     void setconnected(bool c);
-    void sendData(std::string msg);
-    std::string getData();
     static const int BUFFER_SIZE=1024;
     player* thisPlayer;
     std::chrono::high_resolution_clock::time_point myClock;
