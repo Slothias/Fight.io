@@ -53,11 +53,12 @@ std::string GameEngine::ReSpawn(std::string name)
     if(p->getCurrentHp()==0)
     {
         float x,y,rot = 0;
-        int curhp,maxhp,score,wp=0;
+        int wp=0;
+        int curhp=100;
+        int maxhp=100;
+        int score = 0;
         x = rand()%((int)GetMapSize())-(GetMapSize()/2);
         y = rand()%((int)GetMapSize())-(GetMapSize()/2);
-        curhp=maxhp=100;
-        score = 0;
         p->setPosition(x,y);
         p->setRotation(rot);
         p->setCurrentHp(curhp);

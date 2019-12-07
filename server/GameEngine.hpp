@@ -8,7 +8,9 @@
 #include <iostream>
 #include <sstream>
 #include <mutex>
+#include "Server.hpp"
 
+class Server;
 class GameEngine {
 private:
     static const int WP_SIZE = 6;
@@ -16,6 +18,7 @@ private:
     std::map<player*,std::mutex*> p_mutexes;
     Weapon* weapons[WP_SIZE];
     double mapSize;
+    Server* server;
 protected:
     GameEngine();
 public:

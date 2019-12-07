@@ -735,13 +735,15 @@
 1574507162 source:c:\users\e550\desktop\fight.io\server\servergui.cpp
 	"ServerGui.hpp"
 
-1575461191 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\server\gameengine.cpp
+1575714904 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\server\gameengine.cpp
 	"GameEngine.hpp"
 	<vector>
 	<string>
 	<cmath>
+	<cstdlib>
+	<thread>
 
-1575370067 c:\users\sziln\desktop\suli\adv. c++\fight.io\server\gameengine.hpp
+1575715099 c:\users\sziln\desktop\suli\adv. c++\fight.io\server\gameengine.hpp
 	"../Includes/player.hpp"
 	"../Includes/Weapon.hpp"
 	<map>
@@ -749,6 +751,7 @@
 	<iostream>
 	<sstream>
 	<mutex>
+	"Server.hpp"
 
 1574355787 c:\users\sziln\desktop\suli\adv. c++\fight.io\server\player.hpp
 	<string>
@@ -766,7 +769,7 @@
 	"simplgui/TextBox.h"
 	"simplgui/Tools.h"
 
-1575373244 c:\users\sziln\desktop\suli\adv. c++\fight.io\server\server.hpp
+1575715117 c:\users\sziln\desktop\suli\adv. c++\fight.io\server\server.hpp
 	<thread>
 	<winsock2.h>
 	<iostream>
@@ -788,7 +791,7 @@
 	<string>
 	<iostream>
 
-1575450435 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\server\server.cpp
+1575712093 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\server\server.cpp
 	"Server.hpp"
 	<algorithm>
 	<string>
@@ -880,18 +883,19 @@
 1574451300 c:\users\e550\desktop\fight.io\server\weapon.hpp
 	<SFML/Graphics.hpp>
 
-1575460504 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\player.cpp
+1575712090 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\player.cpp
 	"player.hpp"
 	<sstream>
 	<string>
 	<iostream>
 	<fstream>
+	<thread>
 
-1575460386 c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\player.hpp
+1575712090 c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\player.hpp
 	<string>
 	<mutex>
 
-1575461449 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\weapon.cpp
+1575712090 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\weapon.cpp
 	"Weapon.hpp"
 
 1575366135 c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\weapon.hpp

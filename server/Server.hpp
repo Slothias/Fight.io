@@ -11,6 +11,8 @@
 #include<fstream>
 #include "ServerException.h"
 #include "GameEngine.hpp"
+
+class GameEngine;
 class Server
 {
 private:
