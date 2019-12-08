@@ -367,6 +367,7 @@ void Drawable_Player::update(std::string data)
                 if(flags.at(3) == '1')
                 {
                     players[currentName]->setWeapon(weapons[weaponID]->type,true);
+                    delete weapons[weaponID];
                     weapons[weaponID] = nullptr;
                 }
                 ///ha eltér a maxhp,akkor frissít
@@ -411,6 +412,7 @@ void Drawable_Player::update(std::string data)
                         if(flags.at(3) == '1')
                         {
                             players[currentName]->setWeapon(weapons[weaponID]->type,true);
+                            delete weapons[weaponID];
                             weapons[weaponID] = nullptr;
                         }
                         setRespawn(false);
