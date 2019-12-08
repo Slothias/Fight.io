@@ -10,7 +10,7 @@ HpBar::HpBar(int m,float sx, float sy):sf::Sprite()
     hpBar.setSize(sf::Vector2f(101,24));
     hpBar.setFillColor(sf::Color(0,0,255,125));
     font.loadFromFile("ARCADECLASSIC.ttf");
-    level = new sf::Text("1",font,50);
+    level = new sf::Text("0",font,50);
     level->setFillColor(sf::Color(0,0,0,150));
     setPosition(sx,sy);
 }

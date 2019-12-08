@@ -127,7 +127,7 @@ void Client::runclient()
         std::cout<<"CONNECTED"<<std::endl;
         std::string oldstatus;
         std::unique_lock<std::mutex>  lck(thisMutex);
-         std::thread get([this,&run]()
+         std::thread get([this]()
                             {
                              while(getconnected())
                              {

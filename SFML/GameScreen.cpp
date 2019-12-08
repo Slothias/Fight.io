@@ -10,7 +10,7 @@ GameScreen::GameScreen(sf::RenderWindow *App, Client* my)
     c=my;
     me=new Drawable_Player(my->getName(),0,0,0);
     c->addPlayer(me);
-    mapSize = std::stod(c->getData());
+    readCfg();
     std::thread t(&Client::runclient,&(*c));
     t.detach();
     pup=pdown=pleft=pright=pPoke=false;
@@ -32,6 +32,22 @@ GameScreen::GameScreen(sf::RenderWindow *App, Client* my)
 
 
 }
+void GameScreen::readCfg()
+{
+std::string path= "..\\..\\..\\Includes\\config.cfg";
+    std::ifstream myfile(path.c_str());
+    if(myfile.is_open())
+    {
+        std::string line;
+        myfile>>line;
+        myfile>>line;
+        maxPlayers = stoi(line);
+        myfile>>line;
+        myfile>>line;
+        mapSize = stod(line);
+    }
+    myfile.close();
+}
 
 void GameScreen::GetDesktopResolution()
 {
@@ -44,7 +60,7 @@ void GameScreen::GetDesktopResolution()
 }
 void GameScreen::draw()
 {
-    if((app->getSize().x != horizontal || app->getSize().y!=vertical) && c)
+  /*  if((app->getSize().x != horizontal || app->getSize().y!=vertical) && c)
     {
 
     if(c->getconnected())
@@ -55,7 +71,7 @@ void GameScreen::draw()
         app->setFramerateLimit(120);
         v.setSize(horizontal,vertical);
         }
-    }
+    }*/
     app->clear(sf::Color::White);
 
     app->draw(background);

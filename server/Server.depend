@@ -592,7 +592,7 @@
 	"simplgui/TextBox.h"
 	"simplgui/Tools.h"
 
-1575733546 d:\homeproject\c++\repo\fight.io\server\server.hpp
+1575810426 d:\homeproject\c++\repo\fight.io\server\server.hpp
 	<thread>
 	<winsock2.h>
 	<iostream>
@@ -608,13 +608,14 @@
 1574932750 d:\homeproject\c++\repo\fight.io\server\serverexception.h
 	<exception>
 
-1575733161 d:\homeproject\c++\repo\fight.io\server\gameengine.hpp
+1575811271 d:\homeproject\c++\repo\fight.io\server\gameengine.hpp
 	"../Includes/player.hpp"
 	"../Includes/Weapon.hpp"
 	<map>
 	<mutex>
 	<iostream>
 	<sstream>
+	<thread>
 	<mutex>
 	<utility>
 	<fstream>
@@ -624,7 +625,7 @@
 	<string>
 	<mutex>
 
-1575733561 source:d:\homeproject\c++\repo\fight.io\server\server.cpp
+1575810934 source:d:\homeproject\c++\repo\fight.io\server\server.cpp
 	"Server.hpp"
 	<algorithm>
 	<string>
@@ -672,13 +673,14 @@
 	<string>
 	<iostream>
 
-1575810137 source:d:\homeproject\c++\repo\fight.io\server\gameengine.cpp
+1575815036 source:d:\homeproject\c++\repo\fight.io\server\gameengine.cpp
 	"GameEngine.hpp"
 	<vector>
 	<string>
 	<cmath>
 	<cstdlib>
 	<thread>
+	<chrono>
 
 1574451300 source:c:\users\e550\desktop\fight.io\server\gameengine.cpp
 	"GameEngine.hpp"
@@ -907,7 +909,7 @@
 1575802220 c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\weapon.hpp
 	<SFML/Graphics.hpp>
 
-1575808847 source:d:\homeproject\c++\repo\fight.io\includes\player.cpp
+1575812757 source:d:\homeproject\c++\repo\fight.io\includes\player.cpp
 	"player.hpp"
 	<sstream>
 	<string>
@@ -919,8 +921,9 @@
 	<string>
 	<mutex>
 
-1575387305 d:\homeproject\c++\repo\fight.io\includes\weapon.hpp
+1575810426 d:\homeproject\c++\repo\fight.io\includes\weapon.hpp
 	<SFML/Graphics.hpp>
 
-1575658409 source:d:\homeproject\c++\repo\fight.io\includes\weapon.cpp
+1575810426 source:d:\homeproject\c++\repo\fight.io\includes\weapon.cpp
 	"Weapon.hpp"
+

@@ -9,14 +9,20 @@
 
 GameEngine::GameEngine(){
 
-maxPlayers=0;
-mapSize=0;
-readCfg();
-players.clear();
+    maxPlayers=0;
+    mapSize=0;
+    readCfg();
+    srand (time(NULL));
+    players.clear();
+    drop_weapons = std::vector<Weapon*>();
+    dw_mutex = new std::mutex();
+    players_map = new std::mutex();
     for(int i = 0; i < WP_SIZE; ++i) {
         weapons[i] = new Weapon(i);
-}
-
+    }
+    thread_lifetime = true;
+    std::thread w_gen_thread(&GameEngine::GenerateWeapon,*this);
+    w_gen_thread.detach();
 }
 GameEngine::GameEngine(Server* s) {
     maxPlayers=0;
@@ -78,24 +84,27 @@ int GameEngine::GetMaxPlayers()
 {
     return maxPlayers;
 }
-
+int GameEngine::calculateScore(player* killer,player* killed)
+{
+    return 0;
+}
 bool GameEngine::GenNotGood(const float &x, const float &y) {
-    dw_mutex->lock();
     for(Weapon* w : drop_weapons) {
         if(w->getX() == x && w->getY() == y)
             return true;
     }
-    dw_mutex->unlock();
     return false;
 }
 void GameEngine::GenerateWeapon() {
     while(thread_lifetime && players.size() - 1 >= drop_weapons.size()) {
         srand(time(NULL));
-        std::this_thread::sleep_for(std::chrono::seconds(30));
+        std::this_thread::sleep_for(std::chrono::seconds(10));
         float x,y;
         GenerateXY(x,y);
+        std::cout<<"gener"<<std::endl;
         while(GenNotGood(x, y))
             GenerateXY(x,y);
+        std::cout<<"nem talal"<<std::endl;
         int Wtype = (rand() % 100) + 1;
         if(Wtype < 10) { /// ~10% - 5ös fegyó
             Wtype = 5;
@@ -114,12 +123,11 @@ void GameEngine::GenerateWeapon() {
         }
         Weapon* w = new Weapon(Wtype);
         w->setXY(x,y);
-        dw_mutex->lock();
         drop_weapons.push_back(w);
         std::stringstream ss;
         ss << "Server:" << drop_weapons.size()-1 << "|" << Wtype << "|" << x << "|" << y;
         server->sendData(ss.str());
-        dw_mutex->unlock();
+        std::cout<<"NEW WEAPON: "<<ss.str()<<std::endl;
     }
 }
 
@@ -227,7 +235,7 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
         //std::cout<<flags.substr(0,4);
         float w_x = actplayer->getX() + cos((actplayer->getRot()-90)*3.1415/180) * weapons[actplayer->getWeapon()]->getRange();
         float w_y = actplayer->getY() + sin((actplayer->getRot()-90)*3.1415/180)* weapons[actplayer->getWeapon()]->getRange();
-        players_map->lock();
+        //players_map->lock();
         for(std::pair<std::string,player*> pr : players) {
             player* p = pr.second;
             if(p != actplayer) {
@@ -235,14 +243,18 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
                 if(sqrt(pow(w_x - p->getX(),2) + pow(w_y - p->getY(),2)) <= p->getHitboxRadius()) {
                     p->setCurrentHp(p->getCurrentHp() - weapons[actplayer->getWeapon()]->getPower());
                     if(p->getCurrentHp() <= 0) {
-                        ///DIED!
-                    }
+                        int prevScore = actplayer->getScore();
+                        int newScore=prevScore+1;
+                        actplayer->setScore(newScore);
+                        actplayer->setMaxHp(newScore*100);
+                        }
                     std::cout<<"TALALAT, ALDOZAT:"<<p->getName()<<std::endl;
                     ret.push_back(p->getName() + ":" + p->toString());
                 }
+                p_mutexes[p]->unlock();
             }
         }
-        players_map->unlock();
+       // players_map->unlock();
         p_mutexes[actplayer]->unlock();
     }
     if(flags.at(3) == '1') ///PICK UP A WEAPON

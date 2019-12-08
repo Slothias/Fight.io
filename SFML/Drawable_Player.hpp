@@ -31,6 +31,7 @@ public:
     void setCurrentHp(int _currentHp);
     void testPoke(bool setToIt);
     void pickUpEvent(bool setToIt);
+    void setLevel(int i);
     //getters
     void update(std::string data);
 

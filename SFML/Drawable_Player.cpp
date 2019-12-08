@@ -239,6 +239,11 @@ void Drawable_Player::setWeapon(int _weapon,bool c)
     weaponHitbox.setOrigin(5,myWeapon.range+5);
 
 }
+void Drawable_Player::setLevel(int i)
+{
+    myHpBar->setMyLevel(i);
+    myHpBar->setMaxHp(i*100);
+}
 //---------GETTERS---------------
 Weapon* Drawable_Player::getWeapon()
 {
@@ -368,7 +373,9 @@ void Drawable_Player::update(std::string data)
                 }
                 ///ha eltér a maxhp,akkor frissít
                 if(act->getMaxHp()!=maxhp)
-                    players[currentName]->setMaxHp(maxhp);
+                   {
+                     players[currentName]->setMaxHp(maxhp);
+                   }
                 ///ha eltér a currentHP,akkor frissit
                 if(act->getCurrentHp()!=curhp)
                 {
@@ -376,7 +383,10 @@ void Drawable_Player::update(std::string data)
                 }
                 ///ha eltér a score,akkor frissít
                 if(act->getScore()!=getscore)
+                {
                     players[currentName]->setScore(getscore);
+                    //players[currentName]->setLevel(getscore);
+                }
                 if(act->getWeapon()->type!=wp)
                     players[currentName]->setWeapon(wp,false);
             }
@@ -384,7 +394,10 @@ void Drawable_Player::update(std::string data)
             {
                 my_mutex.unlock();
                 if(getMaxHp()!=maxhp)
+                {
+
                     setMaxHp(maxhp);
+                }
                 if(getCurrentHp()!=curhp)
                 {
                     if(getRespawn() )
@@ -419,7 +432,11 @@ void Drawable_Player::update(std::string data)
                 }
 
                 if(getScore()!=getscore)
+                {
+                    //ssetLevel(getscore);
                     setScore(getscore);
+                }
+
                 if(weapon!=wp)
                     setWeapon(wp,false);
             }

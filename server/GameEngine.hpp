@@ -47,6 +47,7 @@ public:
     void GenerateXY(float&,float&);
     /// Respawn
     std::string ReSpawn(std::string name);
+    int calculateScore(player* killer, player* killed);
     /// Get starting data
     std::string GetMe(std::string);
 
