@@ -384,14 +384,7 @@ void Drawable_Player::update(std::string data)
             {
                 my_mutex.unlock();
                 if(getMaxHp()!=maxhp)
-                {
                     setMaxHp(maxhp);
-                    myHpBar->setMaxHp(maxhp);
-                    if(maxhp%100==0)
-                        myHpBar->setMyLevel(maxhp/100);
-                }
-
-
                 if(getCurrentHp()!=curhp)
                 {
                     if(getRespawn() )

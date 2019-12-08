@@ -54,9 +54,9 @@ private:
     int maxplayers;
     int getSize();
     std::vector<ServerAssistant*> players;
-    void sendData(std::string data); ///send to all
     void pushData(std::string data, std::string who);
 public:
+    void sendData(std::string data); ///send to all
     Server();
     void tryToConnect();
     void  runServer();

@@ -608,7 +608,7 @@
 1574932750 d:\homeproject\c++\repo\fight.io\server\serverexception.h
 	<exception>
 
-1575763241 d:\homeproject\c++\repo\fight.io\server\gameengine.hpp
+1575733161 d:\homeproject\c++\repo\fight.io\server\gameengine.hpp
 	"../Includes/player.hpp"
 	"../Includes/Weapon.hpp"
 	<map>
@@ -624,7 +624,7 @@
 	<string>
 	<mutex>
 
-1575762911 source:d:\homeproject\c++\repo\fight.io\server\server.cpp
+1575733561 source:d:\homeproject\c++\repo\fight.io\server\server.cpp
 	"Server.hpp"
 	<algorithm>
 	<string>
@@ -738,22 +738,25 @@
 1574507162 source:c:\users\e550\desktop\fight.io\server\servergui.cpp
 	"ServerGui.hpp"
 
-1575717744 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\server\gameengine.cpp
+1575801444 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\server\gameengine.cpp
 	"GameEngine.hpp"
 	<vector>
 	<string>
 	<cmath>
 	<cstdlib>
 	<thread>
+	<chrono>
 
-1575717064 c:\users\sziln\desktop\suli\adv. c++\fight.io\server\gameengine.hpp
+1575801244 c:\users\sziln\desktop\suli\adv. c++\fight.io\server\gameengine.hpp
 	"../Includes/player.hpp"
 	"../Includes/Weapon.hpp"
 	<map>
 	<mutex>
 	<iostream>
 	<sstream>
+	<thread>
 	<mutex>
+	<list>
 	"Server.hpp"
 
 1574355787 c:\users\sziln\desktop\suli\adv. c++\fight.io\server\player.hpp
@@ -772,7 +775,7 @@
 	"simplgui/TextBox.h"
 	"simplgui/Tools.h"
 
-1575715117 c:\users\sziln\desktop\suli\adv. c++\fight.io\server\server.hpp
+1575802404 c:\users\sziln\desktop\suli\adv. c++\fight.io\server\server.hpp
 	<thread>
 	<winsock2.h>
 	<iostream>
@@ -898,10 +901,10 @@
 	<string>
 	<mutex>
 
-1575712090 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\weapon.cpp
+1575802245 source:c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\weapon.cpp
 	"Weapon.hpp"
 
-1575366135 c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\weapon.hpp
+1575802220 c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\weapon.hpp
 	<SFML/Graphics.hpp>
 
 1575808847 source:d:\homeproject\c++\repo\fight.io\includes\player.cpp
@@ -916,9 +919,8 @@
 	<string>
 	<mutex>
 
-1575762911 d:\homeproject\c++\repo\fight.io\includes\weapon.hpp
+1575387305 d:\homeproject\c++\repo\fight.io\includes\weapon.hpp
 	<SFML/Graphics.hpp>
 
 1575658409 source:d:\homeproject\c++\repo\fight.io\includes\weapon.cpp
 	"Weapon.hpp"
-

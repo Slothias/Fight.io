@@ -16,7 +16,6 @@ class GameScreen:public Screen
         std::map<std::string,Weapon*> getWeapons();
          ~GameScreen();
     private:
-        void readCfg();
         double mapSize;
         sf::Vector2<float> viewOffSet;
         static const int SLEEPVAL=1000/FRAMERATE;
@@ -45,7 +44,6 @@ class GameScreen:public Screen
         u_short port;
         unsigned int horizontal;
         unsigned int vertical;
-        int maxPlayers;
         void GetDesktopResolution();
 
 };
