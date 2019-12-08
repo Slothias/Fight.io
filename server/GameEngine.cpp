@@ -2,8 +2,9 @@
 #include <vector>
 #include <string>
 #include <cmath>
-#include<cstdlib>
-#include<thread>
+#include <cstdlib>
+#include <thread>
+#include <chrono>
 #define PI 3.1415
 
 GameEngine::GameEngine(){
@@ -13,27 +14,82 @@ GameEngine::GameEngine(Server* s) {
     mapSize = 2000;
     server = s;
     players.clear();
+    drop_weapons = std::vector<Weapon*>();
+    dw_mutex = new std::mutex();
+    players_map = new std::mutex();
     for(int i = 0; i < WP_SIZE; ++i) {
         weapons[i] = new Weapon(i);
     }
+    thread_lifetime = true;
+    std::thread w_gen_thread(&GameEngine::GenerateWeapon,*this);
+    w_gen_thread.detach();
 }
 GameEngine::~GameEngine() {
-    for(auto x : p_mutexes) {
+    thread_lifetime = false;
+    for(auto &x : p_mutexes) {
         delete x.second;
     }
-    for(auto x : players) {
+    for(auto &x : players) {
         delete x.second;
     }
-    for(auto x : weapons) {
+    for(auto &x : weapons) {
+        delete x;
+    }
+    for(auto &x : drop_weapons) {
         delete x;
     }
     delete players_map;
+    delete dw_mutex;
     server = nullptr;
 }
 
 GameEngine* GameEngine::GetInstance(Server* s) {
     static GameEngine instance;
     return &instance;
+}
+
+bool GameEngine::GenNotGood(const float &x, const float &y) {
+    dw_mutex->lock();
+    for(Weapon* w : drop_weapons) {
+        if(w->getX() == x && w->getY() == y)
+            return true;
+    }
+    dw_mutex->unlock();
+    return false;
+}
+void GameEngine::GenerateWeapon() {
+    while(thread_lifetime && players.size() - 1 >= drop_weapons.size()) {
+        srand(time(NULL));
+        std::this_thread::sleep_for(std::chrono::seconds(30));
+        float x,y;
+        GenerateXY(x,y);
+        while(GenNotGood(x, y))
+            GenerateXY(x,y);
+        int Wtype = (rand() % 100) + 1;
+        if(Wtype < 10) { /// ~10% - 5ös fegyó
+            Wtype = 5;
+        }
+        else if(10 <= Wtype && Wtype < 25) { /// ~15% - 5ös fegyó
+            Wtype = 4;
+        }
+        else if(25 <= Wtype && Wtype < 45) { /// ~20% - 5ös fegyó
+            Wtype = 3;
+        }
+        else if(45 <= Wtype && Wtype < 70) { /// ~25% - 5ös fegyó
+            Wtype = 2;
+        }
+        else { /// ~30% - 5ös fegyó
+            Wtype = 1;
+        }
+        Weapon* w = new Weapon(Wtype);
+        w->setXY(x,y);
+        dw_mutex->lock();
+        drop_weapons.push_back(w);
+        std::stringstream ss;
+        ss << "Server:" << drop_weapons.size()-1 << "|" << Wtype << "|" << x << "|" << y;
+        server->sendData(ss.str());
+        dw_mutex->unlock();
+    }
 }
 
 std::string GameEngine::CreatePlayer(std::string name) {
@@ -83,7 +139,7 @@ std::string GameEngine::ReSpawn(std::string name) {
 
 std::string GameEngine::GetMe(std::string name) {
     std::string me = players[name]->toString();
-    std::string ret = "1111" + me.substr(3);
+    std::string ret = "1111" + me.substr(4);
     return ret;
 }
 
@@ -158,8 +214,17 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
     if(flags.at(3) == '1') ///PICK UP A WEAPON
     {
         p_mutexes[actplayer]->lock();
-        ///TODO
-
+        dw_mutex->lock();
+        int i = 0;
+        for(Weapon* x : drop_weapons) {
+            float dest = sqrt(pow(x->getX() - actplayer->getX(),2) + pow(x->getY() - actplayer->getY(),2));
+            if(dest <= actplayer->getHitboxRadius()) {
+                actplayer->setWeapon(x->getType());
+                drop_weapons.erase(drop_weapons.begin() + i);
+            }
+            ++i;
+        }
+        dw_mutex->unlock();
         p_mutexes[actplayer]->unlock();
     }
     p_mutexes[actplayer]->lock();

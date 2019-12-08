@@ -67,6 +67,23 @@ void Weapon::setRange(float r)
 {
     range=r;
 }
+void Weapon::setXY(float _x, float _y)
+{
+    x = _x;
+    y = _y;
+}
+float Weapon::getX()
+{
+    return x;
+}
+float Weapon::getY()
+{
+    return y;
+}
+int Weapon::getType()
+{
+    return type;
+}
 float Weapon::getPower() const
 {
     return power;

@@ -7,7 +7,9 @@
 #include <mutex>
 #include <iostream>
 #include <sstream>
+#include <thread>
 #include <mutex>
+#include <list>
 #include "Server.hpp"
 
 class Server;
@@ -16,19 +18,26 @@ private:
     static const int WP_SIZE = 6;
     std::map<std::string,player*> players;
     std::map<player*,std::mutex*> p_mutexes;
+    std::vector<Weapon*> drop_weapons;
+    std::mutex* dw_mutex;
     std::mutex* players_map;
     Weapon* weapons[WP_SIZE];
     double mapSize;
     Server* server;
+    bool thread_lifetime;
 protected:
     GameEngine();
     GameEngine(Server*);
+
+    bool GenNotGood(const float&,const float&);
 public:
     /// Destr
     ~GameEngine();
     /// Create GameEngine
     static GameEngine* GetInstance(Server*);
 
+    /// Generate Weapon
+    void GenerateWeapon();
     /// Create player with name
     std::string CreatePlayer(std::string);
     /// Generate pos
