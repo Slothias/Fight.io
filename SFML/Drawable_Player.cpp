@@ -12,10 +12,6 @@ Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf:
     {
         weapons[i] = nullptr;
     }
-    ///just for testing
-    weapons[0] = new Weapon(4);
-    weapons[0]->setPosition(0,0);
-
 
     respawn=false;
     lastPoke = std::chrono::high_resolution_clock::now();
@@ -259,8 +255,9 @@ void Drawable_Player::update(std::string data)
     std::getline(ss,currentName,':');
 
     ///ha új fegyót kapunk
-    if(currentName == "Server" && !data.find("EXIT"))
+    if(currentName == "Server" && data.find("EXIT")==std::string::npos)
     {
+        std::cout << "New weapon msg: "<< data << std::endl;
         std::string line;
         int id,type;
         float posx,posy;
@@ -272,6 +269,7 @@ void Drawable_Player::update(std::string data)
         posx = std::stof(line);
         std::getline(ss,line);
         posy = std::stof(line);
+        std::cout << "Broken down: "<< id << " " << type << " " << posx << " " << posy << std::endl;
 
         weapons[id] = new Weapon(type);
         weapons[id]->setPosition(posx,posy);
@@ -296,7 +294,7 @@ void Drawable_Player::update(std::string data)
         }
     }
     ///egyébként frissítünk
-    else if(data.find("|")!=std::string::npos)
+    else if(data.find("|")!=std::string::npos && data.find("Server")==std::string::npos)
     {
         std::string flags;
         std::string line;
