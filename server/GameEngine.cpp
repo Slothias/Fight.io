@@ -60,6 +60,7 @@ void GameEngine::readCfg()
         myfile>>line;
         mapSize = stod(line);
     }
+    std::cout<<maxPlayers<<" " <<mapSize<<std::endl;
     myfile.close();
 
 }
@@ -79,7 +80,10 @@ std::string GameEngine::CreatePlayer(std::string name) {
     std::cout << "OKOK" << std::endl;
 	return "OK";
 }
-
+int GameEngine::CalculateScore(player* killer, player* killed)
+{
+    return  (killed->getScore()/killer->getScore()) * killer->getMaxHp();
+}
 void GameEngine::GenerateXY(float &x, float &y) {
     srand(time(NULL));
     x = rand()%((int)GetMapSize())-(GetMapSize()/2);
@@ -171,21 +175,25 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
         //std::cout<<flags.substr(0,4);
         float w_x = actplayer->getX() + cos((actplayer->getRot()-90)*3.1415/180) * weapons[actplayer->getWeapon()]->getRange();
         float w_y = actplayer->getY() + sin((actplayer->getRot()-90)*3.1415/180)* weapons[actplayer->getWeapon()]->getRange();
-        players_map->lock();
+        //players_map->lock(); ///FAGYI
         for(std::pair<std::string,player*> pr : players) {
             player* p = pr.second;
+            p_mutexes[p]->lock();
             if(p != actplayer) {
                 if(sqrt(pow(w_x - p->getX(),2) + pow(w_y - p->getY(),2)) <= p->getHitboxRadius()) {
                     p->setCurrentHp(p->getCurrentHp() - weapons[actplayer->getWeapon()]->getPower());
                     if(p->getCurrentHp() <= 0) {
-                        ///DIED!
+                       actplayer->setScore(CalculateScore(actplayer,p));
+                    if(actplayer->getScore()%100 == 0)
+                        actplayer->setMaxHp(actplayer->getMaxHp()+100);
                     }
                     std::cout<<"TALALAT, ALDOZAT:"<<p->getName()<<std::endl;
                     ret.push_back(p->getName() + ":" + p->toString());
                 }
             }
+        p_mutexes[p]->unlock();
         }
-        players_map->unlock();
+        //players_map->unlock();
         p_mutexes[actplayer]->unlock();
     }
     if(flags.at(3) == '1') ///PICK UP A WEAPON

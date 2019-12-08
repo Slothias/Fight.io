@@ -46,6 +46,7 @@ public:
     std::vector<std::string> CheckRequest(std::string, std::string);
     /// Getter mapSize
     double GetMapSize();
+    int CalculateScore(player* killer, player* killed);
     int GetMaxPlayers();
 };
 
