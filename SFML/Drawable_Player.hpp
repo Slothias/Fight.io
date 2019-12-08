@@ -18,7 +18,7 @@ public:
     virtual void setPosition(float x, float y,bool c);
     virtual void setRotation(float x, bool c);
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states);
-    virtual void outOfScreenDraw(sf::RenderTarget& target, sf::RenderStates states, double x, double y, int mapX, int mapY);
+    virtual void outOfScreenDraw(sf::RenderTarget& target, sf::RenderStates states, double x, double y, int mapX, int mapY, unsigned int vertical);
     sf::Texture getSkin();
     sf::Vector2<float> getPosition();
     virtual void setScale(float x, float y);
@@ -34,6 +34,7 @@ public:
     void setLevel(int i);
     //getters
     void update(std::string data);
+    int getMapSize();
 
     Weapon* getWeapon();
     std::map<std::string,Drawable_Player*> players;
@@ -41,10 +42,12 @@ public:
     bool iThinkICanPickUp();
 
     std::vector<Weapon*> weapons;
-    int maxWeaponsSize;
+    int maxPlayers;
+    int mapSize;
     ~Drawable_Player();
     sf::CircleShape weaponHitbox;
 private:
+    void readCfg();
     sf::Texture skin;
     sf::Texture deadSkin;
     sf::Sprite me;

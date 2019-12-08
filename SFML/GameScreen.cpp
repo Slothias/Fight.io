@@ -10,44 +10,36 @@ GameScreen::GameScreen(sf::RenderWindow *App, Client* my)
     c=my;
     me=new Drawable_Player(my->getName(),0,0,0);
     c->addPlayer(me);
-    readCfg();
+    mapSize = me->getMapSize();
+
     std::thread t(&Client::runclient,&(*c));
     t.detach();
+
     pup=pdown=pleft=pright=pPoke=false;
+
     forBackground.loadFromFile("hexagonal.png");
     forBackground.setRepeated(true);
     background.setTexture(forBackground);
     background.setPosition(-mapSize/2,-mapSize/2);
     background.setTextureRect(sf::IntRect(0,0,mapSize,mapSize));
+
     GetDesktopResolution();
+
     deathOverlay.setSize(sf::Vector2f(mapSize,mapSize));
     deathOverlay.setPosition(-mapSize/2,-mapSize/2);
     deathOverlay.setFillColor(sf::Color(0,0,0,150));
+
     youDied.setString("YOU DIED");
     youDied.setCharacterSize(400);
     youDied.setFont(deathFont);
     youDied.setColor(sf::Color::Red);
-    tempWeaponCounter =0;
+
+    //tempWeaponCounter =0;
     viewOffSet = getViewOffSet();
 
 
 }
-void GameScreen::readCfg()
-{
-std::string path= "..\\..\\..\\Includes\\config.cfg";
-    std::ifstream myfile(path.c_str());
-    if(myfile.is_open())
-    {
-        std::string line;
-        myfile>>line;
-        myfile>>line;
-        maxPlayers = stoi(line);
-        myfile>>line;
-        myfile>>line;
-        mapSize = stod(line);
-    }
-    myfile.close();
-}
+
 
 void GameScreen::GetDesktopResolution()
 {
@@ -101,7 +93,7 @@ void GameScreen::draw()
                entries.second->getY() > v.getCenter().y+(vertical/2))&&
                entries.second->getCurrentHp() > 0)
             {
-                entries.second->outOfScreenDraw(*app,sf::RenderStates::Default,me->getX(),me->getY(), background.getTextureRect().width, background.getTextureRect().height);
+                entries.second->outOfScreenDraw(*app,sf::RenderStates::Default,me->getX(),me->getY(), background.getTextureRect().width, background.getTextureRect().height,vertical);
             }
 
         }
@@ -161,10 +153,6 @@ else
                 me->setWeapon(tempWeaponCounter,true);
                 me->weaponHitbox.setOrigin(5,me->getWeapon()->range+5);
                 c->notify();
-            }
-            if(event.key.code==sf::Keyboard::E)
-            {
-                me->setCurrentHp(me->getCurrentHp()-1);
             }
     }
 

@@ -6,8 +6,8 @@
 
 Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf::Sprite(),player(name,x,y,a)
 {
-    maxWeaponsSize = 10;
-    weapons = std::vector<Weapon*>(maxWeaponsSize);
+    readCfg();
+    weapons = std::vector<Weapon*>(maxPlayers-1);
     for (int i=0; i<weapons.size(); i++)
     {
         weapons[i] = nullptr;
@@ -46,14 +46,36 @@ Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf:
     setRotation(a,true);
 }
 
+void Drawable_Player::readCfg()
+{
+std::string path= "..\\..\\..\\Includes\\config.cfg";
+    std::ifstream myfile(path.c_str());
+    if(myfile.is_open())
+    {
+        std::string line;
+        myfile>>line;
+        myfile>>line;
+        maxPlayers = stoi(line);
+        myfile>>line;
+        myfile>>line;
+        mapSize = stod(line);
+    }
+    myfile.close();
+}
+
+int Drawable_Player::getMapSize()
+{
+    return mapSize;
+}
+
 void Drawable_Player::draw(sf::RenderTarget& target, sf::RenderStates states)
 {
     auto curTime = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>( curTime - lastPoke ).count();
-    if(poking || duration < 100)
+    double duration = std::chrono::duration_cast<std::chrono::milliseconds>( curTime - lastPoke ).count();
+    if(poking || duration < myWeapon.cooldown)
     {
-        myWeapon.setRotation(playerRotation-myWeapon.useRotation);
-        weaponHitbox.setFillColor(sf::Color(255,0,0,255));
+        myWeapon.setRotation(playerRotation -myWeapon.useRotation + (myWeapon.useRotation*(duration/myWeapon.cooldown)));
+        weaponHitbox.setFillColor(sf::Color(255,0,0,(int)(155*((-duration/myWeapon.cooldown)+1))+100));
     }
     else
     {
@@ -74,23 +96,23 @@ void Drawable_Player::draw(sf::RenderTarget& target, sf::RenderStates states)
 
 
 }
-void Drawable_Player::outOfScreenDraw(sf::RenderTarget& target, sf::RenderStates states, double x, double y, int mapX, int mapY)
+void Drawable_Player::outOfScreenDraw(sf::RenderTarget& target, sf::RenderStates states, double x, double y, int mapX, int mapY, unsigned int vertical)
 {
     double relativeRotation;
     double absX;
     double absY;
-    double alpha = ((-sqrt((getX()-x)*(getX()-x) + (getY()-y)*(getY()-y))/sqrt(mapX*mapX + mapY*mapY))+1)*200 + 55;///(-distance/maxDistance + 1)*200 + 55      ====>      55 <= alpha <= 255
+    double alpha = ((-sqrt((getX()-x)*(getX()-x) + (getY()-y)*(getY()-y))/sqrt(mapX*mapX + mapY*mapY))+1)*200 + 55;
     if(getX()-x < 0)
     {
         relativeRotation = atan((y-getY())/(getX()-x));
-        absX = -(x-cos(relativeRotation)*500);
+        absX = -(x-cos(relativeRotation)*(vertical/2 -40));
     }
     else
     {
         relativeRotation = atan(-(y-getY())/(getX()-x));
-        absX = -(x+cos(relativeRotation)*500);
+        absX = -(x+cos(relativeRotation)*(vertical/2 -40));
     }
-    absY = -(y+sin(relativeRotation)*500);
+    absY = -(y+sin(relativeRotation)*(vertical/2 -40));
 
     alternativeDraw.setOrigin(absX,absY);
     alternativeDraw.setFillColor(sf::Color(255,0,0,(int)alpha));
