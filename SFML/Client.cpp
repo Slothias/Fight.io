@@ -127,13 +127,12 @@ void Client::runclient()
         std::cout<<"CONNECTED"<<std::endl;
         std::string oldstatus;
         std::unique_lock<std::mutex>  lck(thisMutex);
-        long unsigned int run = 0;
          std::thread get([this,&run]()
                             {
                              while(getconnected())
                              {
                             std::string g = getData();
-                            if(g.find("Server")!=std::string::npos && g.find("EXIT")!=std::string::npos)
+                            if((g.find("Server")!=std::string::npos && g.find("EXIT")!=std::string::npos)|| g.size()==0)
                                 {
                                     setconnected(false);
                                     cv.notify_all();

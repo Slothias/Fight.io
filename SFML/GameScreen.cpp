@@ -1,5 +1,6 @@
 #include "GameScreen.hpp"
 #include <vector>
+#include<string>
 
 GameScreen::GameScreen(sf::RenderWindow *App, Client* my)
 {
@@ -9,17 +10,18 @@ GameScreen::GameScreen(sf::RenderWindow *App, Client* my)
     c=my;
     me=new Drawable_Player(my->getName(),0,0,0);
     c->addPlayer(me);
+    mapSize = std::stod(c->getData());
     std::thread t(&Client::runclient,&(*c));
     t.detach();
     pup=pdown=pleft=pright=pPoke=false;
     forBackground.loadFromFile("hexagonal.png");
     forBackground.setRepeated(true);
     background.setTexture(forBackground);
-    background.setPosition(-1000,-1000);
-    background.setTextureRect(sf::IntRect(0,0,2000,2000));
+    background.setPosition(-mapSize/2,-mapSize/2);
+    background.setTextureRect(sf::IntRect(0,0,mapSize,mapSize));
     GetDesktopResolution();
-    deathOverlay.setSize(sf::Vector2f(2000,2000));
-    deathOverlay.setPosition(-1000,-1000);
+    deathOverlay.setSize(sf::Vector2f(mapSize,mapSize));
+    deathOverlay.setPosition(-mapSize/2,-mapSize/2);
     deathOverlay.setFillColor(sf::Color(0,0,0,150));
     youDied.setString("YOU DIED");
     youDied.setCharacterSize(400);
@@ -62,6 +64,16 @@ void GameScreen::draw()
         viewOffSet = getViewOffSet();
         v.setCenter(me->getX()+viewOffSet.x,me->getY()+viewOffSet.y);
         app->setView(v);
+
+        std::vector<Weapon*> weapons = me->getWeapons();
+        for(int i=0; i<weapons.size(); i++)
+        {
+            if(weapons[i] != nullptr)
+            {
+                app->draw(*weapons[i]);
+            }
+        }
+
         std::map<std::string,Drawable_Player*> players = me->getPlayers();
         //std::vector<sf::Vector2 <float> > playerPositions;
         for(std::pair<std::string, Drawable_Player*> entries: players)
@@ -224,7 +236,12 @@ else
                 if(event.mouseButton.button == sf::Mouse::Left)
                     pPoke = true;
                 if(event.mouseButton.button == sf::Mouse::Right)
-                    me->pickUpEvent(true);
+                {
+                    if(me->iThinkICanPickUp())
+                        me->pickUpEvent(true);
+                    else
+                        me->pickUpEvent(false);
+                }
             }
             if (event.type == sf::Event::MouseButtonReleased)
             {
@@ -246,6 +263,9 @@ else
             float curx = me->getX();
             float cury = me->getY();
             me->setPosition(curx+playerX, cury+playerY,true);
+        }else
+        {
+            pup = pdown = pleft = pright = pPoke = false;
         }
     if(me->getChange())
         c->notify();

@@ -6,6 +6,17 @@
 
 Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf::Sprite(),player(name,x,y,a)
 {
+    maxWeaponsSize = 10;
+    weapons = std::vector<Weapon*>(maxWeaponsSize);
+    for (int i=0; i<weapons.size(); i++)
+    {
+        weapons[i] = nullptr;
+    }
+    ///just for testing
+    weapons[0] = new Weapon(4);
+    weapons[0]->setPosition(0,0);
+
+
     respawn=false;
     lastPoke = std::chrono::high_resolution_clock::now();
     skin.loadFromFile("Player.png");
@@ -175,6 +186,24 @@ void Drawable_Player::pickUpEvent(bool setToIt)
     my_mutex.unlock();
 }
 
+bool Drawable_Player::iThinkICanPickUp()
+{
+    double weaponX, weaponY;
+    for(int i=0; i<weapons.size(); i++)
+    {
+        if(weapons[i] != nullptr){
+            weaponX = weapons[i]->getPosition().x;
+            weaponY = weapons[i]->getPosition().y;
+            if(sqrt((playerX-weaponX)*(playerX-weaponX) + (playerY-weaponY)*(playerY-weaponY)) < hitboxRadius)
+            {
+                std::cout << "szerintem fel tudok venni fegyvert" << std::endl;
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 void Drawable_Player::setScale(float x, float y)
 {
     my_mutex.lock();
@@ -205,9 +234,6 @@ void Drawable_Player::setWeapon(int _weapon,bool c)
     weapon = _weapon;
     myWeapon.loadWeapon(weapon);
     myWeapon.setPosition(getPosition());
-    /* if(weapon==0 || weapon==1 ||weapon==4)
-         myWeapon.setOrigin(-(((int)skin.getSize().x/2)-(int)(myWeapon.getTexture()->getSize().x)), ((int)myWeapon.getTexture()->getSize().y+myWeapon.getTexture()->getSize().y/8));
-     else*/
     myWeapon.setOrigin(-(((int)skin.getSize().x/2)-(int)(3*myWeapon.getTexture()->getSize().x/4)), ((int)myWeapon.getTexture()->getSize().y+myWeapon.getTexture()->getSize().y/15));
     myWeapon.setRotation(getRot());
     changed = c;
@@ -227,8 +253,28 @@ void Drawable_Player::update(std::string data)
     ///megkeressük ki az üzenet feladója
     std::string currentName;
     std::getline(ss,currentName,':');
+
+    ///ha új fegyót kapunk
+    if(currentName == "Server" && !data.find("EXIT"))
+    {
+        std::string line;
+        int id,type;
+        float posx,posy;
+        std::getline(ss,line,'|');
+        id = std::stoi(line);
+        std::getline(ss,line,'|');
+        type = std::stoi(line);
+        std::getline(ss,line,'|');
+        posx = std::stof(line);
+        std::getline(ss,line);
+        posy = std::stof(line);
+
+        weapons[id] = new Weapon(type);
+        weapons[id]->setPosition(posx,posy);
+    }
+
     ///ha exitet kaptunk
-    if( data. find("EXIT")!=std::string::npos)
+    if( data.find("EXIT")!=std::string::npos)
     {
         ///ha a szerver küldte az exitet, mindenki mehet a picsába
         if(currentName == "Server")
@@ -251,6 +297,7 @@ void Drawable_Player::update(std::string data)
         std::string flags;
         std::string line;
         float curx,cury,getrot;
+        int weaponID;
         bool curPoking=false;
         std::getline(ss,flags,'|');
         if(flags.at(0) == '1')
@@ -274,6 +321,11 @@ void Drawable_Player::update(std::string data)
         else
         {
             curPoking = false;
+        }
+        if(flags.at(3) == '1')
+        {
+            std::getline(ss,line,'|');
+            weaponID = std::stoi(line);
         }
         //curPoking=flags.at(3)=='1';
         std::getline(ss,line,'|');
@@ -310,6 +362,11 @@ void Drawable_Player::update(std::string data)
                     players[currentName]->poking = curPoking;
                     players[currentName]->lastPoke = std::chrono::high_resolution_clock::now();
                 }
+                if(flags.at(3) == '1')
+                {
+                    players[currentName]->setWeapon(weapons[weaponID]->type,true);
+                    weapons[weaponID] = nullptr;
+                }
                 ///ha eltér a maxhp,akkor frissít
                 if(act->getMaxHp()!=maxhp)
                     players[currentName]->setMaxHp(maxhp);
@@ -340,6 +397,11 @@ void Drawable_Player::update(std::string data)
                         if(getPoke() != curPoking)
                         {
                             setPoke(curPoking);
+                        }
+                        if(flags.at(3) == '1')
+                        {
+                            players[currentName]->setWeapon(weapons[weaponID]->type,true);
+                            weapons[weaponID] = nullptr;
                         }
                         setRespawn(false);
                     }
@@ -378,6 +440,13 @@ std::map<std::string, Drawable_Player*> Drawable_Player::getPlayers()
     return result;
 }
 
+std::vector<Weapon*> Drawable_Player::getWeapons()
+{
+    my_mutex.lock();
+    std::vector<Weapon*> result = weapons;
+    my_mutex.unlock();
+    return result;
+}
 sf::Texture Drawable_Player::getSkin()
 {
     return skin;

@@ -51,7 +51,7 @@ private:
     std::mutex my_mutex;
     bool startup();
     const u_short PORT=10043;
-    static const int MAX_PLAYERS=10;
+    int maxplayers;
     int getSize();
     std::vector<ServerAssistant*> players;
     void pushData(std::string data, std::string who);

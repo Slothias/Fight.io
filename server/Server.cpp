@@ -58,6 +58,7 @@ void Server::tryToConnect()
     getIP();
     is_running = startup();
     myEngine = GameEngine::GetInstance(this);
+    maxplayers= myEngine->GetMaxPlayers();
 }
 std::string Server::showStatus()
 {
@@ -121,7 +122,7 @@ void Server::runServer()
         while (getconnected())
         {
             SOCKET c = accept(server, (SOCKADDR *) &clientAddr, &clientsize);
-            if (c != INVALID_SOCKET && getSize()<MAX_PLAYERS)
+            if (c != INVALID_SOCKET && getSize()<maxplayers)
             {
                 ServerAssistant* player=new ServerAssistant(c,this,"");
                 std::string g = player->getData();
@@ -302,6 +303,9 @@ void Server::ServerAssistant::run()
             {
                 closeConnection();
             }
+        }else{
+            closeConnection();
+            me->myEngine->CheckRequest(name,"EXIT");
         }
     }
     delete this;

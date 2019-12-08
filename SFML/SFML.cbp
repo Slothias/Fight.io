@@ -55,6 +55,7 @@
 		</Linker>
 		<Unit filename="../Includes/Weapon.cpp" />
 		<Unit filename="../Includes/Weapon.hpp" />
+		<Unit filename="../Includes/config.cfg" />
 		<Unit filename="../Includes/player.cpp" />
 		<Unit filename="../Includes/player.hpp" />
 		<Unit filename="Client.cpp" />

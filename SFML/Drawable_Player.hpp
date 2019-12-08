@@ -9,6 +9,7 @@
 #include "../Includes/player.hpp"
 #include "Screen.hpp"
 #include <chrono>
+#include <vector>
 
 class Drawable_Player: public sf::Sprite, public player
 {
@@ -25,14 +26,21 @@ public:
 
     //TODO
     std::map<std::string,Drawable_Player*> getPlayers();
+
     void setWeapon(int _weapon,bool c);
     void setCurrentHp(int _currentHp);
     void testPoke(bool setToIt);
     void pickUpEvent(bool setToIt);
     //getters
     void update(std::string data);
+
     Weapon* getWeapon();
     std::map<std::string,Drawable_Player*> players;
+    std::vector<Weapon*> getWeapons();
+    bool iThinkICanPickUp();
+
+    std::vector<Weapon*> weapons;
+    int maxWeaponsSize;
     ~Drawable_Player();
     sf::CircleShape weaponHitbox;
 private:

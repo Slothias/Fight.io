@@ -9,9 +9,20 @@
 
 GameEngine::GameEngine(){
 
+maxPlayers=0;
+mapSize=0;
+readCfg();
+players.clear();
+    for(int i = 0; i < WP_SIZE; ++i) {
+        weapons[i] = new Weapon(i);
+}
+
 }
 GameEngine::GameEngine(Server* s) {
-    mapSize = 2000;
+    maxPlayers=0;
+    mapSize=0;
+    readCfg();
+    srand (time(NULL));
     server = s;
     players.clear();
     drop_weapons = std::vector<Weapon*>();
@@ -46,6 +57,26 @@ GameEngine::~GameEngine() {
 GameEngine* GameEngine::GetInstance(Server* s) {
     static GameEngine instance;
     return &instance;
+}
+void GameEngine::readCfg()
+{
+    std::string path= "..\\..\\..\\Includes\\config.cfg";
+    std::ifstream myfile(path.c_str());
+    if(myfile.is_open())
+    {
+        std::string line;
+        myfile>>line;
+        myfile>>line;
+        maxPlayers = stoi(line);
+        myfile>>line;
+        myfile>>line;
+        mapSize = stod(line);
+    }
+    myfile.close();
+}
+int GameEngine::GetMaxPlayers()
+{
+    return maxPlayers;
 }
 
 bool GameEngine::GenNotGood(const float &x, const float &y) {
@@ -99,7 +130,7 @@ std::string GameEngine::CreatePlayer(std::string name) {
     float x,y = 0;
     GenerateXY(x,y);
     player* p = new player(name, x, y, 0);
-    players[name] = p;
+    players[name]   = p;
     p_mutexes[p] = new std::mutex();
     std::cout << "OKOK" << std::endl;
 	return "OK";
@@ -107,8 +138,10 @@ std::string GameEngine::CreatePlayer(std::string name) {
 
 void GameEngine::GenerateXY(float &x, float &y) {
     srand(time(NULL));
-    x = (fmod(rand(),(GetMapSize()*2+1))-GetMapSize());
-    y = (fmod(rand(),(GetMapSize()*2+1))-GetMapSize());
+    x = rand()%((int)GetMapSize())-(GetMapSize()/2);
+    y = rand()%((int)GetMapSize())-(GetMapSize()/2);
+    //x = (fmod(rand(),(GetMapSize()*2+1))-GetMapSize());
+    //y = (fmod(rand(),(GetMapSize()*2+1))-GetMapSize());
 }
 
 std::string GameEngine::ReSpawn(std::string name) {
