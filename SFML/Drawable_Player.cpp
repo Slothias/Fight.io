@@ -389,8 +389,9 @@ void Drawable_Player::update(std::string data)
                 if(flags.at(3) == '1')
                 {
                     players[currentName]->setWeapon(weapons[weaponID]->type,true);
-                    delete weapons[weaponID];
+                    Weapon* p = weapons[weaponID];
                     weapons[weaponID] = nullptr;
+                    delete p;
                 }
                 ///ha eltér a maxhp,akkor frissít
                 if(act->getMaxHp()!=maxhp)
@@ -434,8 +435,10 @@ void Drawable_Player::update(std::string data)
                         if(flags.at(3) == '1')
                         {
                             players[currentName]->setWeapon(weapons[weaponID]->type,true);
-                            delete weapons[weaponID];
+                            Weapon* p = weapons[weaponID];
                             weapons[weaponID] = nullptr;
+                            delete p;
+                            std::cout<<"SIKERULT TOROLNI"<<std::endl;
                         }
                         setRespawn(false);
                     }
