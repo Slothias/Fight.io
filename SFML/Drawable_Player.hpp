@@ -27,16 +27,18 @@ public:
     //TODO
     std::map<std::string,Drawable_Player*> getPlayers();
 
-    void setWeapon(int _weapon,bool c);
     void setCurrentHp(int _currentHp);
     void testPoke(bool setToIt);
     void pickUpEvent(bool setToIt);
     void setLevel(int i);
+    void deleteWeapon(int i);
+    void addWeapon(int i);
     //getters
     void update(std::string data);
     int getMapSize();
 
     Weapon* getWeapon();
+    Weapon* pickWeapon(int i);
     std::map<std::string,Drawable_Player*> players;
     std::vector<Weapon*> getWeapons();
     bool iThinkICanPickUp();
@@ -52,7 +54,7 @@ private:
     sf::Texture deadSkin;
     sf::Sprite me;
     sf::Sprite deadMe;
-    Weapon myWeapon;
+    Weapon* myWeapon;
     HpBar* myHpBar;
     sf::CircleShape testHitbox;
     sf::CircleShape alternativeDraw;

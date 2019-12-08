@@ -18,6 +18,10 @@ GameEngine::GameEngine(){
     for(int i = 0; i < WP_SIZE; ++i) {
         weapons[i] = new Weapon(i);
     }
+    for(int i=0; i<drop_weapons.size();i++)
+    {
+        drop_weapons[i] =nullptr;
+    }
     thread_lifetime = true;
     std::thread w_gen_thread(&GameEngine::GenerateWeapon,&(*this));
     w_gen_thread.detach();
@@ -122,7 +126,7 @@ void GameEngine::GenerateWeapon() {
         std::this_thread::sleep_for(std::chrono::seconds(10));
         float x=0;
         float y = 0;
-        //GenerateXY(x,y);
+        GenerateXY(x,y);
         while(GenNotGood(x, y))
             GenerateXY(x,y);
         int pos = NullpointerDetector(drop_weapons);
@@ -146,7 +150,7 @@ void GameEngine::GenerateWeapon() {
         w->setXY(x,y);
         drop_weapons[pos] = w;
         std::stringstream ss;
-        ss << "Server:" << drop_weapons.size()-1 << "|" << Wtype << "|" << x << "|" << y;
+        ss << "Server:" << pos << "|" << Wtype << "|" << x << "|" << y;
         server->sendData(ss.str());
     }
 }
@@ -217,9 +221,9 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
     std::string flags;
     std::string line;
     actplayer->setPoke(false);
+    actplayer->setPickUp(false);
     float curx,cury,getrot;
     std::getline(ss,flags,'|');
-
     if(flags.at(0) == '1') ///MOVE
     {
         p_mutexes[actplayer]->lock();
@@ -279,6 +283,7 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
         p_mutexes[actplayer]->lock();
         int i = 0;
         dw_mutex.lock();
+        actplayer->setPickUp(false);
         bool ok = false;
         for(int i = 0; i<drop_weapons.size(); i++) {
             Weapon* x = drop_weapons.at(i);
@@ -288,9 +293,8 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
             if(dest <= actplayer->getHitboxRadius()) {
                 actplayer->setWeapon(x->getType(),i);
                 actplayer->setPickUp(true);
-                Weapon* w = x;
-                delete w;
                 drop_weapons[i] = nullptr;
+                delete x;
                 std::cout<<"Sikerult felvenni"<<std::endl;
                 ok=true;
             }
@@ -300,7 +304,6 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
         p_mutexes[actplayer]->unlock();
     }
     p_mutexes[actplayer]->lock();
-    std::cout<<actplayer->toString()<<std::endl;
     ret.push_back(name + ":" + actplayer->toString());
     p_mutexes[actplayer]->unlock();
     return ret;

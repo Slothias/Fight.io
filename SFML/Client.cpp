@@ -137,7 +137,6 @@ void Client::runclient()
                                     setconnected(false);
                                     cv.notify_all();
                                 }
-                            std::cout<<g<<std::endl;
                             std::thread t (&player::update,&(*thisPlayer),g);
                             t.detach();
 
