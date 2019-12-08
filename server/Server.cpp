@@ -57,7 +57,7 @@ void Server::tryToConnect()
 {
     getIP();
     is_running = startup();
-    myEngine = GameEngine::GetInstance(this);
+    myEngine = myEngine->GetInstance(this);
     maxplayers= myEngine->GetMaxPlayers();
 }
 std::string Server::showStatus()

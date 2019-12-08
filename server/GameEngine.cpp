@@ -61,7 +61,7 @@ GameEngine::~GameEngine() {
 }
 
 GameEngine* GameEngine::GetInstance(Server* s) {
-    static GameEngine instance;
+    static GameEngine instance(s);
     return &instance;
 }
 void GameEngine::readCfg()
@@ -98,7 +98,7 @@ bool GameEngine::GenNotGood(const float &x, const float &y) {
 void GameEngine::GenerateWeapon() {
     while(thread_lifetime && players.size() - 1 >= drop_weapons.size()) {
         srand(time(NULL));
-        std::this_thread::sleep_for(std::chrono::seconds(10));
+        std::this_thread::sleep_for(std::chrono::seconds(30));
         float x,y;
         GenerateXY(x,y);
         std::cout<<"gener"<<std::endl;
@@ -127,7 +127,6 @@ void GameEngine::GenerateWeapon() {
         std::stringstream ss;
         ss << "Server:" << drop_weapons.size()-1 << "|" << Wtype << "|" << x << "|" << y;
         server->sendData(ss.str());
-        std::cout<<"NEW WEAPON: "<<ss.str()<<std::endl;
     }
 }
 
