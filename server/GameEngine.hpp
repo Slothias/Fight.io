@@ -20,8 +20,8 @@ private:
     std::map<std::string,player*> players;
     std::map<player*,std::mutex*> p_mutexes;
     std::vector<Weapon*> drop_weapons;
-    std::mutex* dw_mutex;
-    std::mutex* players_map;
+    std::mutex dw_mutex;
+    std::mutex players_map;
     Weapon* weapons[WP_SIZE];
     double mapSize;
     int maxPlayers;

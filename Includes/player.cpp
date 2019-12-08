@@ -37,6 +37,7 @@ player::player(std::string _pName, float _playerX, float _playerY, float _player
     currentHp = maxHp;
     score = 1;
     weapon = 0;
+    weaponpos = -1;
     hitboxRadius = 75;
     poking = pickUp = false;
 }
@@ -115,10 +116,11 @@ void player::setScore(int _score)
 }
 //false is the default value (no weapon)
 
-void player::setWeapon(int _weapon)
+void player::setWeapon(int _weapon, int pos)
 {
     my_mutex.lock();
     weapon= _weapon;
+    weaponpos = pos;
     changed=true;
     my_mutex.unlock();
 }
@@ -268,6 +270,10 @@ std::string player::toString() {
     }
     if(getPickUp()){
         flags[3] = '1';
+        my_mutex.lock();
+        int p = weaponpos;
+        my_mutex.unlock();
+        msg+= std::to_string(p)+"|";
     }else{
         flags[3] = '0';
     }

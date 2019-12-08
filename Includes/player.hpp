@@ -12,6 +12,7 @@ protected:
     bool pickUp;
     float prevX,prevY,prevRot;
     bool prevPoking;
+    int weaponpos;
     //sf::Vector2 hitPosition;
     std::string pName;
     int maxHp;
@@ -41,7 +42,7 @@ public:
     void setMaxHp(int _maxHp);
     void setCurrentHp(int _currentHp);
     void setScore(int _score);
-    void setWeapon(int _weapon);
+    void setWeapon(int _weapon,int pos);
     void setPoke(bool _poking);
     void setPickUp(bool _pickUp);
     virtual void update(std::string data);
