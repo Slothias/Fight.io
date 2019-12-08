@@ -260,16 +260,19 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
     {
         p_mutexes[actplayer]->lock();
         dw_mutex->lock();
+        std::vector<Weapon*> cp = drop_weapons;
+        dw_mutex->unlock();
         int i = 0;
-        for(Weapon* x : drop_weapons) {
+        for(Weapon* x : cp) {
             float dest = sqrt(pow(x->getX() - actplayer->getX(),2) + pow(x->getY() - actplayer->getY(),2));
             if(dest <= actplayer->getHitboxRadius()) {
                 actplayer->setWeapon(x->getType());
-                drop_weapons.erase(drop_weapons.begin() + i);
+                Weapon* w = x;
+                delete w;
+                drop_weapons[i] = nullptr;
             }
             ++i;
         }
-        dw_mutex->unlock();
         p_mutexes[actplayer]->unlock();
     }
     p_mutexes[actplayer]->lock();
