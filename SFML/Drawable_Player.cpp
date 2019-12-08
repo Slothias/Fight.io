@@ -270,9 +270,10 @@ void Drawable_Player::update(std::string data)
         std::getline(ss,line);
         posy = std::stof(line);
         std::cout << "Broken down: "<< id << " " << type << " " << posx << " " << posy << std::endl;
-
+        my_mutex.lock();
         weapons[id] = new Weapon(type);
         weapons[id]->setPosition(posx,posy);
+        my_mutex.unlock();
     }
 
     ///ha exitet kaptunk
@@ -367,8 +368,10 @@ void Drawable_Player::update(std::string data)
                 if(flags.at(3) == '1')
                 {
                     players[currentName]->setWeapon(weapons[weaponID]->type,true);
+                    my_mutex.lock();
                     Weapon* p = weapons[weaponID];
                     weapons[weaponID] = nullptr;
+                    my_mutex.unlock();
                     delete p;
                 }
                 ///ha eltér a maxhp,akkor frissít
@@ -413,8 +416,10 @@ void Drawable_Player::update(std::string data)
                         if(flags.at(3) == '1')
                         {
                             players[currentName]->setWeapon(weapons[weaponID]->type,true);
+                            my_mutex.lock();
                             Weapon* p = weapons[weaponID];
                             weapons[weaponID] = nullptr;
+                            my_mutex.unlock();
                             delete p;
                             std::cout<<"SIKERULT TOROLNI"<<std::endl;
                         }
