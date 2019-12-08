@@ -14,14 +14,11 @@ Wireless LAN adapter Local Area Connection* 10:
 
 Wireless LAN adapter Wi-Fi:
 
-   Connection-specific DNS Suffix  . : home
-   IPv6 Address. . . . . . . . . . . : 2a02:ab88:1343:f300:4c36:77f3:dfac:9b37
-   Temporary IPv6 Address. . . . . . : 2a02:ab88:1343:f300:e50f:7189:a440:c5fc
+   Connection-specific DNS Suffix  . : 
    Link-local IPv6 Address . . . . . : fe80::4c36:77f3:dfac:9b37%14
-   IPv4 Address. . . . . . . . . . . : 192.168.0.192
+   IPv4 Address. . . . . . . . . . . : 192.168.1.69
    Subnet Mask . . . . . . . . . . . : 255.255.255.0
-   Default Gateway . . . . . . . . . : fe80::ae22:5ff:fe1b:11a%14
-                                       192.168.0.1
+   Default Gateway . . . . . . . . . : 192.168.1.1
 
 Ethernet adapter Bluetooth Network Connection:
 

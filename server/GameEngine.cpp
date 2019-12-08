@@ -178,8 +178,8 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
         //players_map->lock(); ///FAGYI
         for(std::pair<std::string,player*> pr : players) {
             player* p = pr.second;
-            p_mutexes[p]->lock();
             if(p != actplayer) {
+                p_mutexes[p]->lock();
                 if(sqrt(pow(w_x - p->getX(),2) + pow(w_y - p->getY(),2)) <= p->getHitboxRadius()) {
                     p->setCurrentHp(p->getCurrentHp() - weapons[actplayer->getWeapon()]->getPower());
                     if(p->getCurrentHp() <= 0) {

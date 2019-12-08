@@ -162,7 +162,6 @@ void Drawable_Player::testPoke(bool setToIt)
             poking = false;
             my_mutex.unlock();
         }
-
     }
     else
     {

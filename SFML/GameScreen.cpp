@@ -287,6 +287,7 @@ else
         }
     if(me->getChange())
         c->notify();
+
     }
 }
 

@@ -277,7 +277,6 @@ std::string player::toString() {
     /*s << getX() << "|" << getY() << "|" << getRot()
     << "|" << getMaxHp() << "|" << getCurrentHp()
     << "|" << getScore() <<"|"<<getWeapon();*/
-    std::cout << flags << std::endl;
     return flags;
 }
 void player::setChange(bool c)

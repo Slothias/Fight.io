@@ -836,14 +836,14 @@
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 
-1575765368 source:d:\homeproject\c++\repo\fight.io\sfml\drawable_player.cpp
+1575809428 source:d:\homeproject\c++\repo\fight.io\sfml\drawable_player.cpp
 	"Drawable_Player.hpp"
 	<iostream>
 	<chrono>
 	<thread>
 	<fstream>
 
-1575766224 source:d:\homeproject\c++\repo\fight.io\sfml\gamescreen.cpp
+1575809550 source:d:\homeproject\c++\repo\fight.io\sfml\gamescreen.cpp
 	"GameScreen.hpp"
 	<vector>
 	<string>
@@ -1341,7 +1341,7 @@
 1575366135 c:\users\sziln\desktop\suli\adv. c++\fight.io\includes\weapon.hpp
 	<SFML/Graphics.hpp>
 
-1575658409 source:d:\homeproject\c++\repo\fight.io\includes\player.cpp
+1575808847 source:d:\homeproject\c++\repo\fight.io\includes\player.cpp
 	"player.hpp"
 	<sstream>
 	<string>
