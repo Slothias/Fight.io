@@ -7,8 +7,8 @@
 Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf::Sprite(),player(name,x,y,a)
 {
     readCfg();
-    weapons = std::vector<Weapon*>(maxPlayers-1);
-    for (int i=0; i<weapons.size(); i++)
+    weapons.resize(maxPlayers-1);
+    for (int i=0; i<Drawable_Player::weapons.size(); i++)
     {
         weapons[i] = nullptr;
     }
@@ -24,7 +24,7 @@ Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf:
     myName->setPosition(x-skin.getSize().x/2 + 5, y - 126);
     skin.setSmooth(true);
     myWeapon = nullptr;
-    addWeapon(0);
+    addWeapon(0,weapons);
     deadSkin.setSmooth(true);
     me.setTexture(skin);
     deadMe.setTexture(deadSkin);
@@ -205,12 +205,19 @@ void Drawable_Player::pickUpEvent(bool setToIt)
 }
 void Drawable_Player::deleteWeapon(int i)
 {
-    if(i<maxPlayers-1)
+    for(std::map<std::string,Drawable_Player*>::iterator it=players.begin(); it!=players.end(); it++)
     {
-    my_mutex.lock();
-    std::cout<<weapons.at(i)->type<<std::endl;
-    weapons[i] =nullptr;
-    my_mutex.unlock();
+        if(it->first!=pName)
+        {
+            Weapon* w = it->second->weapons.at(i);
+            it->second->weapons[i]=nullptr;
+            std::cout<<"TOROLTEM A FEGYVERT TOLE: "<<it->first<<std::endl;
+            delete w;
+        }
+        else
+        {
+            weapons[i]=nullptr;
+        }
     }
 }
 
@@ -256,7 +263,7 @@ void Drawable_Player::setCurrentHp(int _currentHp)
     }
     my_mutex.unlock();
 }
-void Drawable_Player::addWeapon(int i)
+void Drawable_Player::addWeapon(int i,std::vector<Weapon*>& p)
 {
     sf::Vector2f mypos = getPosition();
     float myrot = getRot();
@@ -271,17 +278,18 @@ void Drawable_Player::addWeapon(int i)
         myWeapon->setRotation(myrot);
         weaponHitbox.setOrigin(5,myWeapon->range+5);
     }
-    else if(weapons.at(i))
+    else if(p.at(i))
         {
             Weapon* w = myWeapon;
-            myWeapon = weapons.at(i);
-            weapons[i] = nullptr;
+            myWeapon = p.at(i);
+            weaponpos = i;
+            weapon = myWeapon->type;
+            p[i] = nullptr;
+            std::cout<<"FELVETTE: "<<pName<<std::endl;
             myWeapon->setPosition(mypos);
             myWeapon->setOrigin(-(((int)skin.getSize().x/2)-(int)(3*myWeapon->getTexture()->getSize().x/4)), ((int)myWeapon->getTexture()->getSize().y+myWeapon->getTexture()->getSize().y/15));
             myWeapon->setRotation(myrot);
             weaponHitbox.setOrigin(5,myWeapon->range+5);
-            weapon = myWeapon->type;
-            weaponpos = i;
             delete w;
             std::cout<<"atlancolva"<<std::endl;
         }
@@ -420,7 +428,7 @@ void Drawable_Player::update(std::string data)
                 }
                 if(flags.at(3) == '1')
                 {
-                    //players[currentName]->addWeapon(weapons[weaponID]);
+                    players[currentName]->addWeapon(weaponID,weapons);
                     //players[currentName]->deleteWeapon(weaponID);
                     //deleteWeapon(weaponID);
                 }
@@ -451,8 +459,7 @@ void Drawable_Player::update(std::string data)
                 }
                 if(flags.at(3) == '1')
                         {
-                            addWeapon(weaponID);
-                            //deleteWeapon(weaponID);
+                            addWeapon(weaponID,weapons);
                             std::cout<<"SIKERULT TOROLNI"<<std::endl;
                         }
                 if(getCurrentHp()!=curhp)

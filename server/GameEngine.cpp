@@ -121,9 +121,9 @@ int FilledWithDildo(std::vector<Weapon*>& p)
     return sum;
 }
 void GameEngine::GenerateWeapon() {
-    while(thread_lifetime && players.size() - 1 >= FilledWithDildo(drop_weapons)) {
+    while(thread_lifetime && players.size() - 1 > FilledWithDildo(drop_weapons)) {
         srand(time(NULL));
-        std::this_thread::sleep_for(std::chrono::seconds(10));
+        std::this_thread::sleep_for(std::chrono::seconds(30));
         float x=0;
         float y = 0;
         GenerateXY(x,y);
@@ -148,7 +148,9 @@ void GameEngine::GenerateWeapon() {
         }
         Weapon* w = new Weapon(Wtype);
         w->setXY(x,y);
+        dw_mutex.lock();
         drop_weapons[pos] = w;
+        dw_mutex.unlock();
         std::stringstream ss;
         ss << "Server:" << pos << "|" << Wtype << "|" << x << "|" << y;
         server->sendData(ss.str());
@@ -156,7 +158,9 @@ void GameEngine::GenerateWeapon() {
 }
 
 std::string GameEngine::CreatePlayer(std::string name) {
+    players_map.lock();
     if (players.find(name) != players.end()) {
+        players_map.unlock();
         return "Name is already used!";
     }
     float x,y = 0;
@@ -165,6 +169,7 @@ std::string GameEngine::CreatePlayer(std::string name) {
     players[name]   = p;
     p_mutexes[p] = new std::mutex();
     std::cout << "OKOK" << std::endl;
+    players_map.unlock();
 	return "OK";
 }
 
@@ -198,23 +203,28 @@ std::string GameEngine::ReSpawn(std::string name) {
     }
     else
     {
+    p_mutexes[p]->unlock();
     return name+":"+p->toString();
     }
 }
 
 std::string GameEngine::GetMe(std::string name) {
+    players_map.lock();
     std::string me = players[name]->toString();
     std::string ret = "1111" + me.substr(4);
+    players_map.unlock();
     return ret;
 }
 
 std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string data) {
     player* actplayer = players.at(name);
     std::vector<std::string> ret;
-    if(data.find("EXIT") != std::string::npos) { ///EXIT
+    if(data.find("EXIT") != std::string::npos) {///EXIT
+        players_map.lock();
         delete actplayer;
         players.erase(name);
         ret.push_back(name + ":" + data);
+        players_map.unlock();
         return ret;
     }
     std::stringstream ss(data);
@@ -258,6 +268,7 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
         float w_y = actplayer->getY() + sin((actplayer->getRot()-90)*3.1415/180)* weapons[actplayer->getWeapon()]->getRange();
         bool wasNotZero = true;
         //players_map->lock();
+        players_map.lock();
         for(std::pair<std::string,player*> pr : players) {
             player* p = pr.second;
             if(p != actplayer) {
@@ -278,7 +289,7 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
                 p_mutexes[p]->unlock();
             }
         }
-       // players_map->unlock();
+        players_map.unlock();
         p_mutexes[actplayer]->unlock();
     }
     if(flags.at(3) == '1') ///PICK UP A WEAPON
