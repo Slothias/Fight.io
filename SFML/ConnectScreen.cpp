@@ -1,5 +1,6 @@
 #include "ConnectScreen.hpp"
 #include<thread>
+#include<iostream>
 #include <ctype.h>
 #include<sstream>
 
@@ -45,6 +46,7 @@ ConnectScreen::ConnectScreen(sf::RenderWindow *a):Screen()
         my_mutex.lock();
         isconnecting=true;
         my_mutex.unlock();
+        std::cout<<res.c_str()<<std::endl;
         const std::string result =  testClient->tryToConnect(res.c_str(),10043,getName());
         resultText->setString(result);
         resultText->setPosition(app->getView().getCenter().x/2 - resultText->getLocalBounds().width/2, app->getSize().y-4*resultText->getLocalBounds().height);
@@ -139,6 +141,7 @@ void ConnectScreen::handle(sf::Event& event)
         my_mutex.unlock();
         if(!g)
             name->processEvent(simplgui::Event(event,*app));
+        //std::this_thread::sleep_for(std::chrono::milliseconds(80));
         }
         button->processEvent(simplgui::Event(event, *app));
         cursor.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(*app)));

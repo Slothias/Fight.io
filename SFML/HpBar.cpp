@@ -20,6 +20,11 @@ void HpBar::setPosition(float x, float y)
     hpBar.setPosition(x+3,y+13);
     level->setPosition(x+skin.getSize().x-38,y-6);
 }
+/*void HpBar::setRotation(float angle)
+{
+    border.setRotation(angle);
+    hp.setRotation(angle);
+}*/
 
 void HpBar::setColor(sf::Color color)
 {
@@ -57,4 +62,5 @@ void HpBar::setCurrentHp(int c)
 
 HpBar::~HpBar()
 {
+    //dtor
 }

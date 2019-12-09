@@ -39,6 +39,7 @@ ServerGui::ServerGui():sf::RenderWindow(sf::VideoMode(800,600),"Server")
             is_running=true;
             std::thread t([&](){
                           server->runServer();
+                           // std::cout<<"futok"<<std::endl;
                           });
             t.detach();
         }
@@ -122,4 +123,5 @@ void ServerGui::loop()
 ServerGui::~ServerGui()
 {
 delete server;
+//std::cout<<"GUI SHUTDOWN"<<std::endl;
 }

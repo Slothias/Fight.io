@@ -100,7 +100,25 @@ void Server::runServer()
 {
     if(getconnected())
     {
+        //std::cout << "Listening for incoming connections..." << std::endl;
         int clientsize = sizeof(clientAddr);
+        /*   std::thread tick([this]()
+           {
+               while(getconnected())
+               {
+                   if(current_msg.size()>0)
+                   {
+                       std::pair<std::string, std::string> current;
+                       my_mutex.lock();
+                       current=current_msg.front();
+                       current_msg.pop();
+                       my_mutex.unlock();
+                       sendData(current.first, current.second);
+                       std::cout<<current_msg.size()<<std::endl;
+
+                   }
+               }
+           });*/
         while (getconnected())
         {
             SOCKET c = accept(server, (SOCKADDR *) &clientAddr, &clientsize);
@@ -124,8 +142,10 @@ void Server::runServer()
                 {
                     delete player;
                 }
+                //std::cout << "JÓ vagyok :DDDD" << std::endl;
             }
         }
+        // tick.join();
     }
 }
 void Server::pushData(std::string data,std::string who)
@@ -165,10 +185,13 @@ void Server::closeServer()
     shutdown(server,2);
     closesocket(server);
     WSACleanup();
+    // std::cout<<"Server closed"<<std::endl;
 }
 Server::~Server()
 {
     delete myEngine;
+
+    //std::cout<<"Server cleared"<<std::endl;
 
 }
 Server::ServerAssistant::ServerAssistant(SOCKET c,Server* m,std::string n)
@@ -260,6 +283,7 @@ void Server::ServerAssistant::run()
     }
     while(getcon())
     {
+        //  std::this_thread::sleep_for(std::chrono::milliseconds(64));
         std::string msg=getData();
         if(msg.length()>0)
         {
@@ -275,6 +299,7 @@ void Server::ServerAssistant::run()
                     me->sendData(s);
             }
             }
+           // me->sendData(name+":"+msg);
             if(msg.find("EXIT")!= std::string::npos)
             {
                 closeConnection();
@@ -290,4 +315,7 @@ void Server::ServerAssistant::run()
 
 Server::ServerAssistant::~ServerAssistant()
 {
+    // std::cout<<"MEGHALTAM"<<std::endl;
+    //  std::cout<<"Socket closed"<<std::endl;
+
 }
