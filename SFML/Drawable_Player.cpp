@@ -1,5 +1,4 @@
 #include "Drawable_Player.hpp"
-#include <iostream>
 #include <chrono>
 #include <thread>
 #include<fstream>
@@ -216,7 +215,6 @@ void Drawable_Player::deleteWeapon(int i)
         {
             Weapon* w = it->second->weapons.at(i);
             it->second->weapons[i]=nullptr;
-            std::cout<<"TOROLTEM A FEGYVERT TOLE: "<<it->first<<std::endl;
             delete w;
         }
         else
@@ -290,13 +288,11 @@ void Drawable_Player::addWeapon(int i,std::vector<Weapon*>& p)
             weaponpos = i;
             weapon = myWeapon->type;
             p[i] = nullptr;
-            std::cout<<"FELVETTE: "<<pName<<std::endl;
             myWeapon->setPosition(mypos);
             myWeapon->setOrigin(-(((int)skin.getSize().x/2)-(int)(3*myWeapon->getTexture()->getSize().x/4)), ((int)myWeapon->getTexture()->getSize().y+myWeapon->getTexture()->getSize().y/15));
             myWeapon->setRotation(myrot);
             weaponHitbox.setOrigin(5,myWeapon->range+5);
             delete w;
-            std::cout<<"atlancolva"<<std::endl;
         }
     my_mutex.unlock();
 
@@ -311,7 +307,7 @@ void Drawable_Player::setMaxHp(int _maxHp)
     maxHp = _maxHp;
     myHpBar->setMaxHp(maxHp);
 }
-//---------GETTERS---------------
+
 Weapon* Drawable_Player::getWeapon()
 {
     return myWeapon;
@@ -329,7 +325,6 @@ void Drawable_Player::update(std::string data)
     ///ha új fegyót kapunk
     if(currentName == "Server" && data.find("EXIT")==std::string::npos)
     {
-        std::cout << "New weapon msg: "<< data << std::endl;
         std::string line;
         int id,type;
         float posx,posy;
@@ -341,7 +336,6 @@ void Drawable_Player::update(std::string data)
         posx = std::stof(line);
         std::getline(ss,line);
         posy = std::stof(line);
-        std::cout << "Broken down: "<< id << " " << type << " " << posx << " " << posy << std::endl;
         my_mutex.lock();
         weapons[id] = new Weapon(type);
         weapons[id]->setPosition(posx,posy);
@@ -354,7 +348,6 @@ void Drawable_Player::update(std::string data)
         ///ha a szerver küldte az exitet, mindenki mehet a picsába
         if(currentName == "Server")
         {
-            std::cout<<"Server exit"<<std::endl;
             std::map<std::string, Drawable_Player*> myMap =players;
             players.clear();
         }
@@ -396,7 +389,6 @@ void Drawable_Player::update(std::string data)
         }
         if(flags.at(2) == '1')
         {
-            //std::cout<<flags.substr(0,4);
             curPoking = true;
 
         }
@@ -409,7 +401,6 @@ void Drawable_Player::update(std::string data)
             std::getline(ss,line,'|');
             weaponID = std::stoi(line);
         }
-        //curPoking=flags.at(3)=='1';
         std::getline(ss,line,'|');
         int maxhp = std::stoi(line);
         std::getline(ss,line,'|');
@@ -422,7 +413,6 @@ void Drawable_Player::update(std::string data)
         ///ha nincs meg ez a játékos, akkor hozzáadjuk
         if(players.find(currentName)== players.end() && pName!=currentName)
         {
-            std::cout<<" NEW PLAYER: "<<currentName<<" "<<curx<<" "<<cury<<std::endl;
             players[currentName] = new Drawable_Player(currentName,curx,cury,getrot);
             my_mutex.unlock();
         }
@@ -448,8 +438,6 @@ void Drawable_Player::update(std::string data)
                 if(flags.at(3) == '1')
                 {
                     players[currentName]->addWeapon(weaponID,weapons);
-                    //players[currentName]->deleteWeapon(weaponID);
-                    //deleteWeapon(weaponID);
                 }
                 ///ha eltér a maxhp,akkor frissít
                 if(act->getMaxHp()!=maxhp)
@@ -480,7 +468,6 @@ void Drawable_Player::update(std::string data)
                 if(flags.at(3) == '1')
                         {
                             addWeapon(weaponID,weapons);
-                            std::cout<<"SIKERULT TOROLNI"<<std::endl;
                         }
                 if(getCurrentHp()!=curhp)
                 {
@@ -501,10 +488,9 @@ void Drawable_Player::update(std::string data)
                         setNewWeapon(0);
                         std::thread t([&]()
                         {
-                            std::this_thread::sleep_for(std::chrono::seconds(3));
+                            std::this_thread::sleep_for(std::chrono::seconds(2));
                             setRespawn(true);
                             setChange(true);
-                            std::cout<<"respawn"<<std::endl;
                         });
                         t.detach();
                     }
@@ -532,6 +518,15 @@ void Drawable_Player::setNewWeapon(int type)
     myWeapon->setRotation(getRot());
     weaponHitbox.setOrigin(5,myWeapon->range+5);
 }
+int Drawable_Player::getLevel()
+{
+    int ret;
+    my_mutex.lock();
+    ret = level;
+    my_mutex.unlock();
+    return ret;
+}
+
 sf::Vector2<float> Drawable_Player::getPosition()
 {
     return me.getPosition();
@@ -557,7 +552,5 @@ sf::Texture Drawable_Player::getSkin()
 }
 Drawable_Player::~Drawable_Player()
 {
-//    delete myWeapon;
     delete myHpBar;
-    //dtor
 }

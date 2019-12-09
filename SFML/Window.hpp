@@ -6,9 +6,7 @@
 class Window:public sf::RenderWindow
 {
 private:
-   // static const int SLEEPVAL=1000/FRAMERATE;
     public:
-       // sf::Event event;
         sf::View view;
         Window(sf::VideoMode vm, std::string title);
         void loop();

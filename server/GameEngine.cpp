@@ -226,7 +226,7 @@ std::string GameEngine::ReSpawn(std::string name) {
         p->setCurrentHp(curhp);
         p->setMaxHp(maxhp);
         p->setScore(score);
-        p->setWeapon(wp,-1);
+        p->setWeapon(wp,0);
         p_mutexes[p]->unlock();
         return name+":"+p->toString();
     }
@@ -368,81 +368,6 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
     ret.push_back(name + ":" + actplayer->toString());
     p_mutexes[actplayer]->unlock();
     return ret;
-
-    /**curPoking=flags.at(3)=='1';
-    std::getline(ss,line,'|');
-    int maxhp = std::stoi(line);
-    std::getline(ss,line,'|');
-    int curhp = std::stoi(line);
-    std::getline(ss,line,'|');
-    int getscore = std::stoi(line);
-    std::getline(ss,line,'|');
-    int wp =std::stoi(line);
-    std::stringstream ss(msg);
-    std::string line;
-
-    std::getline(ss,line,'|');
-    int event_type = std::stoi(line);
-
-    std::getline(ss,line,'|');
-    float curx = std::stof(line);
-    std::getline(ss,line,'|');
-    float cury = std::stof(line);
-    std::getline(ss,line,'|');
-    float getrot = std::stof(line);
-
-    switch (flags) {
-        case .at(2) = 1: {
-            ///rotation
-            actplayer->setRotation(getrot);
-            return actplayer->toString();
-        }
-        case 1: {
-            ///move
-            if (curx <= -mapSize || curx >= mapSize ||
-                cury <= -mapSize || cury >= mapSize)
-            {
-                return actplayer->toString();
-            }
-            actplayer->setPosition(curx,cury);
-            return actplayer->toString();
-        }
-        case 2: {
-            ///hitbox
-
-            for(std::pair<std::string,player*> pr : players) {
-                player* p = pr.second;
-                float diraction = atan2( (p->getY() - actplayer->getY()) , (p->getX() - actplayer->getX()) ) * 180/PI;
-                if(diraction...
-                   && sqrt(pow(actplayer->getX() - p->getX(), 2) + pow(actplayer->getY() - p->getY(), 2))/ < actplayer->getWeapon()->getRange() ) {
-
-                }
-            }
-            return actplayer->toString();
-            break;
-        }
-        case 3: {
-            ///pickup
-            break;
-        }
-    }
-    /// Rotation
-    if (actplayer->getRot() != getrot) {
-        actplayer->setRotation(getrot);
-        return actplayer->toString();
-    }
-    /// Border
-    if (actplayer->getX() != curx || actplayer->getY() != cury) {
-        if (curx <= -mapSize || curx >= mapSize ||
-            cury <= -mapSize || cury >= mapSize)
-            {
-            return actplayer->toString();
-            }
-        actplayer->setPosition(curx,cury);
-    }
-        /// Hitbox
-        return actplayer->toString();
-*/
 }
 
 double GameEngine::GetMapSize() {

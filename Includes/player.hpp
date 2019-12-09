@@ -13,7 +13,6 @@ protected:
     float prevX,prevY,prevRot;
     bool prevPoking;
     int weaponpos;
-    //sf::Vector2 hitPosition;
     std::string pName;
     int maxHp;
     int currentHp;

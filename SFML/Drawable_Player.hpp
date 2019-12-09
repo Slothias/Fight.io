@@ -4,7 +4,6 @@
 #include "../Includes/Weapon.hpp"
 #include "HpBar.hpp"
 #include <map>
-#include<iostream>
 #include<sstream>
 #include "../Includes/player.hpp"
 #include "Screen.hpp"
@@ -38,6 +37,7 @@ public:
     //getters
     void update(std::string data);
     int getMapSize();
+    int getLevel();
 
     Weapon* getWeapon();
     Weapon* pickWeapon(int i);
