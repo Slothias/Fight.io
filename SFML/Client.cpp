@@ -137,8 +137,12 @@ void Client::runclient()
                                     setconnected(false);
                                     cv.notify_all();
                                 }
-                            std::thread t (&player::update,&(*thisPlayer),g);
-                            t.detach();
+                            thisPlayer->update(g);
+                            /*std::thread t ([&]()
+                                           {
+                                               thisPlayer->update(g);
+                                           });
+                            t.detach();*/
 
                              }
                             });

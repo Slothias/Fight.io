@@ -240,7 +240,7 @@ std::string GameEngine::ReSpawn(std::string name) {
 std::string GameEngine::GetMe(std::string name) {
     p_mutexes[players[name]]->lock();
     std::string me = players[name]->toString();
-    std::string ret =name+":1100" + "|"+std::to_string(players[name]->getX())+"|"+std::to_string(players[name]->getY())+"|"+std::to_string(players[name]->getRot())+me.substr(4);
+    std::string ret =name+":1100" + "|" +std::to_string(players[name]->getX())+"|"+std::to_string(players[name]->getY())+"|"+std::to_string(players[name]->getRot())+"|"+std::to_string(players[name]->getMaxHp())+"|"+std::to_string(players[name]->getCurrentHp())+"|"+std::to_string(players[name]->getScore())+"|"+std::to_string(players[name]->getWeapon());
     p_mutexes[players[name]]->unlock();
     return ret;
 }

@@ -20,6 +20,8 @@ private:
         ConnectScreen* connectScreen;
         State state;
         sf::Image icon;
+        //sf::Music music;
+        //sf::Music game;
 
 
 };

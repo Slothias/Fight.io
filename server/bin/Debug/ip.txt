@@ -2,6 +2,16 @@
 Windows IP Configuration
 
 
+Ethernet adapter Hamachi:
+
+   Connection-specific DNS Suffix  . : 
+   IPv6 Address. . . . . . . . . . . : 2620:9b::192f:4bcb
+   Link-local IPv6 Address . . . . . : fe80::89f5:7b69:2105:2c6d%13
+   IPv4 Address. . . . . . . . . . . : 25.47.75.203
+   Subnet Mask . . . . . . . . . . . : 255.0.0.0
+   Default Gateway . . . . . . . . . : 2620:9b::1900:1
+                                       25.0.0.1
+
 Wireless LAN adapter Local Area Connection* 1:
 
    Media State . . . . . . . . . . . : Media disconnected
@@ -14,11 +24,14 @@ Wireless LAN adapter Local Area Connection* 10:
 
 Wireless LAN adapter Wi-Fi:
 
-   Connection-specific DNS Suffix  . : 
-   Link-local IPv6 Address . . . . . : fe80::4c36:77f3:dfac:9b37%14
-   IPv4 Address. . . . . . . . . . . : 192.168.1.69
+   Connection-specific DNS Suffix  . : home
+   IPv6 Address. . . . . . . . . . . : 2a02:ab88:1343:f300:4c36:77f3:dfac:9b37
+   Temporary IPv6 Address. . . . . . : 2a02:ab88:1343:f300:bd0a:53d5:25f3:5a2f
+   Link-local IPv6 Address . . . . . : fe80::4c36:77f3:dfac:9b37%15
+   IPv4 Address. . . . . . . . . . . : 192.168.0.192
    Subnet Mask . . . . . . . . . . . : 255.255.255.0
-   Default Gateway . . . . . . . . . : 192.168.1.1
+   Default Gateway . . . . . . . . . : fe80::ae22:5ff:fe1b:11a%15
+                                       192.168.0.1
 
 Ethernet adapter Bluetooth Network Connection:
 

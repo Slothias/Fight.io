@@ -13,11 +13,16 @@ Window::Window(sf::VideoMode vm, std::string title):RenderWindow(vm,title)
     icon.loadFromFile("Player.png");
     setIcon(150,100,icon.getPixelsPtr());
     setVerticalSyncEnabled(false);
+    /*music.openFromFile("we_are_the_resistors.wav");
+    music.setVolume(20);
+    game.openFromFile("menu_select.wav");
+    game.setVolume(20);*/
     setFramerateLimit(120);
 }
 void Window::loop()
 {
     setMouseCursorVisible(false);
+   // music.play();
     while(state==State::main_menu && isOpen())//connect screen
     {
         menu->draw();
@@ -47,12 +52,13 @@ void Window::loop()
         if(connectScreen->change_me())
         {
             state=State::play;
+           // music.stop();
             gameScreen = new GameScreen(this,connectScreen->getClient());
         }
 
     }
-
     setMouseCursorVisible(true);
+    //game.play();
     while(state==State::play && isOpen())//game screen
     {   //auto t1 = std::chrono::high_resolution_clock::now();
 
@@ -65,8 +71,6 @@ void Window::loop()
         }*/
         /////////////////////////////////// valami nem jó vele
         gameScreen->draw();
-
-
         sf::Event event;
         pollEvent(event);
         gameScreen->handle(event);
@@ -83,6 +87,7 @@ void Window::loop()
         //std::cout << duration << std::endl;*/
        // std::this_thread::sleep_for(std::chrono::nanoseconds(12));
     }
+   // game.stop();
 }
 void Window::setState(State s)
 {
