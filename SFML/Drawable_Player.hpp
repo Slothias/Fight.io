@@ -23,6 +23,8 @@ public:
     sf::Vector2<float> getPosition();
     virtual void setScale(float x, float y);
     virtual void setOrigin(float x, float y);
+    virtual void setMaxHp(int _maxHp);
+    void setNewWeapon(int type);
 
     //TODO
     std::map<std::string,Drawable_Player*> getPlayers();

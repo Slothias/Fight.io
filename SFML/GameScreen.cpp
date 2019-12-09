@@ -29,7 +29,7 @@ GameScreen::GameScreen(sf::RenderWindow *App, Client* my)
 
     GetDesktopResolution();
 
-    for(int i=0; i<3; i++)
+    for(int i=0; i<5; i++)
     {
         scoreboard.push_back(sf::Text());
         scoreboard[i].setCharacterSize(20);
