@@ -18,7 +18,7 @@ public:
     virtual void setPosition(float x, float y,bool c);
     virtual void setRotation(float x, bool c);
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states);
-    virtual void outOfScreenDraw(sf::RenderTarget& target, sf::RenderStates states, double x, double y, int mapX, int mapY, unsigned int vertical);
+    void outOfScreenDraw(sf::RenderTarget& target, double x, double y, int mapX, int mapY, unsigned int vertical);
     sf::Texture getSkin();
     sf::Vector2<float> getPosition();
     virtual void setScale(float x, float y);

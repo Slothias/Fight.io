@@ -41,6 +41,7 @@ class GameScreen:public Screen
         sf::Font deathFont;
         sf::Vector2<float> getViewOffSet();
         std::vector<sf::Text> scoreboard;
+        sf::RectangleShape scoreboardBackground;
         std::map<std::string,Weapon*> weapons;
         std::string host;
         u_short port;

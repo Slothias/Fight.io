@@ -8,8 +8,12 @@ class Weapon: public sf::Sprite
         int type;
         int useRotation;
         int cooldown;
+        sf::CircleShape alternativeDraw;
         Weapon();
         Weapon(int type);
+        void outOfScreenDraw(sf::RenderTarget& target, double x, double y, int mapX, int mapY, unsigned int vertical);
+        void onGroundDraw(sf::RenderTarget& target);
+        sf::CircleShape weaponPickupPoint;
         virtual ~Weapon();
         sf::Texture skin;
         void setPower(float p);

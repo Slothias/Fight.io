@@ -30,11 +30,14 @@ GameScreen::GameScreen(sf::RenderWindow *App, Client* my)
     for(int i=0; i<3; i++)
     {
         scoreboard.push_back(sf::Text());
-        scoreboard[i].setString("placeholder");
         scoreboard[i].setCharacterSize(20);
         scoreboard[i].setColor(sf::Color(0,0,0,200));
         scoreboard[i].setFont(font);
     }
+    scoreboardBackground.setFillColor(sf::Color(150,150,150,150));
+    scoreboardBackground.setSize(sf::Vector2f(300,scoreboard[0].getCharacterSize()*scoreboard.size() + 20));
+    scoreboardBackground.setOutlineColor(sf::Color(0,0,0,150));
+    scoreboardBackground.setOutlineThickness(3);
 
     deathOverlay.setSize(sf::Vector2f(mapSize,mapSize));
     deathOverlay.setPosition(-mapSize/2,-mapSize/2);
@@ -90,6 +93,14 @@ void GameScreen::draw()
             if(weapons[i] != nullptr)
             {
                 app->draw(*weapons[i]);
+                if(weapons[i]->getX() < v.getCenter().x-(horizontal/2) ||
+                   weapons[i]->getX() > v.getCenter().x+(horizontal/2) ||
+                   weapons[i]->getY() < v.getCenter().y-(vertical/2) ||
+                   weapons[i]->getY() > v.getCenter().y+(vertical/2))
+                {
+                    weapons[i]->outOfScreenDraw(*app,me->getX(),me->getY(), background.getTextureRect().width, background.getTextureRect().height,vertical);
+                }
+                weapons[i]->onGroundDraw(*app);
             }
         }
 
@@ -105,7 +116,7 @@ void GameScreen::draw()
                entries.second->getY() > v.getCenter().y+(vertical/2))&&
                entries.second->getCurrentHp() > 0)
             {
-                entries.second->outOfScreenDraw(*app,sf::RenderStates::Default,me->getX(),me->getY(), background.getTextureRect().width, background.getTextureRect().height,vertical);
+                entries.second->outOfScreenDraw(*app,me->getX(),me->getY(), background.getTextureRect().width, background.getTextureRect().height,vertical);
             }
 
         }
@@ -121,6 +132,8 @@ void GameScreen::draw()
             sort(forScoreboard.begin(), forScoreboard.end(), [](const std::pair<std::string,int>& l, const std::pair<std::string,int>& r) {
                                                             return l.second > r.second;
             });
+        scoreboardBackground.setPosition(v.getCenter().x - horizontal/2 + 10, v.getCenter().y - vertical/2 + 10);
+        app->draw(scoreboardBackground);
         for(int i=0; (i<scoreboard.size() && i<forScoreboard.size()); i++)
         {
             std::stringstream ss;

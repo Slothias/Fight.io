@@ -97,7 +97,7 @@ void Drawable_Player::draw(sf::RenderTarget& target, sf::RenderStates states)
 
 
 }
-void Drawable_Player::outOfScreenDraw(sf::RenderTarget& target, sf::RenderStates states, double x, double y, int mapX, int mapY, unsigned int vertical)
+void Drawable_Player::outOfScreenDraw(sf::RenderTarget& target, double x, double y, int mapX, int mapY, unsigned int vertical)
 {
     double relativeRotation;
     double absX;
