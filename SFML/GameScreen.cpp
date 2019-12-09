@@ -12,6 +12,8 @@ GameScreen::GameScreen(sf::RenderWindow *App, Client* my)
     c=my;
     me=new Drawable_Player(my->getName(),0,0,0);
     c->addPlayer(me);
+    initMe(c->getData());
+    std::cout<<me->getPosition().x<<" "<<me->getPosition().y<<std::endl;
     mapSize = me->getMapSize();
 
     std::thread t(&Client::runclient,&(*c));
@@ -50,7 +52,33 @@ GameScreen::GameScreen(sf::RenderWindow *App, Client* my)
 
 
 }
-
+void GameScreen::initMe(std::string msg)
+{
+        std::stringstream ss(msg);
+        std::string flags;
+        std::string line;
+        std::getline(ss,line,':');
+        std::cout<<"msg:"<<msg<<std::endl;
+        float curx,cury,getrot;
+        int weaponID = -1;
+        bool curPoking=false;
+        std::getline(ss,flags,'|');
+        std::cout<<"flags:"<<flags<<std::endl;
+        if(flags.at(0)=='1')
+        {
+            std::getline(ss,line,'|');
+            curx = std::stof(line);
+            std::getline(ss,line,'|');
+            cury = std::stof(line);
+            std::cout<<"POS:" << curx << " "<<cury<<std::endl;
+            me->setPosition(curx,cury,true);
+        }
+        if(flags.at(1)=='1')
+        {
+            std::getline(ss,line,'|');
+            me->setRotation(std::stof(line),false);
+        }
+}
 
 void GameScreen::GetDesktopResolution()
 {

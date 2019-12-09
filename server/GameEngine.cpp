@@ -164,7 +164,7 @@ std::vector<std::string> GameEngine::getState(std::string name)
     {
         if(it->first!=name)
         {
-            result.push_back(name+":"+GetMe(it->first));
+            result.push_back(GetMe(it->first));
         }
     }
     players_map.unlock();
@@ -179,6 +179,7 @@ std::vector<std::string> GameEngine::getState(std::string name)
         }
     }
     dw_mutex.unlock();
+    return result;
 }
 std::string GameEngine::CreatePlayer(std::string name) {
     players_map.lock();
@@ -191,8 +192,8 @@ std::string GameEngine::CreatePlayer(std::string name) {
     player* p = new player(name, x, y, 0);
     players[name]   = p;
     p_mutexes[p] = new std::mutex();
-    std::cout << "OKOK" << std::endl;
     players_map.unlock();
+    std::cout<< " TO STRING "<<p->toString()<<std::endl;
 	return "OK";
 }
 
@@ -232,8 +233,10 @@ std::string GameEngine::ReSpawn(std::string name) {
 }
 
 std::string GameEngine::GetMe(std::string name) {
+    p_mutexes[players[name]]->lock();
     std::string me = players[name]->toString();
-    std::string ret = "1100" + me.substr(4);
+    std::string ret =name+":1100" + "|"+std::to_string(players[name]->getX())+"|"+std::to_string(players[name]->getY())+"|"+std::to_string(players[name]->getRot())+me.substr(4);
+    p_mutexes[players[name]]->unlock();
     return ret;
 }
 

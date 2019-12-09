@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1575820294 source:d:\homeproject\c++\repo\fight.io\includes\player.cpp
+1575900201 source:d:\homeproject\c++\repo\fight.io\includes\player.cpp
 	"player.hpp"
 	<sstream>
 	<string>
@@ -562,7 +562,7 @@
 	<SFML/Audio/Export.hpp>
 	<string>
 
-1575896223 source:d:\homeproject\c++\repo\fight.io\sfml\drawable_player.cpp
+1575899378 source:d:\homeproject\c++\repo\fight.io\sfml\drawable_player.cpp
 	"Drawable_Player.hpp"
 	<iostream>
 	<chrono>
@@ -584,19 +584,22 @@
 1574932746 d:\homeproject\c++\repo\fight.io\sfml\hpbar.hpp
 	<SFML/Graphics.hpp>
 
-1575821934 source:d:\homeproject\c++\repo\fight.io\sfml\gamescreen.cpp
+1575903957 source:d:\homeproject\c++\repo\fight.io\sfml\gamescreen.cpp
 	"GameScreen.hpp"
 	<vector>
 	<string>
+	<algorithm>
+	<sstream>
 
-1575821934 d:\homeproject\c++\repo\fight.io\sfml\gamescreen.hpp
+1575902900 d:\homeproject\c++\repo\fight.io\sfml\gamescreen.hpp
 	"Screen.hpp"
 	"Drawable_Player.hpp"
 	<iostream>
 	"Client.hpp"
 	<fstream>
+	<vector>
 
-1575813981 source:d:\homeproject\c++\repo\fight.io\sfml\hpbar.cpp
+1575900201 source:d:\homeproject\c++\repo\fight.io\sfml\hpbar.cpp
 	"HpBar.hpp"
 	<sstream>
 

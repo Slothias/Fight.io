@@ -275,11 +275,13 @@ void Server::ServerAssistant::closeConnection()
 void Server::ServerAssistant::run()
 {
 
-    //me->sendData(me->myEngine->GetMe(name));
-    /*for(std::string s: me->myEngine->getState(name))
+    std::string o = me->myEngine->GetMe(name);
+    std::cout<<o<<std::endl;
+    me->sendData(o);
+    for(std::string s: me->myEngine->getState(name))
     {
         sendData(s);
-    }*/
+    }
     while(getcon())
     {
         //  std::this_thread::sleep_for(std::chrono::milliseconds(64));

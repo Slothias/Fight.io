@@ -17,6 +17,7 @@ class GameScreen:public Screen
         std::map<std::string,Weapon*> getWeapons();
          ~GameScreen();
     private:
+        void initMe(std::string msg);
         double mapSize;
         sf::Vector2<float> viewOffSet;
         static const int SLEEPVAL=1000/FRAMERATE;
