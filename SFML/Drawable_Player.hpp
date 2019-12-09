@@ -32,7 +32,7 @@ public:
     void pickUpEvent(bool setToIt);
     void setLevel(int i);
     void deleteWeapon(int i);
-    void addWeapon(int i);
+    void addWeapon(int i, std::vector<Weapon*>& p);
     //getters
     void update(std::string data);
     int getMapSize();
