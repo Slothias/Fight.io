@@ -40,7 +40,11 @@ Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf:
     weaponHitbox.setFillColor(sf::Color(255,0,0,50));
     weaponHitbox.setRadius(5);
     weaponHitbox.setOrigin(5,myWeapon->range+5);
-
+    me.setPosition(x,y);
+    myWeapon->setPosition(x,y);
+    weaponHitbox.setPosition(x,y);
+    testHitbox.setOrigin(-x,-y);
+    myHpBar->setPosition(x-(skin.getSize().x/2), y-(1.5*skin.getSize().y));
     //setScale(0.5f,0.5f);
     setOrigin(skin.getSize().x/2, skin.getSize().y/2);
     setPosition(x,y,true);
@@ -129,11 +133,11 @@ void Drawable_Player::setPosition(float x, float y,bool c)
         playerX=x;
         playerY=y;
         changed = c;
+        me.setPosition(sf::Vector2f(x,y));
         myWeapon->setPosition(x,y);
         weaponHitbox.setPosition(x,y);
         testHitbox.setOrigin(-x,-y);
         myHpBar->setPosition(x-(skin.getSize().x/2), y-(1.5*skin.getSize().y));
-        me.setPosition(x,y);
         deadMe.setPosition(x,y);
         myName->setPosition(x-skin.getSize().x/2 + 5, y - 126);
         my_mutex.unlock();
@@ -404,6 +408,7 @@ void Drawable_Player::update(std::string data)
         ///ha nincs meg ez a játékos, akkor hozzáadjuk
         if(players.find(currentName)== players.end() && pName!=currentName)
         {
+            std::cout<<" NEW PLAYER: "<<currentName<<" "<<curx<<" "<<cury<<std::endl;
             players[currentName] = new Drawable_Player(currentName,curx,cury,getrot);
             my_mutex.unlock();
         }

@@ -23,8 +23,6 @@ GameEngine::GameEngine(){
         drop_weapons[i] =nullptr;
     }
     thread_lifetime = true;
-    std::thread w_gen_thread(&GameEngine::GenerateWeapon,&(*this));
-    w_gen_thread.detach();
 }
 GameEngine::GameEngine(Server* s) {
     maxPlayers=0;
@@ -340,6 +338,7 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
                 drop_weapons[i] = nullptr;
                 delete x;
                 std::cout<<"Sikerult felvenni"<<std::endl;
+                std::cout<<FilledWithDildo(drop_weapons);
                 ok=true;
             }
             }
