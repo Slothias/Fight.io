@@ -28,8 +28,10 @@ player::player(std::string _pName)
 */
 player::player(std::string _pName, float _playerX, float _playerY, float _playerRotation)
 {
-    playerX = prevX = _playerX;
-    playerY = prevY = _playerY;
+    prevX=0;
+    prevY=0;
+    playerX = _playerX;
+    playerY = _playerY;
     playerRotation = prevRot = _playerRotation;
     prevPoking=false;
     pName = _pName;

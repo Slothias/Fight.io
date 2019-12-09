@@ -23,8 +23,6 @@ GameEngine::GameEngine(){
         drop_weapons[i] =nullptr;
     }
     thread_lifetime = true;
-    std::thread w_gen_thread(&GameEngine::GenerateWeapon,&(*this));
-    w_gen_thread.detach();
 }
 GameEngine::GameEngine(Server* s) {
     maxPlayers=0;
@@ -121,7 +119,14 @@ int FilledWithDildo(std::vector<Weapon*>& p)
     return sum;
 }
 void GameEngine::GenerateWeapon() {
-    while(thread_lifetime && players.size() - 1 > FilledWithDildo(drop_weapons)) {
+    players_map.lock();
+    int s = players.size()-1;
+    players_map.unlock();
+    dw_mutex.lock();
+    int d = FilledWithDildo(drop_weapons);
+    dw_mutex.unlock();
+    while(thread_lifetime && s > d) {
+        std::cout<<s<< " "<<d<<std::endl;
         srand(time(NULL));
         std::this_thread::sleep_for(std::chrono::seconds(30));
         float x=0;
@@ -154,6 +159,12 @@ void GameEngine::GenerateWeapon() {
         std::stringstream ss;
         ss << "Server:" << pos << "|" << Wtype << "|" << x << "|" << y;
         server->sendData(ss.str());
+        players_map.lock();
+        s=players.size()-1;
+        players_map.unlock();
+        dw_mutex.lock();
+        d = FilledWithDildo(drop_weapons);
+        dw_mutex.unlock();
     }
 }
 std::vector<std::string> GameEngine::getState(std::string name)
@@ -334,6 +345,7 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
                 drop_weapons[i] = nullptr;
                 delete x;
                 std::cout<<"Sikerult felvenni"<<std::endl;
+                std::cout<<FilledWithDildo(drop_weapons);
                 ok=true;
             }
             }
