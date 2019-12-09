@@ -8,7 +8,7 @@ Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf:
 {
     readCfg();
     weapons.resize(maxPlayers-1);
-    for (int i=0; i<Drawable_Player::weapons.size(); i++)
+    for (int i=0; i<weapons.size(); i++)
     {
         weapons[i] = nullptr;
     }
@@ -54,7 +54,7 @@ Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf:
 
 void Drawable_Player::readCfg()
 {
-std::string path= "..\\..\\..\\Includes\\config.cfg";
+std::string path= "config.cfg";
     std::ifstream myfile(path.c_str());
     if(myfile.is_open())
     {
@@ -324,7 +324,8 @@ void Drawable_Player::update(std::string data)
     ///megkeressük ki az üzenet feladója
     std::string currentName;
     std::getline(ss,currentName,':');
-
+    if(currentName.length()>0)
+    {
     ///ha új fegyót kapunk
     if(currentName == "Server" && data.find("EXIT")==std::string::npos)
     {
@@ -368,12 +369,19 @@ void Drawable_Player::update(std::string data)
     ///egyébként frissítünk
     else if(data.find("|")!=std::string::npos && data.find("Server")==std::string::npos)
     {
+        my_mutex.lock();
         std::string flags;
         std::string line;
-        float curx,cury,getrot;
+        float curx=0;
+        float cury=0;
+        float getrot=0;
         int weaponID = -1;
         bool curPoking=false;
         std::getline(ss,flags,'|');
+        std::cout<<currentName<<":"<<flags<<"--->"<<data<<std::endl;
+        my_mutex.unlock();
+        if(flags.length()==4)
+        {
         if(flags.at(0) == '1')
         {
             std::getline(ss,line,'|');
@@ -467,7 +475,6 @@ void Drawable_Player::update(std::string data)
                 my_mutex.unlock();
                 if(getMaxHp()!=maxhp)
                 {
-
                     setMaxHp(maxhp);
                 }
                 if(flags.at(3) == '1')
@@ -512,6 +519,8 @@ void Drawable_Player::update(std::string data)
             }
         }
 
+    }
+    }
     }
 }
 void Drawable_Player::setNewWeapon(int type)

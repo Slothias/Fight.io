@@ -20,7 +20,7 @@ class Menu: public Screen
         sf::Texture forCursor;
         sf::Texture forBackground;
         sf::Sprite background;
-         sf::Font getFont();
+        sf::Font getFont();
         sf::Sprite cursor;
 };
 

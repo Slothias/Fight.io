@@ -11,10 +11,10 @@ Menu::Menu(sf::RenderWindow* a):Screen()
     forBackground.setRepeated(true);
     background.setTexture(forBackground);
     app->setMouseCursorVisible(false);
- /*   music.setLoop(true);
+  /*  music.setLoop(true);
     music.openFromFile("we_are_the_resistors.wav");
-    music.setVolume(20);
-*/
+    music.setVolume(20);*/
+
 }
 
 void Menu::loadTexts()

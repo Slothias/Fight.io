@@ -126,6 +126,7 @@ void Server::runServer()
             {
                 ServerAssistant* player=new ServerAssistant(c,this,"");
                 std::string g = player->getData();
+                std::cout<<g<<std::endl;
                 std::string result = myEngine->CreatePlayer(g);
                 player->sendData(result);
                 if(result == "OK")
@@ -276,11 +277,12 @@ void Server::ServerAssistant::run()
 {
 
     std::string o = me->myEngine->GetMe(name);
-    std::cout<<o<<std::endl;
+    std::cout<<"send to all: "<<o<<std::endl;
     me->sendData(o);
     for(std::string s: me->myEngine->getState(name))
     {
         sendData(s);
+        std::cout<<name<<" --> "<<s<<std::endl;
     }
     while(getcon())
     {

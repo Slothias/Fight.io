@@ -53,7 +53,6 @@ GameScreen::GameScreen(sf::RenderWindow *App, Client* my)
     //tempWeaponCounter =0;
     viewOffSet = getViewOffSet();
 
-
 }
 void GameScreen::initMe(std::string msg)
 {
