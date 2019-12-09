@@ -156,7 +156,30 @@ void GameEngine::GenerateWeapon() {
         server->sendData(ss.str());
     }
 }
-
+std::vector<std::string> GameEngine::getState(std::string name)
+{
+    std::vector<std::string> result;
+    players_map.lock();
+    for(std::map<std::string,player*>::iterator it=players.begin(); it!=players.end(); it++)
+    {
+        if(it->first!=name)
+        {
+            result.push_back(name+":"+GetMe(it->first));
+        }
+    }
+    players_map.unlock();
+    dw_mutex.lock();
+    for(int i = 0; i<drop_weapons.size(); i++)
+    {
+        Weapon* p = drop_weapons.at(i);
+        if(p!=nullptr)
+        {
+            std::string msg = "Server:"+std::to_string(i)+"|"+std::to_string(p->type)+"|"+std::to_string(p->getX())+"|"+std::to_string(p->getY());
+            result.push_back(msg);
+        }
+    }
+    dw_mutex.unlock();
+}
 std::string GameEngine::CreatePlayer(std::string name) {
     players_map.lock();
     if (players.find(name) != players.end()) {
@@ -209,10 +232,8 @@ std::string GameEngine::ReSpawn(std::string name) {
 }
 
 std::string GameEngine::GetMe(std::string name) {
-    players_map.lock();
     std::string me = players[name]->toString();
-    std::string ret = "1111" + me.substr(4);
-    players_map.unlock();
+    std::string ret = "1100" + me.substr(4);
     return ret;
 }
 
