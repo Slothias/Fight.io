@@ -274,12 +274,14 @@ void Server::ServerAssistant::closeConnection()
 }
 void Server::ServerAssistant::run()
 {
-    /*double ms = me->myEngine->GetMapSize();
-    std::stringstream ss;
-    ss << ms;
-    sendData(ss.str());*/
-    //me->sendData(me->myEngine->CreatePlayer(name),name);
-    // std::cout<<name<<" connected"<<std::endl;
+
+    std::string o = me->myEngine->GetMe(name);
+    std::cout<<o<<std::endl;
+    me->sendData(o);
+    for(std::string s: me->myEngine->getState(name))
+    {
+        sendData(s);
+    }
     while(getcon())
     {
         //  std::this_thread::sleep_for(std::chrono::milliseconds(64));

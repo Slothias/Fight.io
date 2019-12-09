@@ -42,14 +42,15 @@ public:
     /// Generate Weapon
     void GenerateWeapon();
     /// Create player with name
-    std::string CreatePlayer(std::string);
+    std::string CreatePlayer(std::string s);
+    std::vector<std::string> getState(std::string name);
     /// Generate pos
     void GenerateXY(float&,float&);
     /// Respawn
     std::string ReSpawn(std::string name);
     int calculateScore(player* killer, player* killed);
     /// Get starting data
-    std::string GetMe(std::string);
+    std::string GetMe(std::string name);
 
     /// Handle requests
     std::vector<std::string> CheckRequest(std::string, std::string);
