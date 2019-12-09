@@ -239,7 +239,6 @@ void Server::ServerAssistant::deleteme()
     me->my_mutex.lock();
     me->players.erase(std::remove(me->players.begin(),me->players.end(),this),me->players.end());
     me->my_mutex.unlock();
-    //std::cout<<"lefutottam"<<std::endl;
 
 }
 void Server::ServerAssistant::closeConnection()

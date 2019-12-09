@@ -96,7 +96,7 @@ void GameScreen::draw()
         {
         app->setSize(sf::Vector2<unsigned int>(horizontal,vertical));
         app->setPosition(sf::Vector2<int>(0,0));
-        app->create(sf::VideoMode(horizontal,vertical),"mari",sf::Style::Fullscreen);
+        app->create(sf::VideoMode(horizontal,vertical),"Fight.io",sf::Style::Fullscreen);
         app->setFramerateLimit(120);
         v.setSize(horizontal,vertical);
         }
