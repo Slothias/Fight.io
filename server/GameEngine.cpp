@@ -256,14 +256,17 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
         //std::cout<<flags.substr(0,4);
         float w_x = actplayer->getX() + cos((actplayer->getRot()-90)*3.1415/180) * weapons[actplayer->getWeapon()]->getRange();
         float w_y = actplayer->getY() + sin((actplayer->getRot()-90)*3.1415/180)* weapons[actplayer->getWeapon()]->getRange();
+        bool wasNotZero = true;
         //players_map->lock();
         for(std::pair<std::string,player*> pr : players) {
             player* p = pr.second;
             if(p != actplayer) {
                 p_mutexes[p]->lock();
                 if(sqrt(pow(w_x - p->getX(),2) + pow(w_y - p->getY(),2)) <= p->getHitboxRadius()) {
+                    if(p->getCurrentHp() <= 0)
+                        wasNotZero = false;
                     p->setCurrentHp(p->getCurrentHp() - weapons[actplayer->getWeapon()]->getPower());
-                    if(p->getCurrentHp() <= 0) {
+                    if(p->getCurrentHp() <= 0 && wasNotZero) {
                         int prevScore = actplayer->getScore();
                         int newScore=prevScore+1;
                         actplayer->setScore(newScore);

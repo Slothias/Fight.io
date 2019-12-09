@@ -5,6 +5,7 @@
 #include<iostream>
 #include "Client.hpp"
 #include<fstream>
+#include<vector>
 
 class GameScreen:public Screen
 {
@@ -39,6 +40,7 @@ class GameScreen:public Screen
         sf::Font font;
         sf::Font deathFont;
         sf::Vector2<float> getViewOffSet();
+        std::vector<sf::Text> scoreboard;
         std::map<std::string,Weapon*> weapons;
         std::string host;
         u_short port;

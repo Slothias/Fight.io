@@ -35,7 +35,7 @@ player::player(std::string _pName, float _playerX, float _playerY, float _player
     pName = _pName;
     maxHp =  100;
     currentHp = maxHp;
-    score = 1;
+    score = 0;
     weapon = 0;
     weaponpos = -1;
     hitboxRadius = 75;

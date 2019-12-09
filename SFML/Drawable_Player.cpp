@@ -420,7 +420,7 @@ void Drawable_Player::update(std::string data)
                 }
                 if(flags.at(3) == '1')
                 {
-                   // players[currentName]->addWeapon(weapons[weaponID]);
+                    //players[currentName]->addWeapon(weapons[weaponID]);
                     //players[currentName]->deleteWeapon(weaponID);
                     //deleteWeapon(weaponID);
                 }

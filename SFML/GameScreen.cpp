@@ -1,6 +1,8 @@
 #include "GameScreen.hpp"
 #include <vector>
 #include<string>
+#include<algorithm>
+#include<sstream>
 
 GameScreen::GameScreen(sf::RenderWindow *App, Client* my)
 {
@@ -24,6 +26,15 @@ GameScreen::GameScreen(sf::RenderWindow *App, Client* my)
     background.setTextureRect(sf::IntRect(0,0,mapSize,mapSize));
 
     GetDesktopResolution();
+
+    for(int i=0; i<3; i++)
+    {
+        scoreboard.push_back(sf::Text());
+        scoreboard[i].setString("placeholder");
+        scoreboard[i].setCharacterSize(20);
+        scoreboard[i].setColor(sf::Color(0,0,0,200));
+        scoreboard[i].setFont(font);
+    }
 
     deathOverlay.setSize(sf::Vector2f(mapSize,mapSize));
     deathOverlay.setPosition(-mapSize/2,-mapSize/2);
@@ -83,10 +94,11 @@ void GameScreen::draw()
         }
 
         std::map<std::string,Drawable_Player*> players = me->getPlayers();
-        //std::vector<sf::Vector2 <float> > playerPositions;
+        std::vector<std::pair <std::string,int> > forScoreboard;
         for(std::pair<std::string, Drawable_Player*> entries: players)
         {
             entries.second->draw(*app,sf::RenderStates::Default);
+            forScoreboard.push_back(std::pair<std::string,int>(entries.second->getName(),entries.second->getScore()));
             if((entries.second->getX() < v.getCenter().x-(horizontal/2) ||
                entries.second->getX() > v.getCenter().x+(horizontal/2) ||
                entries.second->getY() < v.getCenter().y-(vertical/2) ||
@@ -98,12 +110,26 @@ void GameScreen::draw()
 
         }
         me->draw(*app,sf::RenderStates::Default);
+        forScoreboard.push_back(std::pair<std::string,int>(me->getName(),me->getScore()));
         if(me->getCurrentHp() == 0)
         {
             app->draw(deathOverlay);
             youDied.setPosition(v.getCenter().x-youDied.getGlobalBounds().width/2,v.getCenter().y-youDied.getGlobalBounds().height*1.4);
             app->draw(youDied);
         }
+        if(forScoreboard.size()>=2)
+            sort(forScoreboard.begin(), forScoreboard.end(), [](const std::pair<std::string,int>& l, const std::pair<std::string,int>& r) {
+                                                            return l.second > r.second;
+            });
+        for(int i=0; (i<scoreboard.size() && i<forScoreboard.size()); i++)
+        {
+            std::stringstream ss;
+            ss << "#" << i+1 << " " << forScoreboard[i].first << ": " << forScoreboard[i].second << " pts";
+            scoreboard[i].setString(ss.str());
+            scoreboard[i].setPosition(v.getCenter().x - horizontal/2 + 20, v.getCenter().y - vertical/2 + i*scoreboard[i].getCharacterSize() + 20);
+            app->draw(scoreboard[i]);
+        }
+
     }
     else{
         sf::Text text;
@@ -114,7 +140,6 @@ void GameScreen::draw()
         app->draw(text);
     }
 }
-
 
 void GameScreen::handle(sf::Event& event)
 {
