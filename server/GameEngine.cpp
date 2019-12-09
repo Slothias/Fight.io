@@ -94,11 +94,11 @@ bool GameEngine::GenNotGood(const float &x, const float &y) {
         Weapon* w = drop_weapons.at(i);
         if(w)
         {
-        if(w->getX() == x && w->getY() == y)
-        {
-            dw_mutex.unlock();
-            return true;
-        }
+            if(w->getX() == x && w->getY() == y)
+            {
+                dw_mutex.unlock();
+                return true;
+            }
         }
     }
     dw_mutex.unlock();
@@ -113,47 +113,53 @@ int NullpointerDetector(std::vector<Weapon*>& p)
     }
     return -1;
 }
-int FilledWithDildo(std::vector<Weapon*>& p)
+int numberOfWeaponsOnTheFloor(std::vector<Weapon*>& p)
 {
     int sum =0;
     for(int i=0; i<p.size(); i++)
-        sum+=p.at(i)!=nullptr;
+        sum += p.at(i)!=nullptr;
     return sum;
 }
 void GameEngine::GenerateWeapon() {
-    while(thread_lifetime && players.size() - 1 > FilledWithDildo(drop_weapons)) {
-        srand(time(NULL));
-        std::this_thread::sleep_for(std::chrono::seconds(30));
-        float x=0;
-        float y = 0;
-        GenerateXY(x,y);
-        while(GenNotGood(x, y))
+    while(server->getconnected()) {
+        if(players.size() > numberOfWeaponsOnTheFloor(drop_weapons)+1)
+        {
+            srand(time(NULL));
+            std::this_thread::sleep_for(std::chrono::seconds(30));
+            float x=0;
+            float y = 0;
             GenerateXY(x,y);
-        int pos = NullpointerDetector(drop_weapons);
-        int Wtype = (rand() % 100) + 1;
-        if(Wtype < 10) { /// ~10% - 5ös fegyó
-            Wtype = 5;
+            while(GenNotGood(x, y))
+                GenerateXY(x,y);
+            int pos = NullpointerDetector(drop_weapons);
+            int Wtype = (rand() % 100) + 1;
+            if(Wtype < 10) { /// ~10% - 5ös fegyó
+                Wtype = 5;
+            }
+            else if(10 <= Wtype && Wtype < 25) { /// ~15% - 5ös fegyó
+                Wtype = 4;
+            }
+            else if(25 <= Wtype && Wtype < 45) { /// ~20% - 5ös fegyó
+                Wtype = 3;
+            }
+            else if(45 <= Wtype && Wtype < 70) { /// ~25% - 5ös fegyó
+                Wtype = 2;
+            }
+            else { /// ~30% - 5ös fegyó
+                Wtype = 1;
+            }
+            Weapon* w = new Weapon(Wtype);
+            w->setPosition(x,y);
+            dw_mutex.lock();
+            drop_weapons[pos] = w;
+            dw_mutex.unlock();
+            std::stringstream ss;
+            ss << "Server:" << pos << "|" << Wtype << "|" << x << "|" << y;
+            server->sendData(ss.str());
         }
-        else if(10 <= Wtype && Wtype < 25) { /// ~15% - 5ös fegyó
-            Wtype = 4;
+        else{
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
-        else if(25 <= Wtype && Wtype < 45) { /// ~20% - 5ös fegyó
-            Wtype = 3;
-        }
-        else if(45 <= Wtype && Wtype < 70) { /// ~25% - 5ös fegyó
-            Wtype = 2;
-        }
-        else { /// ~30% - 5ös fegyó
-            Wtype = 1;
-        }
-        Weapon* w = new Weapon(Wtype);
-        w->setXY(x,y);
-        dw_mutex.lock();
-        drop_weapons[pos] = w;
-        dw_mutex.unlock();
-        std::stringstream ss;
-        ss << "Server:" << pos << "|" << Wtype << "|" << x << "|" << y;
-        server->sendData(ss.str());
     }
 }
 std::vector<std::string> GameEngine::getState(std::string name)

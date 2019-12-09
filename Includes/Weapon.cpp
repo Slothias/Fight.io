@@ -92,8 +92,8 @@ void Weapon::outOfScreenDraw(sf::RenderTarget& target, double x, double y, int m
 
 void Weapon::onGroundDraw(sf::RenderTarget& target)
 {
-    alternativeDraw.setPosition(getPosition());
-    target.draw(alternativeDraw);
+    weaponPickupPoint.setPosition(getPosition());
+    target.draw(weaponPickupPoint);
 
 }
 
@@ -109,11 +109,6 @@ void Weapon::setPower(float p)
 void Weapon::setRange(float r)
 {
     range=r;
-}
-void Weapon::setXY(float _x, float _y)
-{
-    x = _x;
-    y = _y;
 }
 float Weapon::getX()
 {

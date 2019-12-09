@@ -4,7 +4,6 @@
 class Weapon: public sf::Sprite
 {
     public:
-        float x,y;
         int type;
         int useRotation;
         int cooldown;
@@ -18,7 +17,6 @@ class Weapon: public sf::Sprite
         sf::Texture skin;
         void setPower(float p);
         void setRange(float r);
-        void setXY(float _x, float _y);
         float getX();
         float getY();
         int getType();
