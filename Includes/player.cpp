@@ -4,28 +4,6 @@
 #include <iostream>
 #include<fstream>
 #include<thread>
-//constructors************************************************
-/*
-player::player()
-{
-    maxHp =  100;
-    currentHp = maxHp;
-    score = 0;
-    weapon = false;
-}
-player::player(std::string _pName)
-{
-    playerX=100;
-    playerY=100;
-    playerRotation=0;
-    pName = _pName;
-    maxHp =  100;
-    currentHp = maxHp;
-    score = 0;
-    weapon = 0;
-
-}
-*/
 player::player(std::string _pName, float _playerX, float _playerY, float _playerRotation)
 {
     prevX=0;
@@ -44,10 +22,6 @@ player::player(std::string _pName, float _playerX, float _playerY, float _player
     hitboxRadius = 75;
     poking = pickUp = false;
 }
-/*player::player(float _playerX, float _playerY, float _playerRotation,
-                std::string _pName, int _maxHp, int _currentHp, int _score, bool _weapon)
-                : playerX(_playerX), playerY(_playerY), playerRotation(_playerRotation),
-                pName(_pName), maxHp(_maxHp), currentHp(_currentHp), score(_score), weapon(_weapon) {}*/
 
 //setters************************************************
 
@@ -316,10 +290,7 @@ std::string player::toString() {
     }
 
     if(getPoke()){
-        //std::ofstream myfile("poking.txt",std::ofstream::app);
         flags [2]= '1';
-        //myfile<<"POKE"<<std::endl;
-        //myfile.close();
     }
     else{
         flags[2]= '0';
@@ -336,9 +307,6 @@ std::string player::toString() {
 
     flags += "|" + msg + std::to_string(getMaxHp()) + "|" + std::to_string(getCurrentHp()) + "|" + std::to_string(getScore()) + "|" + std::to_string(getWeapon());
 
-    /*s << getX() << "|" << getY() << "|" << getRot()
-    << "|" << getMaxHp() << "|" << getCurrentHp()
-    << "|" << getScore() <<"|"<<getWeapon();*/
     return flags;
 }
 void player::setChange(bool c)

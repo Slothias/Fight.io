@@ -100,9 +100,7 @@ if(getconnected())
 {
     char buffer[BUFFER_SIZE];
     ZeroMemory(&buffer,sizeof(buffer));
-    //std::cout<<"GETTING DATA...."<<std::endl;
     recv(server,buffer, sizeof(buffer),0);
-    //std::cout<<"OK"<<std::endl;
     std::string result(buffer);
     return result;
 }
@@ -124,7 +122,6 @@ void Client::runclient()
 {
     if(getconnected())
     {
-        std::cout<<"CONNECTED"<<std::endl;
         std::string oldstatus;
         std::unique_lock<std::mutex>  lck(thisMutex);
          std::thread get([this]()
@@ -146,7 +143,6 @@ void Client::runclient()
         {
             while(!thisPlayer->getChange() )
                 cv.wait(lck);
-            //auto duration = std::chrono::duration_cast<std::chrono::milliseconds>( curTime - lastPoke ).count();
             if(thisPlayer->getRespawn())
             {
                 sendData("RESPAWN");
@@ -163,15 +159,6 @@ void Client::runclient()
                 myClock = std::chrono::high_resolution_clock::now();
             }
             }
-          /*
-
-            get.join();*/
-            /*std::string thisstatus =thisPlayer->getMSG();
-            if(thisstatus!=oldstatus)
-            {
-                sendData(thisstatus);
-                oldstatus=thisstatus;
-           }*/
         }
         get.join();
 
@@ -182,6 +169,5 @@ Client::~Client()
 {
     closesocket(server);
     WSACleanup();
-    std::cout<<"Socket closed"<<std::endl;
     delete thisPlayer;
 }
