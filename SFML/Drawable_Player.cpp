@@ -48,6 +48,7 @@ Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf:
     //setScale(0.5f,0.5f);
     setOrigin(skin.getSize().x/2, skin.getSize().y/2);
     setPosition(x,y,true);
+    deadMe.setPosition(x,y);
     setRotation(a,true);
 }
 
@@ -303,7 +304,12 @@ void Drawable_Player::addWeapon(int i,std::vector<Weapon*>& p)
 void Drawable_Player::setLevel(int i)
 {
     myHpBar->setMyLevel(i);
-    myHpBar->setMaxHp(i*100);
+}
+
+void Drawable_Player::setMaxHp(int _maxHp)
+{
+    maxHp = _maxHp;
+    myHpBar->setMaxHp(maxHp);
 }
 //---------GETTERS---------------
 Weapon* Drawable_Player::getWeapon()
@@ -454,12 +460,14 @@ void Drawable_Player::update(std::string data)
                 if(act->getCurrentHp()!=curhp)
                 {
                     players[currentName]->setCurrentHp(curhp);
+                    if(players[currentName]->getCurrentHp() == 0)
+                        players[currentName]->setNewWeapon(0);
                 }
                 ///ha eltér a score,akkor frissít
                 if(act->getScore()!=getscore)
                 {
                     players[currentName]->setScore(getscore);
-                    //players[currentName]->setLevel(getscore);
+                    players[currentName]->setLevel(players[currentName]->getLevel());
                 }
             }
             else
@@ -490,6 +498,7 @@ void Drawable_Player::update(std::string data)
                     }
                     else if(curhp <= 0)
                     {
+                        setNewWeapon(0);
                         std::thread t([&]()
                         {
                             std::this_thread::sleep_for(std::chrono::seconds(3));
@@ -504,8 +513,8 @@ void Drawable_Player::update(std::string data)
 
                 if(getScore()!=getscore)
                 {
-                    //ssetLevel(getscore);
                     setScore(getscore);
+                    setLevel(getLevel());
                 }
             }
         }
@@ -513,6 +522,15 @@ void Drawable_Player::update(std::string data)
     }
     }
     }
+}
+void Drawable_Player::setNewWeapon(int type)
+{
+    delete myWeapon;
+    myWeapon = new Weapon(type);
+    myWeapon->setPosition(getPosition());
+    myWeapon->setOrigin(-(((int)skin.getSize().x/2)-(int)(3*myWeapon->getTexture()->getSize().x/4)), ((int)myWeapon->getTexture()->getSize().y+myWeapon->getTexture()->getSize().y/15));
+    myWeapon->setRotation(getRot());
+    weaponHitbox.setOrigin(5,myWeapon->range+5);
 }
 sf::Vector2<float> Drawable_Player::getPosition()
 {
