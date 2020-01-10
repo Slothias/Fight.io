@@ -17,7 +17,6 @@ class Server;
 class GameEngine {
 private:
     static const int WP_SIZE = 6;
-    static const int MAX_LVL = 9;
     std::map<std::string,player*> players;
     std::map<player*,std::mutex*> p_mutexes;
     std::vector<Weapon*> drop_weapons;

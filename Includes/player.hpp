@@ -18,13 +18,11 @@ protected:
     int maxHp;
     int currentHp;
     int score;
-    int level;
     int weapon;
     int hitboxRadius;
     bool changed;
     bool respawn;
 public:
-    int getLevel();
     bool getPoke();
     bool getPickUp();
     bool getRespawn();

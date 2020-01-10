@@ -123,9 +123,9 @@ void GameEngine::GenerateWeapon() {
         if(players.size() > numberOfWeaponsOnTheFloor(drop_weapons)+1)
         {
             srand(time(NULL));
+            std::this_thread::sleep_for(std::chrono::seconds(30));
             float x=0;
             float y = 0;
-            std::this_thread::sleep_for(std::chrono::milliseconds(10));
             GenerateXY(x,y);
             while(GenNotGood(x, y))
                 GenerateXY(x,y);
@@ -154,7 +154,6 @@ void GameEngine::GenerateWeapon() {
             std::stringstream ss;
             ss << "Server:" << pos << "|" << Wtype << "|" << x << "|" << y;
             server->sendData(ss.str());
-            std::this_thread::sleep_for(std::chrono::seconds(30));
         }
         else{
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -308,29 +307,10 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
                     p->setCurrentHp(p->getCurrentHp() - weapons[actplayer->getWeapon()]->getPower());
                     if(p->getCurrentHp() <= 0 && wasNotZero) {
                         int prevScore = actplayer->getScore();
-                        int newScore;
-                        int killerLvl = actplayer->getLevel();
-
-                        if(killerLvl <= p->getLevel())
-                        {
-                            if(prevScore > 0)
-                                newScore=prevScore + (int)((float)(p->getLevel()-killerLvl)/(float)MAX_LVL * p->getScore());
-                            else
-                                newScore=100;
-                        }else
-                        {
-                            if(p->getScore() > 0)
-                                newScore = prevScore + (int)((float)p->getScore()/4);
-                            else
-                                newScore = prevScore + 75;
-                        }
+                        int newScore=prevScore+1;
                         actplayer->setScore(newScore);
-
-                        killerLvl = actplayer->getLevel();
-                        int killerCurrhp = actplayer->getCurrentHp();
-                        int killerMaxHp = actplayer->getMaxHp();
-                        actplayer->setCurrentHp(killerCurrhp + (int)((float)p->getMaxHp()/2));
-                    }
+                        actplayer->setMaxHp(newScore*100);
+                        }
                     std::cout<<"TALALAT, ALDOZAT:"<<p->getName()<<std::endl;
                     ret.push_back(p->getName() + ":" + p->toString());
                 }
@@ -357,6 +337,8 @@ std::vector<std::string> GameEngine::CheckRequest(std::string name, std::string 
                 actplayer->setPickUp(true);
                 drop_weapons[i] = nullptr;
                 delete x;
+                std::cout<<"Sikerult felvenni"<<std::endl;
+                std::cout<<FilledWithDildo(drop_weapons);
                 ok=true;
             }
             }

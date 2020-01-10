@@ -38,7 +38,6 @@ player::player(std::string _pName, float _playerX, float _playerY, float _player
     maxHp =  100;
     currentHp = maxHp;
     score = 0;
-    level = 1;
     weapon = 0;
     weaponpos = -1;
     hitboxRadius = 75;
@@ -72,14 +71,6 @@ void player::setPName(std::string _pName)
     pName = _pName;
     changed=true;
     my_mutex.unlock();
-}
-int player::getLevel()
-{
-    int ret;
-    my_mutex.lock();
-    ret = level;
-    my_mutex.unlock();
-    return ret;
 }
 void player::setMaxHp(int _maxHp)
 {
@@ -122,51 +113,6 @@ void player::setScore(int _score)
 {
     my_mutex.lock();
     score = _score;
-    if(score<100)
-    {
-        level = 1;
-        maxHp = 100;
-    }
-    else if(score < 250)
-    {
-        level = 2;
-        maxHp = 150;
-    }
-    else if(score < 450)
-    {
-        level = 3;
-        maxHp = 200;
-    }
-    else if(score < 650)
-    {
-        level = 4;
-        maxHp = 225;
-    }
-    else if(score < 850)
-    {
-        level = 5;
-        maxHp = 250;
-    }
-    else if(score < 1050)
-    {
-        level = 6;
-        maxHp = 275;
-    }
-    else if(score < 1250)
-    {
-        level = 7;
-        maxHp = 300;
-    }
-    else if(score < 1450)
-    {
-        level = 8;
-        maxHp = 300;
-    }
-    else
-    {
-        level = 9;
-        maxHp = 300;
-    }
     changed=true;
     my_mutex.unlock();
 }
