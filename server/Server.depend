@@ -518,3 +518,112 @@
 1574932750 source:d:\homeproject\c++\repo\fight.io\server\src\simplgui\widget.cpp
 	"simplgui/Widget.h"
 
+1575932332 source:c:\users\e550\desktop\játék\fight.io másolata\includes\player.cpp
+	"player.hpp"
+	<sstream>
+	<string>
+	<iostream>
+	<fstream>
+	<thread>
+
+1575932332 c:\users\e550\desktop\játék\fight.io másolata\includes\player.hpp
+	<string>
+	<mutex>
+
+1575908084 source:c:\users\e550\desktop\játék\fight.io másolata\includes\weapon.cpp
+	"Weapon.hpp"
+
+1575908084 c:\users\e550\desktop\játék\fight.io másolata\includes\weapon.hpp
+	<SFML/Graphics.hpp>
+
+1575932332 source:c:\users\e550\desktop\játék\fight.io másolata\server\gameengine.cpp
+	"GameEngine.hpp"
+	<vector>
+	<string>
+	<cmath>
+	<cstdlib>
+	<thread>
+	<chrono>
+
+1575932332 c:\users\e550\desktop\játék\fight.io másolata\server\gameengine.hpp
+	"../Includes/player.hpp"
+	"../Includes/Weapon.hpp"
+	<map>
+	<mutex>
+	<sstream>
+	<thread>
+	<mutex>
+	<utility>
+	<fstream>
+	"Server.hpp"
+
+1575810428 c:\users\e550\desktop\játék\fight.io másolata\server\server.hpp
+	<thread>
+	<winsock2.h>
+	<iostream>
+	<atomic>
+	<vector>
+	<mutex>
+	<queue>
+	<utility>
+	<fstream>
+	"ServerException.h"
+	"GameEngine.hpp"
+
+1574932752 c:\users\e550\desktop\játék\fight.io másolata\server\serverexception.h
+	<exception>
+
+1574932752 source:c:\users\e550\desktop\játék\fight.io másolata\server\main.cpp
+	"ServerGui.hpp"
+
+1574932752 c:\users\e550\desktop\játék\fight.io másolata\server\servergui.hpp
+	"Server.hpp"
+	<SFML/Graphics.hpp>
+	"simplgui/Button.h"
+	"simplgui/Event.h"
+	"simplgui/FileResourcesGetter.h"
+	"simplgui/TextBox.h"
+	"simplgui/Tools.h"
+
+1575932332 source:c:\users\e550\desktop\játék\fight.io másolata\server\server.cpp
+	"Server.hpp"
+	<algorithm>
+	<string>
+	<sstream>
+	<future>
+
+1575932332 source:c:\users\e550\desktop\játék\fight.io másolata\server\servergui.cpp
+	"ServerGui.hpp"
+
+1574932752 source:c:\users\e550\desktop\játék\fight.io másolata\server\src\simplgui\button.cpp
+	"simplgui/Button.h"
+	<iostream>
+	"simplgui/Renderer.h"
+
+1574932752 source:c:\users\e550\desktop\játék\fight.io másolata\server\src\simplgui\connector.cpp
+	"simplgui/Connector.h"
+
+1574932752 source:c:\users\e550\desktop\játék\fight.io másolata\server\src\simplgui\event.cpp
+	"simplgui/Event.h"
+	<iostream>
+
+1574932752 source:c:\users\e550\desktop\játék\fight.io másolata\server\src\simplgui\fileresourcesgetter.cpp
+	"simplgui/FileResourcesGetter.h"
+	<iostream>
+
+1574932752 source:c:\users\e550\desktop\játék\fight.io másolata\server\src\simplgui\renderer.cpp
+	"simplgui/Renderer.h"
+	<SFML/Graphics/Font.hpp>
+	<SFML/Graphics/RectangleShape.hpp>
+	<SFML/Graphics/Text.hpp>
+	"simplgui/Widget.h"
+	"simplgui/Tools.h"
+
+1574932752 source:c:\users\e550\desktop\játék\fight.io másolata\server\src\simplgui\textbox.cpp
+	"simplgui/TextBox.h"
+	<iostream>
+	"simplgui/Renderer.h"
+
+1574932752 source:c:\users\e550\desktop\játék\fight.io másolata\server\src\simplgui\widget.cpp
+	"simplgui/Widget.h"
+

@@ -3,7 +3,6 @@
 #include<string>
 #include<algorithm>
 #include<sstream>
-
 GameScreen::GameScreen(sf::RenderWindow *App, Client* my)
 {
     app=App;
@@ -13,7 +12,6 @@ GameScreen::GameScreen(sf::RenderWindow *App, Client* my)
     me=new Drawable_Player(my->getName(),0,0,0);
     c->addPlayer(me);
     initMe(c->getData());
-    std::cout<<me->getPosition().x<<" "<<me->getPosition().y<<std::endl;
     mapSize = me->getMapSize();
 
     std::thread t(&Client::runclient,&(*c));
@@ -50,7 +48,6 @@ GameScreen::GameScreen(sf::RenderWindow *App, Client* my)
     youDied.setFont(deathFont);
     youDied.setColor(sf::Color::Red);
 
-    //tempWeaponCounter =0;
     viewOffSet = getViewOffSet();
 
 }
@@ -60,19 +57,16 @@ void GameScreen::initMe(std::string msg)
         std::string flags;
         std::string line;
         std::getline(ss,line,':');
-        std::cout<<"msg:"<<msg<<std::endl;
         float curx,cury,getrot;
         int weaponID = -1;
         bool curPoking=false;
         std::getline(ss,flags,'|');
-        std::cout<<"flags:"<<flags<<std::endl;
         if(flags.at(0)=='1')
         {
             std::getline(ss,line,'|');
             curx = std::stof(line);
             std::getline(ss,line,'|');
             cury = std::stof(line);
-            std::cout<<"POS:" << curx << " "<<cury<<std::endl;
             me->setPosition(curx,cury,true);
         }
         if(flags.at(1)=='1')
@@ -100,7 +94,7 @@ void GameScreen::draw()
         {
         app->setSize(sf::Vector2<unsigned int>(horizontal,vertical));
         app->setPosition(sf::Vector2<int>(0,0));
-        app->create(sf::VideoMode(horizontal,vertical),"Fight.io",sf::Style::Fullscreen);
+        app->create(sf::VideoMode(horizontal,vertical),"mari",sf::Style::Fullscreen);
         app->setFramerateLimit(120);
         v.setSize(horizontal,vertical);
         }
@@ -130,7 +124,6 @@ void GameScreen::draw()
                 weapons[i]->onGroundDraw(*app);
             }
         }
-
         std::map<std::string,Drawable_Player*> players = me->getPlayers();
         std::vector<std::pair <std::string,int> > forScoreboard;
         for(std::pair<std::string, Drawable_Player*> entries: players)

@@ -5,7 +5,6 @@
 #include "../Includes/Weapon.hpp"
 #include <map>
 #include <mutex>
-#include <iostream>
 #include <sstream>
 #include <thread>
 #include <mutex>

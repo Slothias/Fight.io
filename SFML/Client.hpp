@@ -1,7 +1,6 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 #include<thread>
-#include<iostream>
 #include <winsock2.h>
 #include <mutex>
 #include <chrono>
