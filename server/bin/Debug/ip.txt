@@ -19,15 +19,14 @@ Wireless LAN adapter Helyi kapcsolat* 2:
 
 Wireless LAN adapter Wi-Fi:
 
-   Connection-specific DNS Suffix  . : home
-   IPv6 Address. . . . . . . . . . . : 2a02:ab88:1d43:5a00:1964:b2f0:4c5d:3fb1
-   Temporary IPv6 Address. . . . . . : 2a02:ab88:1d43:5a00:c81b:fffb:de86:1c4b
-   Temporary IPv6 Address. . . . . . : 2a02:ab88:1d43:5a00:d0c1:2c5:f8d4:7964
+   Connection-specific DNS Suffix  . : itk.ppke.hu
+   IPv6 Address. . . . . . . . . . . : 2001:738:5404:192:1964:b2f0:4c5d:3fb1
+   Temporary IPv6 Address. . . . . . : 2001:738:5404:192:298f:d36f:ca8d:1b57
    Link-local IPv6 Address . . . . . : fe80::1964:b2f0:4c5d:3fb1%15
-   IPv4 Address. . . . . . . . . . . : 192.168.0.206
-   Subnet Mask . . . . . . . . . . . : 255.255.255.0
-   Default Gateway . . . . . . . . . : fe80::362c:c4ff:fe72:9018%15
-                                       192.168.0.1
+   IPv4 Address. . . . . . . . . . . : 192.168.254.146
+   Subnet Mask . . . . . . . . . . . : 255.255.240.0
+   Default Gateway . . . . . . . . . : fe80::da9d:67ff:fe2c:78c0%15
+                                       192.168.254.254
 
 Ethernet adapter Bluetooth h l¢zati kapcsolat:
 

@@ -27,6 +27,9 @@ GameScreen::GameScreen(sf::RenderWindow *App, Client* my)
 
     GetDesktopResolution();
 
+    screenCenter.x = horizontal/2;
+    screenCenter.y = vertical/2;
+
     for(int i=0; i<5; i++)
     {
         scoreboard.push_back(sf::Text());
@@ -97,6 +100,7 @@ void GameScreen::draw()
         app->create(sf::VideoMode(horizontal,vertical),"mari",sf::Style::Fullscreen);
         app->setFramerateLimit(120);
         v.setSize(horizontal,vertical);
+        app->setMouseCursorVisible(false);
         }
     }
     app->clear(sf::Color::White);
@@ -185,7 +189,7 @@ if(event.type == sf::Event::Closed || ((event.type == sf::Event::KeyPressed) && 
     }
 else
 {
-    if(me->getCurrentHp()>0)
+    if(me->getCurrentHp()>0 && app->hasFocus())
     {
         float playerX, playerY;
         if(event.type == sf::Event::KeyPressed){
@@ -212,6 +216,33 @@ else
                 me->weaponHitbox.setOrigin(5,me->getWeapon()->range+5);
                 c->notify();
             }
+    }
+    if(sf::Joystick::isConnected(0))
+    {
+        if(sf::Joystick::getAxisPosition(0,sf::Joystick::Y)<-10){
+            pup = true;
+        }else{
+            pup = false;
+        }
+
+        if(sf::Joystick::getAxisPosition(0,sf::Joystick::Y)>10){
+            pdown = true;
+        }else{
+            pdown = false;
+        }
+
+        if(sf::Joystick::getAxisPosition(0,sf::Joystick::X)<-10){
+            pleft = true;
+        }else{
+            pleft = false;
+        }
+
+        if(sf::Joystick::getAxisPosition(0,sf::Joystick::X)>10){
+            pright = true;
+        }else{
+            pright = false;
+        }
+
     }
 
         //Azért kell, hogy ne mehessen ki. A keypress eventnél nem vizsgálhatjuk, mert nincs mindig key press event.
@@ -305,6 +336,23 @@ else
                         me->pickUpEvent(false);
                 }
             }
+            if(sf::Joystick::isConnected(0))
+            {
+                if(sf::Joystick::getAxisPosition(0,sf::Joystick::Z) > 20)
+                    pPoke = true;
+                else
+                    pPoke = false;
+
+                if(sf::Joystick::isButtonPressed(0,1))
+                {
+                    if(me->iThinkICanPickUp())
+                        me->pickUpEvent(true);
+                    else
+                        me->pickUpEvent(false);
+                }
+
+            }
+
             if (event.type == sf::Event::MouseButtonReleased)
             {
                 if(event.mouseButton.button == sf::Mouse::Left)
@@ -312,15 +360,53 @@ else
                 if(event.mouseButton.button == sf::Mouse::Right)
                     me->pickUpEvent(false);
             }
+
             me->testPoke(pPoke);
 
+            /*
             if(!((horizontal/2 - viewOffSet.x)-mousePosX ==0)){
                 if((horizontal/2 - viewOffSet.x)-mousePosX <= 0)
                     me->setRotation((atan(((vertical/2 - viewOffSet.y)-mousePosY)/((horizontal/2 - viewOffSet.x)-mousePosX)))/PI *180 +90,true);
                 else
                     me->setRotation(((atan(((vertical/2 - viewOffSet.y)-mousePosY)/((horizontal/2 - viewOffSet.x)-mousePosX)))/PI *180) +270,true);
             }
+            */
 
+            if(sqrt((mousePosX-screenCenter.x)*(mousePosX-screenCenter.x)+(mousePosY-screenCenter.y)*(mousePosY-screenCenter.y))>10 ||
+               (sf::Joystick::isConnected(0) && sqrt(sf::Joystick::getAxisPosition(0,sf::Joystick::V)*sf::Joystick::getAxisPosition(0,sf::Joystick::V) + sf::Joystick::getAxisPosition(0,sf::Joystick::U)*sf::Joystick::getAxisPosition(0,sf::Joystick::U))>50))
+            {
+                std::cout << "joy: " << sqrt(sf::Joystick::getAxisPosition(0,sf::Joystick::V)*sf::Joystick::getAxisPosition(0,sf::Joystick::V) + sf::Joystick::getAxisPosition(0,sf::Joystick::U)*sf::Joystick::getAxisPosition(0,sf::Joystick::U)) << std::endl;
+                float target;
+                float curX,curY;
+                if(sf::Joystick::isConnected(0) == false)
+                {
+                    curX = screenCenter.x - mousePosX;
+                    curY = screenCenter.y - mousePosY;
+                }else{
+                    curX = -sf::Joystick::getAxisPosition(0,sf::Joystick::U);
+                    curY = -sf::Joystick::getAxisPosition(0,sf::Joystick::V);
+                }
+
+                if(curX != 0){
+                        if(curX < 0)
+                            //me->setRotation((atan((screenCenter.y-mousePosY)/(screenCenter.x-mousePosX)))/PI *180 +90,true);
+                            target = (atan(curY/curX))/PI *180 +90;
+                        else
+                            //me->setRotation((atan((screenCenter.y-mousePosY)/(screenCenter.x-mousePosX)))/PI *180 +270,true);
+                            target = (atan(curY/curX))/PI *180 +270;
+                    }else{
+                        if(curY > 0)
+                            //me->setRotation(0,true);
+                            target = 0;
+                        else
+                            //me->setRotation(180,true);
+                            target = 180;
+                    }
+                me->setRotation(target,true);
+
+                if(app->hasFocus())
+                    sf::Mouse::setPosition(screenCenter);
+            }
 
             float curx = me->getX();
             float cury = me->getY();

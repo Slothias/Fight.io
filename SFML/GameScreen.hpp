@@ -5,6 +5,7 @@
 #include "Client.hpp"
 #include<fstream>
 #include<vector>
+#include <iostream>
 
 class GameScreen:public Screen
 {
@@ -18,6 +19,7 @@ class GameScreen:public Screen
     private:
         void initMe(std::string msg);
         double mapSize;
+        sf::Vector2i screenCenter;
         sf::Vector2<float> viewOffSet;
         static const int SLEEPVAL=1000/FRAMERATE;
         Client* c;

@@ -56,7 +56,6 @@ void Window::loop()
         }
 
     }
-    setMouseCursorVisible(true);
     //game.play();
     while(state==State::play && isOpen())//game screen
     {
