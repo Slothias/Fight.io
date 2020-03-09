@@ -12,6 +12,7 @@
 
 class ConnectScreen:public Screen
     {
+    /* komment commithoz */
     public:
         ConnectScreen(sf::RenderWindow *a);
         void draw();
