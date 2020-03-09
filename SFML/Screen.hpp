@@ -5,6 +5,7 @@
 enum State
 {
      main_menu=0,connecting,play
+/* egy másik komment */
 };
 class Screen
 {
