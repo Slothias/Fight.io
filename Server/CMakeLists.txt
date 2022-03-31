@@ -5,7 +5,8 @@ cmake_minimum_required(VERSION 3.11-3.18)
 project(Server)
 
 include_directories(include)
-add_executable(Server main.cpp include src)
+file(GLOB SRC_FILES src/*.cpp)
+add_executable(Server main.cpp ${SRC_FILES})
 # We need hello.h and the hello library
 target_link_libraries(Server
     PRIVATE simplgui)

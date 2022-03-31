@@ -1,9 +1,9 @@
 #include "ServerGui.hpp"
 
-int main(void)
+int main()
 {
     {
-    ServerGui* s = new ServerGui();
+    auto* s = new ServerGui();
     s->loop();
     }
     return 0;
