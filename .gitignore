@@ -1,0 +1,12 @@
+#VS code config
+.vscode
+
+#CMake output
+build
+
+#old stuffs
+client/
+Includes
+server/
+SFML
+version 0.1
