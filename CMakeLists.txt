@@ -9,5 +9,6 @@ project(
 
 add_subdirectory(simplgui)   # look in hello subdirectory for CMakeLists.txt to process
 add_subdirectory(common)
+add_subdirectory(asio-wrapper)    # look in apps subdirectory for CMakeLists.txt to process
 add_subdirectory(Client)    # look in apps subdirectory for CMakeLists.txt to process
 add_subdirectory(Server)    # look in apps subdirectory for CMakeLists.txt to process

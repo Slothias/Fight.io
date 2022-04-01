@@ -1,8 +1,7 @@
 #ifndef SERVER_HPP
 #define SERVER_HPP
 
-#include <boost/asio.hpp>
-#include <boost/make_shared.hpp>
+
 
 #include <thread>
 #include <sys/types.h>
@@ -64,9 +63,7 @@ private:
         ~ServerAssistant();
     };
 
-    boost::shared_ptr<boost::asio::ip::tcp::socket> m_socket;
 
-    boost::shared_ptr<boost::asio::ip::tcp::acceptor> m_acceptor;
 
 
     GameEngine *myEngine;
