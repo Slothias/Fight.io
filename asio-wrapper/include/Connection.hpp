@@ -14,20 +14,25 @@
 
 class Server;
 
+enum CONTROL_MSG {
+    DISCONNECTED,
+};
+
 class Connection : public std::enable_shared_from_this<Connection> {
 private:
     boost::asio::ip::tcp::socket socket;
     boost::asio::streambuf streambuf;
-    Server* server;
+    std::vector<std::string> messages;
 public:
-
-    Connection(boost::asio::ip::tcp::socket &&socket, Server* server);
+    Connection(boost::asio::ip::tcp::socket &&socket);
 
     std::string get_client_address() const;
 
-    void disconnect();
+    std::vector<std::string> read_messages();
 
     void start();
+
+    void disconnect();
 
     ~Connection();
 };

@@ -3,10 +3,9 @@
 #include <utility>
 
 
-Connection::Connection(boost::asio::ip::tcp::socket &&socket,Server* server) : socket(
+Connection::Connection(boost::asio::ip::tcp::socket &&socket) : socket(
         std::move(socket)) {
     std::cout << "Client connected from host: " << get_client_address() << "\n";
-    this->server =server;
 }
 
 void Connection::start() {
@@ -24,17 +23,12 @@ void Connection::start() {
                                                   buffers_begin(self->streambuf.data()) + bytes_transferred
                                                   - std::string("\n").size()};
 
-                                          // Consume through the first delimiter so that subsequent async_read_until
-                                          // will not reiterate over the same data.
                                           self->streambuf.consume(bytes_transferred);
-                                          if (command.find("EXIT") == std::string::npos) {
-                                              std::cout << "msg :" << command << '\n';
-                                              self->start();
-                                          } else {
-                                              self->server->disconnect_client(self);
-                                          }
+                                          self->messages.push_back(command);
                                       } else {
-                                          self->server->disconnect_client(self);
+                                          std::cout << error << std::endl;
+                                          self->messages.push_back(std::to_string(DISCONNECTED));
+                                          self->disconnect();
                                       }
                                   });
 }
@@ -50,6 +44,12 @@ void Connection::disconnect() {
                   << socket.remote_endpoint().port() << "\n";
         socket.close();
     }
+}
+
+std::vector<std::string> Connection::read_messages() {
+    const std::vector<std::string> result = messages;
+    messages.clear();
+    return result;
 }
 
 std::string Connection::get_client_address() const {

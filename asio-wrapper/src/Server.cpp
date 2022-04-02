@@ -33,8 +33,8 @@ void Server::async_accept() {
     socket.emplace(io_context);
 
     acceptor.async_accept(*socket, [&](boost::system::error_code error) {
-        std::shared_ptr<Connection> client = std::make_shared<Connection>(std::move(*socket), this);
-        clients.push_back(client);
+        std::shared_ptr<Connection> client = std::make_shared<Connection>(std::move(*socket));
+        clients.push_bac k(client);
         client->start();
         async_accept();
     });
