@@ -13,8 +13,12 @@ set(CMAKE_USE_WIN32_THREADS_INIT 0)
 set(CMAKE_USE_PTHREADS_INIT 1)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 
-add_executable(Client main.cpp src/ConnectScreen.cpp src/Drawable_Player.cpp src/GameScreen.cpp src/HpBar.cpp src/Menu.cpp src/Screen.cpp src/Window.cpp)
+file(GLOB SRC_FILES src/*.cpp)
+add_executable(${PROJECT_NAME}  ${SRC_FILES} main.cpp)
 # We need hello.h and the hello library
+
+target_include_directories(${PROJECT_NAME}
+        PUBLIC include/include)
 target_link_libraries(Client
     PRIVATE simplgui)
 target_link_libraries(Client

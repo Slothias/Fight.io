@@ -1,6 +1,6 @@
 #include "ServerGui.hpp"
 
-ServerGui::ServerGui():sf::RenderWindow(sf::VideoMode(800,600),"Server")
+ServerGui::ServerGui():sf::RenderWindow(sf::VideoMode(800,600),"asio-server")
 {
     is_running=false;
     server=nullptr;

@@ -11,26 +11,27 @@
 #include <istream>
 #include <queue>
 #include <Server.hpp>
-
+#include <Message.hpp>
+#include <utility>
+#include <shared_mutex>
+#include "ControlMessage.hpp"
 class Server;
 
-enum CONTROL_MSG {
-    DISCONNECTED,
-};
 
 class Connection : public std::enable_shared_from_this<Connection> {
 private:
     boost::asio::ip::tcp::socket socket;
-    boost::asio::streambuf streambuf;
-    std::vector<std::string> messages;
+    boost::asio::streambuf read_buf;
+    boost::asio::streambuf write_buf;
+
+    std::shared_mutex message_shared_mutex;
+    std::vector<std::shared_ptr<Message>> messages;
 public:
     Connection(boost::asio::ip::tcp::socket &&socket);
-
-    std::string get_client_address() const;
-
-    std::vector<std::string> read_messages();
+    std::vector<std::shared_ptr<Message>> read_messages();
 
     void start();
+    void sendMessage(std::unique_ptr<Message>& message);
 
     void disconnect();
 
