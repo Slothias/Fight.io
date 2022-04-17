@@ -1,12 +1,13 @@
 #include "Connection.hpp"
 
 
-Connection::Connection(boost::asio::ip::tcp::socket &&socket) : socket(
-        std::move(socket)) {
+Connection::Connection(boost::asio::ip::tcp::socket &&socket, std::function<void(std::string)> &&t_message_handler,
+                       std::function<void()> &&t_error_handler)
+        : NetworkCallback(nullptr, nullptr, std::move(t_message_handler), std::move(t_error_handler)),
+          socket(std::move(socket)) {
 }
 
-void Connection::start() {
-
+void Connection::async_read() {
     std::cout << "Waiting for message from client: " << socket.remote_endpoint().address() << ":"
               << socket.remote_endpoint().port() << "\n";
     boost::asio::async_read_until(socket,
@@ -14,22 +15,31 @@ void Connection::start() {
                                   '\n',
                                   [self = shared_from_this()](boost::system::error_code error,
                                                               long bytes_transferred) {
-                                      std::unique_lock<std::shared_mutex> lock(self->message_shared_mutex);
                                       if (!error) {
-                                          std::string command{
+                                          std::string message{
                                                   buffers_begin(self->read_buf.data()),
                                                   buffers_begin(self->read_buf.data()) + bytes_transferred
                                                   - std::string("\n").size()};
 
                                           self->read_buf.consume(bytes_transferred);
-                                          self->messages.emplace_back(std::make_shared<Message>(self, command));
-                                          self->start();
+                                          if (self->on_message_callback) {
+                                              self->on_message_callback(message);
+                                          }
+                                          self->async_read();
                                       } else {
-                                          self->messages.emplace_back(
-                                                  std::make_shared<Message>(self, ControlMessage::DISCONNECTED));
+                                          if (self->on_error_callback) {
+                                              self->on_error_callback();
+                                          }
                                           self->disconnect();
                                       }
                                   });
+}
+
+void Connection::start() {
+    if(on_join_callback){
+        on_join_callback();
+    }
+    async_read();
 }
 
 Connection::~Connection() {
@@ -51,14 +61,10 @@ void Connection::disconnect() {
         std::cout << "asio-client disconnected with ip: "
                   << socket.remote_endpoint().address() << " and port: "
                   << socket.remote_endpoint().port() << "\n";
+        if(on_leave_callback){
+            on_leave_callback();
+        }
         socket.close();
     }
-}
-
-std::vector<std::shared_ptr<Message>> Connection::read_messages() {
-    std::unique_lock<std::shared_mutex> lock(message_shared_mutex);
-    std::vector<std::shared_ptr<Message>> result(messages);
-    messages.clear();
-    return result;
 }
 

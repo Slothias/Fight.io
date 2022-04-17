@@ -15,21 +15,19 @@
 #include <utility>
 #include <shared_mutex>
 #include "ControlMessage.hpp"
+#include "NetworkCallback.hpp"
 class Server;
 
 
-class Connection : public std::enable_shared_from_this<Connection> {
+
+class Connection : public std::enable_shared_from_this<Connection>, public NetworkCallback {
 private:
     boost::asio::ip::tcp::socket socket;
     boost::asio::streambuf read_buf;
     boost::asio::streambuf write_buf;
-
-    std::shared_mutex message_shared_mutex;
-    std::vector<std::shared_ptr<Message>> messages;
+    void async_read();
 public:
-    Connection(boost::asio::ip::tcp::socket &&socket);
-    std::vector<std::shared_ptr<Message>> read_messages();
-
+    Connection(boost::asio::ip::tcp::socket &&socket, std::function<void(std::string)>&& t_message_handler, std::function<void()>&& t_error_handler);
     void start();
     void sendMessage(std::unique_ptr<Message>& message);
 

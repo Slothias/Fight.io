@@ -12,22 +12,20 @@
 #include <boost/uuid/uuid.hpp>            // uuid class
 #include <boost/uuid/uuid_generators.hpp> // generators
 #include <boost/uuid/uuid_io.hpp>
+#include "NetworkCallback.hpp"
 
 class Message;
 class Connection;
-class Server {
+class Server: public NetworkCallback {
 
 public:
     Server()=default;
     Server(std::uint16_t port);
 
-    Server(boost::asio::io_context &io_context, std::uint16_t port);
-
-    void async_accept();
+    void start_listen();
 
     void disconnect_client(const std::shared_ptr<Connection> &client_ptr);
 
-    std::vector<std::shared_ptr<Message>> read_all_messages();
     void sendMessage(std::unique_ptr<Message>& message);
 
     void stop_server();
@@ -39,6 +37,7 @@ private:
     boost::asio::ip::tcp::acceptor acceptor;
     std::optional<boost::asio::ip::tcp::socket> socket;
     std::vector<std::shared_ptr<Connection>> clients;
+    void async_accept();
 };
 
 

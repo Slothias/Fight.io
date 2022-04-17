@@ -1,13 +1,11 @@
-//
-// Created by sloy on 4/4/22.
-//
-
 #ifndef FIGHT_IO_MESSAGE_HPP
 #define FIGHT_IO_MESSAGE_HPP
 
 #include <boost/uuid/uuid.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <string>
+#include <boost/serialization/access.hpp>
+
 
 enum Cast {
     UNICAST,BROADCAST
@@ -23,7 +21,7 @@ private:
 
 public:
     Message(std::shared_ptr<Connection> conn, std::string t_message_body);
-    Message(std::string t_message_body);
+    explicit Message(std::string t_message_body);
 
     std::string get_message_text() const;
     std::shared_ptr<Connection> get_connection() const;
