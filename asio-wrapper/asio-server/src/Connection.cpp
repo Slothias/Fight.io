@@ -47,11 +47,7 @@ Connection::~Connection() {
 }
 
 void Connection::sendMessage(std::unique_ptr<Message> &message) {
-    write_buf.consume(write_buf.size());
-    std::ostream request_stream(&write_buf);
-    request_stream << message->get_message_text() << std::flush;
-    boost::asio::write(socket, write_buf);
-    write_buf.consume(write_buf.size());
+    boost::asio::write(socket, boost::asio::buffer(message->get_message_text()));
     std::cout << "Message sent for client: " << socket.remote_endpoint().port() << "\n";
 
 }

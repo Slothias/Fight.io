@@ -24,7 +24,6 @@ class Connection : public std::enable_shared_from_this<Connection>, public Netwo
 private:
     boost::asio::ip::tcp::socket socket;
     boost::asio::streambuf read_buf;
-    boost::asio::streambuf write_buf;
     void async_read();
 public:
     Connection(boost::asio::ip::tcp::socket &&socket, std::function<void(std::string)>&& t_message_handler, std::function<void()>&& t_error_handler);

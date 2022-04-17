@@ -11,7 +11,7 @@ set(CMAKE_USE_PTHREADS_INIT 1)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 
 file(GLOB SRC_FILES src/*.cpp)
-add_executable(${PROJECT_NAME} main.cpp ${SRC_FILES} ../asio-client/src/Client.cpp ../asio-client/include/Client.hpp)
+add_executable(${PROJECT_NAME} main.cpp ${SRC_FILES})
 
 # PUBLIC needed to make both hello.h and hello library available elsewhere in project
 

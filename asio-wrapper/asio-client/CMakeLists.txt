@@ -19,5 +19,8 @@ target_include_directories(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
         PRIVATE boost_system)
+
+target_link_libraries(${PROJECT_NAME}
+        PRIVATE asio-common)
 # Tell compiler to use C++20 features. The code doesn't actually use any of them.
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
