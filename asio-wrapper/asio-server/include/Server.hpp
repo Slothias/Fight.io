@@ -5,18 +5,13 @@
 #ifndef FIGHT_IO_SERVER_HPP
 #define FIGHT_IO_SERVER_HPP
 
-#include <optional>
-#include "Connection.hpp"
-#include <boost/make_shared.hpp>
+#include "ServerAgent.hpp"
 #include <vector>
-#include <boost/uuid/uuid.hpp>            // uuid class
-#include <boost/uuid/uuid_generators.hpp> // generators
-#include <boost/uuid/uuid_io.hpp>
 #include "NetworkCallback.hpp"
-
+#include "NetworkConnection.hpp"
 class Message;
-class Connection;
-class Server: public NetworkCallback {
+class ServerAgent;
+class Server: public NetworkCallback, public NetworkConnection {
 
 public:
     Server()=default;
@@ -24,7 +19,7 @@ public:
 
     void start_listen();
 
-    void disconnect_client(const std::shared_ptr<Connection> &client_ptr);
+    void disconnect_client(const std::shared_ptr<ServerAgent> &client_ptr);
 
     void sendMessage(std::unique_ptr<Message>& message);
 
@@ -33,10 +28,8 @@ public:
     ~Server() = default;
 
 private:
-    boost::asio::io_context &io_context;
     boost::asio::ip::tcp::acceptor acceptor;
-    std::optional<boost::asio::ip::tcp::socket> socket;
-    std::vector<std::shared_ptr<Connection>> clients;
+    std::vector<std::shared_ptr<ServerAgent>> clients;
     void async_accept();
 };
 

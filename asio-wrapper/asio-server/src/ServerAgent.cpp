@@ -1,13 +1,13 @@
-#include "Connection.hpp"
+#include "ServerAgent.hpp"
 
 
-Connection::Connection(boost::asio::ip::tcp::socket &&socket, std::function<void(std::string)> &&t_message_handler,
-                       std::function<void()> &&t_error_handler)
+ServerAgent::ServerAgent(boost::asio::ip::tcp::socket &&socket, std::function<void(std::string)> &&t_message_handler,
+                         std::function<void()> &&t_error_handler)
         : NetworkCallback(nullptr, nullptr, std::move(t_message_handler), std::move(t_error_handler)),
           socket(std::move(socket)) {
 }
 
-void Connection::async_read() {
+void ServerAgent::async_read() {
     std::cout << "Waiting for message from client: " << socket.remote_endpoint().address() << ":"
               << socket.remote_endpoint().port() << "\n";
     boost::asio::async_read_until(socket,
@@ -35,24 +35,24 @@ void Connection::async_read() {
                                   });
 }
 
-void Connection::start() {
+void ServerAgent::start() {
     if(on_join_callback){
         on_join_callback();
     }
     async_read();
 }
 
-Connection::~Connection() {
-    std::cout << "Connection destruction" << "\n";
+ServerAgent::~ServerAgent() {
+    std::cout << "ServerAgent destruction" << "\n";
 }
 
-void Connection::sendMessage(std::unique_ptr<Message> &message) {
+void ServerAgent::sendMessage(std::unique_ptr<Message> &message) {
     boost::asio::write(socket, boost::asio::buffer(message->get_message_text()));
     std::cout << "Message sent for client: " << socket.remote_endpoint().port() << "\n";
 
 }
 
-void Connection::disconnect() {
+void ServerAgent::disconnect() {
     if (socket.is_open()) {
         std::cout << "asio-client disconnected with ip: "
                   << socket.remote_endpoint().address() << " and port: "

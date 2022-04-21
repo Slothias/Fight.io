@@ -21,7 +21,6 @@ ConnectScreen::ConnectScreen(sf::RenderWindow *a):Screen()
     resultText->setPosition(app->getView().getCenter().x/2 - resultText->getLocalBounds().width/2, app->getSize().y-4*resultText->getLocalBounds().height);
     resultText->setColor(sf::Color::Red);
 
-    testClient =new Client();
 
     myTheme=simplgui::Theme::defaultTheme();
     auto resGetter = simplgui::FileResourcesGetter::create();
@@ -45,13 +44,13 @@ ConnectScreen::ConnectScreen(sf::RenderWindow *a):Screen()
         my_mutex.lock();
         isconnecting=true;
         my_mutex.unlock();
-        const std::string result =  testClient->tryToConnect(res.c_str(),10043,getName());
-        resultText->setString(result);
+        testClient = std::make_shared<AsioClient>(res.c_str(),10051);
         resultText->setPosition(app->getView().getCenter().x/2 - resultText->getLocalBounds().width/2, app->getSize().y-4*resultText->getLocalBounds().height);
         my_mutex.lock();
-        change = result == "OK";
+        change = true;
         isconnecting=false;
         my_mutex.unlock();
+        testClient->do_connect();
                       });
         t.detach();
 

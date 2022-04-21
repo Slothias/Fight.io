@@ -11,20 +11,20 @@ enum Cast {
     UNICAST,BROADCAST
 };
 
-class Connection;
+class ServerAgent;
 class Message:  public std::enable_shared_from_this<Message>{
 private:
     std::string m_message_body;
     boost::posix_time::ptime m_timestamp;
-    std::shared_ptr<Connection> m_connection;
+    std::shared_ptr<ServerAgent> m_connection;
     Cast m_cast;
 
 public:
-    Message(std::shared_ptr<Connection> conn, std::string t_message_body);
+    Message(std::shared_ptr<ServerAgent> conn, std::string t_message_body);
     explicit Message(std::string t_message_body);
 
     std::string get_message_text() const;
-    std::shared_ptr<Connection> get_connection() const;
+    std::shared_ptr<ServerAgent> get_connection() const;
     boost::posix_time::ptime get_timestamp() const;
     Cast get_cast() const;
 

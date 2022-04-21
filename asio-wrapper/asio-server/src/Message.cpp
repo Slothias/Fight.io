@@ -5,12 +5,12 @@
 #include "Message.hpp"
 
 
-Message::Message(std::shared_ptr<Connection> conn, std::string t_message_body) : m_connection(std::move(conn)),
-                                                                                 m_message_body(
+Message::Message(std::shared_ptr<ServerAgent> conn, std::string t_message_body) : m_connection(std::move(conn)),
+                                                                                  m_message_body(
                                                                                          std::move(t_message_body)),
-                                                                                 m_timestamp(
+                                                                                  m_timestamp(
                                                                                          boost::posix_time::microsec_clock::local_time()),
-                                                                                 m_cast(UNICAST) {}
+                                                                                  m_cast(UNICAST) {}
 
 Message::Message(std::string t_message_body) : m_connection(nullptr),
                                                m_message_body(
@@ -28,7 +28,7 @@ boost::posix_time::ptime Message::get_timestamp() const {
     return m_timestamp;
 }
 
-std::shared_ptr<Connection> Message::get_connection() const {
+std::shared_ptr<ServerAgent> Message::get_connection() const {
     return m_connection;
 }
 

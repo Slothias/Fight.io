@@ -2,8 +2,8 @@
 // Created by sloy on 2022. 04. 02..
 //
 
-#ifndef FIGHT_IO_CONNECTION_HPP
-#define FIGHT_IO_CONNECTION_HPP
+#ifndef FIGHT_IO_SERVERAGENT_HPP
+#define FIGHT_IO_SERVERAGENT_HPP
 
 #include <boost/asio.hpp>
 #include <boost/bind/bind.hpp>
@@ -20,20 +20,20 @@ class Server;
 
 
 
-class Connection : public std::enable_shared_from_this<Connection>, public NetworkCallback {
+class ServerAgent : public std::enable_shared_from_this<ServerAgent>, public NetworkCallback {
 private:
     boost::asio::ip::tcp::socket socket;
     boost::asio::streambuf read_buf;
     void async_read();
 public:
-    Connection(boost::asio::ip::tcp::socket &&socket, std::function<void(std::string)>&& t_message_handler, std::function<void()>&& t_error_handler);
+    ServerAgent(boost::asio::ip::tcp::socket &&socket, std::function<void(std::string)>&& t_message_handler, std::function<void()>&& t_error_handler);
     void start();
     void sendMessage(std::unique_ptr<Message>& message);
 
     void disconnect();
 
-    ~Connection();
+    ~ServerAgent();
 };
 
 
-#endif //FIGHT_IO_CONNECTION_HPP
+#endif //FIGHT_IO_SERVERAGENT_HPP

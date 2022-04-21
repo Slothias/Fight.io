@@ -14,15 +14,13 @@ set(CMAKE_USE_PTHREADS_INIT 1)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 
 file(GLOB SRC_FILES src/*.cpp)
-add_executable(${PROJECT_NAME}  ${SRC_FILES} main.cpp)
-# We need hello.h and the hello library
+add_executable(${PROJECT_NAME}  main.cpp ${SRC_FILES} )
 
-target_include_directories(${PROJECT_NAME}
-        PUBLIC include/include)
-target_link_libraries(Client
-    PRIVATE simplgui)
-target_link_libraries(Client
-    PRIVATE common)
+target_include_directories(${PROJECT_NAME} PUBLIC include)
+target_link_libraries(Client PRIVATE simplgui)
+target_link_libraries(Client PRIVATE common)
+
+target_link_libraries(Client PRIVATE asio-client)
 
 
 # Tell C++ compiler to use C++20 features. We don't actually use any of them.

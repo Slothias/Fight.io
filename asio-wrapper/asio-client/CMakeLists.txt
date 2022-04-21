@@ -11,7 +11,7 @@ set(CMAKE_USE_PTHREADS_INIT 1)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 
 file(GLOB SRC_FILES src/*.cpp)
-add_executable(${PROJECT_NAME}  ${SRC_FILES} main.cpp)
+add_library(${PROJECT_NAME}  ${SRC_FILES} )
 
 
 target_include_directories(${PROJECT_NAME}
