@@ -14,7 +14,7 @@ class ServerAgent;
 class Server: public NetworkCallback, public NetworkConnection {
 
 public:
-    Server()=default;
+    Server()=delete;
     Server(std::uint16_t port);
 
     void start_listen();
@@ -23,7 +23,10 @@ public:
 
     void sendMessage(std::unique_ptr<Message>& message);
 
+
     void stop_server();
+
+    bool is_started() const;
 
     ~Server() = default;
 
@@ -31,6 +34,7 @@ private:
     boost::asio::ip::tcp::acceptor acceptor;
     std::vector<std::shared_ptr<ServerAgent>> clients;
     void async_accept();
+    bool started;
 };
 
 

@@ -2,35 +2,95 @@
 #define PLAYER_HPP
 #include <string>
 #include <mutex>
+
+struct Position
+{
+    float x;
+    float y;
+    float angle;
+
+    Position() : x(0), y(0), angle(0) {}
+
+    Position(float x, float y, float angle) : x(x), y(y), angle(angle) {}
+};
+
+struct ActionState
+{
+    bool poke;
+    bool pickUp;
+
+    ActionState() = default;
+    ActionState(bool poke, bool pickUp) : poke(poke), pickUp(pickUp) {}
+};
+
+struct WeaponState
+{
+    int weapon;
+    int hitboxRadius;
+    int weapon_pos;
+
+    WeaponState(int weapon, int hitboxRadius, int weapon_pos) : weapon(weapon), hitboxRadius(hitboxRadius), weapon_pos(weapon_pos) {}
+};
+
+struct HealthState
+{
+    int maxHp;
+    int currentHp;
+
+    HealthState(int maxHp, int currentHp) : maxHp(maxHp), currentHp(maxHp) {}
+
+    void setCurrentHp(int _currentHp)
+    {
+        if (_currentHp <= maxHp && _currentHp > 0)
+        {
+            currentHp = _currentHp;
+        }
+        else if (_currentHp <= 0)
+        {
+            currentHp = 0;
+        }
+        else
+        {
+            currentHp = maxHp;
+        }
+    }
+
+};
+
+struct ScoreState
+{
+    int score;
+    int level;
+
+    ScoreState(int score, int level) : score(score), level(level) {}
+
+    void setScore(int _score)
+    {
+        score = _score;
+        level = score/150;
+    }
+};
+
 class Player
 {
 protected:
-    float playerX;
-    float playerY;
-    float playerRotation;
-    bool poking;
-    bool pickUp;
-    float prevX, prevY, prevRot;
-    bool prevPoking;
-    int weaponpos;
-    // sf::Vector2 hitPosition;
     std::string pName;
-    int maxHp;
-    int currentHp;
-    int score;
-    int level;
-    int weapon;
-    int hitboxRadius;
+    Position position;
+    ActionState actionState;
+    Position prevPosition;
+    ActionState prevActionState;
+    WeaponState weaponState;
+    HealthState healthState;
+    ScoreState scoreState;
     bool changed;
     bool respawn;
 
 public:
-    int getLevel();
-    bool getPoke();
-    bool getPickUp();
+    
+    Position getPosition();
+    ActionState getActionState();
     bool getRespawn();
     void setRespawn(bool c);
-    std::mutex my_mutex;
     Player();
     virtual ~Player();
     Player(std::string _pName);
@@ -52,16 +112,11 @@ public:
 
     // getters
     bool getChange();
-    float getX();
-    float getY();
-    float getRot();
 
     std::string getName();
-    int getMaxHp();
-    int getCurrentHp();
-    int getScore();
-    int getWeapon();
-    int getHitboxRadius();
+    HealthState getHealthState();
+    ScoreState getScoreState();
+    WeaponState getWeaponState();
     std::string getMSG();
     std::string toString();
 };

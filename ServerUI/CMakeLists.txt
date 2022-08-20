@@ -2,7 +2,7 @@
 # so let's require it now.
 cmake_minimum_required(VERSION 3.11-3.18)
 
-project(Server)
+project(ServerUI)
 
 set(CMAKE_THREAD_LIBS_INIT "-lpthread")
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
@@ -15,17 +15,17 @@ set (destination "${CMAKE_CURRENT_BINARY_DIR}/resources")
 
 
 include_directories(include)
-file(GLOB SRC_FILES src/*.cpp)
-add_executable(Server main.cpp ${SRC_FILES} ${RESOURCE_DIRECTORY} )
-# We need hello.h and the hello library
+file(GLOB SRC_FILES src/*.cpp src/*/*.cpp)
+add_executable(ServerUI main.cpp ${SRC_FILES})
 
-target_link_libraries(Server PRIVATE asio-common)
-target_link_libraries(Server PRIVATE asio-server)
-target_link_libraries(Server PRIVATE simplgui)
-target_link_libraries(Server PRIVATE common)
+target_link_libraries(ServerUI PRIVATE asio-common)
+target_link_libraries(ServerUI PRIVATE asio-server)
+target_link_libraries(ServerUI PRIVATE simplgui)
+target_link_libraries(ServerUI PRIVATE common)
+target_link_libraries(${PROJECT_NAME} PRIVATE -lsfml-graphics -lsfml-window -lsfml-system)
 
-# Tell C++ compiler to use C++20 features. We don't actually use any of them.
-target_compile_features(Server PUBLIC cxx_std_20)
+
+target_compile_features(ServerUI PUBLIC cxx_std_20)
 
 add_custom_command(
     TARGET ${PROJECT_NAME} POST_BUILD

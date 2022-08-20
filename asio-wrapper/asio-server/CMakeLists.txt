@@ -10,10 +10,12 @@ set(CMAKE_USE_WIN32_THREADS_INIT 0)
 set(CMAKE_USE_PTHREADS_INIT 1)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 
+set(ASIO_COMMON_DIR ../asio-common)
+
+include_directories(include ${ASIO_COMMON_DIR}/include)
 file(GLOB SRC_FILES src/*.cpp)
 add_library(${PROJECT_NAME} ${SRC_FILES})
 
-# PUBLIC needed to make both hello.h and hello library available elsewhere in project
 
 target_include_directories(${PROJECT_NAME}
         PUBLIC ${PROJECT_SOURCE_DIR}/include)
@@ -23,5 +25,4 @@ target_link_libraries(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
         PRIVATE asio-common)
 
-# Tell compiler to use C++20 features. The code doesn't actually use any of them.
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)

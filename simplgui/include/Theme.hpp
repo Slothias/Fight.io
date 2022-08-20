@@ -63,7 +63,7 @@ public:
     {
         Theme th;
 
-        th.setProperty<std::string>("font", "LiberationSans.ttf");
+        th.setProperty<std::string>("font", "resources/fonts/LiberationSans.ttf");
         th.setProperty<unsigned int>("font_size", 30);
 
         th.setProperty<StateColor>("background_color", StateColor(sf::Color(255, 255, 255, 180)).setFocused(sf::Color(255, 255, 255, 255)));

@@ -250,7 +250,7 @@ void TextBox::doThemeUpdate()
     }
     std::shared_ptr<ResourcesGetter> resGetter(getResourcesGetter());
 
-    m_font = resGetter->loadFont(getTheme().getProperty<std::string>("font", "Liberation.ttf"));
+    m_font = resGetter->loadFont(getTheme().getProperty<std::string>("font", "resources/fonts/LiberationSans.ttf"));
 
     updateText();
     needAutoSizeUpdate();

@@ -16,7 +16,7 @@ Drawable_Player::Drawable_Player(std::string name,float x, float y, float a):sf:
     lastPoke = std::chrono::high_resolution_clock::now();
     skin.loadFromFile("Player.png");
     deadSkin.loadFromFile("DeadPlayer.png");
-    font.loadFromFile("LiberationSans.ttf");
+    font.loadFromFile("resources/fonts/LiberationSans.ttf");
     myName = new sf::Text('<'+name+'>',font,12);
     myName->setColor(sf::Color::Black);
     myName->setStyle(sf::Text::Style::Bold);

@@ -4,7 +4,9 @@ cmake_minimum_required(VERSION 3.11-3.18)
 
 project(simplgui)
 
-add_library(simplgui src/Button.cpp src/Connector.cpp src/Event.cpp src/FileResourcesGetter.cpp src/Renderer.cpp src/TextBox.cpp src/Widget.cpp )
+file(GLOB SRC_FILES src/*.cpp)
+
+add_library(simplgui ${H_FILES} ${SRC_FILES})
 
 # PUBLIC needed to make both hello.h and hello library available elsewhere in project
 target_include_directories(${PROJECT_NAME}

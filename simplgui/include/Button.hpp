@@ -1,5 +1,5 @@
-#ifndef SIMPLGUI_BUTTON_HPP
-#define SIMPLGUI_BUTTON_HPP
+#ifndef BUTTON
+#define BUTTON
 
 #include <SFML/Graphics.hpp>
 #include "Widget.hpp"
@@ -46,4 +46,4 @@ private:
 
 }
 
-#endif
+#endif /* BUTTON */

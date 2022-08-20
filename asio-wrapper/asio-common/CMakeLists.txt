@@ -2,6 +2,8 @@
 cmake_minimum_required(VERSION 3.11-3.18)
 
 project(asio-common)
+
+
 file(GLOB SRC_FILES src/*.cpp)
 add_library(${PROJECT_NAME} ${SRC_FILES})
 

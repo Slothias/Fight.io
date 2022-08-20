@@ -1,5 +1,5 @@
-#ifndef SIMPLGUI_FILERESOURCESGETTER_HPP
-#define SIMPLGUI_FILERESOURCESGETTER_HPP
+#ifndef FILERESOURCESGETTER
+#define FILERESOURCESGETTER
 
 #include <memory>
 #include <SFML/Graphics/Font.hpp>
@@ -26,5 +26,5 @@ private:
 
 }
 
-#endif
+#endif /* FILERESOURCESGETTER */
 
